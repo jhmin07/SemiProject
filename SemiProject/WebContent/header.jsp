@@ -13,16 +13,26 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&display=swap" rel="stylesheet">
+
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Hi+Melody&display=swap" rel="stylesheet">
+
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+
 
 <style type="text/css">
 
 li.menulist {
-	font-size: 13pt;
+	font-size: 16pt;
 	margin: 20px 0 40px 0;
-    font-weight: bold;
     cursor: pointer;
+    font-family: 'Hi Melody', cursive;
 }
 
 span.mainheaderbtn {
@@ -30,11 +40,11 @@ span.mainheaderbtn {
 	font-size: 10pt;
 	cursor: pointer;
 	font-weight: bold;
-	font-family: Dotum;
+	font-family: 'Black Han Sans', sans-serif;
 }
 
 span.submenubtn {
-	font-family: Dotum;
+	font-family: 'Black Han Sans', sans-serif;
 	font-size: 10pt;
 	font-weight: bold;
 	margin: 10px 5px 0 5px;
