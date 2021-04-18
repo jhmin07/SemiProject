@@ -27,6 +27,7 @@ h1{
     margin: 0 auto;
 }
 
+
 #content{
 	/* border: solid 2px blue; */
 	min-width: 1000px;
@@ -101,14 +102,17 @@ a{
 	background: url("image/threeline_small.png");
 }
 .login > ul{
+	margin: 10px;
 	display: inline-block;
 }
 .login > ul > li:first-child {
     margin: 0;
     padding: 0;
+    border-right: 2px solid #dedede;
 }  
 .login > ul > li:last-child {
 	margin-right: 50px;
+	border-left: 2px solid #dedede;
 }  
 .login > ul > li {
 	float: left;
@@ -145,9 +149,9 @@ function closeNav() {
 		<label for="user_pwd"> 입력</label>
 		<a href="javascript:login_submit();" >로그인</a>
 		<ul>
-			<li> <a href="javascript:gofind_id();" >아이디 찾기</a> </li>
+			<li> <a href="javascript:gofind_id();" >아이디 찾기 &nbsp; &nbsp;</a> </li>
 			<li> <a href="javascript:gofind_pwd();" >비밀번호 찾기</a> </li>
-			<li> <a href="javascript:go_Register();" >회원가입</a> </li>
+			<li> <a href="javascript:go_Register();" > &nbsp; &nbsp; 회원가입</a> </li>
 		</ul>
 		</fieldset>
 	</div>
