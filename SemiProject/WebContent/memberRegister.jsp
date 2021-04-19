@@ -74,7 +74,7 @@
 		<tr>
 			<td style="width: 20%; font-weight: bold;">비밀번호&nbsp;<span class="star">*</span></td>
 			<td style="width: 80%; text-align: left;"><input type="password" name="pwd" id="pwd" class="requiredInfo" />&nbsp;
-			<span class="info">영문 대소문자/숫자, 5자~15자</span>
+			<span class="info">영문 대소문자/숫자/특수문자, 8자~15자</span>
 			</td>			
 		</tr>
 		<tr>
