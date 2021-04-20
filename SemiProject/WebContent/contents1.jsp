@@ -13,8 +13,8 @@
 		}
 </style>
 
-<%-- <jsp:include page="header2.jsp" />   --%>
-<jsp:include page="sideoverlay.jsp" />
+
+<jsp:include page="header3.jsp" />
 
 <div class="container contents1" style="width: 100%; padding: 0;"> 
   <div id="myCarousel" class="carousel slide" data-ride="carousel">
