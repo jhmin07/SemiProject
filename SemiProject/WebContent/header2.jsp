@@ -67,7 +67,7 @@ span.submenubtn {
 		<div class="row">
 			<div style="text-align: right; margin: 20px 30px 0 0; "><img src="<%= ctxPath %>/ProjectImg/menuclose.png" style="width:20px; cursor: pointer;" onclick="menuclose()"/></div>
 			<div class="col-md-12" style="text-align: left; padding: 20px; ">
-				<ul style="list-style-type: none; margin-top: 30px;">
+				<ul style="list-style-type: none; margin-top: 30px; ">
 					<li class="menulist"> -&nbsp;&nbsp;침실 가구</li>
 					<li class="menulist"> -&nbsp;&nbsp;거실 가구</li>
 					<li class="menulist"> -&nbsp;&nbsp;주방 가구</li>
@@ -96,6 +96,3 @@ span.submenubtn {
 	</div>
 
 </div>
-
-</body>
-</html>
