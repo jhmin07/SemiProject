@@ -8,7 +8,7 @@
 	div.subcarousel{
 		/* border: solid 1px red; */
 		display: inline-block;
-		/* margin: 50px 10px; */
+		 margin: 50px 15px;
 	}
 	div.subcontainer{
 		text-align: center;
@@ -57,15 +57,15 @@
     <!-- Wrapper for slides -->
     <div class="carousel-inner">
       <div class="contents2_item item active">
-        <img src="imagesContents2/sakura(1).jpg" alt="벚꽃1" style="width:100%;">
+        <img src="imagesContents2/sofa01.jpeg" alt="소파1" style="width:100%;">
       </div>
 
       <div class="contents2_item item">
-        <img src="imagesContents2/sakura(2).jpg" alt="벚꽃2" style="width:100%;">
+        <img src="imagesContents2/sofa02.jpeg" alt="소파2" style="width:100%;">
       </div>
     
       <div class="contents2_item item">
-        <img src="imagesContents2/sakura(3).jpg" alt="벚꽃3" style="width:100%;">
+        <img src="imagesContents2/sofa03.jpg" alt="소파3" style="width:100%;">
       </div>
     </div>
 
@@ -89,15 +89,15 @@
     <!-- Wrapper for slides -->
     <div class="carousel-inner">
       <div class="contents2_item item active">
-        <img src="imagesContents2/shinchan(1).jpg" alt="신짱1" style="width:100%;">
+        <img src="imagesContents2/table01.jpg" alt="테이블1" style="width:100%;">
       </div>
 
       <div class="contents2_item item">
-        <img src="imagesContents2/shinchan(2).jpg" alt="신짱2" style="width:100%;">
+        <img src="imagesContents2/table02.jpg" alt="테이블2" style="width:100%;">
       </div>
     
       <div class="contents2_item item">
-        <img src="imagesContents2/shinchan(3).jpg" alt="신짱3" style="width:100%;">
+        <img src="imagesContents2/table03.JPG" alt="테이블3" style="width:100%;">
       </div>
     </div>
 
@@ -122,15 +122,15 @@
     <!-- Wrapper for slides -->
     <div class="carousel-inner">
       <div class="contents2_item item active">
-        <img src="imagesContents2/sky(1).jpg" alt="하늘1" style="width:100%;">
+        <img src="imagesContents2/closet01.JPG" alt="옷장1" style="width:100%;">
       </div>
 
       <div class="contents2_item item">
-        <img src="imagesContents2/sky(2).jpg" alt="하늘2" style="width:100%;">
+        <img src="imagesContents2/closet02.JPG" alt="옷장2" style="width:100%;">
       </div>
     
       <div class="contents2_item item">
-        <img src="imagesContents2/sky(3).jpg" alt="하늘3" style="width:100%;">
+        <img src="imagesContents2/closet03.JPG" alt="옷장3" style="width:100%;">
       </div>
     </div>
 
