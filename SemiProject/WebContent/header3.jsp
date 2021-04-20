@@ -9,7 +9,12 @@
 <html>
 <head>
 <title>HOME PAGE START</title>
+<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
 <style>
 
 body {
@@ -57,8 +62,8 @@ body {
 
 .navbar {
   overflow: hidden;
-/*   background-color: #333; */
-  position: fixed;
+  /* background-color: #333; */
+  /* position: fixed; */  /* fixed 를 하면 navbar 자체가 다 안보이게 되서 주석문 처리해뒀습니다. */
   top: 0;
   width: 100%;
   min-height: 70px;
@@ -110,12 +115,11 @@ function openNav() {
 
 <div class="navbar">
   <span style="font-size:30px;cursor:pointer; width:15%; vertical-align: middle;" onclick="openNav()"><img id="mainheadermenu" src="<%= ctxPath %>/ProjectImg/menu.png" style="width: 50px;" align="middle"/></span>
-  <span class="hsub1" style="width:60%; text-align: center; "><img id="headerlogo" src="<%= ctxPath %>/ProjectImg/logo2.png" style="width:120px; height:50px; cursor: pointer;" align="middle"/></span>
-  <span class="hsub1" style="width:10%; text-align: right;"><img id="headerlogo"  src="<%= ctxPath %>/ProjectImg/login.png" style="width:28px; height:23px; cursor: pointer; " align="middle" /></span>
-  <span class="hsub1" style="width:10%; text-align: right;"><img id="headerlogo"  src="<%= ctxPath %>/ProjectImg/shoppingbag.png" style="width:28px; height:23px; cursor: pointer;" align="middle" /></span>
+  <span class="hsub1" style="width:60%; text-align: center; "><img id="headerlogo" src="<%= ctxPath %>/image/logo.png" style="width:120px; height:50px; cursor: pointer;" align="middle"/></span>
+  <span class="hsub1" style="width:10%; text-align: right;"><img id="headerlogo"  src="<%= ctxPath %>/image/login_small.png" style="width:28px; height:23px; cursor: pointer; " align="middle" /></span>
+  <span class="hsub1" style="width:10%; text-align: right;"><img id="headerlogo"  src="<%= ctxPath %>/image/cart_small.png" style="width:28px; height:23px; cursor: pointer;" align="middle" /></span>
 </div>
 
-
-
+ 
 </body>
 </html> 
