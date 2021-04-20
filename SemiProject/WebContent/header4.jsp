@@ -1,35 +1,36 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    
+
 <%
     String ctxPath = request.getContextPath();
 %>       
-    
+
 <!DOCTYPE html>
 <html>
 <head>
 <title>HOME PAGE START</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 <style>
-
 body {
   font-family: "Lato", sans-serif;
 }
-
 .sidenav {
   height: 100%;
   width: 0;
   position: fixed;
-  z-index: 1;
   top: 0;
   left: 0;
   background-color: #111;
   overflow-x: hidden;
+  z-index: 2;
   transition: 0.5s;
   padding-top: 60px;
 }
-
 .sidenav a {
+  clear: both;
   padding: 8px 8px 8px 32px;
   text-decoration: none;
   font-size: 25px;
@@ -37,11 +38,9 @@ body {
   display: block;
   transition: 0.3s;
 }
-
 .sidenav a:hover {
   color: #f1f1f1;
 }
-
 .sidenav .closebtn {
   position: absolute;
   top: 0;
@@ -49,44 +48,38 @@ body {
   font-size: 36px;
   margin-left: 50px;
 }
-
 @media screen and (max-height: 450px) {
   .sidenav {padding-top: 15px;}
   .sidenav a {font-size: 18px;}
 }
-
 .navbar {
   overflow: hidden;
-/*   background-color: #333; */
+  background-color: white;
   position: fixed;
   top: 0;
+  transition: 0.5s;
+  z-index: 1;
   width: 100%;
   min-height: 70px;
   border-bottom: 1px solid #dedede;
 }
-
 .navbar > span {
-  
+  clear: both;
   display:inline-block;
   
 }
-
 a.sub2 {
 	margin-top: 15px;
 }
-
 </style>
 
 <script type="text/javascript">
-
 function openNav() {
 	  document.getElementById("mySidenav").style.width = "250px";
 	}
-
 	function closeNav() {
 	  document.getElementById("mySidenav").style.width = "0";
 	}
-
 </script>
 
 </head>
@@ -118,4 +111,4 @@ function openNav() {
 
 
 </body>
-</html> 
+</html>  
