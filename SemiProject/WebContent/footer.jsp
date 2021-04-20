@@ -65,7 +65,7 @@ span#service{
 <div class="footer">
 	<div id="footer_1">
 		<div class="footerClick" id="footer_1_1">
-			<img  src="image/logo.png">
+			<img  src="image/logo_footer.png">
 		</div>
 		<div class="footerClick" id="footer_1_2" >
 			<span id="userCondition">이용약관 </span>|&nbsp;<span id="personalPolicy">개인정보처리방침</span>
