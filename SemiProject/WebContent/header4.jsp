@@ -95,7 +95,7 @@ function openNav() {
 	  <hr style="border: solid 1px #CDCDCD; width: 190px; margin-top: 30px;">
 	  <br>
 	  <div align="center" style="color: white;">
-		 <span class="submenubtn" >로그인</span>|5 
+		 <span class="submenubtn" >로그인</span>|
 		 <span class="submenubtn" >주문내역</span>|
 		 <span class="submenubtn" >고객센터</span>
 	  </div>
