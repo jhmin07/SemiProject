@@ -1,30 +1,23 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-<head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-	<title>contents1</title>
-	
-	<style type="text/css">
-		div.container {
+
+<style type="text/css">
+		div.contents1 {
 			padding: 0;
 			width: 100%;
+  			z-index: -1;
 		}
 		
-		ol.carousel-indicators {
+		div.contents1 ol.carousel-indicators {
 			text-align: right;
 			width: 75%;
 		}
-	</style>
-	
-</head>
-<body>
-<div class="container"> 
+</style>
+
+
+<jsp:include page="header4.jsp" />
+
+<div class="container contents1" style="width: 100%; padding: 0;"> 
   <div id="myCarousel" class="carousel slide" data-ride="carousel">
     <!-- Indicators -->
     <ol class="carousel-indicators">
@@ -60,5 +53,3 @@
   </div>
 </div>
 
-</body>
-</html>
