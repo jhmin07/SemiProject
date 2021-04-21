@@ -1,11 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>회원가입</title>
-<style type="text/css">
+
+
+<style type="text/css">		
 	table#tblMemberRegister {
 		width: 93%;
 		border: hidden;
@@ -35,9 +32,12 @@
 		color: gray;
 		font-size: 9.5pt;
 	}
+	
+	img {
+		cursor: pointer;
+	}
 </style>
-</head>
-<body>
+
 <div class="row" id="divRegisterFrm">
 	<div class="col-md-12" align="center">
 	<form name="registerFrm">
@@ -127,9 +127,9 @@
 		<tr>
 			<td style="width: 20%; font-weight: bold;">생년월일</td>
 			<td style="width: 80%; text-align: left;">
-				<input type="number" id="birthyyyy" name="birthyyyy" style="width: 100px;"/>&nbsp;년&nbsp;&nbsp;
-				<input type="number" id="birthmm" name="birthmm" style="width: 60px;"/>&nbsp;월&nbsp;&nbsp;
-				<input type="number" id="birthdd" name="birthdd" style="width: 60px;"/>&nbsp;일&nbsp;&nbsp;
+				<input type="number" id="birthyyyy" name="birthyyyy" min="1900" max="2050" step="1" style="width: 100px;"/>&nbsp;년&nbsp;&nbsp;
+				<input type="number" id="birthmm" name="birthmm" min="1" max="12" step="1" style="width: 60px;"/>&nbsp;월&nbsp;&nbsp;
+				<input type="number" id="birthdd" name="birthdd" min="1" max="31" step="1" style="width: 60px;"/>&nbsp;일&nbsp;&nbsp;
 			</td>
 		</tr>
 				
@@ -154,5 +154,4 @@
 	</form>
 	</div>
 </div>
-</body>
-</html>
+<jsp:include page="footer.jsp"/>
