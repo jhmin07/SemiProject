@@ -5,6 +5,7 @@
 		div.contents1 {
 			padding: 0;
 			width: 100%;
+  			z-index: -1;
 		}
 		
 		div.contents1 ol.carousel-indicators {
@@ -14,7 +15,7 @@
 </style>
 
 
-<jsp:include page="header3.jsp" />
+<jsp:include page="header4.jsp" />
 
 <div class="container contents1" style="width: 100%; padding: 0;"> 
   <div id="myCarousel" class="carousel slide" data-ride="carousel">
