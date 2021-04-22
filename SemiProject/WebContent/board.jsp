@@ -41,7 +41,7 @@
 
 </script>
 <div id="board_div" align="center">
-<img src="image/게시판.png"/>
+<img src="image/board.png"/>
 	<table class="table page_tab" style="margin: 25px 0;">
 		<tbody>
 			<tr>
