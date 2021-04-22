@@ -1,9 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
+<jsp:include page="header4.jsp" />
 <style type="text/css">
 		div.contents1 {
-			padding: 0;
 			width: 100%;
   			z-index: -1;
 		}
@@ -15,7 +15,6 @@
 </style>
 
 
-<jsp:include page="header4.jsp" />
 
 <div class="container contents1" style="width: 100%; padding: 0;"> 
   <div id="myCarousel" class="carousel slide" data-ride="carousel">

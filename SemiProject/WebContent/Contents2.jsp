@@ -4,7 +4,12 @@
 <jsp:include page="contents1.jsp" />   
 
 <style type="text/css">
-
+	div#contents2{		
+		width: auto;
+		background-color: #d9d9d9;
+		padding-bottom: 40px;
+  			
+	}
 	div.subcarousel{
 		/* border: solid 1px red; */
 		display: inline-block;
@@ -16,12 +21,7 @@
 		background-color: white;	
 		width: 90%;
 	}
-	div#contents2{
-		
-		width: auto;
-		background-color: #d9d9d9;
-		padding-bottom: 40px;
-	}
+
 	
 	div.contents2_item {
 		width: 480px;

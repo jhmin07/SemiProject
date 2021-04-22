@@ -3,10 +3,7 @@
     
     
 <jsp:include page="header4.jsp" />  
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
+
 <title>RHOM 공식 홈페이지</title>
 <style type="text/css">
 div, h2, p{
@@ -135,5 +132,5 @@ form{
 </form>
 
 </body>
-</html>
+
 <jsp:include page="footer.jsp" />  
