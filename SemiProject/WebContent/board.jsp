@@ -6,11 +6,7 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-<style type="text/css">
-	div#board_div{
-		margin: 20px auto;
-		width: 70%;
-	}	
+<style type="text/css">	
 	img {
 		width: 90%;		
 		height: 280px;
@@ -56,7 +52,7 @@
 <script type="text/javascript">
 
 </script>
-<div id="board_div" align="center">
+<div class="container" align="center">
 <img src="image/board.png"/>
 	<table class="table page_tab" style="margin: 25px 0;">
 		<tbody>
