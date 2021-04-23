@@ -1,8 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 <style type="text/css">
 	div#board_div{
-		margin: 20px auto;		
+		margin: 20px auto;
+		width: 70%;
 	}	
 	img {
 		width: 90%;		
@@ -16,7 +23,7 @@
 	td.page_tab1 {
 		border: solid 1px gray;
 		padding: 15px;
-		text-align: center;
+		text-align: center;		
 	}
 	th.page_tab2 {
 		border: solid 1px gray;		
@@ -35,7 +42,16 @@
 	}	
 	td.page_tab1:hover {
 		background-color: #e0ebeb;
-	}	
+	}
+	td.list {
+		font-size: 11pt;
+	}
+	td.list2 {
+		text-align: center;
+	}
+	td.list:hover {
+		cursor: pointer;
+	}
 </style>
 <script type="text/javascript">
 
@@ -80,7 +96,46 @@
 		</thead>
 		
 		<tbody>
+			<tr>
+				<td class="list list2">3</td>
+				<td class="list">배송 기간, 배송비 안내, 적립금, 게시판 이용안내</td>
+				<td class="list list2">관리자</td>
+				<td class="list list2">2021-04-22</td>
+				<td class="list list2">10</td>
+			</tr>
+		</tbody>
 		
-		</tbody>	
+		<tbody>
+			<tr>
+				<td class="list list2">2</td>
+				<td class="list">게시판 이용규정 안내</td>
+				<td class="list list2">관리자</td>
+				<td class="list list2">2021-04-22</td>
+				<td class="list list2">20</td>
+			</tr>
+		</tbody>
+		
+		<tbody>
+			<tr>
+				<td class="list list2">1</td>
+				<td class="list">AS센터 휴무안내</td>
+				<td class="list list2">관리자</td>
+				<td class="list list2">2021-04-20</td>
+				<td class="list list2">30</td>
+			</tr>
+		</tbody>
 	</table>
 </div>
+
+<div align="center">
+<ul class="pagination">
+	<li class="previous"><a href="#">Previous</a></li>
+    <li><a href="#">1</a></li>
+    <li class="active"><a href="#">2</a></li>
+    <li><a href="#">3</a></li>
+    <li><a href="#">4</a></li>
+    <li><a href="#">5</a></li>
+    <li class="next"><a href="#">Next</a></li>
+</ul>
+</div>
+<jsp:include page="footer.jsp"/>
