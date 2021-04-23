@@ -71,6 +71,9 @@ body {
 a.sub2 {
 	margin-top: 15px;
 }
+div.container {
+	margin: 80px 100px;
+}
 </style>
 
 <script type="text/javascript">
