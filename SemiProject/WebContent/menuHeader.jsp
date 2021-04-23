@@ -43,20 +43,7 @@ article{
 	font-size: 11px;
 }
 </style>
-<script type="text/javascript">
-	function menu_1(){
-		alert("첫번째 메뉴")
-	}
-	function menu_2(){
-		alert("두번째 메뉴")
-	}
-	function menu_3(){
-		alert("세번째 메뉴")
-	}
-	function menu_4(){
-		alert("네번째 메뉴")
-	}
-</script>
+
 </head>
 <body>
 
