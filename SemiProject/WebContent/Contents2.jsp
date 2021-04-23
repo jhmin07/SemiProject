@@ -5,9 +5,7 @@
 
 <style type="text/css">
 	div#contents2{		
-		width: auto;
 		background-color: #d9d9d9;
-		padding-bottom: 40px;
   			
 	}
 	div.subcarousel{
@@ -46,11 +44,10 @@
 
 
 
-<div id=contents2>
-	<div id="newItem">NEW ITEM</div>
 	
-<div class="container subcontainer">
+<div id="contents2" class="container subcontainer">
 
+	<div id="newItem">NEW ITEM</div>
 
 <div id="myCarousel1" class="subcarousel carousel slide" data-ride="carousel">
  
@@ -144,7 +141,6 @@
       <span class="sr-only">Next</span>
     </a>
   </div>  
-</div>
 </div>
 
 

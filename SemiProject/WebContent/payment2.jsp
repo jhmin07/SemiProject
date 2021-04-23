@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
+<jsp:include page="header4.jsp" />
 <style type="text/css">
 
 	div#divPayments2_1{
@@ -79,7 +80,7 @@
 </script>
 
 
-
+<div class="container">
 	<form>
 		<div id="divPayments2_1">
 		<h2 style="font-size: 13pt; color: #a6a6a6;">결제 예정 금액</h2>
@@ -138,3 +139,5 @@
 		</table>
 		</div>	
 	</form>
+</div>
+<jsp:include page="footer.jsp" />
