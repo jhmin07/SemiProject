@@ -9,12 +9,20 @@
 <jsp:include page="header4.jsp" />
 
 <style type="text/css">
+
+.container {
+	/* margin: 100px 100px !important; */
+	border: solid 1px blue;
+	width: 80%;
+}
+
 div.odr_container {
 	padding-top: 100px;
 }
 
 table.ord_list, table.odr_info {
 	border-bottom: solid 1px #ddd !important;
+	border: solid 1px red;
 }
 
 table.ord_list > thead {
@@ -51,7 +59,7 @@ table.odr_info > tbody td:nth-child(1){
 }
 
 table.odr_info td:nth-child(2){
-	width: 80%; 
+	width: 80%;
 	text-align: left;
 }
 
@@ -68,13 +76,98 @@ table.odr_info input[type=text]{
 }
 </style>
 
+<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script type="text/javascript">
 	
 	$(document).ready(function(){
 		$("span.error").hide();
 		
+		// == 체크박스 전체선택/전체해제 == //
+		$("input:checkbox[name=checkall]").click(function(){
+			var bool = $(this).prop("checked");
+			// 체크되어있으면 true, 해제되어있으면 false
+			
+			$("input:checkbox[name=product]").prop("checked", bool);
+			// product 의 체크박스 상태를 checkall 의 체크상태와 동일하게 적용
+		});
+		
+		// == 상품의 체크박스 클릭시 == //
+		$("input:checkbox[name=product]").click(function(){
+			var bool = $(this).prop("checked");
+			
+			if (bool) { // 현재 상품의 체크박스에 체크했을 때
+				var bFlag = false;
+				
+				$("input:checkbox[name=product]").each(function(index, item){ // 다른 모든 상품의 체크박스 상태 확인
+					var bChecked = $(item).prop("checked");
+					if (!bChecked) {	// 체크표시가 안되어있는 상품일 경우 반복문 종료
+						bFlag = true;
+						return false;
+					}
+				});
+				
+				if(!bFlag) {	// 모든 체크박스가 체크되어있을 경우
+					$("input:checkbox[name=checkall]").prop("checked", true);			
+				}
+			}
+			else {	// 현재 상품의 체크박스에 체크 해제했을 때
+				$("input:checkbox[name=checkall]").prop("checked", false);
+			}
+		});
+		
+		
+		// == 우편번호 찾기 == // 
+		$("img#zipcodeSearch").click(function(){
+			new daum.Postcode({
+				oncomplete : function(data) {
+					// 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
 
+					// 각 주소의 노출 규칙에 따라 주소를 조합한다.
+					// 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+					var addr = ''; // 주소 변수
+					var extraAddr = ''; // 참고항목 변수
+
+					//사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
+					if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
+						addr = data.roadAddress;
+					} else { // 사용자가 지번 주소를 선택했을 경우(J)
+						addr = data.jibunAddress;
+					}
+
+					// 사용자가 선택한 주소가 도로명 타입일때 참고항목을 조합한다.
+					if (data.userSelectedType === 'R') {
+						// 법정동명이 있을 경우 추가한다. (법정리는 제외)
+						// 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
+						if (data.bname !== '' && /[동|로|가]$/g.test(data.bname)) {
+							extraAddr += data.bname;
+						}
+						// 건물명이 있고, 공동주택일 경우 추가한다.
+						if (data.buildingName !== '' && data.apartment === 'Y') {
+							extraAddr += (extraAddr !== '' ? ', '
+									+ data.buildingName : data.buildingName);
+						}
+						// 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
+						if (extraAddr !== '') {
+							extraAddr = ' (' + extraAddr + ')';
+						}
+						// 조합된 참고항목을 해당 필드에 넣는다.
+						document.getElementById("extraAddress").value = extraAddr;
+
+					} else {
+						document.getElementById("extraAddress").value = '';
+					}
+
+					// 우편번호와 주소 정보를 해당 필드에 넣는다.
+					document.getElementById('postcode').value = data.zonecode;
+					document.getElementById("address").value = addr;
+					// 커서를 상세주소 필드로 이동한다.
+					document.getElementById("detailAddress").focus();
+				}
+			}).open();
+		});
 	});
+
+
 	
 </script>
 
@@ -84,7 +177,7 @@ table.odr_info input[type=text]{
 	<table class="table ord_list">
 		<thead>
 			<tr>
-				<th><input type="checkbox" /></th>
+				<th><input type="checkbox" name="checkall"/></th>
 				<th>이미지</th>
 				<th>상품정보</th>
 				<th>판매가</th>
@@ -107,7 +200,7 @@ table.odr_info input[type=text]{
 				<c:set var="order_cnt" value="1"/>
 				
 				<tr class="ord_tr">
-					<td><input type="checkbox" /></td>
+					<td><input type="checkbox" name="product" /></td>
 					<td><img class="ord_img" src="<%=ctxPath%>/imagesContents2/table0${var}.jpg" ></td>
 					<td>책상</td>
 					<td><fmt:formatNumber value="${product_price}" pattern="#,###" /> 원</td>
@@ -132,8 +225,6 @@ table.odr_info input[type=text]{
 			</tr>
 		</tbody>
 	</table>
-	
-	<!-- <h4 style="width: 80%; margin-bottom: 50px; color: gray;"><br>주문정보</h4> -->
 	
 	<form action="">
 		<table class="table odr_info">
@@ -177,9 +268,9 @@ table.odr_info input[type=text]{
 				<tr>
 					<td>이메일&nbsp;<span class="star">*</span></td>
 					<td>
-						<input type="text" name="email1" id="email" class="requiredInfo"/>@
-						<input type="text" name="email2" id="email" class="requiredInfo"/>
-						<select style="padding: 8px 10px; border: solid 1px #ddd;">
+						<input type="text" name="email1" id="email1" class="requiredInfo"/>@
+						<input type="text" name="email2" id="email2" class="requiredInfo"/>
+						<select id="emailSelect" style="padding: 8px 10px; border: solid 1px #ddd;">
 							<option value="">직접입력</option>
 							<option value="gmail.com">gmail.com</option>
 							<option value="naver.com">naver.com</option>
@@ -208,9 +299,9 @@ table.odr_info input[type=text]{
 				<tr>
 					<td>배송지 선택</td>
 					<td>
-						<input type="radio" value="1" name="reveiceRadio" id="same" />
+						<input type="radio" value="1" name="reveiceRadio" id="orderlist_same" />
 						<label for="same">주문자 정보와 동일</label>&nbsp;
-						<input type="radio" value="0" name="reveiceRadio" id="new" checked/>
+						<input type="radio" value="0" name="reveiceRadio" id="orderlist_new" checked/>
 						<label for="new">새로운 배송지</label>
 					</td>
 				</tr>
