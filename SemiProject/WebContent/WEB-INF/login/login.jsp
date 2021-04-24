@@ -108,6 +108,11 @@ form{
 	border-top: solid 1px #dedede;
 }
 </style>
+
+<<script type="text/javascript">
+
+</script>
+
 </head>
 <body>
 <%-- *** 로그인을 하기 위한 폼을 생성 *** --%>
