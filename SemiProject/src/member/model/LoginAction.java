@@ -13,7 +13,7 @@ public class LoginAction extends AbstractController {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		
+		/*
 		String method = request.getMethod();  
 		
 		if(!"POST".equalsIgnoreCase(method)) {
@@ -58,10 +58,10 @@ public class LoginAction extends AbstractController {
 				
 				System.out.println("로그인성공");
 				
-				/*
-				 * super.setRedirect(true);
-				 * super.setViewPage(request.getContextPath()+"/home.up");
-				 */
+				
+		//		 super.setRedirect(true);
+		//		 super.setViewPage(request.getContextPath()+"/home.up");
+				 
 				
 				String message = "로그인 성공";
 				String loc = "javascript:history.back()";
@@ -87,8 +87,10 @@ public class LoginAction extends AbstractController {
 			
 		
 		}
+		*/
 		
-		
+		super.setRedirect(false);
+		super.setViewPage("/login.jsp");
 		
 		
 		
