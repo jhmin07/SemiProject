@@ -17,7 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 		description = "사용자가 웹에서 *.up 을 했을 경우 응답해주는 서블릿", 
 		urlPatterns = { "*.up" }, 
 		initParams = { 
-				@WebInitParam(name = "propertyConfig", value = "C:/NCS/worksapce(jsp)/SemiProject/WebContent/WEB-INF/Command.properties", description = "*.up 에 대한 클래스의 매핑파일")
+				@WebInitParam(name = "propertyConfig", value = "C:/NCS/workspace(jsp)/SemiProject/WebContent/WEB-INF/Command.properties", description = "*.up 에 대한 클래스의 매핑파일")
 		})
 public class FrontControllerServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -40,11 +40,11 @@ public class FrontControllerServlet extends HttpServlet {
 		
 		String props = config.getInitParameter("propertyConfig");
 		// System.out.println("~~~ 확인용 props => " + props);
-		// ~~~ 확인용 props => C:/NCS/worksapce(jsp)/MyMVC/WebContent/WEB-INF/Command.properties
+		// ~~~ 확인용 props => C:/NCS/workspace(jsp)/SemiProject/WebContent/WEB-INF/Command.properties
 
 		try {
 			fis = new FileInputStream(props);
-			// fis 는 C:/NCS/worksapce(jsp)/MyMVC/WebContent/WEB-INF/Command.properties 파일의 내용을 읽어오기 위한 용도로 쓰이는 객체이다.
+			// fis 는 C:/NCS/workspace(jsp)/SemiProject/WebContent/WEB-INF/Command.properties 파일의 내용을 읽어오기 위한 용도로 쓰이는 객체이다.
 
 			Properties pr = new Properties();
 			// Properties 는 Collection 중 HashMap 계열중의  하나로써
@@ -54,7 +54,7 @@ public class FrontControllerServlet extends HttpServlet {
 			
 			pr.load(fis);
 			/*
-				pr.load(fis); 은  fis 객체를 사용하여 C:/NCS/workspace(jsp)/MyMVC/WebContent/WEB-INF/Command.properties 파일의 내용을 읽어다가 
+				pr.load(fis); 은  fis 객체를 사용하여 C:/NCS/workspace(jsp)/SemiProject/WebContent/WEB-INF/Command.properties 파일의 내용을 읽어다가 
 				Properties 클래스의 객체인 pr 에 로드시킨다.
 				그러면 pr 은 읽어온 파일(Command.properties)의 내용에서 
 				= 을 기준으로 왼쪽은 key로 보고, 오른쪽은 value 로 인식한다.
@@ -63,7 +63,7 @@ public class FrontControllerServlet extends HttpServlet {
 			Enumeration<Object> en = pr.keys();
 			/*
 				pr.keys(); 은
-				C:/NCS/workspace(jsp)/MyMVC/WebContent/WEB-INF/Command.properties 파일의 내용물에서 
+				C:/NCS/workspace(jsp)/SemiProject/WebContent/WEB-INF/Command.properties 파일의 내용물에서 
 				= 을 기준으로 왼쪽에 있는 모든 key 들만 가져오는 것이다.    
 			*/
 			
@@ -103,7 +103,7 @@ public class FrontControllerServlet extends HttpServlet {
 			}
 			
 		} catch (FileNotFoundException e) {
-			System.out.println(">>> C:/NCS/worksapce(jsp)/SemiProject/WebContent/WEB-INF/Command.properties 파일이 없습니다. <<<");
+			System.out.println(">>> C:/NCS/workspace(jsp)/SemiProject/WebContent/WEB-INF/Command.properties 파일이 없습니다. <<<");
 			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -126,17 +126,17 @@ public class FrontControllerServlet extends HttpServlet {
 
 	private void requestProcess(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// 웹브라우저의 주소 입력창에서 
-		// http://localhost:9090/MyMVC/member/idDuplicateCheck.up?userid=leess 와 같이 입력되었더라면
+		// http://localhost:9090/SemiProject/member/idDuplicateCheck.up?userid=leess 와 같이 입력되었더라면
 //		String url = request.getRequestURL().toString();
 //		System.out.println("~~~ 확인용 url => " + url);
-		// ~~~ 확인용 url => http://localhost:9090/MyMVC/member/idDuplicateCheck.up
+		// ~~~ 확인용 url => http://localhost:9090/SemiProject/member/idDuplicateCheck.up
 		
 		String uri = request.getRequestURI();
 //		System.out.println("~~~ 확인용 uri => " + uri);
-		// ~~~ 확인용 uri => /MyMVC/member/idDuplicateCheck.up
+		// ~~~ 확인용 uri => /SemiProject/member/idDuplicateCheck.up
 
-		// ~~~ 확인용 uri => /MyMVC/main.up
-		// ~~~ 확인용 uri => /MyMVC/index.up
+		// ~~~ 확인용 uri => /SemiProject/main.up
+		// ~~~ 확인용 uri => /SemiProject/index.up
 		
 		String key = uri.substring(request.getContextPath().length());
 		/*	/member/idDuplicateCheck.up
