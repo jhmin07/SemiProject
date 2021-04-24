@@ -106,7 +106,7 @@ function openNav() {
 
 <div class="navbar">
   <span style="font-size:30px;cursor:pointer; width:15%; vertical-align: middle;" onclick="openNav()"><img id="mainheadermenu" src="<%= ctxPath %>/ProjectImg/menu.png" style="width: 50px;" align="middle"/></span>
-  <span class="hsub1" style="width:60%; text-align: center; "><img id="headerlogo" src="<%= ctxPath %>/ProjectImg/logo2.png" style="width:120px; height:50px; cursor: pointer;" align="middle"/></span>
+  <span class="hsub1" style="padding-left:130px; width:60%; text-align: center; "><img id="headerlogo" src="<%= ctxPath %>/ProjectImg/logo2.png" style="width:120px; height:50px; cursor: pointer;" align="middle"/></span>
   <span class="hsub1" style="width:10%; text-align: right;"><img id="headerlogo"  src="<%= ctxPath %>/ProjectImg/login.png" style="width:28px; height:23px; cursor: pointer; " align="middle" /></span>
   <span class="hsub1" style="width:10%; text-align: right;"><img id="headerlogo"  src="<%= ctxPath %>/ProjectImg/shoppingbag.png" style="width:28px; height:23px; cursor: pointer;" align="middle" /></span>
 </div>
