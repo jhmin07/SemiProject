@@ -2,28 +2,28 @@ package member.model;
 
 
 public class MemberVO {
-
-	   private String userid;             // 회원아이디
-	   private String pwd;                // 비밀번호 (SHA-256 암호화 대상)
-	   private String name;               // 회원명
-	   private String email;              // 이메일 (AES-256 암호화/복호화 대상)
-	   private String mobile;             // 연락처 (AES-256 암호화/복호화 대상) 
-	   private String postcode;           // 우편번호
-	   private String address;            // 주소
-	   private String detailaddress;      // 상세주소
-	   private String extraaddress;       // 참고항목
-	   private String gender;             // 성별   남자:1  / 여자:2
-	   private String birthday;           // 생년월일   
-	   private int point;                 // 포인트 
-	   private String registerday;        // 가입일자 
-	   private String lastpwdchangedate;  // 마지막으로 암호를 변경한 날짜  
-	   private int status;                // 회원탈퇴유무   1: 사용가능(가입중) / 0:사용불능(탈퇴) 
-	   private int idle;                  // 휴면유무         0: 활동중  /  1 : 휴면중 
+	
+	private String userid;             // 회원아이디
+	private String pwd;                // 비밀번호 (SHA-256 암호화 대상)
+	private String name;               // 회원명
+	private String email;              // 이메일 (AES-256 암호화/복호화 대상)
+	private String mobile;             // 연락처 (AES-256 암호화/복호화 대상) 
+	private String postcode;           // 우편번호
+	private String address;            // 주소
+	private String detailaddress;      // 상세주소
+	private String extraaddress;       // 참고항목
+	private String gender;             // 성별   남자:1  / 여자:2
+	private String birthday;           // 생년월일   
+	private int point;                 // 포인트 
+	private String registerday;        // 가입일자 
+	private String lastpwdchangedate;  // 마지막으로 암호를 변경한 날짜  
+	private int status;                // 회원탈퇴유무   1: 사용가능(가입중) / 0:사용불능(탈퇴) 
+	private int idle;                  // 휴면유무         0: 활동중  /  1 : 휴면중 
 	
 	   
-	   public MemberVO() {
-		
-	}
+	public MemberVO() {	}
+	
+	public MemberVO(String userid, String pwd, String name, String email, String mobile, String postcode, String address, String detailaddress, String extraaddress, String gender, String birthday) { }
 	  
 
 	public String getUserid() {
