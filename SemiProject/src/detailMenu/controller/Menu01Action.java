@@ -11,7 +11,7 @@ public class Menu01Action extends AbstractController {
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		
 		// super.setRedirect(false);
-		super.setViewPage(request.getContextPath()+"/WEB-INF/detailMenu/menu01.jsp");
+		super.setViewPage("/WEB-INF/detailMenu/menu01.jsp");
 		
 	}
 
