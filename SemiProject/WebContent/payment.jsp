@@ -1,61 +1,52 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
+<jsp:include page="header4.jsp" />
+<jsp:include page="order.jsp" />
 
 <style type="text/css">
-
-	div#divPayments_1{
-		/* margin: 50px 100px; */
+	table.payment_table tr {
+		height: 50px;
 	}
-	div#divPayments_2{
-		margin: 50px 100px 50px 100px;
+	
+	table.payment_table td,
+	table.payment_table th {
+		border: none !important;
 	}
-	div#divPayments_1 > table.payment{
-		/* text-align: center; */
-	}
-	div#divPayments_1 > table#table1{
-		/* width: 1500px; */
-	}
-	div#divPayments_2 > table.payment{
-		/* text-align: right; */
-		background-color: #f2f2f2;
-		width: 700px;
-	}
-	div#divPayments_1  th.payment_table1{
+	
+	tr.payment_thead > th {
 		/* padding: 20px 130px; */
-		font-size: 12pt;
+		/* font-size: 12pt; */
+		/* color: #a6a6a6; */
+		
 		text-align: center;
-		color: #a6a6a6;
 		background-color: #f2f2f2;
 	}
 	
-	div#divPayments_1  td.payment_table1{
+	tr.payment_thead_result > td {
+		text-align: right;
+		background-color: white !important;
+	}
+
+	tr.payment_tbody > td {
 		/* padding: 20px 130px; */
-		font-size: 15pt;
-		text-align: center;
-		color: #a6a6a6;
+		/* font-size: 15pt; */
+		/* color: #a6a6a6; */
+		/* font-weight: bold; */
+
+		border: none;
+		text-align: right;
+	}
+
+	tr.payment_tbody td:nth-child(1) {
+		width: 30%; 
 		font-weight: bold;
-	}
-	/* tr.payment{
-		border: solid 1px gray;
-	} */
-	div#divPayments_1  td.payment_table2{
-		padding: 20px 60px;
-		font-size: 12pt;
-		text-align: center;
-		color: #a6a6a6;
-	}
-	div#divPayments_1  td.left{
 		background-color: #f2f2f2;
-		color: #a6a6a6;
-	}
-	div#divPayments_1  td.right{
-		color: #a6a6a6;
-	}
-	div#divPayments_2  td{
-		padding: 20px 20px;
-		font-size: 12pt;
-		color: #a6a6a6;
-	}
+		text-align: center;
+	}	
+
 	button#paymentGo{
 		width: 100%;
 		height: 50px;
@@ -65,72 +56,76 @@
 		border: none;
 		font-size: 17;
 	}
+	
 	button.payment_button{
 		border: solid 1px black;
 		background-color:white;
 		font-size: 15;
 	}
 	
-</style>
+	ul.payment_last {
+		/* text-align: right; */
+		list-style-type: none;
+		background-color: #f2f2f2;
+		padding: 10px 10px;
+		width: 600px;
+	}
 	
-
+	ul.payment_last > li {
+		margin-bottom: 20px;
+	}
+	
+</style>
 <script type="text/javascript">
-
 </script>
 
 <form>
 	<div id="divPayments_1">
+		<br><hr color="#a6a6a6;"><br>
 		<h2 style="font-size: 13pt; color: #a6a6a6;">결제 예정 금액</h2>
-		<table class="table odr_info"  class="payment">
+		
+		<table class="table payment_table">
 			<thead>
-				<tr>
-					<th class="payment_table1">총 주문 금액&nbsp&nbsp<button class="payment_button">내역보기</button></th>
-					<th class="payment_table1">총 할인 + 부가결제 금액</th>
-					<th class="payment_table1">총 결제예정 금액</th>
+				<tr class="payment_thead">
+					<th>총 주문 금액&nbsp;&nbsp;<button class="payment_button">내역보기</button></th>
+					<th>총 할인 + 부가결제 금액</th>
+					<th>총 결제예정 금액</th>
 				</tr>
 			</thead>
+			
 			<tbody>
-				<tr>
-					<td class="payment_table1">원</td>
-					<td class="payment_table1">- 원</td>
-					<td class="payment_table1">= 원</td>
+				<tr class="payment_thead_result">
+					<td><fmt:formatNumber value="${total_price}" pattern="#,###" />원</td>
+					<td> - 원</td>
+					<td> = 원</td>
+				</tr>
+				<tr class="payment_tbody">
+					<td>총 할인금액</td>
+					<td> 원</td>
+				</tr>
+				<tr class="payment_tbody">
+					<td>추가할인금액</td>
+					<td> 원</td>
+					<td style="text-align: left;"><button class="payment_button">내역보기</button></td>
+				</tr>
+				<tr class="payment_tbody">
+					<td>총 부가결제금액</td>
+					<td> 원</td>
 				</tr>
 			</tbody>
 		</table>
-		<table class="table odr_info" class="payment">
-			<tbody>
-				<tr>
-					<td class="payment_table2 left">총 할인금액</td>
-					<td class="payment_table2 right"> 원</td>
-				</tr>
-				<tr>
-					<td class="payment_table2 left">추가할인금액</td>
-					<td class="payment_table2 right"> 원&nbsp&nbsp<button class="payment_button">내역보기</button></td>
-				</tr>
-				<tr>
-					<td class="payment_table2 left">총 부가결제금액</td>
-					<td class="payment_table2 right"> 원</td>
-				</tr>
-			</tbody>
-		</table>	
 	</div>
+	<br>
 	
 	<div id="divPayments_2" align="right">
-	<table id="table3"  class="payment">
-		<tbody>
-			<tr>
-				<td class="payment_table3">최종결제 금액</td>
-			</tr>
-			<tr>
-				<td class="payment_table3"> 원</td>
-			</tr>
-			<tr>
-				<td class="payment_table3"><label for="agree"></label><input type="checkbox" id="agree" />결제정보를 확인하였으며, 구매진행에 동의합니다.</td>
-			</tr>
-			<tr>
-				<td class="payment_table3"><button id="paymentGo">결제하기</button></td>
-			</tr>
-		</tbody>
-	</table>
+		<ul class="payment_last">
+			<li>최종결제 금액</li>
+			<li>원</li>
+			<li><label for="agree"></label><input type="checkbox" id="agree" />결제정보를 확인하였으며, 구매진행에 동의합니다.</li>
+			<li><button id="paymentGo">결제하기</button></li>
+		</ul>
 	</div>	
-</form>
+</form>	
+</div><%-- order.jsp의 첫번째 div 태그닫는 부분 --%>	
+
+<jsp:include page="footer.jsp" />	

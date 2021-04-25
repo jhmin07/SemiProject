@@ -5,15 +5,11 @@
 
 <%	String ctxPath = request.getContextPath(); %>  
 
-
-<jsp:include page="header4.jsp" />
-
 <style type="text/css">
-
 .container {
 	/* margin: 100px 100px !important; */
-	border: solid 1px blue;
-	width: 80%;
+	/* border: solid 1px blue; */
+	/* width: 80%; */
 }
 
 div.odr_container {
@@ -22,7 +18,7 @@ div.odr_container {
 
 table.odr_list, table.odr_info {
 	border-bottom: solid 1px #ddd !important;
-	border: solid 1px red;
+	/* border: solid 1px red; */
 }
 
 table.odr_list > thead {
@@ -59,7 +55,7 @@ table.odr_info > tbody td:nth-child(1){
 }
 
 table.odr_info td:nth-child(2){
-	width: 80%;
+	/* width: 80%; */
 	text-align: left;
 }
 
@@ -257,6 +253,10 @@ table.odr_info input[type=text]{
 <div class="container odr_container">
 	<h2 style="width: 80%; margin-bottom: 50px; color: gray;">- Order</h2>
 	
+	<c:set var="total_price" value="0"/>
+	<c:set var="sail_price" value="0"/>
+	<c:set var="delivery_price" value="3000"/>
+	
 	<table class="table odr_list">
 		<thead>
 			<tr>
@@ -273,10 +273,6 @@ table.odr_info input[type=text]{
 		</thead>
 		
 		<tbody>
-			<c:set var="total_price" value="0"/>
-			<c:set var="sail_price" value="0"/>
-			<c:set var="delivery_price" value="3000"/>
-			
 			<c:forEach var="var" begin="1" end="2">
 				<%-- test value 값 --%>
 				<c:set var="product_price" value="10000"/>
@@ -429,8 +425,4 @@ table.odr_info input[type=text]{
 			</tbody>
 		</table>
 	</form>
-	
-	<jsp:include page="payment.jsp" />
-</div>
-
-<jsp:include page="footer.jsp" />
+<%-- </div> 태그는 payment.jsp 파일에서 닫아줌 --%>	
