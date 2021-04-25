@@ -5,13 +5,13 @@ import javax.servlet.http.HttpServletResponse;
 
 import common.controller.AbstractController;
 
-public class blueCoverAction extends AbstractController {
+public class Menu01Action extends AbstractController {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		
 		// super.setRedirect(false);
-		super.setViewPage(request.getContextPath()+"/WEB-INF/detailMenu/blueCover.jsp");
+		super.setViewPage(request.getContextPath()+"/WEB-INF/detailMenu/menu01.jsp");
 		
 	}
 

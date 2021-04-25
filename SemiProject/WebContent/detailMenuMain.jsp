@@ -43,7 +43,7 @@
 				<img src="<%=ctxPath%>/image/blueCover.PNG" class="productImg"/>
 			</a>
 			<div class="name">
-				<a href="<%=ctxPath%>/WEB-INF/menu01.jsp">	
+				<a href="<%=ctxPath%>/WEB-INF/detailMenu/blueCover.up">	
 					<span>모슬린 이불커버(블랙)</span>
 				</a>
 				<span>119,000 원 - 179,000 원</span>

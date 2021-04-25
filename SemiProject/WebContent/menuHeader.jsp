@@ -50,7 +50,7 @@ article{
 <div id= "headMenu" class="container">
 	<div>
 		<article>
-			<a href="<%=ctxPath%>/WEB-INF/DetailMenu/menu01.up">
+			<a href="<%=ctxPath%>/detailMenu/menu01.up">
 				<img src="<%=ctxPath%>/image/menu01.PNG" />
 			</a>
 			<a href="<%=ctxPath%>/WEB-INF/menu01.jsp" class="category" style="text-align: center">	

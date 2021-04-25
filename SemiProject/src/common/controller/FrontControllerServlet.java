@@ -17,7 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 		description = "사용자가 웹에서 *.up 을 했을 경우 응답해주는 서블릿", 
 		urlPatterns = { "*.up" }, 
 		initParams = { 
-				@WebInitParam(name = "propertyConfig", value = "C:/NCS/workspace(jsp)/SemiProject/WebContent/WEB-INF/Command.properties", description = "*.up 에 대한 클래스의 매핑파일")
+				@WebInitParam(name = "propertyConfig", value = "C:\\Users\\cjccs\\git\\SemiProjec\\SemiProject\\WebContent\\WEB-INF\\Command.properties", description = "*.up 에 대한 클래스의 매핑파일")
 		})
 public class FrontControllerServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -33,7 +33,7 @@ public class FrontControllerServlet extends HttpServlet {
 	        그러므로 init(ServletConfig config) 메소드에는 FrontControllerServlet 서블릿이 동작해야할 환경설정을 잡아주는데 사용된다.
 	*/
 		// *** 확인용 *** //
-		// System.out.println("~~~ 확인용 => 서블릿 FrontControllerServlet 의 init(ServletConfig config) 메소드가 실행됨.");
+		 System.out.println("~~~ 확인용 => 서블릿 FrontControllerServlet 의 init(ServletConfig config) 메소드가 실행됨.");
 		
 		FileInputStream fis = null;
 		// 특정 파일에 있는 내용을 읽어오기 위한 용도로 쓰이는 객체
@@ -103,7 +103,7 @@ public class FrontControllerServlet extends HttpServlet {
 			}
 			
 		} catch (FileNotFoundException e) {
-			System.out.println(">>> C:/NCS/workspace(jsp)/SemiProject/WebContent/WEB-INF/Command.properties 파일이 없습니다. <<<");
+			System.out.println(">>> C:\\Users\\cjccs\\git\\SemiProjec\\SemiProject\\WebContent\\WEB-INF\\Command.properties 파일이 없습니다. <<<");
 			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
