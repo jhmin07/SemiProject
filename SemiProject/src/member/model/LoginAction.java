@@ -90,7 +90,7 @@ public class LoginAction extends AbstractController {
 		*/
 		
 		super.setRedirect(false);
-		super.setViewPage("/login.jsp");
+		super.setViewPage("/WEB-INF/login/login.jsp");
 		
 		
 		

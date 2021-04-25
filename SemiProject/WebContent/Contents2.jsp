@@ -4,10 +4,7 @@
 <jsp:include page="contents1.jsp" />   
 
 <style type="text/css">
-	div#contents2{		
-		background-color: #d9d9d9;
-  			
-	}
+
 	div.subcarousel{
 		/* border: solid 1px red; */
 		display: inline-block;
@@ -19,7 +16,12 @@
 		background-color: white;	
 		width: 90%;
 	}
-
+	div#contents2{
+		
+		width: auto;
+		background-color: #d9d9d9;
+		padding-bottom: 40px;
+	}
 	
 	div.contents2_item {
 		width: 480px;
@@ -44,10 +46,11 @@
 
 
 
-	
-<div id="contents2" class="container subcontainer">
-
+<div id=contents2>
 	<div id="newItem">NEW ITEM</div>
+	
+<div class="container subcontainer">
+
 
 <div id="myCarousel1" class="subcarousel carousel slide" data-ride="carousel">
  
@@ -141,6 +144,7 @@
       <span class="sr-only">Next</span>
     </a>
   </div>  
+</div>
 </div>
 
 

@@ -3,7 +3,10 @@
     
     
 <jsp:include page="header4.jsp" />  
-
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
 <title>RHOM 공식 홈페이지</title>
 <style type="text/css">
 div, h2, p{
@@ -123,74 +126,14 @@ form{
 		<label for="user_pwd"> 입력</label>
 		<a href="javascript:login_submit();" >로그인</a>
 		<ul>
-			<li> <a style="cursor: pointer;" data-toggle="modal" data-target="#userIdfind" data-dismiss="modal">아이디 찾기</a></li>
-			<li> <a style="cursor: pointer;" data-toggle="modal" data-target="#userpwdfind" data-dismiss="modal">비밀번호 찾기</a> </li>
+			<li> <a href="javascript:gofind_id();" >아이디 찾기 &nbsp; &nbsp;</a> </li>
+			<li> <a href="javascript:gofind_pwd();" >비밀번호 찾기</a> </li>
 			<li> <a href="javascript:go_Register();" > &nbsp; &nbsp; 회원가입</a> </li>
 		</ul>
 		</fieldset>
 	</div>
 </form>
 
-<%-- ****** 아이디 찾기 Modal 시작****** --%>
-  <div class="modal fade" id="userIdfind" role="dialog">
-    <div class="modal-dialog">
-    
-      <!-- Modal content-->
-      <div class="modal-content">
-	      
-	        <div class="modal-header">
-		          <button type="button" class="close myclose" data-dismiss="modal">&times;</button>
-		          <h4 class="modal-title" align="center" style="font-weight:bold; font-size: 25pt;">아이디 찾기</h4>
-		          <br>
-		          <div align="center" >회원님의 아이디를 잊으셨나요?</div>
-		          <div align="center" >이름과 가입 시 기제한 이메일 주소를 입력하시면 고객님의 정보를 알려드립니다.</div>
-	        </div>
-	        
-	        <div class="modal-body" style="height: 250px; width: 100%;">
-	        
-		          <div id="idFind" >
-		          	<iframe style="border: none; width: 100%; height: 230px; " src="http://localhost:9090/MyMVC/idfind.jsp">
-		          	</iframe>
-		          </div>
-	          
-	        </div>
-        
-      </div>
-      
-    </div>
-  </div>
-<%-- ****** 아이디 찾기 Modal 끝****** --%>
-
-<%-- ****** 비밀번호 찾기 Modal 시작****** --%>
-  <div class="modal fade" id="userpwdfind" role="dialog">
-    <div class="modal-dialog">
-    
-      <!-- Modal content-->
-      <div class="modal-content">
-	      
-	        <div class="modal-header">
-		          <button type="button" class="close myclose" data-dismiss="modal">&times;</button>
-		          <h4 class="modal-title" align="center" style="font-weight:bold; font-size: 25pt;">비밀번호 찾기</h4>
-		          <br>
-		          <div align="center" >회원님의 비밀번호를 잊으셨나요?</div>
-		          <div align="center" >아이디와 가입 시 기제한 이메일 주소를 입력하시면 인증 후 고객님의 정보를 알려드립니다.</div>
-	        </div>
-	        
-	        <div class="modal-body" style="height: 250px; width: 100%;">
-	        
-		          <div id="idFind" >
-		          	<iframe style="border: none; width: 100%; height: 230px; " src="http://localhost:9090/MyMVC/pwdfind.jsp">
-		          	</iframe>
-		          </div>
-	          
-	        </div>
-        
-      </div>
-      
-    </div>
-  </div>
-<%-- ****** 비밀번호 찾기 Modal 끝****** --%>
-
 </body>
-
+</html>
 <jsp:include page="footer.jsp" />  

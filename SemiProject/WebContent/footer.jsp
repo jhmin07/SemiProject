@@ -4,10 +4,7 @@
 <style type="text/css">
 footer{
  	background-color: #3e505e;
-    width:100%;
-    height:400px;  
-    margin-top: 90%;
-
+ 	
 }
 div.footer{
 	margin: 100px 100px;
