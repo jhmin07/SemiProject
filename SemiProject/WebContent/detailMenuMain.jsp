@@ -15,7 +15,7 @@
 <!-- <title>이불커버</title> -->
 <style type="text/css">
 #coverContents{
-	margin-top: 50px;
+	/* margin-top: 50px; */
 	margin-left: 80px;
 }
 .productImg{
@@ -25,7 +25,7 @@
 }
 .product{
 	text-align: center;
-	margin-bottom: 30px;
+	/* margin-bottom: 30px; */
 }
 .name{
 	margin-top: 10px;
@@ -39,7 +39,7 @@
 <div id= "coverContents">
 	<div class="product">
 		<article>
-			<a href="<%=ctxPath%>/WEB-INF/DetailMenu/blueCover.up">
+			<a href="<%=ctxPath%>/WEB-INF/detailMenu/blueCover.up">
 				<img src="<%=ctxPath%>/image/blueCover.PNG" class="productImg"/>
 			</a>
 			<div class="name">
@@ -52,7 +52,7 @@
 	</div>
 	<div class="product">
 		<article>
-			<a href="<%=ctxPath%>/WEB-INF/DetailMenu/blackCover.up">
+			<a href="<%=ctxPath%>/WEB-INF/detailMenu/blackCover.up">
 				<img src="<%=ctxPath%>/image/blackCover.PNG" class="productImg"/>
 			</a>
 			<div class="name">
@@ -65,7 +65,7 @@
 	</div>
 	<div class="product">
 		<article>
-			<a href="<%=ctxPath%>/WEB-INF/DetailMenu/whiteCover.up">
+			<a href="<%=ctxPath%>/WEB-INF/detailMenu/whiteCover.up">
 				<img src="<%=ctxPath%>/image/whiteCover.PNG" class="productImg"/>
 			</a>
 			<div class="name">
@@ -78,7 +78,7 @@
 	</div>
 	<div class="product">
 		<article>
-			<a href="<%=ctxPath%>/WEB-INF/DetailMenu/naturalCover.up">
+			<a href="<%=ctxPath%>/WEB-INF/detailMenu/naturalCover.up">
 				<img src="<%=ctxPath%>/image/naturalCover.PNG" class="productImg"/>
 			</a>
 			<div class="name">
@@ -92,7 +92,7 @@
 	<br>
 	<div class="product">
 		<article>
-			<a href="<%=ctxPath%>/WEB-INF/DetailMenu/floralCover.up">
+			<a href="<%=ctxPath%>/WEB-INF/detailMenu/floralCover.up">
 				<img src="<%=ctxPath%>/image/floralCover.PNG" class="productImg"/>
 			</a>
 			<<div class="name">
@@ -105,7 +105,7 @@
 	</div>
 	<div class="product">
 		<article>
-			<a href="<%=ctxPath%>/WEB-INF/DetailMenu/white_floralCover.up">
+			<a href="<%=ctxPath%>/WEB-INF/detailMenu/white_floralCover.up">
 				<img src="<%=ctxPath%>/image/white_floralCover.PNG" class="productImg"/>
 			</a>
 			<div class="name">
@@ -118,7 +118,7 @@
 	</div>
 	<div class="product">
 		<article>
-			<a href="<%=ctxPath%>/WEB-INF/DetailMenu/dotCover.up">
+			<a href="<%=ctxPath%>/WEB-INF/detailMenu/dotCover.up">
 				<img src="<%=ctxPath%>/image/dotCover.PNG" class="productImg"/>
 			</a>
 			<div class="name">
@@ -131,7 +131,7 @@
 	</div>
 	<div class="product">
 		<article>
-			<a href="<%=ctxPath%>/WEB-INF/DetailMenu/checkCover.up">
+			<a href="<%=ctxPath%>/WEB-INF/detailMenu/checkCover.up">
 				<img src="<%=ctxPath%>/image/checkCover.PNG" class="productImg"/>
 			</a>
 			<div class="name">
