@@ -24,7 +24,7 @@ import javax.servlet.http.HttpServletResponse;
 		description = "사용자가 웹에서 *.up 했을 때 응답해주는 서블릿", 
 		urlPatterns = { "*.up" }, 
 		initParams = { 
-				@WebInitParam(name = "propertyConfig", value = "C:/Users/dbwjd/git/SemiProject/SemiProject/WebContent/WEB-INF/Command.properties")
+				@WebInitParam(name = "propertyConfig", value = "C:/Users/kkvv1/git/SemiProject/SemiProject/WebContent/WEB-INF/Command.properties")
 		})
 public class FrontControllerServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
