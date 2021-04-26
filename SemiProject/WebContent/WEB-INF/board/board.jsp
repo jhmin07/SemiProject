@@ -238,12 +238,31 @@
 				<td class="list list2">30</td>
 			</tr>
 		</tbody>
+				
+		<tbody id="NoticeList">
+        	<c:forEach var="mvo" items="${requestScope.memberList}">
+        		<tr class= "NoticeHead">
+        			<td class="userid">${mvo.userid}</td>
+        			<td>${mvo.name}</td>
+        			<td>${mvo.email}</td>
+        			<td>
+        				<c:choose>
+        					<c:when test="${mvo.gender eq '1' }">
+        						남
+        					</c:when>
+        					<c:otherwise>
+        						여
+        					</c:otherwise>
+        				</c:choose>
+        			</td>
+        		</tr>
+        	</c:forEach>
+        </tbody>
 	</table>
 </div>
 
->>>>>>> branch 'inaeseo' of https://github.com/jhmin07/SemiProject.git
 <div align="center">
-<ul class="pagination">
+<!-- <ul class="pagination">
 	<li class="previous"><a href="#">Previous</a></li>
     <li><a href="#">1</a></li>
     <li class="active"><a href="#">2</a></li>
@@ -251,6 +270,8 @@
     <li><a href="#">4</a></li>
     <li><a href="#">5</a></li>
     <li class="next"><a href="#">Next</a></li>
-</ul>
+</ul> -->
+	${requestScope.pageBar }
+
 </div>
 <jsp:include page="../../footer.jsp"/>
