@@ -200,6 +200,48 @@ public class MemberDAO implements InterMemberDAO {
 	}
 	
 	
+	// 회원의 개인 정보 변경하기
+	@Override
+	public int updateMember(MemberVO member) throws SQLException {
+		int n = 0;
+		
+		try {
+			conn = ds.getConnection();
+			
+			String sql = " update tbl_member set name = ? "
+					   + "                     , pwd = ? "
+					   + "                     , email = ? " 
+					   + "                     , mobile = ? "
+					   + "                     , postcode = ? "
+					   + "                     , address = ? "
+					   + "                     , detailaddress = ? "
+					   + "                     , extraaddress = ? "
+					   + " where userid = ? ";
+			
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, member.getName()); 
+			pstmt.setString(2, Sha256.encrypt(member.getPwd()) );
+			pstmt.setString(3, aes.encrypt(member.getEmail()) );
+			pstmt.setString(4, aes.encrypt(member.getMobile()) );
+			pstmt.setString(5, member.getPostcode() );
+			pstmt.setString(6, member.getAddress() );
+			pstmt.setString(7, member.getDetailaddress() );
+			pstmt.setString(8, member.getExtraaddress() );
+			pstmt.setString(9, member.getUserid() );
+			
+			n = pstmt.executeUpdate();
+			
+		} catch (GeneralSecurityException | UnsupportedEncodingException e) {
+			e.printStackTrace();
+		} finally {
+			close();
+		}
+		
+		return n;
+	}
+	
+	
 	@Override
 	public int selectTotalPage(Map<String, String> paraMap) throws SQLException {
 		int totalPage = 0;
@@ -308,6 +350,7 @@ public class MemberDAO implements InterMemberDAO {
 		
 		return noticeList;
 	}
+	
 	
 }	
 
