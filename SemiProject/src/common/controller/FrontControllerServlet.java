@@ -1,12 +1,7 @@
 package common.controller;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.util.Enumeration;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Properties;
+import java.io.*;
+import java.util.*;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletConfig;
@@ -17,14 +12,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/**
- * Servlet implementation class FrontControllerServlet
- */
+
 @WebServlet(
-		description = "사용자가 웹에서 *.up 했을 때 응답해주는 서블릿", 
+		description = "사용자가 웹에서 *.up 을 했을 경우 응답해주는 서블릿", 
 		urlPatterns = { "*.up" }, 
-		initParams = {
-				@WebInitParam(name = "propertyConfig", value = "C:/Users/82102/git/SemiProject/SemiProject/WebContent/WEB-INF/Command.properties")
+		initParams = { 
+				@WebInitParam(name = "propertyConfig", value = "C:/Users/jhmin/git/SemiProject/SemiProject/WebContent/WEB-INF/Command.properties", description = "*.up 에 대한 클래스의 매핑파일")
 		})
 public class FrontControllerServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -40,18 +33,18 @@ public class FrontControllerServlet extends HttpServlet {
 	        그러므로 init(ServletConfig config) 메소드에는 FrontControllerServlet 서블릿이 동작해야할 환경설정을 잡아주는데 사용된다.
 	*/
 		// *** 확인용 *** //
-	//	 System.out.println("~~~ 확인용 => 서블릿 FrontControllerServlet 의 init(ServletConfig config) 메소드가 실행됨.");
+		// System.out.println("~~~ 확인용 => 서블릿 FrontControllerServlet 의 init(ServletConfig config) 메소드가 실행됨.");
 		
 		FileInputStream fis = null;
 		// 특정 파일에 있는 내용을 읽어오기 위한 용도로 쓰이는 객체
 		
 		String props = config.getInitParameter("propertyConfig");
-		//System.out.println("~~~ 확인용 props => " + props);
+		// System.out.println("~~~ 확인용 props => " + props);
 		// ~~~ 확인용 props => C:/NCS/worksapce(jsp)/MyMVC/WebContent/WEB-INF/Command.properties
 
 		try {
 			fis = new FileInputStream(props);
-			// fis 는 C:/Users/82102/git/SemiProject/SemiProject/WebContent/WEB-INF/Command.properties 파일의 내용을 읽어오기 위한 용도로 쓰이는 객체이다.
+			// fis 는 C:/NCS/worksapce(jsp)/MyMVC/WebContent/WEB-INF/Command.properties 파일의 내용을 읽어오기 위한 용도로 쓰이는 객체이다.
 
 			Properties pr = new Properties();
 			// Properties 는 Collection 중 HashMap 계열중의  하나로써
@@ -61,7 +54,7 @@ public class FrontControllerServlet extends HttpServlet {
 			
 			pr.load(fis);
 			/*
-				pr.load(fis); 은  fis 객체를 사용하여 C:/Users/82102/git/SemiProject/SemiProject/WebContent/WEB-INF/Command.properties 파일의 내용을 읽어다가 
+				pr.load(fis); 은  fis 객체를 사용하여 C:/NCS/workspace(jsp)/MyMVC/WebContent/WEB-INF/Command.properties 파일의 내용을 읽어다가 
 				Properties 클래스의 객체인 pr 에 로드시킨다.
 				그러면 pr 은 읽어온 파일(Command.properties)의 내용에서 
 				= 을 기준으로 왼쪽은 key로 보고, 오른쪽은 value 로 인식한다.
@@ -70,7 +63,7 @@ public class FrontControllerServlet extends HttpServlet {
 			Enumeration<Object> en = pr.keys();
 			/*
 				pr.keys(); 은
-				C:/Users/82102/git/SemiProject/SemiProject/WebContent/WEB-INF/Command.properties 파일의 내용물에서 
+				C:/NCS/workspace(jsp)/MyMVC/WebContent/WEB-INF/Command.properties 파일의 내용물에서 
 				= 을 기준으로 왼쪽에 있는 모든 key 들만 가져오는 것이다.    
 			*/
 			
@@ -110,7 +103,7 @@ public class FrontControllerServlet extends HttpServlet {
 			}
 			
 		} catch (FileNotFoundException e) {
-			System.out.println(">>> C:/Users/82102/git/SemiProject/SemiProject/WebContent/WEB-INF/Command.properties 파일이 없습니다. <<<");
+			System.out.println(">>> C:/Users/jhmin/git/SemiProject/SemiProject/WebContent/WEB-INF/Command.properties 파일이 없습니다. <<<");
 			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -199,5 +192,7 @@ public class FrontControllerServlet extends HttpServlet {
 		
 		
 	}
+	
+	
 	
 }
