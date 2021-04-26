@@ -75,7 +75,7 @@
 			else{
 				// 공백이 아닌 글자를 입력했을 경우				
 				$(this).parent().find(".error").hide();
-			}
+			}			
 		}); // 아이디가 name 인 것은 포커스를 잃어버렸을 경우(blur) 이벤트를 처리해주는 것이다.
 		
 		$("input#userid").blur(function(){
@@ -89,7 +89,7 @@
 			else{
 				// 공백이 아닌 글자를 입력했을 경우
 				$(this).parent().find(".error").hide();
-			}
+			}			
 		}); // 아이디가 userid 인 것은 포커스를 잃어버렸을 경우(blur) 이벤트를 처리해주는 것이다.
 		
 		
