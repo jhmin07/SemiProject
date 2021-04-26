@@ -51,7 +51,7 @@ public class MemberRegisterAction extends AbstractController {
 				
 				if(n == 1) {
 					message = "회원가입 성공";
-					loc = request.getContextPath()+"/login/login.up"; // 로그인 페이지로 이동					
+					loc = request.getContextPath()+"/login/login.up"; // 로그인 페이지로 이동	!!! 추후에 경로 수정해야 함 !!!			
 				}
 				else {
 					message = "회원가입 실패";

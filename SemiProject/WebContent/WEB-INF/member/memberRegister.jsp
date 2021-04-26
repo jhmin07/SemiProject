@@ -303,10 +303,11 @@
 			type:"post",
 			dataType:"json", 
 			success:function(json){	
+				console.log(json);
 				if(json.isExists){
 					// 입력한 email 이 이미 사용중이라면
 					$("span#emailCheckResult").html($("input#email").val() + " 은 중복된 email 이므로 사용불가 합니다.").css({"color":"#ff6666", "font-weight":"bold", "font-size":"9.5pt", "margin-left":"10px"});
-					$("input#email").val("");
+					$("input#email").val("");					
 				}
 				else{
 					// 입력한 email 이 DB 테이블에 존재하지 않는 경우라면
