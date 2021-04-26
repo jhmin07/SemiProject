@@ -1,10 +1,15 @@
 package member.model;
 
+import java.io.UnsupportedEncodingException;
+import java.security.GeneralSecurityException;
 import java.sql.*;
 import java.util.Map;
 
 import javax.naming.*;
 import javax.sql.DataSource;
+
+import util.security.AES256;
+import util.security.Sha256;
 
 
 public class MemberDAO implements InterMemberDAO {
@@ -14,7 +19,7 @@ public class MemberDAO implements InterMemberDAO {
     private PreparedStatement pstmt;
     private ResultSet rs;
     
-      
+    private AES256 aes;
     
     //생성자
     public MemberDAO() {
@@ -112,10 +117,10 @@ public class MemberDAO implements InterMemberDAO {
 			pstmt = conn.prepareStatement(sql);
 			
 			pstmt.setString(1, member.getUserid());
-			pstmt.setString(2, member.getPwd()); // 암호를 SHA256 알고리즘으로 단방향 암호화 시킨다. 
+			pstmt.setString(2, Sha256.encrypt(member.getPwd())); // 암호를 SHA256 알고리즘으로 단방향 암호화 시킨다. 
 			pstmt.setString(3, member.getName());
-			pstmt.setString(4, member.getEmail()); // 이메일을 AES256 알고리즘으로 양방향 암호화 시킨다.
-			pstmt.setString(5, member.getMobile()); // 휴대폰번호를 AES256 알고리즘으로 양방향 암호화 시킨다.
+			pstmt.setString(4, aes.encrypt(member.getEmail())); // 이메일을 AES256 알고리즘으로 양방향 암호화 시킨다.
+			pstmt.setString(5, aes.encrypt(member.getMobile())); // 휴대폰번호를 AES256 알고리즘으로 양방향 암호화 시킨다.
 			pstmt.setString(6, member.getPostcode());
 			pstmt.setString(7, member.getAddress());
 			pstmt.setString(8, member.getDetailaddress());
@@ -124,7 +129,9 @@ public class MemberDAO implements InterMemberDAO {
 			pstmt.setString(11, member.getBirthday());
 			
 			n = pstmt.executeUpdate();
-		
+			
+		} catch (GeneralSecurityException | UnsupportedEncodingException e) {
+			e.printStackTrace();
 		} finally {
 			close();
 		}
@@ -172,13 +179,14 @@ public class MemberDAO implements InterMemberDAO {
 					   + " where email = ? ";
 			
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, email); 
+			pstmt.setString(1, aes.encrypt(email)); // DB에 있는 email 이 암호화되어 있으므로 email 을 암호화해야 한다.
 			
 			rs = pstmt.executeQuery();
 			
 			isExists = rs.next();
 			
-		
+		} catch (GeneralSecurityException | UnsupportedEncodingException e) {
+			e.printStackTrace();
 		} finally {
 			close();
 		}
