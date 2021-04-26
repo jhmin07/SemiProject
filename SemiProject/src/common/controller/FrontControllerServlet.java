@@ -24,7 +24,7 @@ import javax.servlet.http.HttpServletResponse;
 		description = "사용자가 웹에서 *.up 했을 때 응답해주는 서블릿", 
 		urlPatterns = { "*.up" }, 
 		initParams = {
-				@WebInitParam(name = "propertyConfig", value = "C:/Users/82102/git/SemiProject/SemiProject/WebContent/WEB-INF/Command.properties")
+				@WebInitParam(name = "propertyConfig", value = "C:/Users/cjccs/git/SemiProject/SemiProject/SemiProject/WebContent/WEB-INF/Command.properties")
 		})
 public class FrontControllerServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -110,7 +110,7 @@ public class FrontControllerServlet extends HttpServlet {
 			}
 			
 		} catch (FileNotFoundException e) {
-			System.out.println(">>> C:/Users/82102/git/SemiProject/SemiProject/WebContent/WEB-INF/Command.properties 파일이 없습니다. <<<");
+			System.out.println(">>> C:/Users/cjccs/git/SemiProject/SemiProject/SemiProject/WebContent/WEB-INF/Command.properties 파일이 없습니다. <<<");
 			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
