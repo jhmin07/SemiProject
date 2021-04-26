@@ -80,6 +80,10 @@ function openNav() {
 	function closeNav() {
 	  document.getElementById("mySidenav").style.width = "0";
 	}
+
+	function goNotice(){
+		location.href = "<%=request.getContextPath()%>/detailMenu/board.up";
+	}
 </script>
 
 </head>
@@ -97,7 +101,7 @@ function openNav() {
 	  <div align="center" style="color: white;">
 		 <span class="submenubtn" >로그인</span>|
 		 <span class="submenubtn" >주문내역</span>|
-		 <span class="submenubtn" >고객센터</span>
+		 <span class="submenubtn" onClick="goNotice();" >고객센터</span>
 	  </div>
 	</div>
 

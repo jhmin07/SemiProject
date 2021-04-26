@@ -3,7 +3,7 @@ package member.model;
 import java.io.UnsupportedEncodingException;
 import java.security.GeneralSecurityException;
 import java.sql.*;
-import java.util.Map;
+import java.util.*;
 
 import javax.naming.*;
 import javax.sql.DataSource;
@@ -192,6 +192,116 @@ public class MemberDAO implements InterMemberDAO {
 		}
 		
 		return isExists;
+	}
+	
+	
+	@Override
+	public int selectTotalPage(Map<String, String> paraMap) throws SQLException {
+		int totalPage = 0;
+		try {
+			
+			conn = ds.getConnection();
+			String sql = " select ceil(count(*)/?) " + 
+						 " from tbl_noticeBoard ";
+			
+			//// == 검색어가 있는 경우 시작 == ////
+			String searchWord = paraMap.get("searchWord");
+			String colname = paraMap.get("searchType");
+			
+			if( searchWord != null && !searchWord.trim().isEmpty() ) {
+				// 검색어를 공백이 아닌 것을 입력해준 경우
+				sql += " where "+ colname +" like '%'||?||'%' ";	// 테이블명이나 컬럼명에는 위치홀더(?) 쓰면 안된다...(여기서의 name같은거..)
+			}
+			//// == 검색어가 있는 경우 끝 == ////
+			
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, paraMap.get("sizePerPage"));
+			if( searchWord != null && !searchWord.trim().isEmpty() ) {
+				pstmt.setString(2, searchWord);
+			}
+			rs = pstmt.executeQuery();
+			
+			rs.next();
+			totalPage = rs.getInt(1);
+			
+
+			
+		
+		}  finally {
+			close();
+		}
+				
+		
+		return totalPage;
+	}
+
+	@Override
+	public List<NoticeVO> selectPagingContent(Map<String, String> paraMap) throws SQLException {
+
+		List<NoticeVO> noticeList = new ArrayList<>();
+		try {
+			
+			conn = ds.getConnection();
+			String sql = " select ctNo, ctTitle, ctContent, fk_adId, ctRegisterday, ctViewcount " + 
+						 " from " + 
+						 " ( " + 
+				 	 	 " 		select rownum AS rno, ctNo, ctTitle,ctContent, fk_adId, ctRegisterday, ctViewcount " + 
+						 " 		from " + 
+						 " 		( " + 
+						 "			select ctNo, ctTitle,ctContent, fk_adId, ctRegisterday, ctViewcount " + 
+						 "			from tbl_noticeBoard ";
+			
+			
+		//// == 검색어가 있는 경우 시작 == ////
+		String searchWord = paraMap.get("searchWord");
+		String colname = paraMap.get("searchType");
+		
+				
+		if( searchWord != null && !searchWord.trim().isEmpty() ) {
+			// 검색어를 공백이 아닌 것을 입력해준 경우
+			sql += " where "+ colname +" like '%'||?||'%' ";	// 테이블명이나 컬럼명에는 위치홀더(?) 쓰면 안된다...(여기서의 name같은거..)
+		}
+		//// == 검색어가 있는 경우 끝 == ////
+			
+			
+			sql += " order by ctRegisterday desc " + 
+				   " ) V " + 
+				   " ) T " + 
+				   " where rno between ? and ? ";
+		
+			int currentShowPageNo = Integer.parseInt(paraMap.get("currentShowPageNo")); 
+			int sizePerPage = Integer.parseInt(paraMap.get("sizePerPage")); 
+			pstmt = conn.prepareStatement(sql);
+			if( searchWord != null && !searchWord.trim().isEmpty() ) {
+				pstmt.setString(1, searchWord);
+				pstmt.setInt(2, (currentShowPageNo * sizePerPage) - (sizePerPage - 1));
+				pstmt.setInt(3, (currentShowPageNo * sizePerPage));
+			}
+			else {
+				pstmt.setInt(1, (currentShowPageNo * sizePerPage) - (sizePerPage - 1));
+				pstmt.setInt(2, (currentShowPageNo * sizePerPage));
+			}
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				
+				NoticeVO nvo = new NoticeVO();
+				 nvo.setCtNo(rs.getInt(1));
+				 nvo.setCtTitle(rs.getString(2));
+				 nvo.setCtContent(rs.getString(3)); // 복호화
+				 nvo.setFk_adId(rs.getString(4));
+				 nvo.setCtRegisterday(rs.getString(5));
+				 nvo.setCtViewcount(rs.getInt(6));
+				
+				noticeList.add(nvo);
+			}
+			
+		} finally {
+			close();
+		}
+		
+		
+		return noticeList;
 	}
 	
 }	
