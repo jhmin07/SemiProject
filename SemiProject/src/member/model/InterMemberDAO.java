@@ -4,7 +4,8 @@ import java.sql.SQLException;
 import java.util.*;
 
 public interface InterMemberDAO {
-
+	
+	// 로그인을 해주는 메소드
 	MemberVO selectOneMember(Map<String, String> paraMap);
 
 	// 회원가입을 해주는 메소드(tbl_member 테이블에 insert)
@@ -22,3 +23,5 @@ public interface InterMemberDAO {
 	List<NoticeVO> selectPagingContent(Map<String, String> paraMap) throws SQLException;
 	
 }
+
+
