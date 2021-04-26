@@ -5,13 +5,9 @@
 
 <%	String ctxPath = request.getContextPath(); %>  
 
-<style type="text/css">
-.container {
-	/* margin: 100px 100px !important; */
-	/* border: solid 1px blue; */
-	/* width: 80%; */
-}
+<jsp:include page="../header4.jsp" />
 
+<style type="text/css">
 div.odr_container {
 	padding-top: 100px;
 }
@@ -30,11 +26,6 @@ img.odr_img {
 	height: 100px;
 }
 
-img#zipcodeSearch1, img#zipcodeSearch2 {
-	width: 95px;
-	height: 30px;
-}
-
 tr.odr_tr > td {
 	/* border: solid 1px red; */
 	vertical-align: middle !important;
@@ -42,6 +33,12 @@ tr.odr_tr > td {
 
 tr.odr_total_price > td {
 	text-align: right;
+}
+
+/* 주문정보 & 배송정보 css */
+img#zipcodeSearch1, img#zipcodeSearch2 {
+	width: 95px;
+	height: 30px;
 }
 
 table.odr_info tr {
@@ -67,6 +64,80 @@ table.odr_info input[type=text]{
 	background-color: #f2f2f2;
 }
 
+/* 쇼핑몰 구매 동의 css */
+table.payAgree_table td:nth-child(1) {
+	width: 30%; 
+}	
+
+table.payAgree_table th {
+	background-color: #f2f2f2;
+}
+
+table.payAgree_table td {
+	background-color: #fff;
+	border-bottom: solid 1px #f2f2f2;
+}
+
+/* 결제예정금액 css */
+table.payment_table tr {
+	height: 50px;
+}
+
+table.payment_table td,
+table.payment_table th {
+	border: none !important;
+}
+
+tr.payment_thead > th {
+	text-align: center;
+	background-color: #f2f2f2;
+}
+
+tr.payment_thead_result > td {
+	text-align: right;
+	background-color: white !important;
+}
+
+tr.payment_tbody > td {
+	border: none;
+	text-align: right;
+}
+
+tr.payment_tbody td:nth-child(1) {
+	width: 30%; 
+	font-weight: bold;
+	background-color: #f2f2f2;
+	text-align: center;
+}
+
+button#paymentGo{
+	width: 100%;
+	height: 50px;
+	background-color: #cc6666;
+	color: white;
+	text-align: center;
+	border: none;
+	font-size: 17;
+}
+
+button.payment_button{
+	border: solid 1px black;
+	background-color:white;
+	font-size: 15;
+}
+
+ul.payment_last {
+	text-align: right;
+	list-style-type: none;
+	background-color: #f2f2f2;
+	padding: 10px 10px;
+	width: 600px;
+}
+
+ul.payment_last > li {
+	margin: 10px 10px;
+}
+
 .star{
 	color: red;
 }
@@ -79,22 +150,22 @@ table.odr_info input[type=text]{
 		$("span.error").hide();
 		
 		// == 체크박스 전체선택/전체해제 == //
-		$("input:checkbox[name=checkall]").click(function(){
+		$("input:checkbox[name=shoppingAllAgree]").click(function(){
 			var bool = $(this).prop("checked");
 			// 체크되어있으면 true, 해제되어있으면 false
 			
-			$("input:checkbox[name=product]").prop("checked", bool);
+			$("input:checkbox[name=shoppingAgree]").prop("checked", bool);
 			// product 의 체크박스 상태를 checkall 의 체크상태와 동일하게 적용
 		});
 		
 		// == 상품의 체크박스 클릭시 == //
-		$("input:checkbox[name=product]").click(function(){
+		$("input:checkbox[name=shoppingAgree]").click(function(){
 			var bool = $(this).prop("checked");
 			
 			if (bool) { // 현재 상품의 체크박스에 체크했을 때
 				var bFlag = false;
 				
-				$("input:checkbox[name=product]").each(function(index, item){ // 다른 모든 상품의 체크박스 상태 확인
+				$("input:checkbox[name=shoppingAgree]").each(function(index, item){ // 다른 모든 상품의 체크박스 상태 확인
 					var bChecked = $(item).prop("checked");
 					if (!bChecked) {	// 체크표시가 안되어있는 상품일 경우 반복문 종료
 						bFlag = true;
@@ -103,13 +174,14 @@ table.odr_info input[type=text]{
 				});
 				
 				if(!bFlag) {	// 모든 체크박스가 체크되어있을 경우
-					$("input:checkbox[name=checkall]").prop("checked", true);			
+					$("input:checkbox[name=shoppingAllAgree]").prop("checked", true);			
 				}
 			}
 			else {	// 현재 상품의 체크박스에 체크 해제했을 때
-				$("input:checkbox[name=checkall]").prop("checked", false);
+				$("input:checkbox[name=shoppingAllAgree]").prop("checked", false);
 			}
 		});
+		
 		
 		// == 라디오(주문자 정보와 동일, 새로운 배송지) 선택 사항 구현 == //
 		$("input:radio[name=reveiceRadio]").click(function() {
@@ -148,6 +220,8 @@ table.odr_info input[type=text]{
 		});
 	});
 
+	
+	// ======= Function Declaration ====== //
 	function postSearch1() {
 		// == 우편번호 찾기 == // 
 		new daum.Postcode({
@@ -246,6 +320,15 @@ table.odr_info input[type=text]{
 				document.getElementById("detailAddress2").focus();
 			}
 		}).open();
+	}
+	
+	
+	// == 결제하기 버튼 클릭 시 결제창 띄우기 == // 
+	function paymentGoFunc() {
+		var url = "<%=request.getContextPath()%>/order/goPayment.up";
+		window.open(url, "goPayment", 
+					"left=350px, top=100px, width=820px, height=600px");
+		self.close();
 	}
 	
 </script>
@@ -425,4 +508,84 @@ table.odr_info input[type=text]{
 			</tbody>
 		</table>
 	</form>
-<%-- </div> 태그는 payment.jsp 파일에서 닫아줌 --%>	
+	
+	<%-- 쇼핑몰 구매 이용약관 --%>
+	<br><hr color="#a6a6a6;"><br>
+	<table class="table payAgree_table">
+		<thead style="background-color: #f2f2f2;">
+			<tr>
+				<th colspan="2">
+					<input type="checkbox" id="shoppingAllAgree" name="shoppingAllAgree"/>
+					<label for="shoppingAllAgree">쇼핑몰 이용약관 비회원 구매시 개인정보수집이용 동의에 모두 동의합니다.</label>
+				</th>
+			</tr>
+		</thead>
+		
+		<tbody>
+			<tr>
+				<td>쇼핑몰 이용약관</td>
+				<td>
+					<iframe src="<%=ctxPath%>/iframeAgree/agree.html" width="100%" height="150px" class="box" style="border: solid 1px #ccc;"></iframe>
+					<input type="checkbox" id="shoppingAgree1" name="shoppingAgree"/>
+					<label for="shoppingAgree1">&nbsp;동의</label>
+				</td>
+			</tr>
+			<tr>
+				<td>비회원 구매시 개인정보 수집이용동의</td>
+				<td>
+					<iframe src="<%=ctxPath%>/iframeAgree/agree.html" width="100%" height="150px" class="box" style="border: solid 1px #ccc;"></iframe>
+					<input type="checkbox" id="shoppingAgree2" name="shoppingAgree"/>
+					<label for="shoppingAgree2">&nbsp;동의</label>
+				</td>
+			</tr>
+		</tbody>
+	</table>	
+	
+	<%-- 결제 예정 금액 --%>
+	<h2 style="font-size: 13pt; color: #a6a6a6;">결제 예정 금액</h2>
+	<table class="table payment_table">
+		<thead>
+			<tr class="payment_thead">
+				<th>총 주문 금액&nbsp;&nbsp;<button class="payment_button">내역보기</button></th>
+				<th>총 할인 + 부가결제 금액</th>
+				<th>총 결제예정 금액</th>
+			</tr>
+		</thead>
+		
+		<tbody>
+			<tr class="payment_thead_result">
+				<td><fmt:formatNumber value="${total_price}" pattern="#,###" />원</td>
+				<td> ${total_price} 원</td>
+				<td> = 원</td>
+			</tr>
+			<tr class="payment_tbody">
+				<td>총 할인금액</td>
+				<td> 원</td>
+			</tr>
+			<tr class="payment_tbody">
+				<td>추가할인금액</td>
+				<td> 원</td>
+				<td style="text-align: left;"><button class="payment_button">내역보기</button></td>
+			</tr>
+			<tr class="payment_tbody">
+				<td>총 부가결제금액</td>
+				<td> 원</td>
+			</tr>
+		</tbody>
+	</table>
+	
+	<%-- 최종 결제 예정 금액 --%>
+	<div align="right">
+		<ul class="payment_last">
+			<li>최종결제 금액</li>
+			<li>원</li>
+			<li>
+				<input type="checkbox" id="paymentagree" />
+				<label for="paymentagree">&nbsp;결제정보를 확인하였으며, 구매진행에 동의합니다.</label>
+			</li>
+			<li><button id="paymentGo" onclick="paymentGoFunc()">결제하기</button></li>
+		</ul>
+	</div>
+</div>	
+
+<jsp:include page="../footer.jsp" />		
