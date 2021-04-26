@@ -1,0 +1,6 @@
+menu01.jsp/
+menu02.jsp/
+menuHeader.jsp/
+detailMenuMain.jsp
+
+넣어주시면됩니다!
