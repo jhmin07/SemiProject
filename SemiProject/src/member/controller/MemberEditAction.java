@@ -1,92 +1,57 @@
 package member.controller;
 
-import java.sql.SQLException;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import common.controller.AbstractController;
-import member.model.InterMemberDAO;
-import member.model.MemberDAO;
 import member.model.MemberVO;
+
 
 public class MemberEditAction extends AbstractController {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		
-		String method = request.getMethod();
-		
-		if("POST".equalsIgnoreCase(method)) {
+		// 내정보(회원정보)를 수정하기 위한 전제조건은 먼저 로그인을 해야 하는 것이다.
+		if(super.checkLogin(request)) {
+			// 로그인 한 경우 true, 로그인 안 한 경우 false 를 리턴한다.
 			
 			String userid = request.getParameter("userid");
-			String name = request.getParameter("name"); 
-			String pwd = request.getParameter("pwd"); 
-			String email = request.getParameter("email"); 
-			String hp1 = request.getParameter("hp1"); 
-			String hp2 = request.getParameter("hp2"); 
-			String hp3 = request.getParameter("hp3"); 
-			String postcode = request.getParameter("postcode");
-			String address = request.getParameter("address"); 
-			String detailaddress = request.getParameter("detailAddress"); 
-			String extraaddress = request.getParameter("extraAddress");
 			
-			String mobile = hp1 + hp2 + hp3;
+			HttpSession session = request.getSession();
+			MemberVO loginuser = (MemberVO) session.getAttribute("loginuser");
+			// 로그인을 했기 때문에 null 이 나올 수 없다.
 			
-			MemberVO member = new MemberVO(userid, pwd, name, email, mobile, postcode, address, detailaddress, extraaddress);
-			
-			InterMemberDAO mdao = new MemberDAO();
-						
-			try {				
-				int n = mdao.updateMember(member);
-
-				String message = "";
+			if(loginuser.getUserid().equals(userid)) {
+				// 로그인한 사용자가 자신의 정보를 수정하는 경우
 				
-				if(n == 1) {
-					// session 에 저장된 loginuser 를 변경된 사용자의 정보값으로 변경해주어야 한다.
-					HttpSession session = request.getSession();
-					MemberVO loginuser = (MemberVO) session.getAttribute("loginuser");
-					
-					loginuser.setName(name);
-					loginuser.setPwd(pwd);
-					loginuser.setEmail(email);
-					loginuser.setMobile(mobile);
-					loginuser.setPostcode(postcode);
-					loginuser.setAddress(address);
-					loginuser.setDetailaddress(detailaddress);
-					loginuser.setExtraaddress(extraaddress);
-					
-					message = "회원정보 수정 성공!!";
-				}
-				else {
-					message = "회원정보 수정 실패!!";
-				}
-				
-				String loc = "japascript:history.back()";
+			//	super.setRedirect(false);
+				super.setViewPage("/WEB-INF/member/memberEdit.jsp");
+			}
+			else {
+				// 로그인한 사용자가 다른 사용자의 정보를 수정하는 경우
+				String message = "다른 사용자의 정보 변경은 불가합니다!!";
+				String loc = "javascript:history.back()";
 				
 				request.setAttribute("message", message);
 				request.setAttribute("loc", loc);
 				
+			//	super.setRedirect(false);
 				super.setViewPage("/WEB-INF/msg.jsp");
-				
-			} catch (SQLException e) {
-				e.printStackTrace();
-				super.setRedirect(true);
-				super.setViewPage(request.getContextPath()+"/error.up");
+				return;
 			}
-						
 		}
 		else {
-			// POST 방식으로 넘어온 것이 아니라면
-			String message = "비정상적인 경로를 통해 들어왔습니다.!!";
+			String message = "회원정보를 수정 하기 위해서는 먼저 로그인을 하세요!!";
 			String loc = "javascript:history.back()";
 			
 			request.setAttribute("message", message);
 			request.setAttribute("loc", loc);
 			
+		//	super.setRedirect(false);
 			super.setViewPage("/WEB-INF/msg.jsp");
 		}
+		
 	}
 
 }

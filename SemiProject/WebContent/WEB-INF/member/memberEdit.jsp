@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <%
 	String ctxPath = request.getContextPath();
@@ -179,7 +181,7 @@
 			else{
 				var frm = document.editFrm;
 				frm.method = "POST";
-				frm.action = "<%= ctxPath%>/member/memberEdit.up";
+				frm.action = "<%= ctxPath%>/member/memberEditEnd.up";
 				frm.submit();
 			}
 		});
@@ -228,7 +230,7 @@
 			</tr>
 			<tr>
 				<td style="font-weight: bold;">이메일&nbsp;<span class="star">*</span></td>
-				<td style="text-align: left;"><input type="text" name="email" id="email" class="requiredInfo" placeholder="abc@def.com" />&nbsp;					
+				<td style="text-align: left;"><input type="text" name="email" id="email" value="${sessionScope.loginuser.email}" class="requiredInfo" />&nbsp;					
 					<span class="error">이메일 형식에 맞지 않습니다.</span>					
 				</td>
 				
@@ -236,15 +238,15 @@
 			<tr>
 				<td style="font-weight: bold;">연락처</td>
 				<td style="text-align: left;">
-					<input type="text" id="hp1" name="hp1" size="6" maxlength="3" />&nbsp;-&nbsp;
-					<input type="text" id="hp2" name="hp2" size="6" maxlength="4" />&nbsp;-&nbsp;
-					<input type="text" id="hp3" name="hp3" size="6" maxlength="4" />								
+					<input type="text" id="hp1" name="hp1" size="6" maxlength="3" value="010" readonly/>&nbsp;-&nbsp;
+					<input type="text" id="hp2" name="hp2" size="6" maxlength="4" value="${fn:substring(sessionScope.loginuser.mobile, 3, 7)}"/>&nbsp;-&nbsp;
+					<input type="text" id="hp3" name="hp3" size="6" maxlength="4" value="${fn:substring(sessionScope.loginuser.mobile, 7, 11)}"/>								
 				</td>
 			</tr>
 			<tr>
 				<td style="font-weight: bold;">우편번호</td>
 				<td style="text-align: left;">
-					<input type="text" id="postcode" name="postcode" size="6" maxlength="5" />&nbsp;
+					<input type="text" id="postcode" name="postcode" value="${sessionScope.loginuser.postcode}" size="6" maxlength="5" />&nbsp;
 					
 					<img id="zipcodeSearch" src="../image/우편번호찾기.png" style="vertical-align: middle;" width="90px;"/>
 					<span class="error">우편번호 형식이 아닙니다.</span>	
@@ -253,10 +255,10 @@
 			<tr>
 				<td style="font-weight: bold;">주소</td>
 				<td style="text-align: left;">
-					<input type="text" id="address" name="address" size="40" placeholder="주소" />
+					<input type="text" id="address" name="address" size="40" placeholder="주소" value="${sessionScope.loginuser.address}"/>
 					<span class="error">주소를 입력하세요</span><br>
-					<input type="text" id="extraAddress" name="extraAddress" size="40" placeholder="참고항목" /><br>
-					<input type="text" id="detailAddress" name="detailAddress" size="40" placeholder="상세주소" />					
+					<input type="text" id="extraAddress" name="extraAddress" size="40" value="${sessionScope.loginuser.extraaddress}"/><br>
+					<input type="text" id="detailAddress" name="detailAddress" size="40" value="${sessionScope.loginuser.detailaddress}"/>					
 					
 				</td>
 			</tr>			
@@ -270,4 +272,4 @@
 </form>	
 </div>
 
-<%-- <jsp:include page="../../footer.jsp"/> --%>
+<jsp:include page="../../footer.jsp"/>

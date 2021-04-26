@@ -25,6 +25,8 @@ public interface InterMemberDAO {
 	List<NoticeVO> selectPagingContent(Map<String, String> paraMap) throws SQLException;
 
 	
+
+	
 	
 }
 
