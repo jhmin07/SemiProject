@@ -1,6 +1,0 @@
-memberregister.jsp
-login.jsp
-idfind.jsp
-pwdfind.jsp
-
-넣어주시면 됩니다!
