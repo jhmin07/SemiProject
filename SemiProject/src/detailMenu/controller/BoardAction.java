@@ -149,7 +149,7 @@ public class BoardAction extends AbstractController {
 						
 						
 			      // super.setRedirect(false);
-			        super.setViewPage("/board.jsp");			
+			        super.setViewPage("/WEB-INF/board/board.jsp");			
 					
 					/*
 					 * } else { // 로그인을 안한 경우 또는 일반사용자로 로그인 한 경우

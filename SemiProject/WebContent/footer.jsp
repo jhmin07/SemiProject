@@ -60,16 +60,16 @@ span#service{
 <div class="footer">
 	<div id="footer_1">
 		<div class="footerClick" id="footer_1_1">
-			<img  src="image/logo_footer.png">
+			<img src="image/logo_footer.png"/>
 		</div>
 		<div class="footerClick" id="footer_1_2" >
 			<span id="userCondition">이용약관 </span>|&nbsp;<span id="personalPolicy">개인정보처리방침</span>
 		</div>
 		<div class="footerClick" id="footer_1_3">
-			<img src="image/kakao.png">
-			<img src="image/naver.png">
-			<img src="image/instagram.png">
-			<img src="image/facebook.png">
+			<img src="image/kakao.png"/>
+			<img src="image/naver.png"/>
+			<img src="image/instagram.png"/>
+			<img src="image/facebook.png"/>
 		</div>
 	</div>
 	<hr style="border: solid 1px #CDCDCD;">
