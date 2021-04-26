@@ -154,7 +154,7 @@ form{
 	        <div class="modal-body" style="height: 250px; width: 100%;">
 	        
 		          <div id="idFind" >
-		          	<iframe style="border: none; width: 100%; height: 230px; " src="http://localhost:9090/MyMVC/idfind.jsp">
+		          	<iframe style="border: none; width: 100%; height: 230px; " src="<%= request.getContextPath()%>/login/idfind.jsp">
 		          	</iframe>
 		          </div>
 	          
@@ -184,7 +184,7 @@ form{
 	        <div class="modal-body" style="height: 250px; width: 100%;">
 	        
 		          <div id="idFind" >
-		          	<iframe style="border: none; width: 100%; height: 230px; " src="http://localhost:9090/MyMVC/pwdfind.jsp">
+		          	<iframe style="border: none; width: 100%; height: 230px; " src="<%= request.getContextPath()%>/login/pwdfind.jsp">
 		          	</iframe>
 		          </div>
 	          
