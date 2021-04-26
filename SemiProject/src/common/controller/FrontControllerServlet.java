@@ -18,7 +18,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class FrontControllerServlet
+ * Servlet implementation class FrontControllerServlet //
  */
 @WebServlet(
 		description = "사용자가 웹에서 *.up 했을 때 응답해주는 서블릿", 
