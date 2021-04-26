@@ -9,6 +9,7 @@ import javax.naming.*;
 import javax.sql.DataSource;
 
 import util.security.AES256;
+import util.security.SecretMyKey;
 import util.security.Sha256;
 
 
@@ -29,8 +30,12 @@ public class MemberDAO implements InterMemberDAO {
  	         Context envContext  = (Context)initContext.lookup("java:/comp/env");
  	         ds = (DataSource)envContext.lookup("jdbc/semioracle");
  	         
+ 	         aes = new AES256(SecretMyKey.KEY);
+ 	         // SecretMyKey.KEY 은 우리가 만든 비밀키 이다.
  	      } catch(NamingException e) {
  	         e.printStackTrace();
+ 	      } catch (UnsupportedEncodingException e) {
+ 			e.printStackTrace();   
  	      }
     }
     

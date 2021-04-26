@@ -20,7 +20,7 @@ public class EmailDuplicateCheckAction extends AbstractController {
 						
 			InterMemberDAO mdao = new MemberDAO();
 			boolean isExists = mdao.emailDuplicateCheck(email);
-			
+						
 			JSONObject jsonObj = new JSONObject();
 			jsonObj.put("isExists", isExists);
 						
