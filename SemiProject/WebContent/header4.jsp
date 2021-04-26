@@ -71,6 +71,9 @@ body {
 a.sub2 {
 	margin-top: 15px;
 }
+ span.submenubtn:hover{
+       cursor: pointer;
+    }
 </style>
 
 <script type="text/javascript">
@@ -101,7 +104,7 @@ function openNav() {
 	  <div align="center" style="color: white;">
 		 <span class="submenubtn" >로그인</span>|
 		 <span class="submenubtn" >주문내역</span>|
-		 <span class="submenubtn" onClick="goNotice();" >고객센터</span>
+		 <span class="submenubtn" id="Notice" onClick="goNotice();" >고객센터</span>
 	  </div>
 	</div>
 

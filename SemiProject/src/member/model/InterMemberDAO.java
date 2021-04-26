@@ -3,6 +3,8 @@ package member.model;
 import java.sql.SQLException;
 import java.util.*;
 
+import notice.model.NoticeVO;
+
 public interface InterMemberDAO {
 
 	MemberVO selectOneMember(Map<String, String> paraMap);
@@ -17,8 +19,5 @@ public interface InterMemberDAO {
 	boolean emailDuplicateCheck(String email) throws SQLException;
 
 
-	int selectTotalPage(Map<String, String> paraMap) throws SQLException;
-
-	List<NoticeVO> selectPagingContent(Map<String, String> paraMap) throws SQLException;
 	
 }
