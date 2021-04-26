@@ -6,8 +6,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.json.JSONObject;
 
 import common.controller.AbstractController;
-import member.model.InterMemberDAO;
-import member.model.MemberDAO;
+import member.model.*;
 
 public class EmailDuplicateCheckAction extends AbstractController {
 
@@ -19,8 +18,8 @@ public class EmailDuplicateCheckAction extends AbstractController {
 		if("POST".equalsIgnoreCase(method)) {			
 			String email = request.getParameter("email");
 						
-			InterMemberDAO dao = new MemberDAO();
-			boolean isExists = dao.emailDuplicateCheck(email);
+			InterMemberDAO mdao = new MemberDAO();
+			boolean isExists = mdao.emailDuplicateCheck(email);
 			
 			JSONObject jsonObj = new JSONObject();
 			jsonObj.put("isExists", isExists);
