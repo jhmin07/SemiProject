@@ -48,6 +48,9 @@
 		font-size: 9.5pt;
 		font-weight: bold;
 	}
+	select {
+		padding: 7px 0;
+	}
 </style>
 
 <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
@@ -194,6 +197,12 @@
 		});
 		
 		////////////////////////////////////////////////////////////
+		
+		var yyhtml = "";
+		for(var i=1950; i<=2050; i++){			
+			yyhtml += "<option value = '"+i+"'>"+i+"</option>";						
+		}
+		$("select#birthyyyy").html(yyhtml);
 		
 		var mmhtml = "";
 		for(var i=1; i<=12; i++){
@@ -419,9 +428,9 @@
 			<tr>
 				<td style="font-weight: bold;">생년월일</td>
 				<td style="text-align: left;">
-					<input type="number" id="birthyyyy" name="birthyyyy" min="1900" max="2050" step="1" value="1995" style="width: 100px;"/>&nbsp;년&nbsp;&nbsp;
-					<input type="number" id="birthmm" name="birthmm" min="1" max="12" step="1" style="width: 60px;"/>&nbsp;월&nbsp;&nbsp;
-					<input type="number" id="birthdd" name="birthdd" min="1" max="31" step="1" style="width: 60px;"/>&nbsp;일&nbsp;&nbsp;
+					<select id="birthyyyy" name="birthyyyy" style="width: 100px;"></select>&nbsp;년&nbsp;&nbsp;
+					<select id="birthmm" name="birthmm" style="width: 60px;"></select>&nbsp;월&nbsp;&nbsp;
+					<select id="birthdd" name="birthdd" style="width: 60px;"></select>&nbsp;일&nbsp;&nbsp;
 				</td>
 			</tr>
 					

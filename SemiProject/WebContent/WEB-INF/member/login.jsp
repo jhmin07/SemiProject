@@ -139,7 +139,7 @@ $(document).ready(function(){
 		<ul>
 			<li> <a style="cursor: pointer;" data-toggle="modal" data-target="#userIdfind" data-dismiss="modal">아이디 찾기</a></li>
 			<li> <a style="cursor: pointer;" data-toggle="modal" data-target="#userpwdfind" data-dismiss="modal">비밀번호 찾기</a> </li>
-			<li> <a href="javascript:go_Register();" > &nbsp; &nbsp; 회원가입</a> </li>
+			<li> <a href="<%= ctxPath%>/member/memberRegister.up" > &nbsp; &nbsp; 회원가입</a> </li>
 		</ul>
 		</fieldset>
 	</div>
