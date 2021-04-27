@@ -74,40 +74,7 @@ table.odr_info input[type=text]{
 	
 	$(document).ready(function(){
 		$("span.error").hide();
-		
-		// == 체크박스 전체선택/전체해제 == //
-		$("input:checkbox[name=shoppingAllAgree]").click(function(){
-			var bool = $(this).prop("checked");
-			// 체크되어있으면 true, 해제되어있으면 false
-			
-			$("input:checkbox[name=shoppingAgree]").prop("checked", bool);
-			// product 의 체크박스 상태를 checkall 의 체크상태와 동일하게 적용
-		});
-		
-		// == 상품의 체크박스 클릭시 == //
-		$("input:checkbox[name=shoppingAgree]").click(function(){
-			var bool = $(this).prop("checked");
-			
-			if (bool) { // 현재 상품의 체크박스에 체크했을 때
-				var bFlag = false;
-				
-				$("input:checkbox[name=shoppingAgree]").each(function(index, item){ // 다른 모든 상품의 체크박스 상태 확인
-					var bChecked = $(item).prop("checked");
-					if (!bChecked) {	// 체크표시가 안되어있는 상품일 경우 반복문 종료
-						bFlag = true;
-						return false;
-					}
-				});
-				
-				if(!bFlag) {	// 모든 체크박스가 체크되어있을 경우
-					$("input:checkbox[name=shoppingAllAgree]").prop("checked", true);			
-				}
-			}
-			else {	// 현재 상품의 체크박스에 체크 해제했을 때
-				$("input:checkbox[name=shoppingAllAgree]").prop("checked", false);
-			}
-		});
-		
+	
 		
 		// == 라디오(주문자 정보와 동일, 새로운 배송지) 선택 사항 구현 == //
 		$("input:radio[name=reveiceRadio]").click(function() {
@@ -121,7 +88,6 @@ table.odr_info input[type=text]{
 				$("input#detailAddress2").val($("input#detailAddress1").val());
 				$("input#extraAddress2").val($("input#extraAddress1").val());
 				
-				$("input#hp2_1").val($("input#hp1_1").val());
 				$("input#hp2_2").val($("input#hp1_2").val());
 				$("input#hp2_3").val($("input#hp1_3").val());
 			}
@@ -132,7 +98,6 @@ table.odr_info input[type=text]{
 				$("input#detailAddress2").val("");
 				$("input#extraAddress2").val("");
 				
-				$("input#hp2_1").val("");
 				$("input#hp2_2").val("");
 				$("input#hp2_3").val("");
 			}
@@ -248,9 +213,131 @@ table.odr_info input[type=text]{
 		}).open();
 	}
 	
+	function requiredInfoCheck() {
+		<%-- 주문자 정보입력 체크 --%>
+		var name1 = $("input#name1").val().trim();
+		if (name1 == "") {
+			alert("필수 입력사항을 확인해주세요.");
+			$("input#name1").focus();
+			return false;
+		}
+		
+		var postcode1 = $("input#postcode1").val().trim();
+		if (postcode1  == "") {
+			alert("필수 입력사항을 확인해주세요.");
+			$("input#postcode1").focus();
+			return false;
+		}
+		
+		var address1 = $("input#address1").val().trim();
+		if (address1  == "") {
+			alert("필수 입력사항을 확인해주세요.");
+			$("input#address1").focus();
+			return false;
+		}
+		
+		var detailAddress1 = $("input#detailAddress1").val().trim();
+		if (detailAddress1  == "") {
+			alert("필수 입력사항을 확인해주세요.");
+			$("input#detailAddress1").focus();
+			return false;
+		}
+				
+		var regExp = /^[1-9][0-9]{3}$/i;
+		var bool = regExp.test($("input#hp1_2").val());
+		if (!bool) {
+			alert("핸드폰 정보를 다시 확인해주세요");
+			$("input#hp1_2").focus();
+			$("input#hp1_2").empty();
+			return false;
+		}
+		
+		regExp = /^\d{4}$/i;
+		bool = regExp.test($("input#hp1_3").val());
+		if (!bool) {
+			alert("핸드폰 정보를 다시 확인해주세요");
+			$("input#hp1_3").focus();
+			$("input#hp1_3").empty();
+			return false;
+		}
+		$("input#hp1").val($("input#hp1_1").val() + $("input#hp1_2").val() + $("input#hp1_3").val());
+		
+		$("input#email").val($("input#emailid").val() + "@" + $("input#emaildotcom").val());
+		regExp = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
+		bool = regExp.test($("input#email").val());
+		if (!bool) {
+			alert("이메일 정보를 다시 확인해주세요");
+			$("input#emailid").focus();
+			return false;
+		}
+		
+		
+		<%-- 수취인 정보입력 체크 --%>
+		var name2 = $("input#name2").val().trim();
+		if (name2 == "") {
+			alert("필수 입력사항을 확인해주세요.");
+			$("input#name2").focus();
+			return false;
+		}
+		
+		var postcode2 = $("input#postcode2").val().trim();
+		if (postcode2  == "") {
+			alert("필수 입력사항을 확인해주세요.");
+			$("input#postcode2").focus();
+			return false;
+		}
+		
+		var address2 = $("input#address2").val().trim();
+		if (address2  == "") {
+			alert("필수 입력사항을 확인해주세요.");
+			$("input#address2").focus();
+			return false;
+		}
+		
+		var detailAddress2 = $("input#detailAddress2").val().trim();
+		if (detailAddress2  == "") {
+			alert("필수 입력사항을 확인해주세요.");
+			$("input#detailAddress2").focus();
+			return false;
+		}
+		
+		regExp = /^[1-9][0-9]{3}$/i;
+		bool = regExp.test($("input#hp2_2").val());
+		if (!bool) {
+			alert("핸드폰 정보를 다시 확인해주세요");
+			$("input#hp2_2").focus();
+			$("input#hp2_2").empty();
+			return false;
+		}
+		
+		regExp = /^\d{4}$/i;
+		bool = regExp.test($("input#hp2_3").val());
+		if (!bool) {
+			alert("핸드폰 정보를 다시 확인해주세요");
+			$("input#hp2_3").focus();
+			$("input#hp2_3").empty();
+			return false;
+		}
+		$("input#hp2").val($("input#hp2_1").val() + $("input#hp2_2").val() + $("input#hp2_3").val());
+	}
+	
 	
 	// == 결제하기 버튼 클릭 시 결제창 띄우기 == // 
 	function paymentGoFunc() {
+		
+		// 필수 입력 사항 모두 입력되었는지 검사
+		var requiredInfoFlag = requiredInfoCheck();
+		if (requiredInfoFlag == false) {
+			return ;
+		}
+
+		// 동의 체크박스를 모두 체크했는지 검사
+		var agreeFlag = payAgreeCheck();
+		if (agreeFlag == false) {
+			alert("이용약관에 동의해주세요.");
+			return ;
+		}
+			
 		var url = "<%=request.getContextPath()%>/order/goPayment.up";
 		window.open(url, "goPayment", 
 					"left=350px, top=100px, width=820px, height=600px");
@@ -269,7 +356,7 @@ table.odr_info input[type=text]{
 	<table class="table odr_list">
 		<thead>
 			<tr>
-				<th><input type="checkbox" name="checkall"/></th>
+				<!-- <th><input type="checkbox" name="checkall"/></th> -->
 				<th>이미지</th>
 				<th>상품정보</th>
 				<th>판매가</th>
@@ -282,24 +369,24 @@ table.odr_info input[type=text]{
 		</thead>
 		
 		<tbody>
-			<c:forEach var="var" begin="1" end="2">
+			<c:forEach var="prod" items="${mapList}" >
 				<%-- test value 값 --%>
-				<c:set var="product_price" value="10000"/>
-				<c:set var="order_cnt" value="1"/>
+				<c:set var="product_price" value="${prod.prodprice}"/>
+				<c:set var="order_cnt" value="${prod.prodcnt}"/>
 				
 				<tr class="odr_tr">
-					<td><input type="checkbox" name="product" id="product${var}"/></td>
-					<td><img class="odr_img" src="<%=ctxPath%>/imagesContents2/table0${var}.jpg" ></td>
-					<td>책상</td>
-					<td><fmt:formatNumber value="${product_price}" pattern="#,###" /> 원</td>
-					<td><fmt:formatNumber value="${order_cnt}" pattern="#,###" /></td>
-					<td><fmt:formatNumber value="${product_price*0.01}" pattern="#,###" /></td>
-					<td>기본배송</td>
-					<td>[조건]</td>
-					<td><fmt:formatNumber value="${product_price*order_cnt}" pattern="#,###" /> 원</td>
+					<%-- <td><input type="checkbox" name="product" id="product${var}"/></td> --%>
+					<td><img class="odr_img" src="<%=ctxPath%>/imagesContents2/${prod.image}.jpg" ></td>
+					<td>${prod.prodname}</td>
+					<td><fmt:formatNumber value="${prod.prodprice}" pattern="#,###" /> 원</td>
+					<td><fmt:formatNumber value="${prod.prodcnt}" pattern="#,###" /></td>
+					<td><fmt:formatNumber value="${prod.prodpoint}" pattern="#,###" /></td>
+					<td>${prod.delivtype}</td>
+					<td>${prod.delivprice}</td>
+					<td><fmt:formatNumber value="${prod.prodsum}" pattern="#,###" /> 원</td>
 				</tr>
 				
-				<c:set var="total_price" value="${total_price + product_price * order_cnt}" scope="request"/>	
+				<c:set var="total_price" value="${total_price + prod.prodprice * prod.prodcnt}" scope="request"/>	
 			</c:forEach>
 			
 			<tr class="odr_total_price">
@@ -308,7 +395,7 @@ table.odr_info input[type=text]{
 					<c:if test="${total_price >= 30000}"><c:set var="delivery_price" value="0"/></c:if>
 					+ 배송비 <span><fmt:formatNumber value="${delivery_price}" pattern="#,###" /></span>
 					- 상품할인금액 <span><fmt:formatNumber value="${sail_price}" pattern="#,###" /></span>
-					= 합계 : <span style="font-size: 15pt; font-weight: bold;"><fmt:formatNumber value="${total_price+delivery_price-sail_price}" pattern="#,###" /></span>원
+					= 합계 : <span style="font-size: 15pt; font-weight: bold;"><fmt:formatNumber value="${total_price+delivery_price-sail_price}" pattern="#,###" /></span>원 
 				</td>
 			</tr>
 		</tbody>
@@ -351,6 +438,7 @@ table.odr_info input[type=text]{
 						<input type="text" id="hp1_1" name="hp1_1" size="6" maxlength="3" value="010" readonly />&nbsp;-&nbsp;
 						<input type="text" id="hp1_2" name="hp1_2" size="6" maxlength="4" />&nbsp;-&nbsp;
 						<input type="text" id="hp1_3" name="hp1_3" size="6" maxlength="4" />
+						<input type="text" id="hp1" name="hp1" hidden />
 						<span class="error">휴대폰 형식이 아닙니다.</span>
 					</td>
 				</tr>
@@ -359,7 +447,7 @@ table.odr_info input[type=text]{
 					<td>
 						<input type="text" id="emailid" class="requiredInfo"/>@
 						<input type="text" id="emaildotcom" class="requiredInfo"/>
-						<input type="text" name="email1" hidden />
+						<input type="text" id="email" name="email" hidden />
 						<select id="emailSelect" style="padding: 8px 10px; border: solid 1px #ddd;">
 							<option value="">직접입력</option>
 							<option value="gmail.com">gmail.com</option>
@@ -422,6 +510,7 @@ table.odr_info input[type=text]{
 						<input type="text" id="hp2_1" name="hp2_1" size="6" maxlength="3" value="010" readonly />&nbsp;-&nbsp;
 						<input type="text" id="hp2_2" name="hp2_2" size="6" maxlength="4" />&nbsp;-&nbsp;
 						<input type="text" id="hp2_3" name="hp2_3" size="6" maxlength="4" />
+						<input type="text" id="hp2" name="hp2" hidden />
 						<span class="error">휴대폰 형식이 아닙니다.</span>
 					</td>
 				</tr>
