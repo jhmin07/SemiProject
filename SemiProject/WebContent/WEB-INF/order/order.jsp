@@ -323,8 +323,8 @@ table.odr_info input[type=text]{
 	
 	
 	// == 결제하기 버튼 클릭 시 결제창 띄우기 == // 
-	function paymentGoFunc() {
-		
+	function paymentGoFunc(lastpay_price) {
+<%--		
 		// 필수 입력 사항 모두 입력되었는지 검사
 		var requiredInfoFlag = requiredInfoCheck();
 		if (requiredInfoFlag == false) {
@@ -337,8 +337,8 @@ table.odr_info input[type=text]{
 			alert("이용약관에 동의해주세요.");
 			return ;
 		}
-			
-		var url = "<%=request.getContextPath()%>/order/goPayment.up";
+--%>		
+		var url = "<%=request.getContextPath()%>/order/goPayment.up?lastpay_price="+lastpay_price;
 		window.open(url, "goPayment", 
 					"left=350px, top=100px, width=820px, height=600px");
 		self.close();
@@ -524,7 +524,8 @@ table.odr_info input[type=text]{
 		</table>
 	</form>
 	
-	<jsp:include page="payment.jsp" />		
+	<jsp:include page="payment.jsp" />
+	
 </div>	
 
 <jsp:include page="../footer.jsp" />		

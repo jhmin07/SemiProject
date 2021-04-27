@@ -213,6 +213,6 @@ ul.payment_last > li {
 				<input type="checkbox" id="paymentagree"  class="payAgreeAll" />
 				<label for="paymentagree" >&nbsp;결제정보를 확인하였으며, 구매진행에 동의합니다.</label>
 			</li>
-			<li><button id="paymentGo" onclick="paymentGoFunc()">결제하기</button></li>
+			<li><button id="paymentGo" onclick="paymentGoFunc(${lastpay_price})">결제하기</button></li>
 		</ul>
 	</div>
