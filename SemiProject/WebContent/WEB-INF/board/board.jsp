@@ -44,13 +44,11 @@
 	td.page_tab1:hover {
 		background-color: #e0ebeb;
 	}
-	td.list {
+	table.table-bordered td {
 		font-size: 11pt;
-	}
-	td.list2 {
 		text-align: center;
 	}
-	td.list:hover {
+	td.ctTitle:hover {
 		cursor: pointer;
 	}
 </style>
@@ -98,8 +96,8 @@
 			<tr>
 				<th class="page_tab2 board_tab2">No.</th>
 				<th class="page_tab2">Contents</th>
-				<th class="page_tab2 board_tab2">Name</th>
-				<th class="page_tab2 board_tab2">Date</th>
+				<th class="page_tab2 board_tab2" style="width: 100px;">Name</th>
+				<th class="page_tab2 board_tab2" style="width: 200px;">Date</th>
 				<th class="page_tab2 board_tab2">Hits</th>
 			</tr>
 		</thead>
@@ -107,7 +105,7 @@
 		<tbody>
 			<tr>
 				<td class="list list2">3</td>
-				<td class="list">배송 기간, 배송비 안내, 적립금, 게시판 이용안내</td>
+				<td class="list ctTitle">배송 기간, 배송비 안내, 적립금, 게시판 이용안내</td>
 				<td class="list list2">관리자</td>
 				<td class="list list2">2021-04-22</td>
 				<td class="list list2">10</td>
@@ -117,7 +115,7 @@
 		<tbody>
 			<tr>
 				<td class="list list2">2</td>
-				<td class="list">게시판 이용규정 안내</td>
+				<td class="list ctTitle">게시판 이용규정 안내</td>
 				<td class="list list2">관리자</td>
 				<td class="list list2">2021-04-22</td>
 				<td class="list list2">20</td>
@@ -127,7 +125,7 @@
 		<tbody>
 			<tr>
 				<td class="list list2">1</td>
-				<td class="list">AS센터 휴무안내</td>
+				<td class="list ctTitle">AS센터 휴무안내</td>
 				<td class="list list2">관리자</td>
 				<td class="list list2">2021-04-20</td>
 				<td class="list list2">30</td>
@@ -138,7 +136,7 @@
         	<c:forEach var="nvo" items="${requestScope.noticeList}">
         		<tr class= "NoticeHead">
         			<td class="ctNo">${nvo.ctNo}</td>
-        			<td>${nvo.ctTitle}</td>
+        			<td class="ctTitle">${nvo.ctTitle}</td>
         			<td>${nvo.fk_adId}</td>
         			<td>${nvo.ctRegisterday}</td>
         			<td>${nvo.ctViewcount}</td>
