@@ -162,26 +162,39 @@ public class QADAO implements InterQADAO {
 		return qaList;
 	}
 
-	/*
-	 * @Override public NoticeVO contentOneDetail(String ctNo) throws SQLException {
-	 * NoticeVO nvo = null; try { conn = ds.getConnection(); String sql =
-	 * " select ctNo, ctTitle,ctContent, fk_adId, ctRegisterday, ctViewcount " +
-	 * " from tbl_noticeBoard "+ " where ctNo = ? "; pstmt =
-	 * conn.prepareStatement(sql); pstmt.setString(1, ctNo);
-	 * 
-	 * rs = pstmt.executeQuery();
-	 * 
-	 * if(rs.next()) {
-	 * 
-	 * nvo = new NoticeVO(); nvo.setCtNo(rs.getInt(1));
-	 * nvo.setCtTitle(rs.getString(2)); nvo.setCtContent(rs.getString(3));
-	 * nvo.setFk_adId(rs.getString(4)); nvo.setCtRegisterday(rs.getString(5));
-	 * nvo.setCtViewcount(rs.getInt(6));
-	 * 
-	 * } } finally { close(); }
-	 * 
-	 * return nvo; }
-	 */
+	@Override
+	public QAVO qaOneDetail(String qaNo) throws SQLException {
+		QAVO qvo = null; 
+		try { 
+			conn = ds.getConnection(); 
+			String sql = " select qaNo, qaTitle,qaContent,qaPwd, fk_userid, qaRegisterday, qaViewcount " +
+						 " from tbl_qaBoard "+ 
+						 " where qaNo = ? "; 
+			pstmt = conn.prepareStatement(sql); 
+			pstmt.setString(1, qaNo);
+				 
+				  rs = pstmt.executeQuery();
+				  
+				  if(rs.next()) {
+				  
+				  qvo = new QAVO(); 
+				  qvo.setQaNo(rs.getInt(1));
+				  qvo.setQaTitle(rs.getString(2)); 
+				  qvo.setQaContent(rs.getString(3));
+				  qvo.setQaPwd(rs.getString(4)); 
+				  qvo.setFk_userid(rs.getString(5));
+				  qvo.setQaRegisterday(rs.getString(6));
+				  qvo.setQaViewcount(rs.getInt(7));
+				  
+				  } 
+			} finally { 
+				
+				close(); 
+			}
+				  
+				  return qvo; 
+	}
+
 	
 }	
 

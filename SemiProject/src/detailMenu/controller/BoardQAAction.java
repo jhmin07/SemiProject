@@ -70,12 +70,11 @@ public class BoardQAAction extends AbstractController {
 					List<QAVO> qaList = qdao.selectPagingContent(paraMap);
 
 					request.setAttribute("sizePerPage", sizePerPage);
-					request.setAttribute("noticeList", qaList);
+					request.setAttribute("qaList", qaList);
 					
 			        request.setAttribute("searchType", searchType); 
 			        request.setAttribute("searchWord", searchWord); 
 
-					System.out.println("qwertytrew"+qaList.size());
 					String pageBar = "";
 					
 					int blockSize = 10;
@@ -148,7 +147,7 @@ public class BoardQAAction extends AbstractController {
 						request.setAttribute("menu", menu);	
 						
 					super.setRedirect(false);
-			        super.setViewPage("/WEB-INF/board/board.jsp");			
+			        super.setViewPage("/WEB-INF/board/boardBody.jsp");			
 					
 					/*
 					 * } else { // 로그인을 안한 경우 또는 일반사용자로 로그인 한 경우

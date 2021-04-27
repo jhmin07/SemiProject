@@ -56,24 +56,18 @@
 	}
 </style>
 <script type="text/javascript">
-	$(document).ready(function(){
-		$(".GoodsQA").removeClass("page_click");
-		$(".Notice").addClass("page_click");
+	$(document).ready(function(){		
 		
-		$("tr.NoticeHead").click(function(){
-			var ctNo = $(this).children(".ctNo").text();				
-			// $(this) 는 td가 아니라 tr 이므로 자식들(td) 중 class가 .userid인 것들을 찾는다.
-			
-			  location.href = "<%=request.getContextPath()%>/detailMenu/contentOneDetail.up?ctNo="+ctNo+"&goBackURL=${requestScope.goBackURL}";
-		});
 		
 		$("td.GoodsQA").click(function(){
 			$(".GoodsQA").addClass("page_click");
 			$(".Notice").removeClass("page_click");
+			location.href="<%=request.getContextPath()%>/detailMenu/boardQA.up";
 		});
 		$("td.Notice").click(function(){
 			$(".GoodsQA").removeClass("page_click");
 			$(".Notice").addClass("page_click");
+			location.href="<%=request.getContextPath()%>/detailMenu/boardBody.up" ;
 		});
 	});
 </script>
@@ -82,11 +76,11 @@
 	<table class="table page_tab" style="margin: 25px 0;">
 		<tbody>
 			<tr>
-				<td class="page_tab1 page_click GoodsQA">
-					<a href="<%=request.getContextPath()%>/detailMenu/boardQA.up" class="page_click GoodsQA">상품 Q&A</a>
+				<td class="page_tab1 GoodsQA">
+					<a class=" GoodsQA">상품 Q&A</a>
 				</td>
-				<td class="page_tab1 page_click Notice">
-					<a href="<%=request.getContextPath()%>/detailMenu/board.up" class="page_click Notice">공지사항</a>
+				<td class="page_tab1 Notice">
+					<a class=" Notice">공지사항</a>
 				</td>
 			</tr>
 		</tbody>
@@ -105,101 +99,9 @@
 	</form>
 	</div>
 	
-	<c:if test="${menu == 1 }">
-		<table class="table table-bordered" style="width: 90%; margin-top: 20px;">
-		<thead>
-			<tr>
-				<th class="page_tab2 board_tab2">No.</th>
-				<th class="page_tab2">Contents</th>
-				<th class="page_tab2 board_tab2" style="width: 100px;">Name</th>
-				<th class="page_tab2 board_tab2" style="width: 200px;">Date</th>
-				<th class="page_tab2 board_tab2">Hits</th>
-			</tr>
-		</thead>
-		
-		<tbody>
-			<tr>
-				<td class="list list2">3</td>
-				<td class="list ctTitle">배송 기간, 배송비 안내, 적립금, 게시판 이용안내</td>
-				<td class="list list2">관리자</td>
-				<td class="list list2">2021-04-22</td>
-				<td class="list list2">10</td>
-			</tr>
-		</tbody>
-		
-		<tbody>
-			<tr>
-				<td class="list list2">2</td>
-				<td class="list ctTitle">게시판 이용규정 안내</td>
-				<td class="list list2">관리자</td>
-				<td class="list list2">2021-04-22</td>
-				<td class="list list2">20</td>
-			</tr>
-		</tbody>
-		
-		<tbody>
-			<tr>
-				<td class="list list2">1</td>
-				<td class="list ctTitle">AS센터 휴무안내</td>
-				<td class="list list2">관리자</td>
-				<td class="list list2">2021-04-20</td>
-				<td class="list list2">30</td>
-			</tr>
-		</tbody>
-				
-		<tbody id="NoticeList">
-        	<c:forEach var="nvo" items="${requestScope.noticeList}">
-        		<tr class= "NoticeHead">
-        			<td class="ctNo">${nvo.ctNo}</td>
-        			<td class="ctTitle">${nvo.ctTitle}</td>
-        			<td>${nvo.fk_adId}</td>
-        			<td>${nvo.ctRegisterday}</td>
-        			<td>${nvo.ctViewcount}</td>
-        		</tr>
-        	</c:forEach>
-        </tbody>
-        
-        
-        
-	</table>
-	</c:if>
-	
-	
-	<c:if test="${menu == 2 }">
-		<table class="table table-bordered" style="width: 90%; margin-top: 20px;">
-		<thead>
-			<tr>
-				<th class="page_tab2 board_tab2">No.</th>
-				<th class="page_tab2">Contents</th>
-				<th class="page_tab2 board_tab2" style="width: 100px;">Name</th>
-				<th class="page_tab2 board_tab2" style="width: 200px;">Date</th>
-				<th class="page_tab2 board_tab2">Hits</th>
-			</tr>
-		</thead>
-		
-						
-		<tbody id="NoticeList">
-        	<c:forEach var="qvo" items="${requestScope.qaList}">
-        		<tr class= "NoticeHead">
-        			<td class="ctNo">${nvo.qaNo}</td>
-        			<td class="ctTitle">${nvo.qaTitle}</td>
-        			<td>${qa.userid}</td>
-        			<td>${qa.ctRegisterday}</td>
-        			<td>${qa.ctViewcount}</td>
-        		</tr>
-        	</c:forEach>
-        </tbody>
-        
-        
-        
-	</table>
-	</c:if>
-	
-</div>
 
 <div align="center">
 
-	${requestScope.pageBar }
 
 </div>
 <%-- <jsp:include page="../../footer.jsp"/> --%>

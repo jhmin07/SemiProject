@@ -11,6 +11,8 @@ public interface InterQADAO {
 
 	List<QAVO> selectPagingContent(Map<String, String> paraMap) throws SQLException;
 
+	QAVO qaOneDetail(String qaNo) throws SQLException;
+
 
 
 	
