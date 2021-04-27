@@ -110,7 +110,8 @@
       <td class="content2SQ">
          <img class="content2Img content2Hover" id="content2Img1" src="imagesContents2/sofa01.jpeg" alt="소파1">    
            <div class="subcarouselDiv">
-             <div id="myCarousel" class="carousel slide" data-ride="carousel">
+             <div id="myCarousel1" class="carousel slide" data-ride="carousel">
+
              <!-- Wrapper for slides -->
              <div class="carousel-inner">
                <div class="item active">
@@ -125,26 +126,21 @@
              </div>
          
              <!-- Left and right controls -->
-             <a class="left carousel-control" href="#myCarousel" data-slide="prev">
-               <span class="glyphicon glyphicon-chevron-left"></span>
+             <a class="left carousel-control" href="#myCarousel1" data-slide="prev">
                <span class="sr-only">Previous</span>
              </a>
-             <a class="right carousel-control" href="#myCarousel" data-slide="next">
-               <span class="glyphicon glyphicon-chevron-right"></span>
+             <a class="right carousel-control" href="#myCarousel1" data-slide="next">
                <span class="sr-only">Next</span>
              </a>
            </div>
             </div>
          </td>
          
-         
-         
-         
         
       <td class="content2SQ">
          <img class="content2Img content2Hover" id="content2Img2" src="imagesContents2/table01.jpg" alt="테이블1">    
            <div class="subcarouselDiv">
-           <div id="myCarousel2" class="subcarousel" data-ride="carousel">
+           <div id="myCarousel2" class="subcarousel slide" data-ride="carousel">
                <div class="carousel-inner">
                   <div class="item active">
                     <img src="imagesContents2/table01.jpg" alt="테이블2" style="width:100%;">
@@ -161,11 +157,9 @@
       
                
                 <a class="left carousel-control" href="#myCarousel2" data-slide="prev">
-                  <span class="glyphicon glyphicon-chevron-left"></span>
                   <span class="sr-only">Previous</span>
                 </a>
                 <a class="right carousel-control" href="#myCarousel2" data-slide="next">
-                  <span class="glyphicon glyphicon-chevron-right"></span>
                   <span class="sr-only">Next</span>
                 </a>
             </div>
@@ -179,7 +173,7 @@
       <td class="content2SQ">
          <img class="content2Img content2Hover" id="content2Img1" src="imagesContents2/closet01.JPG" alt="옷장1">    
            <div class="subcarouselDiv">
-           <div id="myCarousel3" class="subcarousel" data-ride="carousel">
+           <div id="myCarousel3" class="subcarousel slide" data-ride="carousel">
                <div class="carousel-inner">
                   <div class="item active">
                     <img src="imagesContents2/closet01.JPG" alt="옷장2" style="width:100%;">
@@ -196,11 +190,9 @@
       
                
                 <a class="left carousel-control" href="#myCarousel3" data-slide="prev">
-                  <span class="glyphicon glyphicon-chevron-left"></span>
                   <span class="sr-only">Previous</span>
                 </a>
                 <a class="right carousel-control" href="#myCarousel3" data-slide="next">
-                  <span class="glyphicon glyphicon-chevron-right"></span>
                   <span class="sr-only">Next</span>
                 </a>
             </div>
