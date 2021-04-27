@@ -98,6 +98,7 @@ function closeNav() {
 }
 function goNotice(){
 	location.href = "<%=request.getContextPath()%>/detailMenu/board.up";
+	location.href = "<%=request.getContextPath()%>/detailMenu/boardBody.up";
 }
 function goHome(){
 	location.href = "<%=request.getContextPath()%>/home.up";
@@ -118,6 +119,7 @@ function myPage() {
 </head>
 <body>
 
+<c:set var="menu_session"  value="first" scope="session" /> 
 
 	<div id="mySidenav" class="sidenav">
 	  <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
