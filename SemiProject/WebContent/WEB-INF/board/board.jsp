@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+   
 <jsp:include page="../../header4.jsp"/>
 	
 
@@ -54,7 +55,15 @@
 	}
 </style>
 <script type="text/javascript">
-
+	$(document).ready(function(){
+		
+		$("tr.NoticeHead").click(function(){
+			var ctNo = $(this).children(".ctNo").text();				
+			// $(this) 는 td가 아니라 tr 이므로 자식들(td) 중 class가 .userid인 것들을 찾는다.
+			
+			  location.href = "<%=request.getContextPath()%>/detailMenu/contentOneDetail.up?ctNo="+ctNo+"&goBackURL=${requestScope.goBackURL}";
+		});
+	});
 </script>
 <div class="container" align="center">
 <img src="../image/board.png"/>
@@ -126,37 +135,24 @@
 		</tbody>
 				
 		<tbody id="NoticeList">
-        	<c:forEach var="mvo" items="${requestScope.memberList}">
+        	<c:forEach var="nvo" items="${requestScope.noticeList}">
         		<tr class= "NoticeHead">
-        			<td class="userid">${mvo.userid}</td>
-        			<td>${mvo.name}</td>
-        			<td>${mvo.email}</td>
-        			<td>
-        				<c:choose>
-        					<c:when test="${mvo.gender eq '1' }">
-        						남
-        					</c:when>
-        					<c:otherwise>
-        						여
-        					</c:otherwise>
-        				</c:choose>
-        			</td>
+        			<td class="ctNo">${nvo.ctNo}</td>
+        			<td>${nvo.ctTitle}</td>
+        			<td>${nvo.fk_adId}</td>
+        			<td>${nvo.ctRegisterday}</td>
+        			<td>${nvo.ctViewcount}</td>
         		</tr>
         	</c:forEach>
         </tbody>
+        
+        
+        
 	</table>
 </div>
 
 <div align="center">
-<!-- <ul class="pagination">
-	<li class="previous"><a href="#">Previous</a></li>
-    <li><a href="#">1</a></li>
-    <li class="active"><a href="#">2</a></li>
-    <li><a href="#">3</a></li>
-    <li><a href="#">4</a></li>
-    <li><a href="#">5</a></li>
-    <li class="next"><a href="#">Next</a></li>
-</ul> -->
+
 	${requestScope.pageBar }
 
 </div>

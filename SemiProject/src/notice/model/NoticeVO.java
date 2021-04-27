@@ -1,4 +1,4 @@
-package member.model;
+package notice.model;
 
 public class NoticeVO {
 	private int ctNo;

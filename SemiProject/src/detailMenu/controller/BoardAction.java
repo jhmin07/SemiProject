@@ -6,24 +6,23 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-
 import common.controller.AbstractController;
 import member.model.InterMemberDAO;
 import member.model.MemberDAO;
-import member.model.MemberVO;
-import member.model.NoticeVO;
+import notice.model.InterNoticeDAO;
+import notice.model.NoticeDAO;
+import notice.model.NoticeVO;
 
 public class BoardAction extends AbstractController {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		// == 관리자(admin)로 로그인 했을 때만 조회가 가능하도록 한다. == //
+		// == 관리자(admin)로 로그인 했s을 때만 조회가 가능하도록 한다. == //
 /*				HttpSession session = request.getSession();
 				MemberVO loginuser = (MemberVO) session.getAttribute("loginuser");
 				
 				if( loginuser!=null && "admin".equals(loginuser.getUserid()) ) {*/
-					InterMemberDAO mdao = new MemberDAO();
+					InterNoticeDAO ndao = new NoticeDAO();
 					String currentShowPageNo = request.getParameter("currentShowPageNo");
 					String sizePerPage = "5";
 										
@@ -61,7 +60,7 @@ public class BoardAction extends AbstractController {
 					//     토탈페이지수 보다 큰 값을 입력하여 장난친 경우를 1페이지로 가게끔 막아주는 것 시작.  
 								
 					// 페이징처리를 위해서 전체회원에 대한 총페이지 개수 알아오기(select)
-					int totalPage = mdao.selectTotalPage(paraMap);
+					int totalPage = ndao.selectTotalPage(paraMap);
 					System.out.println("totalPage 확인!! => " +totalPage);
 					if(Integer.parseInt(currentShowPageNo) > totalPage ) {	// 없는 페이지로 장난치는 경우
 						currentShowPageNo = "1";
@@ -69,15 +68,15 @@ public class BoardAction extends AbstractController {
 					}
 					//////////////////////////////////////////////////////////////////////////////
 					
-					List<NoticeVO> noticeList = mdao.selectPagingContent(paraMap);
+					List<NoticeVO> noticeList = ndao.selectPagingContent(paraMap);
 
 					request.setAttribute("sizePerPage", sizePerPage);
 					request.setAttribute("noticeList", noticeList);
 					
 			        request.setAttribute("searchType", searchType); 
 			        request.setAttribute("searchWord", searchWord); 
-					
-					
+
+					System.out.println("qwertytrew"+noticeList.size());
 					String pageBar = "";
 					
 					int blockSize = 10;
@@ -148,7 +147,7 @@ public class BoardAction extends AbstractController {
 						request.setAttribute("goBackURL", currentURL);
 						
 						
-			      // super.setRedirect(false);
+					super.setRedirect(false);
 			        super.setViewPage("/WEB-INF/board/board.jsp");			
 					
 					/*
