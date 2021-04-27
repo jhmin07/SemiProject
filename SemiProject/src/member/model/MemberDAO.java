@@ -80,8 +80,8 @@ public class MemberDAO implements InterMemberDAO {
 				 
 				 member.setUserid(rs.getString(1));
 				 member.setName(rs.getString(2));
-				 member.setEmail(rs.getString(3));  
-				 member.setMobile(rs.getString(4)); 
+				 member.setEmail(aes.decrypt(rs.getString(3))); // 복호화  
+				 member.setMobile(aes.decrypt(rs.getString(4))); // 복호화
 				 member.setPostcode(rs.getString(5));
 			     member.setAddress(rs.getString(6));
 				 member.setDetailaddress(rs.getString(7));

@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>    
-    
+<%
+    String ctxPath = request.getContextPath();
+%>   
     
 <jsp:include page="header4.jsp" />  
 <!DOCTYPE html>
@@ -128,7 +130,7 @@ form{
 		<ul>
 			<li> <a href="javascript:gofind_id();" >아이디 찾기 &nbsp; &nbsp;</a> </li>
 			<li> <a href="javascript:gofind_pwd();" >비밀번호 찾기</a> </li>
-			<li> <a href="javascript:go_Register();" > &nbsp; &nbsp; 회원가입</a> </li>
+			<li> <a href="<%= ctxPath%>/member/memberRegister.up"> &nbsp; &nbsp; 회원가입</a> </li>
 		</ul>
 		</fieldset>
 	</div>

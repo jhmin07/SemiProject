@@ -34,6 +34,8 @@ values ('admin1', 'qwer1234!', '관리자1', 'test1@naver.com', '010-5678-3456',
 insert into tbl_member(userid, pwd, name, email, mobile, postcode, address, detailaddress, extraaddress, gender, birthday)
 values ('admin2', 'qwer1234!', '테스트2', 'test2@naver.com', '010-5555-3456', '01234', '서울시', '마포구', '123', '1', '1995-01-01');
 
+update tbl_member set mobile = '01055553456' where userid = 'admin1';
+update tbl_member set mobile = '01023453456' where userid = 'admin2';
 commit;
 
 select *
