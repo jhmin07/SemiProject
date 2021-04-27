@@ -3,6 +3,8 @@ package member.model;
 import java.sql.SQLException;
 import java.util.*;
 
+import notice.model.NoticeVO;
+
 public interface InterMemberDAO {
 	
 	// 로그인을 해주는 메소드
@@ -24,9 +26,6 @@ public interface InterMemberDAO {
 
 	List<NoticeVO> selectPagingContent(Map<String, String> paraMap) throws SQLException;
 
-	
-
-	
 	
 }
 

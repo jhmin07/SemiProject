@@ -8,6 +8,7 @@ import java.util.*;
 import javax.naming.*;
 import javax.sql.DataSource;
 
+import notice.model.NoticeVO;
 import util.security.AES256;
 import util.security.SecretMyKey;
 import util.security.Sha256;
@@ -199,7 +200,7 @@ public class MemberDAO implements InterMemberDAO {
 		return isExists;
 	}
 	
-	
+
 	// 회원의 개인 정보 변경하기
 	@Override
 	public int updateMember(MemberVO member) throws SQLException {
@@ -350,6 +351,7 @@ public class MemberDAO implements InterMemberDAO {
 		
 		return noticeList;
 	}
+
 	
 	
 	

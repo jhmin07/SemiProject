@@ -71,6 +71,11 @@ body {
 a.sub2 {
 	margin-top: 15px;
 }
+
+ span.submenubtn:hover{
+       cursor: pointer;
+    }
+
 span.submenubtn {
 	cursor: pointer;
 	margin: 0 10px 0 2px;
@@ -80,6 +85,7 @@ span.hsub1{
 	font-weight: bold;
 	margin-right: 5px;
 }
+
 </style>
 
 <script type="text/javascript">
@@ -128,7 +134,7 @@ function myPage() {
 		 	<span class="submenubtn" onclick="LogOut()" >로그아웃</span>|
 		 </c:if>			 
 		 <span class="submenubtn" >주문내역</span>|
-		 <span class="submenubtn" onClick="goNotice();" >고객센터</span>
+		 <span class="submenubtn" id="Notice" onClick="goNotice();" >고객센터</span>
 	  </div>
 	</div>
 
