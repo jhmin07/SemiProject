@@ -230,7 +230,7 @@
 			</tr>
 			<tr>
 				<td style="font-weight: bold;">이메일&nbsp;<span class="star">*</span></td>
-				<td style="text-align: left;"><input type="text" name="email" id="email" value="${sessionScope.loginuser.email}" class="requiredInfo" />&nbsp;					
+				<td style="text-align: left;"><input type="text" name="email" id="email" value="${sessionScope.loginuser.email}" class="requiredInfo" readonly/>&nbsp;					
 					<span class="error">이메일 형식에 맞지 않습니다.</span>					
 				</td>
 				

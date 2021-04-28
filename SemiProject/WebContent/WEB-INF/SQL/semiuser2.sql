@@ -37,6 +37,7 @@ values ('admin2', 'qwer1234!', '테스트2', 'test2@naver.com', '010-5555-3456',
 update tbl_member set userid = 'admin' where userid = 'admin1';
 commit;
 
+
 select *
 from tbl_member
 order by registerday desc;
