@@ -83,7 +83,7 @@ public class PwdFindAction extends AbstractController {
 		request.setAttribute("method", method);
 		
 	//	super.setRedirect(false);
-		super.setViewPage("/WEB-INF/login/pwdFind.jsp");	
+		super.setViewPage("/WEB-INF/member/pwdFind.jsp");	
 		
 	}
 }	

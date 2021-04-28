@@ -8,11 +8,11 @@ import javax.servlet.http.HttpServletResponse;
 import common.controller.AbstractController;
 import member.model.*;
 
-public class IdFindAction extends AbstractController {
+public class IdFindResultAction extends AbstractController {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		/*
+		
 		String method = request.getMethod();  // "GET" 또는 "POST" 
 		
 		if("POST".equalsIgnoreCase(method)) {
@@ -43,9 +43,9 @@ public class IdFindAction extends AbstractController {
 		
 		
 		request.setAttribute("method", method);
-		*/
+		
 	//	super.setRedirect(false);
-		super.setViewPage("/WEB-INF/member/idFind.jsp");
+		super.setViewPage("/WEB-INF/member/idFindResult.jsp");
 		
 	}
 
