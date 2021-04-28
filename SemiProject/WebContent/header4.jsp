@@ -145,17 +145,17 @@ function myPage() {
 	</div>
 
 <div class="navbar">
-  <span style="font-size:30px;cursor:pointer; width:15%; vertical-align: middle;" onclick="openNav()"><img id="mainheadermenu" src="<%= ctxPath %>/ProjectImg/menu.png" style="width: 50px;" align="middle"/></span>
-  <span class="hsub1" style="width:60%; text-align: center; padding-left: 185px;" onclick="goHome()"><img class="headerlogo" src="<%= ctxPath %>/ProjectImg/logo2.png" style="width:120px; height:50px; cursor: pointer;" align="middle"/></span>
+  <span style="font-size:30px;cursor:pointer; width:15%; vertical-align: middle;" onclick="openNav()"><img id="mainheadermenu" src="<%= ctxPath %>/image/ProjectImg/menu.png" style="width: 50px;" align="middle"/></span>
+  <span class="hsub1" style="width:60%; text-align: center; padding-left: 185px;" onclick="goHome()"><img class="headerlogo" src="<%= ctxPath %>/image/ProjectImg/logo2.png" style="width:120px; height:50px; cursor: pointer;" align="middle"/></span>
   
   	<c:if test="${empty sessionScope.loginuser}">
-  	  <span class="hsub1" style="margin-left: 200px;" onclick="LogIn()"><img class="headerlogo"  src="<%= ctxPath%>/ProjectImg/login.png" style="width:28px; height:23px; cursor: pointer;" align="middle" />로그인</span>
+  	  <span class="hsub1" style="margin-left: 200px;" onclick="LogIn()"><img class="headerlogo"  src="<%= ctxPath%>/image/ProjectImg/login.png" style="width:28px; height:23px; cursor: pointer;" align="middle" />로그인</span>
     </c:if>
     <c:if test="${not empty sessionScope.loginuser}">
-  	  <span class="hsub1" style="margin-left: 100px;" onclick="myPage()"><img class="headerlogo"  src="<%= ctxPath%>/ProjectImg/login.png" style="width:28px; height:23px; cursor: pointer;" align="middle" />마이페이지</span>
+  	  <span class="hsub1" style="margin-left: 100px;" onclick="myPage()"><img class="headerlogo"  src="<%= ctxPath%>/image/ProjectImg/login.png" style="width:28px; height:23px; cursor: pointer;" align="middle" />마이페이지</span>
   	  <span class="hsub1" onclick="LogOut()"><img class="headerlogo"  src="<%= ctxPath%>/image/logout.png" style="width:28px; height:23px; cursor: pointer;" align="middle" />로그아웃</span>
     </c:if>  
-    <span class="hsub1"><img class="headerlogo"  src="<%= ctxPath%>/ProjectImg/shoppingbag.png" style="width:28px; height:23px; cursor: pointer;" align="middle" />장바구니</span>
+    <span class="hsub1"><img class="headerlogo"  src="<%= ctxPath%>/image/ProjectImg/shoppingbag.png" style="width:28px; height:23px; cursor: pointer;" align="middle" />장바구니</span>
   
 </div>
 
