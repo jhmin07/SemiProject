@@ -63,7 +63,15 @@ public class QADAO implements InterQADAO {
 			//// == 검색어가 있는 경우 시작 == ////
 			String searchWord = paraMap.get("searchWord");
 			String colname = paraMap.get("searchType");
-			
+			if(colname!= null && colname.equals("name")) {
+				colname="fk_userid";
+			}
+			if(colname!= null && colname.equals("title")) {
+				colname="qaTitle";
+			}
+			if(colname!= null && colname.equals("contents")) {
+				colname="qaContent";
+			}
 			if( searchWord != null && !searchWord.trim().isEmpty() ) {
 				// 검색어를 공백이 아닌 것을 입력해준 경우
 				sql += " where "+ colname +" like '%'||?||'%' ";	// 테이블명이나 컬럼명에는 위치홀더(?) 쓰면 안된다...(여기서의 name같은거..)
@@ -73,8 +81,10 @@ public class QADAO implements InterQADAO {
 			pstmt = conn.prepareStatement(sql);
 			System.out.println("paraMap.get(\"sizePerPage\")=> "+paraMap.get("sizePerPage"));
 			pstmt.setString(1, paraMap.get("sizePerPage"));
+			System.out.println("Asgddags");
 			if( searchWord != null && !searchWord.trim().isEmpty() ) {
 				pstmt.setString(2, searchWord);
+				System.out.println("서치워드"+searchWord);
 			}
 			rs = pstmt.executeQuery();
 			
@@ -113,7 +123,15 @@ public class QADAO implements InterQADAO {
 		//// == 검색어가 있는 경우 시작 == ////
 		String searchWord = paraMap.get("searchWord");
 		String colname = paraMap.get("searchType");
-		
+		if(colname!= null && colname.equals("name")) {
+			colname="fk_userid";
+		}
+		if(colname!= null && colname.equals("title")) {
+			colname="qaTitle";
+		}
+		if(colname!= null && colname.equals("contents")) {
+			colname="qaContent";
+		}
 				
 		if( searchWord != null && !searchWord.trim().isEmpty() ) {
 			// 검색어를 공백이 아닌 것을 입력해준 경우

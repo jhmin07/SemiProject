@@ -96,7 +96,7 @@ function closeNav() {
 	}
 
 	function goNotice(){
-		location.href = "<%=request.getContextPath()%>/detailMenu/boardBody.up";
+		location.href = "<%=request.getContextPath()%>/detailMenu/board.up";
 	}
 	
 function LogIn() {

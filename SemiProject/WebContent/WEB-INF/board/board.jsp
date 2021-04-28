@@ -67,10 +67,32 @@
 		$("td.Notice").click(function(){
 			$(".GoodsQA").removeClass("page_click");
 			$(".Notice").addClass("page_click");
-			location.href="<%=request.getContextPath()%>/detailMenu/boardBody.up" ;
+			location.href="<%=request.getContextPath()%>/detailMenu/board.up" ;
+		});
+		$("tr.NoticeHead").click(function(){
+			var ctNo = $(this).children(".ctNo").text();				
+			// $(this) 는 td가 아니라 tr 이므로 자식들(td) 중 class가 .userid인 것들을 찾는다.
+			
+			  location.href = "<%=request.getContextPath()%>/detailMenu/contentOneDetail.up?ctNo="+ctNo+"&goBackURL=${requestScope.goBackURL}";
+		});
+		$("tr.QAHead").click(function(){
+			var qaNo = $(this).children(".qaNo").text();				
+			// $(this) 는 td가 아니라 tr 이므로 자식들(td) 중 class가 .userid인 것들을 찾는다.
+			
+			  location.href = "<%=request.getContextPath()%>/detailMenu/qaOneDetail.up?qaNo="+qaNo+"&goBackURL=${requestScope.goBackURL}";
 		});
 	});
+	
+	
+	// Function Declaration
+	function goSearch(){
+		var frm = document.SearchFrm;
+		frm.action = "board.up"; // 자기자신한테 간다. 그냥 목록 갯수만 바꿔줄 뿐
+		frm.method = "GET";	// 숨길필요 없이 빨리빨리 이동해야해서 get 사용
+		frm.submit();
+	}
 </script>
+
 <div class="container" align="center">
 <img src="../image/board.png"/>
 	<table class="table page_tab" style="margin: 25px 0;">
@@ -86,22 +108,114 @@
 		</tbody>
 	</table>
 	<div align="right" style="margin-right: 60px;">
-	<form name="memberFrm">
+	<form name="SearchFrm">
 		<select id="searchType" name="searchType">
 			<option value="name">이름</option>
 			<option value="title">제목</option>
 			<option value="contents">내용</option>
-			<option value="product">상품</option>
 		</select>
 		<input type="text" id="searchWord" name="searchWord" />
 		<input type="text" style="display: none;">
 		<button type="button" onclick="goSearch();" style="margin-right: 30px;">검색</button>				
 	</form>
 	</div>
+
+
+<c:if test="${menu == 1 }">
+		<table class="table table-bordered" style="width: 90%; margin-top: 20px;">
+		<thead>
+			<tr>
+				<th class="page_tab2 board_tab2">No.</th>
+				<th class="page_tab2">Contents</th>
+				<th class="page_tab2 board_tab2" style="width: 100px;">Name</th>
+				<th class="page_tab2 board_tab2" style="width: 200px;">Date</th>
+				<th class="page_tab2 board_tab2">Hits</th>
+			</tr>
+		</thead>
+		
+		<tbody>
+			<tr>
+				<td class="list list2">3</td>
+				<td class="list ctTitle">배송 기간, 배송비 안내, 적립금, 게시판 이용안내</td>
+				<td class="list list2">관리자</td>
+				<td class="list list2">2021-04-22</td>
+				<td class="list list2">10</td>
+			</tr>
+		</tbody>
+		
+		<tbody>
+			<tr>
+				<td class="list list2">2</td>
+				<td class="list ctTitle">게시판 이용규정 안내</td>
+				<td class="list list2">관리자</td>
+				<td class="list list2">2021-04-22</td>
+				<td class="list list2">20</td>
+			</tr>
+		</tbody>
+		
+		<tbody>
+			<tr>
+				<td class="list list2">1</td>
+				<td class="list ctTitle">AS센터 휴무안내</td>
+				<td class="list list2">관리자</td>
+				<td class="list list2">2021-04-20</td>
+				<td class="list list2">30</td>
+			</tr>
+		</tbody>
+				
+		<tbody id="NoticeList">
+        	<c:forEach var="nvo" items="${requestScope.noticeList}">
+        		<tr class= "NoticeHead">
+        			<td class="ctNo">${nvo.ctNo}</td>
+        			<td class="Title">${nvo.ctTitle}</td>
+        			<td>${nvo.fk_adId}</td>
+        			<td>${nvo.ctRegisterday}</td>
+        			<td>${nvo.ctViewcount}</td>
+        		</tr>
+        	</c:forEach>
+        </tbody>
+        
+        
+        
+	</table>
+	</c:if>
 	
+	
+	<c:if test="${menu == 2 }">
+		<table class="table table-bordered" style="width: 90%; margin-top: 20px;">
+		<thead>
+			<tr>
+				<th class="page_tab2 board_tab2">No.</th>
+				<th class="page_tab2">Contents</th>
+				<th class="page_tab2 board_tab2" style="width: 100px;">Name</th>
+				<th class="page_tab2 board_tab2" style="width: 200px;">Date</th>
+				<th class="page_tab2 board_tab2">Hits</th>
+			</tr>
+		</thead>
+		
+						
+		<tbody id="NoticeList">
+        	<c:forEach var="qvo" items="${requestScope.qaList}">
+        		<tr class= "QAHead">
+        			<td class="qaNo">${qvo.qaNo}</td>
+        			<td class="Title">${qvo.qaTitle}</td>
+        			<td>${qvo.fk_userid}</td>
+        			<td>${qvo.qaRegisterday}</td>
+        			<td>${qvo.qaViewcount}</td>
+        		</tr>
+        	</c:forEach>
+        </tbody>
+        
+        
+        
+	</table>
+	</c:if>
+	
+</div>
 
 <div align="center">
 
+	${requestScope.pageBar }
 
 </div>
-<%-- <jsp:include page="../../footer.jsp"/> --%>
+<jsp:include page="../../footer.jsp"/>	
