@@ -22,7 +22,7 @@ $(document).ready(function() {
        pay_method : 'card',	// 결제 수단
        merchant_uid : 'merchant_' + new Date().getTime(), // 가맹점에서 생성/관리하는 고유 주문번호
        name : '결제테스트(코인충전|주문명)',	 // 코인충전 또는 order 테이블에 들어갈 주문명 혹은 주문 번호. (선택항목)원활한 결제정보 확인을 위해 입력 권장(PG사 마다 차이가 있지만) 16자 이내로 작성하기를 권장
-       amount : '${lastpay_price}',	  // '${coinmoney}'  결제 금액 number 타입. 필수항목. 
+       amount : '100',	  // '${lastpay_price}'  결제 금액 number 타입. 필수항목. 
        buyer_email : '',  // 구매자 email
        buyer_name : '${name}',	  // 구매자 이름 
        buyer_tel : '',    // 구매자 전화번호 (필수항목)
@@ -57,13 +57,17 @@ $(document).ready(function() {
 			$(opener.location).attr("href", "javascript:부모창스크립트 함수명();");
 		*/
 		//	opener.location.href = "javascript:goCoinUpdate('${idx}','${coinmoney}');";
-			window.opener.goCoinUpdate('${idx}','${coinmoney}');
+		//	window.opener.goCoinUpdate('${idx}','${coinmoney}');
 		//  $(opener.location).attr("href", "javascript:goCoinUpdate('${idx}','${coinmoney}');");
 			
+		
+			opener.location.href = "javascript:orderComplete();";
+		
 		    self.close();
 			
         } else {
             // location.href="/MyMVC";
+            location.href="/Semiproject/main/content2.up";
             alert("결제에 실패하였습니다.");
             self.close();
        }

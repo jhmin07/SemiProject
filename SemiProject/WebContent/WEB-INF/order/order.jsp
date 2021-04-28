@@ -338,10 +338,23 @@ table.odr_info input[type=text]{
 			return ;
 		}
 --%>		
-		var url = "<%=request.getContextPath()%>/order/goPayment.up?lastpay_price="+lastpay_price;
+		var url = "<%=request.getContextPath()%>/order/goPayment.up?lastpay_price="+lastpay_price+"&name=kimys";
 		window.open(url, "goPayment", 
 					"left=350px, top=100px, width=820px, height=600px");
-		self.close();
+		
+		$("input:text[name=totalPrice]").val(lastpay_price);
+	}
+	
+	function orderComplete() {
+		submitOrderFrm();
+		// console.log("결제 성공");
+	}
+	
+	function submitOrderFrm() {
+		var frm = document.orderFrm;
+		frm.action = "<%=request.getContextPath()%>/order/orderlist_insert.up";
+		frm.method = "post";
+		frm.submit();
 	}
 	
 </script>
@@ -352,6 +365,7 @@ table.odr_info input[type=text]{
 	<c:set var="total_price" value="0" scope="request"/>
 	<c:set var="sail_price" value="0" scope="request"/>
 	<c:set var="delivery_price" value="3000" scope="request"/>
+	<c:set var="total_point" value="0" scope="request"/>
 	
 	<table class="table odr_list">
 		<thead>
@@ -386,7 +400,8 @@ table.odr_info input[type=text]{
 					<td><fmt:formatNumber value="${prod.prodsum}" pattern="#,###" /> 원</td>
 				</tr>
 				
-				<c:set var="total_price" value="${total_price + prod.prodprice * prod.prodcnt}" scope="request"/>	
+				<c:set var="total_price" value="${total_price + prod.prodprice * prod.prodcnt}" scope="request"/>
+				<c:set var="total_point" value="${total_point + prod.prodpoint}" scope="request"/>	
 			</c:forEach>
 			
 			<tr class="odr_total_price">
@@ -400,6 +415,15 @@ table.odr_info input[type=text]{
 			</tr>
 		</tbody>
 	</table>
+	
+	<form name="orderFrm" hidden>
+		<%-- <input name="orderCode"/> --%>  
+		<%-- ${sessionScope.loginuser.userid} --%>
+		<input name="fk_userid" value="kimys"/>
+		<input name="totalPrice" />
+		<input name="totalPoint" value="${total_point}" />
+	</form>
+	
 	
 	<%-- 주문자 정보 입력폼 --%>
 	<form action="">
