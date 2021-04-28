@@ -13,7 +13,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 <style type="text/css">	
-	img {
+	img#boardImg {
 		width: 90%;		
 		height: 280px;
 	}
@@ -36,7 +36,7 @@
 	th.board_tab2 {
 		width: 80px;
 	}	
-	a {
+	a.boardA {
 		color: black;
 		text-decoration: none;
 		font-size: 15pt;
@@ -96,15 +96,15 @@
 </script>
 
 <div class="container" align="center">
-<img src="../image/board.png"/>
+<img id="boardImg" src="../image/board.png"/>
 	<table class="table page_tab" style="margin: 25px 0;">
 		<tbody>
 			<tr>
 				<td class="page_tab1 GoodsQA page_hover">
-					<a class=" GoodsQA">상품 Q&A</a>
+					<a class=" GoodsQA boardA">상품 Q&A</a>
 				</td>
 				<td class="page_tab1 Notice page_hover">
-					<a class=" Notice">공지사항</a>
+					<a class=" Notice boardA">공지사항</a>
 				</td>
 			</tr>
 		</tbody>
