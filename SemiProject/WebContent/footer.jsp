@@ -55,6 +55,11 @@ span#service{
 
 </style>
 
+<script type="text/javascript">
+
+
+</script>
+
 
 <footer>
 <div class="footer">
@@ -84,6 +89,8 @@ span#service{
 		<span>고객님은 안전거래를 위해 현금 등으로 결제시 모든 금액에 대하여 본 쇼핑몰에서 가입한 <span id="service">구매안전서비스</span> 소비자피해보상보험 서비스를 이용하실 수 있습니다.</span>
 		<br>
 		<span>Copyright&copy; by RHOME-K. Co. Ltd All Rights Reserved</span>
+		<br>
+		<a href="/SemiProject/adminLogin.jsp" style="color: white;">관리자모드</a>
 		<br><br>
 	</div>
 </div>
