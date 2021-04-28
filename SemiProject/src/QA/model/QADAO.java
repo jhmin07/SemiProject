@@ -79,17 +79,13 @@ public class QADAO implements InterQADAO {
 			//// == 검색어가 있는 경우 끝 == ////
 			
 			pstmt = conn.prepareStatement(sql);
-			System.out.println("paraMap.get(\"sizePerPage\")=> "+paraMap.get("sizePerPage"));
 			pstmt.setString(1, paraMap.get("sizePerPage"));
-			System.out.println("Asgddags");
 			if( searchWord != null && !searchWord.trim().isEmpty() ) {
 				pstmt.setString(2, searchWord);
-				System.out.println("서치워드"+searchWord);
 			}
 			rs = pstmt.executeQuery();
 			
 			rs.next();
-			System.out.println("rs.getInt(1);=> "+rs.getInt(1));
 			totalPage = rs.getInt(1);
 			
 
