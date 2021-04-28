@@ -2,6 +2,9 @@
     pageEncoding="UTF-8"%>    
     
     
+<%
+	String ctxPath = request.getContextPath();
+%>    
 <jsp:include page="../../header4.jsp" />  
 
 <title>RHOM 공식 홈페이지</title>
@@ -160,7 +163,7 @@ form{
 	        
 	        <div class="modal-body" style="height: 250px; width: 100%;">        
 		          <div id="idFind" >
-		          	<iframe style="border: none; width: 100%; height: 230px; " src="<%= request.getContextPath()%>/member/idFind.up">
+		          	<iframe style="border: none; width: 100%; height: 230px; " src="<%=ctxPath%>/member/idFind.up">
 		          	</iframe>
 		          </div>	          
 	        </div>
@@ -192,7 +195,7 @@ form{
 	        <div class="modal-body" style="height: 250px; width: 100%;">
 	        
 		          <div id="idFind" >
-		          	<iframe style="border: none; width: 100%; height: 230px; " src="<%= request.getContextPath() %>/member/pwdFind.up">
+		          	<iframe style="border: none; width: 100%; height: 230px; " src="<%=ctxPath%>/member/pwdFind.up">
 		          	</iframe>
 		          </div>
 	          
