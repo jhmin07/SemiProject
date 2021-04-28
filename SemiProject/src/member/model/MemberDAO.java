@@ -10,6 +10,7 @@ import javax.sql.DataSource;
 
 import notice.model.NoticeVO;
 import util.security.AES256;
+import util.security.SecretMyKey;
 import util.security.Sha256;
 
 
@@ -30,8 +31,12 @@ public class MemberDAO implements InterMemberDAO {
  	         Context envContext  = (Context)initContext.lookup("java:/comp/env");
  	         ds = (DataSource)envContext.lookup("jdbc/semioracle");
  	         
+ 	         aes = new AES256(SecretMyKey.KEY);
+ 	         // SecretMyKey.KEY 은 우리가 만든 비밀키 이다.
  	      } catch(NamingException e) {
  	         e.printStackTrace();
+ 	      } catch (UnsupportedEncodingException e) {
+ 			e.printStackTrace();   
  	      }
     }
     
@@ -75,8 +80,8 @@ public class MemberDAO implements InterMemberDAO {
 				 
 				 member.setUserid(rs.getString(1));
 				 member.setName(rs.getString(2));
-				 member.setEmail(rs.getString(3));  
-				 member.setMobile(rs.getString(4)); 
+				 member.setEmail(aes.decrypt(rs.getString(3))); // 복호화  
+				 member.setMobile(aes.decrypt(rs.getString(4))); // 복호화
 				 member.setPostcode(rs.getString(5));
 			     member.setAddress(rs.getString(6));
 				 member.setDetailaddress(rs.getString(7));
@@ -85,12 +90,6 @@ public class MemberDAO implements InterMemberDAO {
 				 member.setBirthday(rs.getString(10) + rs.getString(11) + rs.getString(12) );
 				 member.setPoint(rs.getInt(13));
 				 member.setRegisterday(rs.getString(14));
-					 
-				 pstmt = conn.prepareStatement(sql);
-				 pstmt.setString(1, paraMap.get("userid"));
-				 pstmt.setString(2, paraMap.get("pwd"));
-				 
-				 pstmt.executeUpdate();
 
 			 }
 			 
@@ -195,6 +194,245 @@ public class MemberDAO implements InterMemberDAO {
 		return isExists;
 	}
 	
+
+	// 회원의 개인 정보 변경하기
+	@Override
+	public int updateMember(MemberVO member) throws SQLException {
+		int n = 0;
+		
+		try {
+			conn = ds.getConnection();
+			
+			String sql = " update tbl_member set name = ? "
+					   + "                     , pwd = ? "
+					   + "                     , email = ? " 
+					   + "                     , mobile = ? "
+					   + "                     , postcode = ? "
+					   + "                     , address = ? "
+					   + "                     , detailaddress = ? "
+					   + "                     , extraaddress = ? "
+					   + " where userid = ? ";
+			
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, member.getName()); 
+			pstmt.setString(2, Sha256.encrypt(member.getPwd()) );
+			pstmt.setString(3, aes.encrypt(member.getEmail()) );
+			pstmt.setString(4, aes.encrypt(member.getMobile()) );
+			pstmt.setString(5, member.getPostcode() );
+			pstmt.setString(6, member.getAddress() );
+			pstmt.setString(7, member.getDetailaddress() );
+			pstmt.setString(8, member.getExtraaddress() );
+			pstmt.setString(9, member.getUserid() );
+			
+			n = pstmt.executeUpdate();
+			
+		} catch (GeneralSecurityException | UnsupportedEncodingException e) {
+			e.printStackTrace();
+		} finally {
+			close();
+		}
+		
+		return n;
+	}
+	
+	
+	@Override
+	public int selectTotalPage(Map<String, String> paraMap) throws SQLException {
+		int totalPage = 0;
+		try {
+			
+			conn = ds.getConnection();
+			String sql = " select ceil(count(*)/?) " + 
+						 " from tbl_noticeBoard ";
+			
+			//// == 검색어가 있는 경우 시작 == ////
+			String searchWord = paraMap.get("searchWord");
+			String colname = paraMap.get("searchType");
+			
+			if( searchWord != null && !searchWord.trim().isEmpty() ) {
+				// 검색어를 공백이 아닌 것을 입력해준 경우
+				sql += " where "+ colname +" like '%'||?||'%' ";	// 테이블명이나 컬럼명에는 위치홀더(?) 쓰면 안된다...(여기서의 name같은거..)
+			}
+			//// == 검색어가 있는 경우 끝 == ////
+			
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, paraMap.get("sizePerPage"));
+			if( searchWord != null && !searchWord.trim().isEmpty() ) {
+				pstmt.setString(2, searchWord);
+			}
+			rs = pstmt.executeQuery();
+			
+			rs.next();
+			totalPage = rs.getInt(1);
+			
+
+			
+		
+		}  finally {
+			close();
+		}
+				
+		
+		return totalPage;
+	}
+
+	@Override
+	public List<NoticeVO> selectPagingContent(Map<String, String> paraMap) throws SQLException {
+
+		List<NoticeVO> noticeList = new ArrayList<>();
+		try {
+			
+			conn = ds.getConnection();
+			String sql = " select ctNo, ctTitle, ctContent, fk_adId, ctRegisterday, ctViewcount " + 
+						 " from " + 
+						 " ( " + 
+				 	 	 " 		select rownum AS rno, ctNo, ctTitle,ctContent, fk_adId, ctRegisterday, ctViewcount " + 
+						 " 		from " + 
+						 " 		( " + 
+						 "			select ctNo, ctTitle,ctContent, fk_adId, ctRegisterday, ctViewcount " + 
+						 "			from tbl_noticeBoard ";
+			
+			
+		//// == 검색어가 있는 경우 시작 == ////
+		String searchWord = paraMap.get("searchWord");
+		String colname = paraMap.get("searchType");
+		
+				
+		if( searchWord != null && !searchWord.trim().isEmpty() ) {
+			// 검색어를 공백이 아닌 것을 입력해준 경우
+			sql += " where "+ colname +" like '%'||?||'%' ";	// 테이블명이나 컬럼명에는 위치홀더(?) 쓰면 안된다...(여기서의 name같은거..)
+		}
+		//// == 검색어가 있는 경우 끝 == ////
+			
+			
+			sql += " order by ctRegisterday desc " + 
+				   " ) V " + 
+				   " ) T " + 
+				   " where rno between ? and ? ";
+		
+			int currentShowPageNo = Integer.parseInt(paraMap.get("currentShowPageNo")); 
+			int sizePerPage = Integer.parseInt(paraMap.get("sizePerPage")); 
+			pstmt = conn.prepareStatement(sql);
+			if( searchWord != null && !searchWord.trim().isEmpty() ) {
+				pstmt.setString(1, searchWord);
+				pstmt.setInt(2, (currentShowPageNo * sizePerPage) - (sizePerPage - 1));
+				pstmt.setInt(3, (currentShowPageNo * sizePerPage));
+			}
+			else {
+				pstmt.setInt(1, (currentShowPageNo * sizePerPage) - (sizePerPage - 1));
+				pstmt.setInt(2, (currentShowPageNo * sizePerPage));
+			}
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				
+				NoticeVO nvo = new NoticeVO();
+				 nvo.setCtNo(rs.getInt(1));
+				 nvo.setCtTitle(rs.getString(2));
+				 nvo.setCtContent(rs.getString(3)); // 복호화
+				 nvo.setFk_adId(rs.getString(4));
+				 nvo.setCtRegisterday(rs.getString(5));
+				 nvo.setCtViewcount(rs.getInt(6));
+				
+				noticeList.add(nvo);
+			}
+			
+		} finally {
+			close();
+		}
+		
+		
+		return noticeList;
+	}
+
+	// 아이디 찾기
+	@Override
+	public String findUserid(Map<String, String> paraMap) throws SQLException {
+		
+		String userid = null;
+		
+		try {
+			 conn = ds.getConnection();
+			 
+			 String sql = " select userid "
+			 		    + " from tbl_member "
+			 		    + " where status = 1 and name = ? and email = ? ";
+			 
+			 pstmt = conn.prepareStatement(sql);
+			 pstmt.setString(1, paraMap.get("name") );
+			 pstmt.setString(2, aes.encrypt(paraMap.get("email")));
+			 
+			 rs = pstmt.executeQuery();
+			 
+			 if(rs.next()) {
+				 userid = rs.getString(1);
+			 }
+		}catch(GeneralSecurityException | UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}finally {
+			close();
+		}
+		
+		return userid;
+	}
+
+	// 비밀번호찾기
+	@Override
+	public boolean isUserExist(Map<String, String> paraMap) throws SQLException {
+		
+		boolean isUserExist = false;
+		
+		try {
+			conn = ds.getConnection();
+			 
+			 String sql = " select userid "
+			 		    + " from tbl_member "
+			 		    + " where status = 1 and userid = ? and email = ? ";
+			 
+			 pstmt = conn.prepareStatement(sql);
+			 pstmt.setString(1, paraMap.get("userid") );
+			 pstmt.setString(2, aes.encrypt(paraMap.get("email")));
+			 
+			 rs = pstmt.executeQuery();
+			 
+			 isUserExist = rs.next();
+		
+		} catch(GeneralSecurityException | UnsupportedEncodingException e) {
+			e.printStackTrace();
+		} finally {
+			close();
+		}
+		
+		return isUserExist;		
+	}
+
+	// 암호 변경하기
+	@Override
+	public int pwdUpdate(Map<String, String> paraMap) throws SQLException {
+		
+		int n = 0;
+		
+		try {
+			 conn = ds.getConnection();
+			 
+			 String sql = " update tbl_member set pwd = ? "
+			 		    + "                     , lastpwdchangedate = sysdate "
+			 		    + " where userid = ? ";
+			 
+			 pstmt = conn.prepareStatement(sql);
+			 
+			 pstmt.setString(1, Sha256.encrypt(paraMap.get("pwd")) );  // 암호를 SHA256 알고리즘으로 단방향 암호화 시킨다.
+			 pstmt.setString(2, paraMap.get("userid") );
+			 
+			 n = pstmt.executeUpdate();
+			 
+		} finally {
+			close();
+		}
+		
+		return n;
+	}
 	
 	
 }	

@@ -63,7 +63,15 @@ public class NoticeDAO implements InterNoticeDAO {
 			//// == 검색어가 있는 경우 시작 == ////
 			String searchWord = paraMap.get("searchWord");
 			String colname = paraMap.get("searchType");
-			
+			if(colname!= null && colname.equals("name")) {
+				colname="fk_adId";
+			}
+			if(colname!= null && colname.equals("title")) {
+				colname="ctTitle";
+			}
+			if(colname!= null && colname.equals("contents")) {
+				colname="ctContent";
+			}
 			if( searchWord != null && !searchWord.trim().isEmpty() ) {
 				// 검색어를 공백이 아닌 것을 입력해준 경우
 				sql += " where "+ colname +" like '%'||?||'%' ";	// 테이블명이나 컬럼명에는 위치홀더(?) 쓰면 안된다...(여기서의 name같은거..)
@@ -113,7 +121,16 @@ public class NoticeDAO implements InterNoticeDAO {
 		//// == 검색어가 있는 경우 시작 == ////
 		String searchWord = paraMap.get("searchWord");
 		String colname = paraMap.get("searchType");
-		
+		System.out.println("colname : "+colname);
+		if(colname!= null && colname.equals("name")) {
+			colname="fk_adId";
+		}
+		if(colname!= null && colname.equals("title")) {
+			colname="ctTitle";
+		}
+		if(colname!= null && colname.equals("contents")) {
+			colname="ctContent";
+		}
 				
 		if( searchWord != null && !searchWord.trim().isEmpty() ) {
 			// 검색어를 공백이 아닌 것을 입력해준 경우

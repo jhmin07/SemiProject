@@ -108,20 +108,20 @@
    <div id="newItem">NEW ITEM</div>
    <table id="content2MidBox" class="content2HoverGray">
       <td class="content2SQ">
-         <img class="content2Img content2Hover" id="content2Img1" src="imagesContents2/sofa01.jpeg" alt="소파1">    
+         <img class="content2Img content2Hover" id="content2Img1" src="image/imagesContents2/sofa01.jpeg" alt="소파1">    
            <div class="subcarouselDiv">
              <div id="myCarousel1" class="carousel slide" data-ride="carousel">
 
              <!-- Wrapper for slides -->
              <div class="carousel-inner">
                <div class="item active">
-                 <img src="imagesContents2/sofa01.jpeg" alt="소파1" style="width:100%;">
+                 <img src="image/imagesContents2/sofa01.jpeg" alt="소파1" style="width:100%;">
                </div>
                <div class="item">
-                 <img src="imagesContents2/sofa02.jpeg" alt="소파2" style="width:100%;">
+                 <img src="image/imagesContents2/sofa02.jpeg" alt="소파2" style="width:100%;">
                </div>
                <div class="item">
-                 <img src="imagesContents2/sofa03.jpg" alt="소파3" style="width:100%;">
+                 <img src="image/imagesContents2/sofa03.jpg" alt="소파3" style="width:100%;">
                </div>
              </div>
          
@@ -138,20 +138,20 @@
          
         
       <td class="content2SQ">
-         <img class="content2Img content2Hover" id="content2Img2" src="imagesContents2/table01.jpg" alt="테이블1">    
+         <img class="content2Img content2Hover" id="content2Img2" src="image/imagesContents2/table01.jpg" alt="테이블1">    
            <div class="subcarouselDiv">
            <div id="myCarousel2" class="subcarousel slide" data-ride="carousel">
                <div class="carousel-inner">
                   <div class="item active">
-                    <img src="imagesContents2/table01.jpg" alt="테이블2" style="width:100%;">
+                    <img src="image/imagesContents2/table01.jpg" alt="테이블2" style="width:100%;">
                   </div>
       
                   <div class="item">
-                    <img src="imagesContents2/table02.jpg" alt="테이블1" style="width:100%;">
+                    <img src="image/imagesContents2/table02.jpg" alt="테이블1" style="width:100%;">
                   </div>
                 
                   <div class="item">
-                    <img src="imagesContents2/table03.JPG" alt="테이블3" style="width:100%;">
+                    <img src="image/imagesContents2/table03.JPG" alt="테이블3" style="width:100%;">
                   </div>
                 </div>
       
@@ -171,20 +171,20 @@
          
          
       <td class="content2SQ">
-         <img class="content2Img content2Hover" id="content2Img1" src="imagesContents2/closet01.JPG" alt="옷장1">    
+         <img class="content2Img content2Hover" id="content2Img1" src="image/imagesContents2/closet01.JPG" alt="옷장1">    
            <div class="subcarouselDiv">
            <div id="myCarousel3" class="subcarousel slide" data-ride="carousel">
                <div class="carousel-inner">
                   <div class="item active">
-                    <img src="imagesContents2/closet01.JPG" alt="옷장2" style="width:100%;">
+                    <img src="image/imagesContents2/closet01.JPG" alt="옷장2" style="width:100%;">
                   </div>
       
                   <div class="item">
-                    <img src="imagesContents2/closet02.JPG" alt="옷장1" style="width:100%;">
+                    <img src="image/imagesContents2/closet02.JPG" alt="옷장1" style="width:100%;">
                   </div>
                 
                   <div class="item">
-                    <img src="imagesContents2/closet03.JPG" alt="옷장3" style="width:100%;">
+                    <img src="image/imagesContents2/closet03.JPG" alt="옷장3" style="width:100%;">
                   </div>
                 </div>
       

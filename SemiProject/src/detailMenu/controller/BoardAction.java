@@ -7,8 +7,6 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import common.controller.AbstractController;
-import member.model.InterMemberDAO;
-import member.model.MemberDAO;
 import notice.model.InterNoticeDAO;
 import notice.model.NoticeDAO;
 import notice.model.NoticeVO;
@@ -42,8 +40,6 @@ public class BoardAction extends AbstractController {
 					String searchType = request.getParameter("searchType");
 					String searchWord = request.getParameter("searchWord");
 					
-					System.out.println("~~확인용 searchType " + searchType);
-					System.out.println("~~확인용 searchWord " + searchWord);
 					///////////////////////////////////////////////////////////
 					
 					Map<String, String> paraMap = new HashMap<>();
@@ -102,8 +98,8 @@ public class BoardAction extends AbstractController {
 					  
 					// **** [맨처음][이전] 만들기 **** //
 					if( pageNo != 1 ) {
-						pageBar +=  "&nbsp;<a href = 'boardBody.up?currentShowPageNo=1&sizePerPage="+sizePerPage+"&searchType="+searchType+"&searchWord="+searchWord+"'>[맨처음]</a>&nbsp;";	
-						pageBar +=  "&nbsp;<a href = 'boardBody.up?currentShowPageNo="+(pageNo-1)+"&sizePerPage="+sizePerPage+"&searchType="+searchType+"&searchWord="+searchWord+"'>[이전]</a>&nbsp;";
+						pageBar +=  "&nbsp;<a href = 'board.up?currentShowPageNo=1&sizePerPage="+sizePerPage+"&searchType="+searchType+"&searchWord="+searchWord+"'>[맨처음]</a>&nbsp;";	
+						pageBar +=  "&nbsp;<a href = 'board.up?currentShowPageNo="+(pageNo-1)+"&sizePerPage="+sizePerPage+"&searchType="+searchType+"&searchWord="+searchWord+"'>[이전]</a>&nbsp;";
 						
 					}
 					
@@ -113,7 +109,7 @@ public class BoardAction extends AbstractController {
 							 // 현재 들어와있는 페이지는 클릭해도 넘어가지 않게 해준다.
 						}
 						else {
-							pageBar +=  "&nbsp;<a href = 'boardBody.up?currentShowPageNo="+pageNo+"&sizePerPage="+sizePerPage+"&searchType="+searchType+"&searchWord="+searchWord+"'>" + pageNo + "</a>&nbsp;";
+							pageBar +=  "&nbsp;<a href = 'board.up?currentShowPageNo="+pageNo+"&sizePerPage="+sizePerPage+"&searchType="+searchType+"&searchWord="+searchWord+"'>" + pageNo + "</a>&nbsp;";
 							
 						}
 						
@@ -126,8 +122,8 @@ public class BoardAction extends AbstractController {
 
 
 					if( pageNo <= totalPage ) {
-						pageBar +=  "&nbsp;<a href = 'boardBody.up?currentShowPageNo="+pageNo+"&sizePerPage="+sizePerPage+"&searchType="+searchType+"&searchWord="+searchWord+"'>[다음]</a>&nbsp;";
-						pageBar +=  "&nbsp;<a href = 'boardBody.up?currentShowPageNo="+totalPage+"&sizePerPage="+sizePerPage+"&searchType="+searchType+"&searchWord="+searchWord+"'8>[마지막]</a>&nbsp;";
+						pageBar +=  "&nbsp;<a href = 'board.up?currentShowPageNo="+pageNo+"&sizePerPage="+sizePerPage+"&searchType="+searchType+"&searchWord="+searchWord+"'>[다음]</a>&nbsp;";
+						pageBar +=  "&nbsp;<a href = 'board.up?currentShowPageNo="+totalPage+"&sizePerPage="+sizePerPage+"&searchType="+searchType+"&searchWord="+searchWord+"'8>[마지막]</a>&nbsp;";
 						
 					}
 					
@@ -149,7 +145,7 @@ public class BoardAction extends AbstractController {
 						int menu = 1;
 						request.setAttribute("menu", menu);
 					super.setRedirect(false);
-			        super.setViewPage("/WEB-INF/board/boardBody.jsp");			
+			        super.setViewPage("/WEB-INF/board/board.jsp");			
 					
 					/*
 					 * } else { // 로그인을 안한 경우 또는 일반사용자로 로그인 한 경우
