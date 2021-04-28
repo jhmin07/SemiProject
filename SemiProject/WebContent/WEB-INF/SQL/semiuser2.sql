@@ -29,6 +29,14 @@ create table tbl_member
 ,constraint CK_tbl_member_idle check( idle in(0,1) )
 );
 
+insert into tbl_member(userid, pwd, name, email, mobile, postcode, address, detailaddress, extraaddress, gender, birthday)
+values ('admin1', 'qwer1234!', '관리자1', 'test1@naver.com', '010-5678-3456', '01234', '서울시', '마포구', '123', '1', '1995-01-01');
+insert into tbl_member(userid, pwd, name, email, mobile, postcode, address, detailaddress, extraaddress, gender, birthday)
+values ('admin2', 'qwer1234!', '테스트2', 'test2@naver.com', '010-5555-3456', '01234', '서울시', '마포구', '123', '1', '1995-01-01');
+
+update tbl_member set userid = 'admin' where userid = 'admin1';
+commit;
+
 select *
 from tbl_member
 order by registerday desc;
