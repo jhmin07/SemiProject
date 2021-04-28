@@ -1,6 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
+<%
+	String ctxPath = request.getContextPath();
+	//	/Semiproject
+%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -16,6 +21,27 @@
 </style>
 
 <script type="text/javascript">
+	$(document).ready(function(){
+		
+		var method = "${requestScope.method}";
+		
+		if(method=="GET"){
+			$("div#div_findResult").hide();
+		}
+		else{
+			$("input#name").val("${requestScope.name}");
+			$("input#email").val("${requestScope.email}")
+		}
+		
+		$("button#btnFind").click(function(){
+			
+			var frm = document.idFindFrm;
+			frm.action = "<%=ctxPath%>/member/idFindResult.up";
+			frm.method = "post";
+			frm.submit();
+		});
+	});
+	
 
 </script>
 
@@ -29,14 +55,14 @@
    </div>
    
    <div id="div_email" align="center">
-   	  <span style="font-size: 12pt; font-weight:bold;">이메일</span><br/>
+   	  <span style="font-size: 12pt; font-weight:bold;">이메일</span><br/>	
       <input type="text" name="email" id="email" size="30" style="margin-top: 5px; " placeholder="이메일 주소를 입력해주세요" autocomplete="off" required />
    </div>
    
-<%--    <div id="div_findResult" align="center">
+   <%--  <div id="div_findResult" align="center">
    	  ID : <span style="color: red; font-size: 16pt; font-weight: bold;">${requestScope.userid}</span> 
-   </div> --%>
-   
+   </div>  --%>
+      
    <div id="div_btnFind" align="center" style="margin-top: 25px;">
    		<button type="button" style="background-color: black; color: white; width: 150px; font-weight:bold;" id="btnFind">아이디 찾기</button>
    </div>

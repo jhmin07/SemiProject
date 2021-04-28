@@ -26,7 +26,14 @@ public interface InterMemberDAO {
 
 	List<NoticeVO> selectPagingContent(Map<String, String> paraMap) throws SQLException;
 
-	
+	// 아이디찾기
+	String findUserid(Map<String, String> paraMap) throws SQLException;
+
+	// 비밀번호찾기
+	boolean isUserExist(Map<String, String> paraMap) throws SQLException;
+
+	// 암호 변경하기
+	int pwdUpdate(Map<String, String> paraMap) throws SQLException;
 }
 
 
