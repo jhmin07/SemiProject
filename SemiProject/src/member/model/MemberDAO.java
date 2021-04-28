@@ -3,11 +3,12 @@ package member.model;
 import java.io.UnsupportedEncodingException;
 import java.security.GeneralSecurityException;
 import java.sql.*;
-import java.util.Map;
+import java.util.*;
 
 import javax.naming.*;
 import javax.sql.DataSource;
 
+import notice.model.NoticeVO;
 import util.security.AES256;
 import util.security.Sha256;
 
@@ -64,7 +65,7 @@ public class MemberDAO implements InterMemberDAO {
 			 pstmt = conn.prepareStatement(sql);
 			 
 			 pstmt.setString(1, paraMap.get("userid"));
-			 pstmt.setString(2, paraMap.get("pwd"));
+			 pstmt.setString(2, Sha256.encrypt(paraMap.get("pwd")));
 			 
 			 rs = pstmt.executeQuery();
 			 
@@ -193,6 +194,8 @@ public class MemberDAO implements InterMemberDAO {
 		
 		return isExists;
 	}
+	
+	
 	
 }	
 
