@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>    
    
 <jsp:include page="../../header4.jsp"/>
 	
@@ -47,26 +48,32 @@
 		font-size: 11pt;
 		text-align: center;
 	}
-	td.ctTitle:hover {
+	td.Title:hover {
 		cursor: pointer;
 	}
 	.page_click{
 		background-color: black;
 		color: white;
 	}
+	td.page_hover:hover {
+		cursor: pointer;
+	}
 </style>
 <script type="text/javascript">
-	$(document).ready(function(){		
+	$(document).ready(function(){	
 		
+		if("${fn:trim(requestScope.searchWord)}" != ""){
+			$("select#searchType").val("${requestScope.searchType}");
+			$("input#searchWord").val("${requestScope.searchWord}");
+		}
+		
+		$(".GoodsQA").removeClass("page_click");
+		$(".Notice").addClass("page_click");
 		
 		$("td.GoodsQA").click(function(){
-			$(".GoodsQA").addClass("page_click");
-			$(".Notice").removeClass("page_click");
 			location.href="<%=request.getContextPath()%>/detailMenu/boardQA.up";
 		});
 		$("td.Notice").click(function(){
-			$(".GoodsQA").removeClass("page_click");
-			$(".Notice").addClass("page_click");
 			location.href="<%=request.getContextPath()%>/detailMenu/board.up" ;
 		});
 		$("tr.NoticeHead").click(function(){
@@ -75,12 +82,7 @@
 			
 			  location.href = "<%=request.getContextPath()%>/detailMenu/contentOneDetail.up?ctNo="+ctNo+"&goBackURL=${requestScope.goBackURL}";
 		});
-		$("tr.QAHead").click(function(){
-			var qaNo = $(this).children(".qaNo").text();				
-			// $(this) 는 td가 아니라 tr 이므로 자식들(td) 중 class가 .userid인 것들을 찾는다.
-			
-			  location.href = "<%=request.getContextPath()%>/detailMenu/qaOneDetail.up?qaNo="+qaNo+"&goBackURL=${requestScope.goBackURL}";
-		});
+		
 	});
 	
 	
@@ -98,10 +100,10 @@
 	<table class="table page_tab" style="margin: 25px 0;">
 		<tbody>
 			<tr>
-				<td class="page_tab1 GoodsQA">
+				<td class="page_tab1 GoodsQA page_hover">
 					<a class=" GoodsQA">상품 Q&A</a>
 				</td>
-				<td class="page_tab1 Notice">
+				<td class="page_tab1 Notice page_hover">
 					<a class=" Notice">공지사항</a>
 				</td>
 			</tr>
@@ -121,7 +123,7 @@
 	</div>
 
 
-<c:if test="${menu == 1 }">
+
 		<table class="table table-bordered" style="width: 90%; margin-top: 20px;">
 		<thead>
 			<tr>
@@ -178,38 +180,7 @@
         
         
 	</table>
-	</c:if>
-	
-	
-	<c:if test="${menu == 2 }">
-		<table class="table table-bordered" style="width: 90%; margin-top: 20px;">
-		<thead>
-			<tr>
-				<th class="page_tab2 board_tab2">No.</th>
-				<th class="page_tab2">Contents</th>
-				<th class="page_tab2 board_tab2" style="width: 100px;">Name</th>
-				<th class="page_tab2 board_tab2" style="width: 200px;">Date</th>
-				<th class="page_tab2 board_tab2">Hits</th>
-			</tr>
-		</thead>
-		
-						
-		<tbody id="NoticeList">
-        	<c:forEach var="qvo" items="${requestScope.qaList}">
-        		<tr class= "QAHead">
-        			<td class="qaNo">${qvo.qaNo}</td>
-        			<td class="Title">${qvo.qaTitle}</td>
-        			<td>${qvo.fk_userid}</td>
-        			<td>${qvo.qaRegisterday}</td>
-        			<td>${qvo.qaViewcount}</td>
-        		</tr>
-        	</c:forEach>
-        </tbody>
-        
-        
-        
-	</table>
-	</c:if>
+
 	
 </div>
 

@@ -60,7 +60,6 @@ public class BoardQAAction extends AbstractController {
 								
 					// 페이징처리를 위해서 전체회원에 대한 총페이지 개수 알아오기(select)
 					int totalPage = qdao.selectTotalPage(paraMap);
-					System.out.println("totalPage 확인!! => " +totalPage);
 					if(Integer.parseInt(currentShowPageNo) > totalPage ) {	// 없는 페이지로 장난치는 경우
 						currentShowPageNo = "1";
 						paraMap.put("currentShowPageNo", currentShowPageNo);	// 다시 map에 저장한다.
@@ -147,7 +146,7 @@ public class BoardQAAction extends AbstractController {
 						request.setAttribute("menu", menu);	
 						
 					super.setRedirect(false);
-			        super.setViewPage("/WEB-INF/board/board.jsp");			
+			        super.setViewPage("/WEB-INF/board/board_QA.jsp");			
 					
 					/*
 					 * } else { // 로그인을 안한 경우 또는 일반사용자로 로그인 한 경우

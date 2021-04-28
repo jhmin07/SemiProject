@@ -40,8 +40,6 @@ public class BoardAction extends AbstractController {
 					String searchType = request.getParameter("searchType");
 					String searchWord = request.getParameter("searchWord");
 					
-					System.out.println("~~확인용 searchType " + searchType);
-					System.out.println("~~확인용 searchWord " + searchWord);
 					///////////////////////////////////////////////////////////
 					
 					Map<String, String> paraMap = new HashMap<>();
