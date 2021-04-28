@@ -6,7 +6,7 @@
 	//    /SemiProject
 %>
 
-<jsp:include page="../../menuHeader.jsp"/> 
+<jsp:include page="menuHeader.jsp"/> 
 
 <!DOCTYPE html>
 <html>

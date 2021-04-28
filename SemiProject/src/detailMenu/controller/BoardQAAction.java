@@ -6,12 +6,13 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import common.controller.AbstractController;
-import notice.model.InterNoticeDAO;
-import notice.model.NoticeDAO;
-import notice.model.NoticeVO;
 
-public class BoardAction extends AbstractController {
+import QA.model.InterQADAO;
+import QA.model.QADAO;
+import QA.model.QAVO;
+import common.controller.AbstractController;
+
+public class BoardQAAction extends AbstractController {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -20,7 +21,7 @@ public class BoardAction extends AbstractController {
 				MemberVO loginuser = (MemberVO) session.getAttribute("loginuser");
 				
 				if( loginuser!=null && "admin".equals(loginuser.getUserid()) ) {*/
-					InterNoticeDAO ndao = new NoticeDAO();
+					InterQADAO qdao = new QADAO();
 					String currentShowPageNo = request.getParameter("currentShowPageNo");
 					String sizePerPage = "5";
 										
@@ -40,6 +41,8 @@ public class BoardAction extends AbstractController {
 					String searchType = request.getParameter("searchType");
 					String searchWord = request.getParameter("searchWord");
 					
+					System.out.println("~~확인용 searchType " + searchType);
+					System.out.println("~~확인용 searchWord " + searchWord);
 					///////////////////////////////////////////////////////////
 					
 					Map<String, String> paraMap = new HashMap<>();
@@ -56,23 +59,21 @@ public class BoardAction extends AbstractController {
 					//     토탈페이지수 보다 큰 값을 입력하여 장난친 경우를 1페이지로 가게끔 막아주는 것 시작.  
 								
 					// 페이징처리를 위해서 전체회원에 대한 총페이지 개수 알아오기(select)
-					int totalPage = ndao.selectTotalPage(paraMap);
-					System.out.println("totalPage 확인!! => " +totalPage);
+					int totalPage = qdao.selectTotalPage(paraMap);
 					if(Integer.parseInt(currentShowPageNo) > totalPage ) {	// 없는 페이지로 장난치는 경우
 						currentShowPageNo = "1";
 						paraMap.put("currentShowPageNo", currentShowPageNo);	// 다시 map에 저장한다.
 					}
 					//////////////////////////////////////////////////////////////////////////////
 					
-					List<NoticeVO> noticeList = ndao.selectPagingContent(paraMap);
+					List<QAVO> qaList = qdao.selectPagingContent(paraMap);
 
 					request.setAttribute("sizePerPage", sizePerPage);
-					request.setAttribute("noticeList", noticeList);
+					request.setAttribute("qaList", qaList);
 					
 			        request.setAttribute("searchType", searchType); 
 			        request.setAttribute("searchWord", searchWord); 
 
-					System.out.println("qwertytrew"+noticeList.size());
 					String pageBar = "";
 					
 					int blockSize = 10;
@@ -98,8 +99,8 @@ public class BoardAction extends AbstractController {
 					  
 					// **** [맨처음][이전] 만들기 **** //
 					if( pageNo != 1 ) {
-						pageBar +=  "&nbsp;<a href = 'board.up?currentShowPageNo=1&sizePerPage="+sizePerPage+"&searchType="+searchType+"&searchWord="+searchWord+"'>[맨처음]</a>&nbsp;";	
-						pageBar +=  "&nbsp;<a href = 'board.up?currentShowPageNo="+(pageNo-1)+"&sizePerPage="+sizePerPage+"&searchType="+searchType+"&searchWord="+searchWord+"'>[이전]</a>&nbsp;";
+						pageBar +=  "&nbsp;<a href = 'boardQA.up?currentShowPageNo=1&sizePerPage="+sizePerPage+"&searchType="+searchType+"&searchWord="+searchWord+"'>[맨처음]</a>&nbsp;";	
+						pageBar +=  "&nbsp;<a href = 'boardQA.up?currentShowPageNo="+(pageNo-1)+"&sizePerPage="+sizePerPage+"&searchType="+searchType+"&searchWord="+searchWord+"'>[이전]</a>&nbsp;";
 						
 					}
 					
@@ -109,7 +110,7 @@ public class BoardAction extends AbstractController {
 							 // 현재 들어와있는 페이지는 클릭해도 넘어가지 않게 해준다.
 						}
 						else {
-							pageBar +=  "&nbsp;<a href = 'board.up?currentShowPageNo="+pageNo+"&sizePerPage="+sizePerPage+"&searchType="+searchType+"&searchWord="+searchWord+"'>" + pageNo + "</a>&nbsp;";
+							pageBar +=  "&nbsp;<a href = 'boardQA.up?currentShowPageNo="+pageNo+"&sizePerPage="+sizePerPage+"&searchType="+searchType+"&searchWord="+searchWord+"'>" + pageNo + "</a>&nbsp;";
 							
 						}
 						
@@ -122,8 +123,8 @@ public class BoardAction extends AbstractController {
 
 
 					if( pageNo <= totalPage ) {
-						pageBar +=  "&nbsp;<a href = 'board.up?currentShowPageNo="+pageNo+"&sizePerPage="+sizePerPage+"&searchType="+searchType+"&searchWord="+searchWord+"'>[다음]</a>&nbsp;";
-						pageBar +=  "&nbsp;<a href = 'board.up?currentShowPageNo="+totalPage+"&sizePerPage="+sizePerPage+"&searchType="+searchType+"&searchWord="+searchWord+"'8>[마지막]</a>&nbsp;";
+						pageBar +=  "&nbsp;<a href = 'boardQA.up?currentShowPageNo="+pageNo+"&sizePerPage="+sizePerPage+"&searchType="+searchType+"&searchWord="+searchWord+"'>[다음]</a>&nbsp;";
+						pageBar +=  "&nbsp;<a href = 'boardQA.up?currentShowPageNo="+totalPage+"&sizePerPage="+sizePerPage+"&searchType="+searchType+"&searchWord="+searchWord+"'8>[마지막]</a>&nbsp;";
 						
 					}
 					
@@ -141,11 +142,11 @@ public class BoardAction extends AbstractController {
 						// 에서 페이지 사이즈와 검색어에 대해서는 읽어오지 못하게 된다.
 						currentURL=currentURL.replace("&", " ");
 						request.setAttribute("goBackURL", currentURL);
-
-						int menu = 1;
-						request.setAttribute("menu", menu);
+						int menu = 2;
+						request.setAttribute("menu", menu);	
+						
 					super.setRedirect(false);
-			        super.setViewPage("/WEB-INF/board/board.jsp");			
+			        super.setViewPage("/WEB-INF/board/board_QA.jsp");			
 					
 					/*
 					 * } else { // 로그인을 안한 경우 또는 일반사용자로 로그인 한 경우

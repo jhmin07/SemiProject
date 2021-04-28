@@ -1,4 +1,4 @@
-package notice.model;
+package QA.model;
 
 import java.io.UnsupportedEncodingException;
 import java.security.GeneralSecurityException;
@@ -14,7 +14,7 @@ import util.security.AES256;
 import util.security.Sha256;
 
 
-public class NoticeDAO implements InterNoticeDAO {
+public class QADAO implements InterQADAO {
 	
 	private DataSource ds; // // DataSource ds 는 아파치톰캣이 제공하는 DBCP(DB Connection Pool) 이다.
     private Connection conn;
@@ -24,7 +24,7 @@ public class NoticeDAO implements InterNoticeDAO {
     private AES256 aes;
     
     //생성자
-    public NoticeDAO() {
+    public QADAO() {
  	   
  	   try {
  	         Context initContext = new InitialContext();
@@ -58,19 +58,19 @@ public class NoticeDAO implements InterNoticeDAO {
 			
 			conn = ds.getConnection();
 			String sql = " select ceil(count(*)/?) " + 
-						 " from tbl_noticeBoard ";
+						 " from tbl_qaBoard ";
 			
 			//// == 검색어가 있는 경우 시작 == ////
 			String searchWord = paraMap.get("searchWord");
 			String colname = paraMap.get("searchType");
 			if(colname!= null && colname.equals("name")) {
-				colname="fk_adId";
+				colname="fk_userid";
 			}
 			if(colname!= null && colname.equals("title")) {
-				colname="ctTitle";
+				colname="qaTitle";
 			}
 			if(colname!= null && colname.equals("contents")) {
-				colname="ctContent";
+				colname="qaContent";
 			}
 			if( searchWord != null && !searchWord.trim().isEmpty() ) {
 				// 검색어를 공백이 아닌 것을 입력해준 경우
@@ -79,7 +79,6 @@ public class NoticeDAO implements InterNoticeDAO {
 			//// == 검색어가 있는 경우 끝 == ////
 			
 			pstmt = conn.prepareStatement(sql);
-			System.out.println("paraMap.get(\"sizePerPage\")=> "+paraMap.get("sizePerPage"));
 			pstmt.setString(1, paraMap.get("sizePerPage"));
 			if( searchWord != null && !searchWord.trim().isEmpty() ) {
 				pstmt.setString(2, searchWord);
@@ -87,7 +86,6 @@ public class NoticeDAO implements InterNoticeDAO {
 			rs = pstmt.executeQuery();
 			
 			rs.next();
-			System.out.println("rs.getInt(1);=> "+rs.getInt(1));
 			totalPage = rs.getInt(1);
 			
 
@@ -102,34 +100,33 @@ public class NoticeDAO implements InterNoticeDAO {
 	}
 
 	@Override
-	public List<NoticeVO> selectPagingContent(Map<String, String> paraMap) throws SQLException {
+	public List<QAVO> selectPagingContent(Map<String, String> paraMap) throws SQLException {
 
-		List<NoticeVO> noticeList = new ArrayList<>();
+		List<QAVO> qaList = new ArrayList<>();
 		try {
 			
 			conn = ds.getConnection();
-			String sql = " select ctNo, ctTitle, ctContent, fk_adId, ctRegisterday, ctViewcount " + 
+			String sql = " select qaNo, qaTitle, qaContent, qaPwd, fk_userid, qaRegisterday, qaViewcount " + 
 						 " from " + 
 						 " ( " + 
-				 	 	 " 		select rownum AS rno, ctNo, ctTitle,ctContent, fk_adId, ctRegisterday, ctViewcount " + 
+				 	 	 " 		select rownum AS rno, qaNo, qaTitle, qaContent, qaPwd, fk_userid, qaRegisterday, qaViewcount " + 
 						 " 		from " + 
 						 " 		( " + 
-						 "			select ctNo, ctTitle,ctContent, fk_adId, ctRegisterday, ctViewcount " + 
-						 "			from tbl_noticeBoard ";
+						 "			select qaNo, qaTitle, qaContent, qaPwd, fk_userid, qaRegisterday, qaViewcount " + 
+						 "			from tbl_qaBoard ";
 			
 			
 		//// == 검색어가 있는 경우 시작 == ////
 		String searchWord = paraMap.get("searchWord");
 		String colname = paraMap.get("searchType");
-		System.out.println("colname : "+colname);
 		if(colname!= null && colname.equals("name")) {
-			colname="fk_adId";
+			colname="fk_userid";
 		}
 		if(colname!= null && colname.equals("title")) {
-			colname="ctTitle";
+			colname="qaTitle";
 		}
 		if(colname!= null && colname.equals("contents")) {
-			colname="ctContent";
+			colname="qaContent";
 		}
 				
 		if( searchWord != null && !searchWord.trim().isEmpty() ) {
@@ -139,7 +136,7 @@ public class NoticeDAO implements InterNoticeDAO {
 		//// == 검색어가 있는 경우 끝 == ////
 			
 			
-			sql += " order by ctNo desc " + 
+			sql += " order by qaNo desc " + 
 				   " ) V " + 
 				   " ) T " + 
 				   " where rno between ? and ? ";
@@ -160,14 +157,15 @@ public class NoticeDAO implements InterNoticeDAO {
 			
 			while(rs.next()) {
 				System.out.println("11111");
-				NoticeVO nvo = new NoticeVO();
-				 nvo.setCtNo(rs.getInt(1));
-				 nvo.setCtTitle(rs.getString(2));
-				 nvo.setCtContent(rs.getString(3)); // 복호화
-				 nvo.setFk_adId(rs.getString(4));
-				 nvo.setCtRegisterday(rs.getString(5));
-				 nvo.setCtViewcount(rs.getInt(6));
-				noticeList.add(nvo);
+				QAVO qvo = new QAVO();
+				 qvo.setQaNo(rs.getInt(1));
+				 qvo.setQaTitle(rs.getString(2));
+				 qvo.setQaContent(rs.getString(3));
+				 qvo.setQaPwd(rs.getString(4));
+				 qvo.setFk_userid(rs.getString(5));
+				 qvo.setQaRegisterday(rs.getString(6));
+				 qvo.setQaViewcount(rs.getInt(7));
+				 qaList.add(qvo);
 			}
 			
 		} finally {
@@ -175,39 +173,42 @@ public class NoticeDAO implements InterNoticeDAO {
 		}
 		
 		
-		return noticeList;
+		return qaList;
 	}
 
 	@Override
-	public NoticeVO contentOneDetail(String ctNo) throws SQLException {
-		NoticeVO nvo = null;
-		try {
-			conn = ds.getConnection();
-			String sql = " select ctNo, ctTitle,ctContent, fk_adId, ctRegisterday, ctViewcount " + 
-						 " from tbl_noticeBoard "+
-						 " where ctNo = ? ";
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, ctNo);
-			
-			rs = pstmt.executeQuery();
-			
-			if(rs.next()) {
+	public QAVO qaOneDetail(String qaNo) throws SQLException {
+		QAVO qvo = null; 
+		try { 
+			conn = ds.getConnection(); 
+			String sql = " select qaNo, qaTitle,qaContent,qaPwd, fk_userid, qaRegisterday, qaViewcount " +
+						 " from tbl_qaBoard "+ 
+						 " where qaNo = ? "; 
+			pstmt = conn.prepareStatement(sql); 
+			pstmt.setString(1, qaNo);
+				 
+				  rs = pstmt.executeQuery();
+				  
+				  if(rs.next()) {
+				  
+				  qvo = new QAVO(); 
+				  qvo.setQaNo(rs.getInt(1));
+				  qvo.setQaTitle(rs.getString(2)); 
+				  qvo.setQaContent(rs.getString(3));
+				  qvo.setQaPwd(rs.getString(4)); 
+				  qvo.setFk_userid(rs.getString(5));
+				  qvo.setQaRegisterday(rs.getString(6));
+				  qvo.setQaViewcount(rs.getInt(7));
+				  
+				  } 
+			} finally { 
 				
-				nvo = new NoticeVO();
-				nvo.setCtNo(rs.getInt(1));
-				nvo.setCtTitle(rs.getString(2));
-				nvo.setCtContent(rs.getString(3));
-				nvo.setFk_adId(rs.getString(4));
-				nvo.setCtRegisterday(rs.getString(5));
-				nvo.setCtViewcount(rs.getInt(6));
-	            	            
+				close(); 
 			}
-		} finally {
-			close();
-		}
-		
-		return nvo;
+				  
+				  return qvo; 
 	}
+
 	
 }	
 

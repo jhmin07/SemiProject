@@ -6,7 +6,7 @@
 <%
 	String ctxPath = request.getContextPath();
 %>
-<jsp:include page="header4.jsp"/> 
+<jsp:include page="../../header4.jsp"/> 
     
 <!DOCTYPE html>
 <html>

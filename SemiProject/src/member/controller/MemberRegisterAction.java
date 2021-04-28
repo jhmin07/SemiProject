@@ -45,24 +45,27 @@ public class MemberRegisterAction extends AbstractController {
 			
 			try {
 				int n = dao.memberRegister(member);
-				
-				String message = "";
-				String loc = "";
-				
+								
 				if(n == 1) {
-					message = "회원가입 성공";
-					loc = request.getContextPath()+"/login/login.up"; // 로그인 페이지로 이동					
+					// 회원가입 성공 후 자동 로그인 하기
+					
+					request.setAttribute("userid", userid);
+					request.setAttribute("pwd", pwd);
+					
+				//	super.setRedirect(false);
+					super.setViewPage("/WEB-INF/member/registerAfterAutoLogin.jsp");			
 				}
 				else {
-					message = "회원가입 실패";
-					loc = "javascript:history.back()";
+					String message = "회원가입 실패";
+					String loc = "javascript:history.back()";
+					
+					request.setAttribute("message", message);
+					request.setAttribute("loc", loc);
+					
+				//	super.setRedirect(false);
+					super.setViewPage("/WEB-INF/msg.jsp");				
 				}
 				
-				request.setAttribute("message", message);
-				request.setAttribute("loc", loc);
-				
-			//	super.setRedirect(false);
-				super.setViewPage("/WEB-INF/msg.jsp");				
 			} catch (Exception e) {
 				e.printStackTrace();
 			}		
