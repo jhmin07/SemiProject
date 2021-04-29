@@ -178,28 +178,28 @@ ul.payment_last > li {
 			</tr>
 		</thead>
 		
-		<c:set var="addsail_price" value="-100"/>
+		<c:set var="addsale_price" value="-100"/>
 		<tbody>
 			<tr class="payment_thead_result">
 				<td><fmt:formatNumber value="${total_price + delivery_price}" pattern="#,###" />원</td>
-				<td><fmt:formatNumber value="${sail_price + addsail_price}" pattern="#,###" />원</td>
+				<td><fmt:formatNumber value="${sale_price + addsale_price}" pattern="#,###" />원</td>
 				
-				<c:set var="lastpay_price" value="${total_price + delivery_price + sail_price + addsail_price }"/>		
+				<c:set var="lastpay_price" value="${total_price + delivery_price + sale_price + addsale_price }"/>		
 				<td> = <fmt:formatNumber value="${lastpay_price}" pattern="#,###" />원</td>
 			</tr>
 			<tr class="payment_tbody">
 				<td>총 할인금액</td>
-				<td><fmt:formatNumber value="${sail_price}" pattern="#,###" />원</td>
+				<td><fmt:formatNumber value="${sale_price}" pattern="#,###" />원</td>
 			</tr>
 			<tr class="payment_tbody">
 				<td>추가할인금액</td>
 				<%-- 추가할인 금액 => 포인트 사용하는 걸로 변경해서 추가해볼 예정 --%>
-				<td><fmt:formatNumber value="${addsail_price}" pattern="#,###" />원</td>
+				<td><fmt:formatNumber value="${addsale_price}" pattern="#,###" />원</td>
 				<td style="text-align: left;"><button class="payment_button">내역보기</button></td>
 			</tr>
 			<tr class="payment_tbody">
 				<td>총 부가결제금액</td>
-				<td><fmt:formatNumber value="${sail_price + addsail_price}" pattern="#,###" />원</td>
+				<td><fmt:formatNumber value="${sale_price + addsale_price}" pattern="#,###" />원</td>
 			</tr>
 		</tbody>
 	</table>

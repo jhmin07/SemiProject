@@ -363,7 +363,7 @@ table.odr_info input[type=text]{
 	<h2 style="width: 80%; margin-bottom: 50px; color: gray;">- Order</h2>
 	
 	<c:set var="total_price" value="0" scope="request"/>
-	<c:set var="sail_price" value="0" scope="request"/>
+	<c:set var="sale_price" value="0" scope="request"/>
 	<c:set var="delivery_price" value="3000" scope="request"/>
 	<c:set var="total_point" value="0" scope="request"/>
 	
@@ -409,8 +409,8 @@ table.odr_info input[type=text]{
 					[기본배송] 상품구매금액 <span><fmt:formatNumber value="${total_price}" pattern="#,###" /></span>
 					<c:if test="${total_price >= 30000}"><c:set var="delivery_price" value="0"/></c:if>
 					+ 배송비 <span><fmt:formatNumber value="${delivery_price}" pattern="#,###" /></span>
-					- 상품할인금액 <span><fmt:formatNumber value="${sail_price}" pattern="#,###" /></span>
-					= 합계 : <span style="font-size: 15pt; font-weight: bold;"><fmt:formatNumber value="${total_price+delivery_price-sail_price}" pattern="#,###" /></span>원 
+					- 상품할인금액 <span><fmt:formatNumber value="${sale_price}" pattern="#,###" /></span>
+					= 합계 : <span style="font-size: 15pt; font-weight: bold;"><fmt:formatNumber value="${total_price+delivery_price-sale_price}" pattern="#,###" /></span>원 
 				</td>
 			</tr>
 		</tbody>
