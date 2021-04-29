@@ -92,7 +92,7 @@ span#service{
 		<br>
 		<span>Copyright&copy; by RHOME-K. Co. Ltd All Rights Reserved</span>
 		<br>
-		<a href="/SemiProject/adminLogin.jsp" style="color: white;">관리자모드</a>
+		<a href="<%= ctxPath%>/adminLogin.jsp" style="color: white;">관리자모드</a>
 		<br><br>
 	</div>
 </div>

@@ -33,7 +33,7 @@ public class AdminLoginAction extends AbstractController {
 					// System.out.println("확인용 clientip => 1" + clientip);
 				}
 				
-				else if("POST".equalsIgnoreCase(method)){
+				else {
 					
 					// System.out.println("확인용 clientip => 2" + clientip);
 		
@@ -62,7 +62,7 @@ public class AdminLoginAction extends AbstractController {
 					else {
 						
 						String message = "아이디 및 비밀번호를 확인해주세요.";
-						String loc = request.getContextPath()+"/member/login.up";
+						String loc = request.getContextPath()+"/member/adminLogin.up";
 						
 						request.setAttribute("message", message);
 						request.setAttribute("loc", loc);
@@ -73,10 +73,7 @@ public class AdminLoginAction extends AbstractController {
 					
 					
 				}
-				else {
-					
-					super.setViewPage("/WEB-INF/member/adminLogin.jsp");
-				}
+				
 		
 	}
 

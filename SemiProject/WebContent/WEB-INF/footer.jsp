@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
+<%
+	String ctxPath = request.getContextPath();
+%>
 <style type="text/css">
 footer{
  	background-color: #3e505e;
@@ -55,21 +57,26 @@ span#service{
 
 </style>
 
+<script type="text/javascript">
+
+
+</script>
+
 
 <footer>
 <div class="footer">
 	<div id="footer_1">
 		<div class="footerClick" id="footer_1_1">
-			<img  src="image/logo_footer.png">
+			<img src="<%= ctxPath%>/image/logo_footer.png"/>
 		</div>
 		<div class="footerClick" id="footer_1_2" >
 			<span id="userCondition">이용약관 </span>|&nbsp;<span id="personalPolicy">개인정보처리방침</span>
 		</div>
 		<div class="footerClick" id="footer_1_3">
-			<img src="image/kakao.png">
-			<img src="image/naver.png">
-			<img src="image/instagram.png">
-			<img src="image/facebook.png">
+			<img src="<%= ctxPath%>/image/kakao.png"/>
+			<img src="<%= ctxPath%>/image/naver.png"/>
+			<img src="<%= ctxPath%>/image/instagram.png"/>
+			<img src="<%= ctxPath%>/image/facebook.png"/>
 		</div>
 	</div>
 	<hr style="border: solid 1px #CDCDCD;">
@@ -84,6 +91,8 @@ span#service{
 		<span>고객님은 안전거래를 위해 현금 등으로 결제시 모든 금액에 대하여 본 쇼핑몰에서 가입한 <span id="service">구매안전서비스</span> 소비자피해보상보험 서비스를 이용하실 수 있습니다.</span>
 		<br>
 		<span>Copyright&copy; by RHOME-K. Co. Ltd All Rights Reserved</span>
+		<br>
+		<a href="<%= ctxPath%>/member/adminLogin.up" style="color: white;">관리자모드</a>
 		<br><br>
 	</div>
 </div>
