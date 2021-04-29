@@ -1,9 +1,16 @@
 package common.controller;
 
+import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import member.model.MemberVO;
+import myshop.model.DetailCategoryVO;
+import myshop.model.InterProductDAO;
+import myshop.model.ProductDAO;
 
 public abstract class AbstractController implements InterCommand {
 
@@ -68,4 +75,15 @@ public abstract class AbstractController implements InterCommand {
 		
 	}// end of public boolean checkLogin(HttpServletRequest request){}-----------------------
 	
+	
+	// ***** 제품목록(Category)을 보여줄 메소드 생성하기 ***** //
+	public void getCategoryList(HttpServletRequest request) throws SQLException {
+		InterProductDAO pdao = new ProductDAO();
+		
+		List<HashMap<String, String>> categoryList = pdao.getCategoryList();
+		List<DetailCategoryVO> detailCategoryList = pdao.getDetailCategoryList();
+		
+		request.setAttribute("categoryList", categoryList);
+		request.setAttribute("detailCategoryList", detailCategoryList);
+	}
 }
