@@ -9,7 +9,7 @@ public class homeAction extends AbstractController {
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		
 		//	super.setRedirect(false);
-		super.setViewPage("/Contents2.jsp");
+		super.setViewPage("/WEB-INF/home.jsp");
 		
 	}
 

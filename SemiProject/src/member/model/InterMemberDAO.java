@@ -36,4 +36,3 @@ public interface InterMemberDAO {
 	int pwdUpdate(Map<String, String> paraMap) throws SQLException;
 }
 
-

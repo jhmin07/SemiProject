@@ -338,10 +338,23 @@ table.odr_info input[type=text]{
 			return ;
 		}
 --%>		
-		var url = "<%=request.getContextPath()%>/order/goPayment.up?lastpay_price="+lastpay_price;
+		var url = "<%=request.getContextPath()%>/order/goPayment.up?lastpay_price="+lastpay_price+"&name=kimys";
 		window.open(url, "goPayment", 
 					"left=350px, top=100px, width=820px, height=600px");
-		self.close();
+		
+		$("input:text[name=totalPrice]").val(lastpay_price);
+	}
+	
+	function orderComplete() {
+		submitOrderFrm();
+		// console.log("결제 성공");
+	}
+	
+	function submitOrderFrm() {
+		var frm = document.orderFrm;
+		frm.action = "<%=request.getContextPath()%>/order/orderlist_insert.up";
+		frm.method = "post";
+		frm.submit();
 	}
 	
 </script>
@@ -350,8 +363,9 @@ table.odr_info input[type=text]{
 	<h2 style="width: 80%; margin-bottom: 50px; color: gray;">- Order</h2>
 	
 	<c:set var="total_price" value="0" scope="request"/>
-	<c:set var="sail_price" value="0" scope="request"/>
+	<c:set var="sale_price" value="0" scope="request"/>
 	<c:set var="delivery_price" value="3000" scope="request"/>
+	<c:set var="total_point" value="0" scope="request"/>
 	
 	<table class="table odr_list">
 		<thead>
@@ -386,7 +400,8 @@ table.odr_info input[type=text]{
 					<td><fmt:formatNumber value="${prod.prodsum}" pattern="#,###" /> 원</td>
 				</tr>
 				
-				<c:set var="total_price" value="${total_price + prod.prodprice * prod.prodcnt}" scope="request"/>	
+				<c:set var="total_price" value="${total_price + prod.prodprice * prod.prodcnt}" scope="request"/>
+				<c:set var="total_point" value="${total_point + prod.prodpoint}" scope="request"/>	
 			</c:forEach>
 			
 			<tr class="odr_total_price">
@@ -394,12 +409,21 @@ table.odr_info input[type=text]{
 					[기본배송] 상품구매금액 <span><fmt:formatNumber value="${total_price}" pattern="#,###" /></span>
 					<c:if test="${total_price >= 30000}"><c:set var="delivery_price" value="0"/></c:if>
 					+ 배송비 <span><fmt:formatNumber value="${delivery_price}" pattern="#,###" /></span>
-					- 상품할인금액 <span><fmt:formatNumber value="${sail_price}" pattern="#,###" /></span>
-					= 합계 : <span style="font-size: 15pt; font-weight: bold;"><fmt:formatNumber value="${total_price+delivery_price-sail_price}" pattern="#,###" /></span>원 
+					- 상품할인금액 <span><fmt:formatNumber value="${sale_price}" pattern="#,###" /></span>
+					= 합계 : <span style="font-size: 15pt; font-weight: bold;"><fmt:formatNumber value="${total_price+delivery_price-sale_price}" pattern="#,###" /></span>원 
 				</td>
 			</tr>
 		</tbody>
 	</table>
+	
+	<form name="orderFrm" hidden>
+		<%-- <input name="orderCode"/> --%>  
+		<%-- ${sessionScope.loginuser.userid} --%>
+		<input name="fk_userid" value="kimys"/>
+		<input name="totalPrice" />
+		<input name="totalPoint" value="${total_point}" />
+	</form>
+	
 	
 	<%-- 주문자 정보 입력폼 --%>
 	<form action="">
