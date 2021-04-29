@@ -90,12 +90,6 @@ public class MemberDAO implements InterMemberDAO {
 				 member.setBirthday(rs.getString(10) + rs.getString(11) + rs.getString(12) );
 				 member.setPoint(rs.getInt(13));
 				 member.setRegisterday(rs.getString(14));
-					 
-				 pstmt = conn.prepareStatement(sql);
-				 pstmt.setString(1, paraMap.get("userid"));
-				 pstmt.setString(2, paraMap.get("pwd"));
-				 
-				 pstmt.executeUpdate();
 
 			 }
 			 
