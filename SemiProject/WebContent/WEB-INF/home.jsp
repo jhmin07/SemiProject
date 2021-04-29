@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
-<jsp:include page="../header4.jsp" />
+<jsp:include page="header4.jsp" />
 
 <style type="text/css">
       div.contents1 {
@@ -254,4 +254,4 @@
 
 
 
- <jsp:include page="../footer.jsp" /> 
+ <jsp:include page="footer.jsp" /> 

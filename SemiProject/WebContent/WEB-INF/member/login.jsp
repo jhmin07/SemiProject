@@ -5,7 +5,7 @@
 <%
 	String ctxPath = request.getContextPath();
 %>    
-<jsp:include page="../../header4.jsp" />  
+<jsp:include page="../header4.jsp" />  
 
 <title>RHOM 공식 홈페이지</title>
 <style type="text/css">
@@ -211,4 +211,4 @@ form{
 
 </body>
 
-<jsp:include page="../../footer.jsp" />  
+<jsp:include page="../footer.jsp" />  
