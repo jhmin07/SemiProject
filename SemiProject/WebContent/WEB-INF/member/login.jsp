@@ -9,6 +9,9 @@
 
 <title>RHOM 공식 홈페이지</title>
 <style type="text/css">
+#content{
+	margin-top: 100px;
+}
 div, h2, p{
 	margin: 0;
 	padding: 0;
@@ -127,24 +130,24 @@ form{
 <body>
 <%-- *** 로그인을 하기 위한 폼을 생성 *** --%>
 <!-- 로그인 정보 입력  -->
-<form id="frm_login">
-	<div id="content">
-		<h2>로그인</h2>
-		<p>RHOM을 방문해 주셔서 감사합니다</p>
-		<fieldset class="login">
-		<input type="text" id="user_id" maxlength="20" placeholder="아이디를 입력해주세요.">
-		<label for="user_id">아이디 입력</label>
-		<input type="password" id="user_pwd" maxlength="20" placeholder="비밀번호를 입력해주세요." onkeypress="if(event.keyCode == 13) { login_submit(); event.returnValue = false }">
-		<label for="user_pwd"> 입력</label>
-		<a href="javascript:login_submit();" >로그인</a>
-		<ul>
-			<li> <a style="cursor: pointer;" data-toggle="modal" data-target="#userIdfind" data-dismiss="modal" data-backdrop="static">아이디 찾기</a></li>
-			<li> <a style="cursor: pointer;" data-toggle="modal" data-target="#userpwdfind" data-dismiss="modal" data-backdrop="static">비밀번호 찾기</a> </li>
-			<li> <a href="javascript:go_Register();" > &nbsp; &nbsp; 회원가입</a> </li>
-		</ul>
-		</fieldset>
-	</div>
-</form>
+ <div id="content">
+      <h2>로그인</h2>
+      <p>RHOM을 방문해 주셔서 감사합니다</p>
+      <fieldset class="login">
+      <form id="frm_login" method="POST" action="<%= request.getContextPath()%>/member/login.up">
+      <input type="text" id="user_id"  name="userid" maxlength="20" placeholder="아이디를 입력해주세요." />   
+      <input type="password" id="user_pwd" name="pwd" maxlength="20" placeholder="비밀번호를 입력해주세요." onkeypress="if(event.keyCode == 13) { login_submit(); event.returnValue = false }" />
+      <input type="submit" id="submit" value="로그인" style="background-color: black; color: white;  width: 450px;" />
+      </form>
+      <ul>
+         <li> <a style="cursor: pointer;" data-toggle="modal" data-target="#userIdfind" data-dismiss="modal">아이디 찾기</a>&nbsp;&nbsp;&nbsp;</li>
+         <li> <a style="cursor: pointer;" data-toggle="modal" data-target="#userpwdfind" data-dismiss="modal">비밀번호 찾기</a> </li>
+         <li> &nbsp;&nbsp;&nbsp;<a href="<%= ctxPath%>/member/memberRegister.up" >회원가입</a> </li>
+      </ul>
+      </fieldset>
+   </div>
+
+
 
 <%-- ****** 아이디 찾기 Modal 시작****** --%>
   <div class="modal fade" id="userIdfind" role="dialog">
