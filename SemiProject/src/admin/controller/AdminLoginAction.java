@@ -33,7 +33,7 @@ public class AdminLoginAction extends AbstractController {
 					 * // super.setRedirect(false); super.setViewPage("/WEB-INF/msg.jsp");
 					 */
 					
-					super.setViewPage("/WEB-INF/member/adminLogin.jsp");
+					super.setViewPage("/WEB-INF/admin/adminLogin.jsp");
 				}
 				
 				else {

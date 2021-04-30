@@ -14,7 +14,7 @@ public class AdminMyPageAction extends AbstractController {
 		
 
 		super.setRedirect(false); 
-		super.setViewPage("/WEB-INF/member/adminMyPage.jsp");
+		super.setViewPage("/WEB-INF/admin/adminMyPage.jsp");
 			  
 	}
 

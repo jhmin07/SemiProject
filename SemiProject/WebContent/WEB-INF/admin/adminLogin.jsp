@@ -213,7 +213,7 @@ button#gologin{
 	        
 	        <div class="modal-body" style="height: 250px; width: 100%;">        
 		          <div id="idFind" >
-		          	<iframe style="border: none; width: 100%; height: 230px; " src="<%=ctxPath%>/member/idFind.up">
+		          	<iframe style="border: none; width: 100%; height: 230px; " src="<%=ctxPath%>/admin/idFind.up">
 		          	</iframe>
 		          </div>	          
 	        </div>
@@ -244,7 +244,7 @@ button#gologin{
 	        <div class="modal-body" style="height: 250px; width: 100%;">
 	        
 		          <div id="idFind" >
-		          	<iframe style="border: none; width: 100%; height: 230px; " src="<%=ctxPath%>/member/pwdFind.up">
+		          	<iframe style="border: none; width: 100%; height: 230px; " src="<%=ctxPath%>/admin/pwdFind.up">
 		          	</iframe>
 		          </div>
 	          
