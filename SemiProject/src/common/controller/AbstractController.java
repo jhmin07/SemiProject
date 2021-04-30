@@ -7,6 +7,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import admin.model.AdminVO;
 import member.model.MemberVO;
 import myshop.model.DetailCategoryVO;
 import myshop.model.InterProductDAO;
@@ -86,4 +87,25 @@ public abstract class AbstractController implements InterCommand {
 		request.setAttribute("categoryList", categoryList);
 		request.setAttribute("detailCategoryList", detailCategoryList);
 	}
+	
+	
+	////////////////////////////////////////////////////////////
+	//  관리자 모드 - 관리자 로그인 유무를 검사해서 로그인 했으면 true 를 리턴해주고
+	//  관리자 모드 - 관리자 로그인 안했으면 false 를 리턴해주도록 한다.
+	public boolean checkLoginAdmin(HttpServletRequest request) {
+		
+		HttpSession session = request.getSession();
+		AdminVO loginadmin = (AdminVO) session.getAttribute("loginadmin");
+		
+		if(loginadmin != null) {
+			// 로그인 한 경우
+			return true;
+		}
+		else {
+			// 로그인 안 한 경우
+			return false;
+		}
+		
+	}// end of public boolean checkLoginAdmin(HttpServletRequest request){}-----------------------
+	
 }
