@@ -72,20 +72,7 @@ label {
     margin: 0 auto 10px auto;
     line-height: 43px;
 }
-a{ 
-	text-decoration:none
-}
-.login > a {
-	display: block;
-    width: 450px;
-    height: 45px;
-    margin: 30px auto 0 auto;
-    background: #000;
-    color: #fff;
-    font-size: 16px;
-    text-align: center;
-    line-height: 45px;
-}
+
 .login > ul{
 	margin: 10px;
 	display: inline-block;
@@ -101,12 +88,23 @@ a{
     margin-right: 30px;
 }  
 
-.login > ul > li > a {
-    color: #999;
-    font-size: 13px;
-}
+
 form{
 	border-top: solid 1px #dedede;
+}
+button#gologin{
+	 color: #999;
+    font-size: 13px;
+    display: block;
+    width: 450px;
+    height: 45px;
+    margin: 30px auto 0 auto;
+    background: #000;
+    color: #fff;
+    font-size: 16px;
+    text-align: center;
+    line-height: 45px;
+    cursor: pointer;
 }
 </style>
 
@@ -117,7 +115,47 @@ form{
 			javascript:history.go(0);
 	       
 		});
+		
+		$("button#gologin").click(function(){
+			goLogin(); // 로그인 시도한다.
+		});
+		
+		
+		$("input#user_pwd").keyup(function(event){
+			if(event.keyCode == 13) {  // 암호입력란에 엔터를 했을 경우 
+				goLogin(); // 로그인 시도한다.
+			}	
+		});
+		
 	});
+	
+	function goLogin() {
+		// alert("로그인 시도함");
+
+		var loginUserid = $("input#user_id").val().trim();
+		var loginPwd = $("input#user_pwd").val().trim();
+		
+		if(loginUserid == "") {
+			alert("아이디를 입력하세요!!");
+			$("input#user_id").val("");
+			$("input#user_id").focus();
+			return;  // goLogin() 함수 종료
+		}
+		
+		if(loginPwd == "") {
+			alert("암호를 입력하세요!!");
+			$("input#user_pwd").val("");
+			$("input#user_pwd").focus();
+			return;  // goLogin() 함수 종료
+		}
+		
+		
+		var frm = document.frm_login;
+	    frm.action = "<%= request.getContextPath()%>/member/adminLogin.up";
+	    frm.method = "post";
+		frm.submit();
+		
+	}// end of function goLogin()-----------------------------------------
 
 </script>
 
@@ -131,11 +169,11 @@ form{
 		<h2>로그인</h2>
 		<p><span style="background-color:navy; color: #fff;">[관리자모드]</span><br>RHOM 관리자모드 페이지 입니다. 회원께서는 뒤로가기를 눌러주세요.</p>
 		<fieldset class="login">
-		<input type="text" id="user_id" maxlength="20" placeholder="아이디를 입력해주세요.">
+		<input type="text" id="user_id" name="adId" maxlength="20" placeholder="아이디를 입력해주세요.">
 		<label for="user_id">아이디 입력</label>
-		<input type="password" id="user_pwd" maxlength="20" placeholder="비밀번호를 입력해주세요." onkeypress="if(event.keyCode == 13) { login_submit(); event.returnValue = false }">
+		<input type="password" id="user_pwd" name="adPwd" maxlength="20" placeholder="비밀번호를 입력해주세요." >
 		<label for="user_pwd"> 입력</label>
-		<a href="javascript:login_submit();" >로그인</a>
+		<button id="gologin" >로그인</button>
 		<ul>
 			<li> <a style="cursor: pointer;" data-toggle="modal" data-target="#userIdfind" data-dismiss="modal" data-backdrop="static"> [관리자모드] 아이디 찾기</a></li>
 			<li> <a style="cursor: pointer;" data-toggle="modal" data-target="#userpwdfind" data-dismiss="modal" data-backdrop="static"> [관리자모드] 비밀번호 찾기</a> </li>

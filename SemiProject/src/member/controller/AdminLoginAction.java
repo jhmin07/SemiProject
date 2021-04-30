@@ -13,56 +13,65 @@ import member.model.AdminVO;
 import member.model.InterAdminDAO;
 
 
+
 public class AdminLoginAction extends AbstractController {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		
 		
-				String method = request.getMethod();  
-				String adId = request.getParameter("adId");
-				String adPwd = request.getParameter("adPwd");
-				
-				
+		String method = request.getMethod();  // "GET" 또는 "POST" 
 				
 				if(!"POST".equalsIgnoreCase(method)) {
-		
-					  super.setRedirect(false); 
-					  super.setViewPage("/WEB-INF/member/adminLogin.jsp");
-				
-					// System.out.println("확인용 clientip => 1" + clientip);
+					// POST 방식으로 넘어온 것이 아니라면
+					/*
+					 * String message = "비정상적인 경로로 들어왔습니다."; String loc =
+					 * "javascript:history.back()";
+					 * 
+					 * request.setAttribute("message", message); request.setAttribute("loc", loc);
+					 * 
+					 * // super.setRedirect(false); super.setViewPage("/WEB-INF/msg.jsp");
+					 */
+					
+					super.setViewPage("/WEB-INF/member/adminLogin.jsp");
 				}
 				
 				else {
+					// POST 방식으로 넘어온 것이라면
+					String adId = request.getParameter("adId");
+					String adPwd = request.getParameter("adPwd");
 					
-					// System.out.println("확인용 clientip => 2" + clientip);
-		
+					// ===> 클라이언트의 IP 주소를 알아오는 것   <=== //
+					String clientip = request.getRemoteAddr();
+				
 					
 					Map<String, String> paraMap = new HashMap<>();
-					paraMap.put("adId", adId);
-					paraMap.put("adPwd", adPwd);
+					paraMap.put("userid", adId);
+					paraMap.put("pwd", adPwd);
+					paraMap.put("clientip", clientip);
 					
-					InterAdminDAO adao = new AdminDAO();
+					InterAdminDAO addao = new AdminDAO();
 					
-					AdminVO loginuser = adao.loginAdmin(paraMap);
+					AdminVO loginuser = addao.loginAdmin(paraMap);
 					
-					// 아이디와 비밀번호를 입력했을 경우
-					if (loginuser != null) {				
+					if(loginuser != null) {
+						
 						
 						HttpSession session = request.getSession();
+						// 메모리에 생성되어져 있는 session 을 불러오는 것이다.
 						
 						session.setAttribute("loginuser", loginuser);
+						// session(세션)에 로그인 되어진 사용자 정보인 loginuser 을 키이름을 "loginuser" 으로 저장시켜두는 것이다.
+					
 						
-						// System.out.println("로그인성공");
-						// System.out.println(loginuser.getName());
+							super.setRedirect(true);
+							super.setViewPage(request.getContextPath()+"/adminMyPage.up");// adminhome을 또 만들어야 함
 						
-						super.setRedirect(true); 
-						super.setViewPage(request.getContextPath()+"/adminHome.up"); //관리자모드 home으로 감
+						
 					}
 					else {
-						
-						String message = "아이디 및 비밀번호를 확인해주세요.";
-						String loc = request.getContextPath()+"/member/adminLogin.up";
+						String message = "로그인 실패";
+						String loc = "javascript:history.back()";
 						
 						request.setAttribute("message", message);
 						request.setAttribute("loc", loc);
@@ -73,6 +82,7 @@ public class AdminLoginAction extends AbstractController {
 					
 					
 				}
+
 				
 		
 	}
