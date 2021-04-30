@@ -32,8 +32,7 @@ p{
 	margin-right: 13px;
     border: 0;
     font-size: 18px;
-    position: relative;
-    width: 200px;
+    width: 250px;
     height: 45px;
     text-align: center;
     box-sizing: border-box;
@@ -72,8 +71,6 @@ span.input{
 	
 	font-weight: bold;
 }
-
-
  
  </style>   
  
@@ -82,7 +79,7 @@ span.input{
  $(document).ready(function(){
 	 
 	 $("div#manageMember").bind("click", function(){
-		 location.href= "<%= ctxPath%>/admin/";
+		 location.href= "<%= ctxPath%>/admin/memberList.up";
 	 });
 	 $("div#adminRegister").bind("click", function(){
 		 location.href= "<%= ctxPath%>/admin/adminRegister.up";
@@ -102,9 +99,9 @@ span.input{
 <div class="container">
 	<h2>ADMINISTRATOR PAGE</h2>
 	<p>안녕하세요 <span style="font-weight: bold; color: black;">${adId}</span>님 [관리자 모드입니다.]</p>
-	<div class="buttons">
+	<div class="buttons" align="center">
 	 	<div class="button_base b01" id="manageMember">
-	     	MANAGE MEMBER
+	     	MEMBER MANAGEMENT
 	     </div>
 	     <div class="button_base b01" id="adminRegister">
 	     	ADMIN REGISTER

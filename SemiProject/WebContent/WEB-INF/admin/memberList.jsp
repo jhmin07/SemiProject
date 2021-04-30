@@ -18,12 +18,9 @@
 	h2 {				
 		text-align: center;		
 		font-size: 30pt; 
-		font-family: 'Papyrus', Fantasy; 
-		font-weight: bold;
+		font-family: 'Papyrus', Fantasy; 		
 		margin: 20px auto;
-	}
-	
-	
+	}	
 	
 	tr.memberInfo:hover {
 		background-color: #f0f5f5;
@@ -56,10 +53,8 @@
 		});
 		
 		// 특정 회원을 클릭하면 그 회원의 상세정보를 보여주도록 한다.
-		$("tr.memberInfo").click(function(){
-		//	console.log($(this).html());
-			var userid = $(this).children(".userid").text();
-		//	alert(userid);
+		$("tr.memberInfo").click(function(){		
+			var userid = $(this).children(".userid").text();		
 			location.href="<%= ctxPath%>/admin/memberOneDetail.up?userid="+userid+"&goBackURL=${requestScope.goBackURL}";
 		});
 		
@@ -84,14 +79,7 @@
 				<option value="userid">아이디</option>
 				<option value="email">이메일</option>
 			</select>
-			<input type="text" id="searchWord" name="searchWord" />
-			<%-- 
-				form태그 내에서 전송해야할 input태그가 1개 밖에 없을 경우에는 유효성검사가 있더라도 
-				유효성 검사를 거치지 않고 막바로 submit()을 하는 경우가 발생한다.
-				이것을 막아주는 방법은 input태그를 1개 더 만들어 주면 된다. 
-				그래서 아래와 같이 style="display: none;" 해서 1개 더 만든 것이다.
-				조심할 것은 type="hidden" 이 아니다. 
-			--%>
+			<input type="text" id="searchWord" name="searchWord" />			
 			<input type="text" style="display: none;">		
 			<button type="button" onclick="goSearch();" >검색</button>				
 		</form>

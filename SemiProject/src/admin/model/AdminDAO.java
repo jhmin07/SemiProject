@@ -280,5 +280,50 @@ public class AdminDAO implements InterAdminDAO {
 		return memberList;
 	}
 
+	// userid 값을 입력받아 회원 1명에 대한 상세정보 알아오기(select)
+	@Override
+	public MemberVO memberOneDetail(String userid) throws SQLException {
+		MemberVO mvo = null;
+		
+		try {
+			conn = ds.getConnection();
+			
+			String sql = " select userid, name, email, mobile, postcode, address, detailaddress, extraaddress, gender," +
+						 "        substr(birthday, 1, 4) AS birthyyyy, substr(birthday, 6, 2) AS birthmm, substr(birthday, 9) AS birthdd, " +
+						 "        point, to_char(registerday, 'yyyy-mm-dd') AS registerday " +
+						 " from tbl_member " +
+						 " where userid = ? ";
+			
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, userid);
+			
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				mvo = new MemberVO();
+				
+				mvo.setUserid(rs.getString(1));
+				mvo.setName(rs.getString(2));
+				mvo.setEmail(aes.decrypt(rs.getString(3))); // 복호화
+				mvo.setMobile(aes.decrypt(rs.getString(4))); // 복호화
+				mvo.setPostcode(rs.getString(5));
+				mvo.setAddress(rs.getString(6));
+				mvo.setDetailaddress(rs.getString(7));
+				mvo.setExtraaddress(rs.getString(8));
+				mvo.setGender(rs.getString(9));
+				mvo.setBirthday(rs.getString(10) + rs.getString(11) + rs.getString(12)); // 예. 19950416 와 같이 "-" 없이 나타난다.				
+				mvo.setPoint(rs.getInt(13));
+				mvo.setRegisterday(rs.getString(14));
+			}
+			
+		} catch (GeneralSecurityException | UnsupportedEncodingException e) {
+			e.printStackTrace();
+		} finally {
+			close();
+		}
+		
+		return mvo;
+	}
+
 
 }

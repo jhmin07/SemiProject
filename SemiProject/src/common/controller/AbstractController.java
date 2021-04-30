@@ -85,12 +85,12 @@ public abstract class AbstractController implements InterCommand {
 	AdminVO loginadmin = (AdminVO) session.getAttribute("loginadmin");
 	
 	if(loginadmin != null) {
-	// 로그인 한 경우
-	return true;
+		// 로그인 한 경우
+		return true;
 	}
 	else {
-	// 로그인 안 한 경우
-	return false;
+		// 로그인 안 한 경우
+		return false;
 	}
 	
 	}// end of public boolean checkLoginAdmin(HttpServletRequest request){}-----------------------

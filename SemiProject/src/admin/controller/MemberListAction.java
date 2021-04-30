@@ -9,6 +9,7 @@ import javax.servlet.http.HttpSession;
 import admin.model.*;
 import common.controller.AbstractController;
 import member.model.*;
+import my.util.Util;
 
 public class MemberListAction extends AbstractController {
 
@@ -87,8 +88,8 @@ public class MemberListAction extends AbstractController {
 
 			// 맨처음, 이전 만들기
 			if(pageNo != 1) {
-				pageBar += "&nbsp;<a href='memberList.up?currentShowPageNo=1&searchType="+searchType+"&searchWord="+searchWord+"'><<</a>&nbsp;"; 
-				pageBar += "&nbsp;<a href='memberList.up?currentShowPageNo="+(pageNo-1)+"&searchType="+searchType+"&searchWord="+searchWord+"'><</a>&nbsp;";
+				pageBar += "&nbsp;<a href='memberList.up?currentShowPageNo=1&searchType="+searchType+"&searchWord="+searchWord+"'>&lt;&lt;</a>&nbsp;"; 
+				pageBar += "&nbsp;<a href='memberList.up?currentShowPageNo="+(pageNo-1)+"&searchType="+searchType+"&searchWord="+searchWord+"'>&lt;</a>&nbsp;";
 			}
 
 			while(!(loop > blockSize || pageNo > totalPage)) {
@@ -105,11 +106,18 @@ public class MemberListAction extends AbstractController {
 
 			// 다음, 마지막 만들기
 			if(pageNo <= totalPage) {
-				pageBar += "&nbsp;<a href='memberList.up?currentShowPageNo="+pageNo+"&searchType="+searchType+"&searchWord="+searchWord+"'>></a>&nbsp;";
-				pageBar += "&nbsp;<a href='memberList.up?currentShowPageNo="+totalPage+"&searchType="+searchType+"&searchWord="+searchWord+"'>>></a>&nbsp;";
+				pageBar += "&nbsp;<a href='memberList.up?currentShowPageNo="+pageNo+"&searchType="+searchType+"&searchWord="+searchWord+"'>&gt;</a>&nbsp;";
+				pageBar += "&nbsp;<a href='memberList.up?currentShowPageNo="+totalPage+"&searchType="+searchType+"&searchWord="+searchWord+"'>&gt;&gt;</a>&nbsp;";
 			}			
 
 			request.setAttribute("pageBar", pageBar);
+			
+			// 현재 페이지를 돌아갈 페이지(goBackURL)로 주소 지정하기
+			String currentURL = Util.getCurrentURL(request);
+			
+			currentURL = currentURL.replaceAll("&", " ");
+			
+			request.setAttribute("goBackURL", currentURL);			
 
 		//	super.setRedirect(false);
 			super.setViewPage("/WEB-INF/admin/memberList.jsp");			

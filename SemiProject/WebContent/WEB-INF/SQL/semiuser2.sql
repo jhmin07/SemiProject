@@ -94,7 +94,7 @@ select *
 from tbl_member
 order by registerday desc;
 -- admin 과 동일한 정보
--- pwd: qwer1234$ email: test1@naver.com mobile: 01011111111
+-- pwd: qwer1234$ email: admin5@naver.com mobile: 01050505050
 
 create or replace procedure pcd_tbl_member_insert
 (p_userid   IN      varchar2
