@@ -10,7 +10,7 @@
 <div>
 	<form action="noticeWrite">
 		<table>
-			<tr><input /></tr>
+			<tr> <input /> 안녕 </tr>
 		</table>
 	</form>
 

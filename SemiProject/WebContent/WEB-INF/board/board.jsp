@@ -58,7 +58,6 @@
 	td.page_hover:hover {
 		cursor: pointer;
 	}
-
 	table.writeSearchTable{
 		width: 90%;
 		text-align: center;
@@ -107,7 +106,7 @@
 		frm.submit();
 	}
 	function goWriteNotice(){
-		location.href="/WEB-INF/board/boardWrite.jsp";
+		location.href="<%=request.getContextPath()%>/board/boardWrite.up";
 	};
 </script>
 
@@ -125,11 +124,14 @@
 			</tr>
 		</tbody>
 	</table>
+
 	<table class="writeSearchTable">
 		<tr>
-			<c:if test="${requestSession.userid == 'admin' }">
+			<td>
+			<%-- <c:if test="${requestSession.userid == 'admin' }"> --%>
 				<button onClick="goWriteNotice();">글쓰기</button>
-			</c:if>
+			<%-- </c:if> --%>
+			</td>
 			<td id="search">
 					<form name="SearchFrm">
 						<select id="searchType" name="searchType">
@@ -145,6 +147,7 @@
 		</tr>
 	</table>
 	
+
 		<table class="table table-bordered" style="width: 90%; margin-top: 20px;">
 		<thead>
 			<tr>

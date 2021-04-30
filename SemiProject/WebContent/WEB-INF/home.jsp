@@ -2,20 +2,20 @@
     pageEncoding="UTF-8"%>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
-<jsp:include page="../header4.jsp" />
+<jsp:include page="header4.jsp" />
 
 <style type="text/css">
-		div.contents1 {
-			padding: 0;
-			width: 100%;
-  			z-index: -1;
-		}
-		
-		div.contents1 ol.carousel-indicators {
-			text-align: right;
-			width: 75%;
-		}
-		div#contents2{      
+      div.contents1 {
+         padding: 0;
+         width: 100%;
+           z-index: -1;
+      }
+      
+      div.contents1 ol.carousel-indicators {
+         text-align: right;
+         width: 75%;
+      }
+      div#contents2{      
       display: inline-block;
       background-color: #d9d9d9;
       text-align: center;
@@ -39,11 +39,11 @@
       overflow:hidden;
       height: 340px;
       width: 100%;
-		/* border: solid 1px green; */
+      /* border: solid 1px green; */
       text-align: center;
    }
    td.content2SQ{
-  	/*  border: solid 1px yellow; */
+     /*  border: solid 1px yellow; */
       display: inline-block;
       text-align: center;
       margin-left: 10px;
@@ -156,7 +156,11 @@
    <div id="newItem">NEW ITEM</div>
    <table id="content2MidBox" class="content2HoverGray">
 
+<<<<<<< HEAD
    		<td class="content2SQ">
+=======
+         <td class="content2SQ">
+>>>>>>> refs/heads/main
          <img class="content2Img content2Hover" id="content2Img1" src="image/imagesContents2/sofa01.jpeg" alt="소파1">    
            <div class="subcarouselDiv">
              <div id="myCarousel1" class="carousel slide" data-ride="carousel">
@@ -254,4 +258,4 @@
 
 
 
- <jsp:include page="../footer.jsp" /> 
+ <jsp:include page="footer.jsp" /> 

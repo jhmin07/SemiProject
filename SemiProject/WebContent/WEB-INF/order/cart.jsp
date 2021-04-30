@@ -6,7 +6,7 @@
 
 <%
 	String ctxPath = request.getContextPath();
-    //     /MyMVC 
+    
 %>   
 
 <jsp:include page="../header4.jsp" /> 
@@ -225,7 +225,8 @@ button:hover{
 
 $(document).ready(function(){
 	
-
+	var qty = 1; //디폴트 수량 나중에는 수량이 넘어올 것임
+	
 	//== 체크박스 전체선택/전체해제 == //
 	$("input:checkbox[name=checkall]").click(function(){
 		var bool = $(this).prop("checked");
@@ -260,26 +261,35 @@ $(document).ready(function(){
 	});
 	
 	
-	//== 수량 변경하기 ==//
+/* 	//== 수량 변경하기 ==//
 	$("img#minus_cart").click(function(){
 		
-		
-		
+		if( qty > 1){
+			qty -= 1;
+		}
+		else{
+			alert("수량은 한개 이상 구매 하셔야 합니다.");
+			return;
+		}
+		$("span#order_cnt").val(qty);
 	});
 	
-	$("img#minus_cart").click(function(){
+	$("img#plus_cart").click(function(){
 		
+		if( qty >= 1){
+			qty += 1;
+		}
+		$("span#order_cnt").val(qty);
 		
-		
-	});
+	}); */
 	
-	
+	/* 
 	//== 장바구니 물건 삭제하기 ==//
 	$("img#delete_cart").click(function(){
 		
-		alert("장바구니에서 삭제하시겠습니까?");
+
 		
-	});
+	}); */
 	
 	//== 장바구니 물건 전체 삭제하기 ==//
     $("#btnDelete").click(function(){
@@ -290,6 +300,11 @@ $(document).ready(function(){
 	
 });
 
+// function declation
+
+
+
+
 
 </script>
 
@@ -297,16 +312,6 @@ $(document).ready(function(){
 <div class="container">
 
  <h2 style="width: 80%; margin-top: 100px; margin-bottom: 50px; color: gray;">- Cart</h2>
- 
- <c:choose>
-    <c:when test="${map.count == 0 }">
-    <!-- when은 ~~일때 라는 뜻 그러니까 map의 count가 0일때... -->
-    <!-- xml파일에서 hashmap에 list를 넣어놓았기 때문에 현재 map에 자료가 들어있다.  -->
-    <!-- map에 자료가 아무것도 없다면 -->
-        장바구니가 비었습니다.
-    </c:when>
-    
-   <c:otherwise>
 
 <div id="cart_content">
 	<button type="button" id="btnDelete">장바구니 비우기</button>
@@ -338,11 +343,11 @@ $(document).ready(function(){
 					<td><label for="product${var}"><img class="cart_image" src="<%=ctxPath%>/image/cart/sample_cart${var}.jpg" ></label></td>
 					<td><span id="productName_cart">XXL 사이즈 린넨커버</span><br>제품번호 <span id="cart_productNumber">4212900825070</span><br><span id="cart_productOption">70 x 90 cm</span></td>
 					<td><fmt:formatNumber value="${product_price}" pattern="#,###" /> 원</td>
-					<td id="td_plusminus"><img id="minus_cart" src="image/cart/minus.png" />&nbsp;<span style="padding:4px;"><fmt:formatNumber value="${order_cnt}" pattern="#,###" /></span>&nbsp;<img id="Plus_cart" src="image/cart/plus.png" /></td>
+					<td id="td_plusminus"><img id="minus_cart" src="image/cart/minus.png" />&nbsp;<span id="order_cnt" style="padding:4px;"><fmt:formatNumber value="${order_cnt}" pattern="#,###" /></span>&nbsp;<img id="Plus_cart" src="image/cart/plus.png" /></td>
 					<td><fmt:formatNumber value="${product_price*0.01}" pattern="#,###" /></td>
 					<td><fmt:formatNumber value="${product_price*order_cnt}" pattern="#,###" /> 원</td>
 					<!-- 삭제 버튼을 누르면 delete.do로 장바구니 개별 id (삭제하길원하는 장바구니 id)를 보내서 삭제한다. -->
-					<td><a href="<%= ctxPath %>/order/cart_delete.up?cart_id=${id}"><img id="delete_cart" src="image/cart/delete.png" style="width: 10px; height: 10px;"/></a></td> <!-- 변함없을 예정 -->
+					<td><a href="<%= ctxPath %>/order/cart_delete.up?cart_id=<%-- ${id} --%>"><img id="delete_cart" src="image/cart/delete.png" style="width: 10px; height: 10px;"/></a></td> <!-- 변함없을 예정 -->
 					
 
 				</tr>
@@ -394,9 +399,6 @@ $(document).ready(function(){
 		주문하기
 	</div>
 </div>
-
-</c:otherwise>
-</c:choose>
 
 </div>
 

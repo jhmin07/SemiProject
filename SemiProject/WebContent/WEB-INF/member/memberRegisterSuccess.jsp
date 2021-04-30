@@ -4,7 +4,7 @@
 <% 
 	String ctxPath = request.getContextPath();
 %>
-<jsp:include page="../../header4.jsp"/>
+<jsp:include page="../header4.jsp"/>
 <style type="text/css">
 	div.container {		
 		margin: 80px auto;		
@@ -88,4 +88,4 @@ function goHome(){
 	</table>	
 </div>
 
-<jsp:include page="../../footer.jsp"/>
+<jsp:include page="../footer.jsp"/>

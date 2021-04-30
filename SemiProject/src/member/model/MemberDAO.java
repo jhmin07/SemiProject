@@ -90,12 +90,6 @@ public class MemberDAO implements InterMemberDAO {
 				 member.setBirthday(rs.getString(10) + rs.getString(11) + rs.getString(12) );
 				 member.setPoint(rs.getInt(13));
 				 member.setRegisterday(rs.getString(14));
-					 
-				 pstmt = conn.prepareStatement(sql);
-				 pstmt.setString(1, paraMap.get("userid"));
-				 pstmt.setString(2, paraMap.get("pwd"));
-				 
-				 pstmt.executeUpdate();
 
 			 }
 			 
@@ -438,6 +432,35 @@ public class MemberDAO implements InterMemberDAO {
 		}
 		
 		return n;
+	}
+
+	//이름알아오기
+	@Override
+	public String getUserName(String userid) throws SQLException {
+		
+		String name = "";
+		
+		try {
+			conn = ds.getConnection();
+			 
+			 String sql = " select name "
+			 		    + " from tbl_member "
+			 		    + " where  userid = ? ";
+			 
+			 pstmt = conn.prepareStatement(sql);
+			 pstmt.setString(1, userid);
+			 
+			 rs = pstmt.executeQuery();
+			 
+			 if(rs.next()) {
+				 name = rs.getString(1);
+			 }
+		
+		} finally {
+			close();
+		}
+		
+		return name;		
 	}
 	
 	

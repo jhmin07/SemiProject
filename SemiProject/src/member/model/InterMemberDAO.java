@@ -34,6 +34,8 @@ public interface InterMemberDAO {
 
 	// 암호 변경하기
 	int pwdUpdate(Map<String, String> paraMap) throws SQLException;
-}
 
+	//이름알아오기
+	String getUserName(String userid)throws SQLException;
+}
 

@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
+<%@ taglib prefix="c"   uri="http://java.sun.com/jsp/jstl/core" %>
 <%
     String ctxPath = request.getContextPath();
 %>       
@@ -71,20 +71,58 @@ body {
 a.sub2 {
 	margin-top: 15px;
 }
+
+ span.submenubtn:hover{
+       cursor: pointer;
+    }
+
+span.submenubtn {
+	cursor: pointer;
+	margin: 0 10px 0 2px;
+}
+span.hsub1{
+	cursor: pointer;	 
+	font-weight: bold;
+	margin-right: 5px;
+	font-size: 10pt;
+}
+
 </style>
 
 <script type="text/javascript">
 function openNav() {
-	  document.getElementById("mySidenav").style.width = "250px";
-	}
-	function closeNav() {
+	document.getElementById("mySidenav").style.width = "250px";
+}	
+function closeNav() {
+
 	  document.getElementById("mySidenav").style.width = "0";
 	}
+
+	function goNotice(){
+		location.href = "<%=request.getContextPath()%>/detailMenu/board.up";
+	}
+
+function goHome(){
+	location.href = "<%=request.getContextPath()%>/home.up";
+}
+
+function LogIn() {
+	location.href="<%= request.getContextPath()%>/member/login.up";
+}	
+function LogOut() {
+	location.href="<%= request.getContextPath()%>/member/logout.up";
+}
+function myPage() {
+	var userid = "${sessionScope.loginuser.userid}";
+	location.href="<%= request.getContextPath()%>/member/memberMyPage.up?userid="+userid;	
+}
+	
 </script>
 
 </head>
 <body>
 
+<c:set var="menu_session"  value="first" scope="session" /> 
 
 	<div id="mySidenav" class="sidenav">
 	  <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
@@ -95,17 +133,30 @@ function openNav() {
 	  <hr style="border: solid 1px #CDCDCD; width: 190px; margin-top: 30px;">
 	  <br>
 	  <div align="center" style="color: white;">
-		 <span class="submenubtn" >로그인</span>|
+	  	<c:if test="${empty sessionScope.loginuser}">
+		 	<span class="submenubtn" onclick="LogIn()">로그인</span>|
+		 </c:if>	
+	  	<c:if test="${not empty sessionScope.loginuser}">
+		 	<span class="submenubtn" onclick="LogOut()" >로그아웃</span>|
+		 </c:if>			 
 		 <span class="submenubtn" >주문내역</span>|
-		 <span class="submenubtn" >고객센터</span>
+		 <span class="submenubtn" id="Notice" onClick="goNotice();" >고객센터</span>
 	  </div>
 	</div>
 
 <div class="navbar">
-  <span style="font-size:30px;cursor:pointer; width:15%; vertical-align: middle;" onclick="openNav()"><img id="mainheadermenu" src="<%= ctxPath %>/ProjectImg/menu.png" style="width: 50px;" align="middle"/></span>
-  <span class="hsub1" style="width:60%; text-align: center; "><img id="headerlogo" src="<%= ctxPath %>/ProjectImg/logo2.png" style="width:120px; height:50px; cursor: pointer;" align="middle"/></span>
-  <span class="hsub1" style="width:10%; text-align: right;"><img id="headerlogo"  src="<%= ctxPath %>/ProjectImg/login.png" style="width:28px; height:23px; cursor: pointer; " align="middle" /></span>
-  <span class="hsub1" style="width:10%; text-align: right;"><img id="headerlogo"  src="<%= ctxPath %>/ProjectImg/shoppingbag.png" style="width:28px; height:23px; cursor: pointer;" align="middle" /></span>
+  <span style="font-size:30px;cursor:pointer; width:15%; vertical-align: middle;" onclick="openNav()"><img id="mainheadermenu" src="<%= ctxPath %>/image/ProjectImg/menu.png" style="width: 50px;" align="middle"/></span>
+  <span class="hsub1" style="width:60%; text-align: center; padding-left: 185px;" onclick="goHome()"><img class="headerlogo" src="<%= ctxPath %>/image/ProjectImg/logo2.png" style="width:120px; height:50px; cursor: pointer;" align="middle"/></span>
+  
+  	<c:if test="${empty sessionScope.loginuser}">
+  	  <span class="hsub1" style="margin-left: 200px;" onclick="LogIn()"><img class="headerlogo"  src="<%= ctxPath%>/image/ProjectImg/login.png" style="width:28px; height:23px; cursor: pointer;" align="middle" />로그인</span>
+    </c:if>
+    <c:if test="${not empty sessionScope.loginuser}">
+  	  <span class="hsub1" style="margin-left: 100px;" onclick="myPage()"><img class="headerlogo"  src="<%= ctxPath%>/image/ProjectImg/login.png" style="width:28px; height:23px; cursor: pointer;" align="middle" />마이페이지</span>
+  	  <span class="hsub1" onclick="LogOut()"><img class="headerlogo"  src="<%= ctxPath%>/image/logout.png" style="width:28px; height:23px; cursor: pointer;" align="middle" />로그아웃</span>
+    </c:if>  
+    <span class="hsub1"><img class="headerlogo"  src="<%= ctxPath%>/image/ProjectImg/shoppingbag.png" style="width:28px; height:23px; cursor: pointer;" align="middle" />장바구니</span>
+  
 </div>
 
 

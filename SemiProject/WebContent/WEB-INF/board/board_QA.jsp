@@ -58,7 +58,11 @@
 	td.page_hover:hover {
 		cursor: pointer;
 	}
+<<<<<<< HEAD
 		table.writeSearchTable{
+=======
+	table.writeSearchTable{
+>>>>>>> refs/heads/main
 		width: 90%;
 		text-align: center;
 	}
@@ -125,7 +129,7 @@
 			</tr>
 		</tbody>
 	</table>
-	
+
 
 	<table class="writeSearchTable">
 		<tr>

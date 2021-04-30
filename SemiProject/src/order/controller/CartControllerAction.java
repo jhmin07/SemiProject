@@ -8,30 +8,48 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import common.controller.AbstractController;
+import member.model.InterMemberDAO;
+import member.model.MemberDAO;
 import member.model.MemberVO;
+import order.model.CartDAO;
+import order.model.CartVO;
+import order.model.InterCartDAO;
 
 public class CartControllerAction extends AbstractController {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		
+		super.setViewPage("/WEB-INF/order/cart.jsp");// 장바구니 페이지로 이동함.
 		
 		if(super.checkLogin(request)) {
 			// 로그인을 했으면
 			String userid = request.getParameter("userid");
+			InterCartDAO cdao = new CartDAO();
 			
+			 CartVO cvo = cdao.getCartList(userid);
+			 
+			 request.setAttribute("cvo", cvo); //가져온 장바구니 리스트를 넣어준다.
+			 		
+			
+			
+			super.setViewPage("/WEB-INF/order/cart.jsp");// 장바구니 페이지로 이동함.
+			
+			
+
 		}
-		
-	       Map<String, String> paraMap = new HashMap<>();
-
-	        //hashmap은 map(key,value)로 이뤄져 있고,
-	        //key값은 중복이 불가능 하고 value는 중복이 가능하다.
-	        //value에 null값도 사용이 가능하다.
-	        //전달할 정보가 많을 경우에는 HashMap<>을 사용하는 것이 좋다.
-	        //장바구니에 담을 값들이 많기 때문에 여기선 HashMap<>를 사용한다.
-	                
-
-	        String userid = request.getParameter("userid");
+		else {
+			// 로그인을 하지않았으면
+			
+			String message = "로그인 후 이용하세요!";
+	        String loc = "/WEB-INF/member/login.jsp";
+	        
+	        request.setAttribute("message", message);
+	        request.setAttribute("loc", loc);
+	        
+	        //   super.setRedirect(false);
+	        super.setViewPage("/WEB-INF/msg.jsp");
+		}
 	        
 	       
 
