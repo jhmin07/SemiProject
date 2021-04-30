@@ -433,6 +433,35 @@ public class MemberDAO implements InterMemberDAO {
 		
 		return n;
 	}
+
+	//이름알아오기
+	@Override
+	public String getUserName(String userid) throws SQLException {
+		
+		String name = "";
+		
+		try {
+			conn = ds.getConnection();
+			 
+			 String sql = " select name "
+			 		    + " from tbl_member "
+			 		    + " where  userid = ? ";
+			 
+			 pstmt = conn.prepareStatement(sql);
+			 pstmt.setString(1, userid);
+			 
+			 rs = pstmt.executeQuery();
+			 
+			 if(rs.next()) {
+				 name = rs.getString(1);
+			 }
+		
+		} finally {
+			close();
+		}
+		
+		return name;		
+	}
 	
 	
 }	

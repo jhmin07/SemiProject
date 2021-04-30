@@ -58,7 +58,11 @@
 	td.page_hover:hover {
 		cursor: pointer;
 	}
+<<<<<<< HEAD
+		table.writeSearchTable{
+=======
 	table.writeSearchTable{
+>>>>>>> refs/heads/main
 		width: 90%;
 		text-align: center;
 	}
@@ -117,20 +121,20 @@
 		<tbody>
 			<tr>
 				<td class="page_tab1 GoodsQA page_hover">
-					<a class=" GoodsQA">상품 Q&A</a>
+					<a class="GoodsQA boardA">상품 Q&A</a>
 				</td>
 				<td class="page_tab1 Notice page_hover">
-					<a class=" Notice">공지사항</a>
+					<a class="Notice boardA">공지사항</a>
 				</td>
 			</tr>
 		</tbody>
 	</table>
-			<table class="writeSearchTable">
+
+
+	<table class="writeSearchTable">
 		<tr>
 			<td id="write">
-				<c:if test="${requestSession.userid == 'admin' }">
 					<button>글쓰기</button>
-				</c:if>
 			</td>
 			<td id="search">
 					<form name="SearchFrm">

@@ -114,7 +114,7 @@ function LogOut() {
 }
 function myPage() {
 	var userid = "${sessionScope.loginuser.userid}";
-	location.href="<%= request.getContextPath()%>/member/memberEdit.up?userid="+userid;	
+	location.href="<%= request.getContextPath()%>/member/memberMyPage.up?userid="+userid;	
 }
 	
 </script>

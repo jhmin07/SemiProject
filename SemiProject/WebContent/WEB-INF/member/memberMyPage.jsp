@@ -6,6 +6,8 @@
 
 %>
    
+   
+<jsp:include page="../header4.jsp" />  
     
 <link rel="preconnect" href="https://fonts.gstatic.com">
 <link href="https://fonts.googleapis.com/css2?family=Orelega+One&family=PT+Serif:wght@400;700&family=Titillium+Web:wght@700&display=swap" rel="stylesheet">
@@ -16,7 +18,7 @@
  
 h2{
 	clear: right;
-	padding: 200px 40px 14px 0;
+	padding: 150px 40px 50px 0;
 	color: #000;
 	font-size: 30px;
 	text-align: center;
@@ -30,7 +32,7 @@ h2{
     font-size: 18px;
     margin-left: 20px;
     position: relative;
-    left: 27%;
+    left: 18%;
     width: 200px;
     height: 40px;
     text-align: center;
@@ -91,7 +93,7 @@ span.input{
  
  </script>
  
-<jsp:include page="../header4.jsp" />  
+
 
 <div class="container">
 	<h2>MY PAGE</h2>
@@ -107,7 +109,7 @@ span.input{
 	     </div>
 	     
 	     <div class="personalInfo">
-	     	<div><span class="input">${requestScope.adId}</span>님은 <span class="input" >[일반회원]</span>이십니다.</div>
+	     	<div><span class="input">${requestScope.userid}</span>님은 <span class="input" >[일반회원]</span>이십니다.</div>
 	     	<br>
 	     	<div>POINT :&nbsp;&nbsp;&nbsp;&nbsp;<span class="input" id="point">4000</span></div>
 	     	<div>COUPON :&nbsp;<span class="input" id="point">4</span></div>

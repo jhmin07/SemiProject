@@ -156,7 +156,11 @@
    <div id="newItem">NEW ITEM</div>
    <table id="content2MidBox" class="content2HoverGray">
 
+<<<<<<< HEAD
+   		<td class="content2SQ">
+=======
          <td class="content2SQ">
+>>>>>>> refs/heads/main
          <img class="content2Img content2Hover" id="content2Img1" src="image/imagesContents2/sofa01.jpeg" alt="소파1">    
            <div class="subcarouselDiv">
              <div id="myCarousel1" class="carousel slide" data-ride="carousel">

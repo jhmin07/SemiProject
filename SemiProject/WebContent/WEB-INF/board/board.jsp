@@ -105,6 +105,9 @@
 		frm.method = "GET";	// 숨길필요 없이 빨리빨리 이동해야해서 get 사용
 		frm.submit();
 	}
+	function goWriteNotice(){
+		location.href="<%=request.getContextPath()%>/board/boardWrite.up";
+	};
 </script>
 
 <div class="container" align="center">
@@ -113,18 +116,21 @@
 		<tbody>
 			<tr>
 				<td class="page_tab1 GoodsQA page_hover">
-					<a class=" GoodsQA boardA">상품 Q&A</a>
+					<a class="GoodsQA boardA">상품 Q&A</a>
 				</td>
 				<td class="page_tab1 Notice page_hover">
-					<a class=" Notice boardA">공지사항</a>
+					<a class="Notice boardA">공지사항</a>
 				</td>
 			</tr>
 		</tbody>
 	</table>
-		<table class="writeSearchTable">
+
+	<table class="writeSearchTable">
 		<tr>
-			<td id="write">
-					<button>글쓰기</button>
+			<td>
+			<%-- <c:if test="${requestSession.userid == 'admin' }"> --%>
+				<button onClick="goWriteNotice();">글쓰기</button>
+			<%-- </c:if> --%>
 			</td>
 			<td id="search">
 					<form name="SearchFrm">
@@ -140,6 +146,8 @@
 			</td>
 		</tr>
 	</table>
+	
+
 		<table class="table table-bordered" style="width: 90%; margin-top: 20px;">
 		<thead>
 			<tr>
