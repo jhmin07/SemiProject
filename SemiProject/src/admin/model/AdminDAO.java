@@ -113,64 +113,63 @@ public class AdminDAO implements InterAdminDAO {
 		// TODO Auto-generated method stub
 		return false;
 	}
-
 	
 	// 페이징처리를 위해서 전체회원에 대한 총페이지 개수 알아오기(select)
 	@Override
 	public int selectTotalPage(Map<String, String> paraMap) throws SQLException {
 		int totalPage = 0;
-		
+
 		try {
 			conn = ds.getConnection();
-			
+
 			String sql = " select ceil(count(*)/10) " +
 						 " from tbl_member ";
-			
+
 			// 검색어가 있는 경우
 			String colname = paraMap.get("searchType");
 			String searchWord = paraMap.get("searchWord");
-			
+
 			if("email".equals(colname)) {
 				// 검색대상이 email 인 경우 암호화해서 검색해야 한다.
 				searchWord = aes.encrypt(searchWord);
 			}
-			
+
 			if(searchWord != null && !searchWord.trim().isEmpty()) {
 				// 검색어를 제대로 입력한 경우(공백만 입력하거나 아무것도 입력하지 않고 엔터하지 않는 경우
 				sql += " where "+colname+" like '%'|| ? ||'%' ";
 			}
-			
+
 			pstmt = conn.prepareStatement(sql);
-			
+
 			if(searchWord != null && !searchWord.trim().isEmpty()) { 
 				// 검색어를 제대로 입력한 경우(공백만 입력하거나 아무것도 입력하지 않고 엔터하지 않는 경우
 				pstmt.setString(1, searchWord);
 			}
-			
+
 			rs = pstmt.executeQuery();
-			
+
 			rs.next();
-			
+
 			totalPage = rs.getInt(1);
-			
+
 		} catch (GeneralSecurityException | UnsupportedEncodingException e) {
 			e.printStackTrace();
 		} finally {
 			close();
 		}		
-		
+
 		return totalPage;
 	}
 
-	
+
 	// 페이징 처리를 한 모든 회원 또는 검색한 회원 목록 보여주기
 	@Override
 	public List<MemberVO> seletPagingMember(Map<String, String> paraMap) throws SQLException {
 		List<MemberVO> memberList = new ArrayList<>();
-		
+
 		try {
 			conn = ds.getConnection();
-			
+
 			String sql = " select userid, name, email, gender " +
 						 " from " +
 						 " ( " +
@@ -179,31 +178,31 @@ public class AdminDAO implements InterAdminDAO {
 						 "     ( " + 
 						 "         select userid, name, email, gender " + 
 						 "         from tbl_member ";
-			
+
 			// == 검색어가 있는 경우
 			String colname = paraMap.get("searchType");
 			String searchWord = paraMap.get("searchWord");
-			
+
 			if("email".equals(colname)) {
 				// 검색대상이 email 인 경우 암호화해서 검색해야 한다.
 				searchWord = aes.encrypt(searchWord);
 			}
-			
+
 			if(searchWord != null && !searchWord.trim().isEmpty()) {
 				// 검색어를 제대로 입력한 경우(공백만 입력하거나 아무것도 입력하지 않고 엔터하지 않는 경우
 				sql += " where "+colname+" like '%'|| ? ||'%' ";
 			}
-			
+
 			sql += "         order by registerday desc " +
 				   "     ) V " +
 				   " ) T " +
 				   " where rno between ? and ? ";
-						
+
 			int currentShowPageNo = Integer.parseInt(paraMap.get("currentShowPageNo"));
 			int sizePerPage = 10; // 한 페이지당 화면상에 보여줄 제품의 개수는 10개			
-			
+
 			pstmt = conn.prepareStatement(sql);
-			
+
 			if(searchWord != null && !searchWord.trim().isEmpty()) {
 				// 검색어를 제대로 입력한 경우(공백만 입력하거나 아무것도 입력하지 않고 엔터하지 않는 경우
 				pstmt.setString(1, searchWord);
@@ -215,26 +214,26 @@ public class AdminDAO implements InterAdminDAO {
 				pstmt.setInt(1, (currentShowPageNo * sizePerPage) - (sizePerPage - 1));
 				pstmt.setInt(2, (currentShowPageNo * sizePerPage));
 			}
-			
+
 			rs = pstmt.executeQuery();
-			
+
 			while(rs.next()) {
 				MemberVO mvo = new MemberVO();
-				
+
 				mvo.setUserid(rs.getString(1));
 				mvo.setName(rs.getNString(2));
 				mvo.setEmail(aes.decrypt(rs.getString(3)));
 				mvo.setGender(rs.getString(4));
-				
+
 				memberList.add(mvo);
 			}			
-			
+
 		} catch (GeneralSecurityException | UnsupportedEncodingException e) {
 			e.printStackTrace();
 		} finally {
 			close();
 		}
-		
+
 		return memberList;
 	}
 

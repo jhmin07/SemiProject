@@ -1,8 +1,7 @@
 package admin.model;
 
 import java.sql.SQLException;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import member.model.MemberVO;
 
@@ -25,5 +24,4 @@ public interface InterAdminDAO {
 
 		// 페이징 처리를 한 모든 회원 또는 검색한 회원 목록 보여주기
 		List<MemberVO> seletPagingMember(Map<String, String> paraMap) throws SQLException;
-
 }

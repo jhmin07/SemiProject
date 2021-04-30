@@ -76,7 +76,7 @@
 </script>
 <div class="container">
 	<h2>Member Management</h2>
-	
+
 	<div align="right">
 		<form name="memberFrm">
 			<select id="searchType" name="searchType">
@@ -105,7 +105,7 @@
 				<th>성별</th>
 			</tr>
 		</thead>
-		
+
 		<tbody>
 			<c:forEach var="mvo" items="${requestScope.memberList}">
 				<tr class="memberInfo">
@@ -126,7 +126,7 @@
 			</c:forEach>
 		</tbody>
 	</table>
-	
+
 	<div>
 		${requestScope.pageBar}
 	</div>
