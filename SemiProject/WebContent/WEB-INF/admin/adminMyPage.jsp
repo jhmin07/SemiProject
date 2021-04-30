@@ -82,10 +82,10 @@ span.input{
  $(function(){
 	 
 	 $("div#manageMember").bind("click", function(){
-		 location.href= "<%= ctxPath%>/member/";
+		 location.href= "<%= ctxPath%>/admin/";
 	 });
 	 $("div#adminRegister").bind("click", function(){
-		 location.href= "<%= ctxPath%>/member/";
+		 location.href= "<%= ctxPath%>/admin/";
 	 });
 	 $("div#productRegister").bind("click", function(){
 		 location.href= "<%= ctxPath%>/product/";

@@ -1,4 +1,4 @@
-package member.controller;
+package admin.controller;
 
 
 import javax.servlet.http.HttpServletRequest;

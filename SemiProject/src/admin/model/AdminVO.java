@@ -1,4 +1,4 @@
-package admin.controller;
+package admin.model;
 
 public class AdminVO {
 	

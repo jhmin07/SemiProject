@@ -1,4 +1,4 @@
-package admin.controller;
+package admin.model;
 
 import java.io.UnsupportedEncodingException;
 import java.security.GeneralSecurityException;

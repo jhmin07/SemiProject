@@ -1,4 +1,4 @@
-package member.controller;
+package admin.controller;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -7,9 +7,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import admin.controller.AdminDAO;
-import admin.controller.AdminVO;
-import admin.controller.InterAdminDAO;
+import admin.model.AdminDAO;
+import admin.model.AdminVO;
+import admin.model.InterAdminDAO;
 import common.controller.AbstractController;
 
 
