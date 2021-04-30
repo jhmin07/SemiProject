@@ -61,6 +61,10 @@
 	$(document).ready(function(){
 		$("span.error").hide();
 		
+		/* $("select[name=fk_decode]").change(function(){
+			console.log($(this).val());
+		}); */
+		
 		$("input#spinnerPqty").spinner({
 			spin:function(event,ui){
 				if (ui.value > 100) {
@@ -102,12 +106,33 @@
 			
 			$("input#attachCount").val(cnt);
 		});
+		
+		$("input#btnRegister").click(function(){
+			var flag = false;
+			
+			$(".infoData").each(function(index, item){
+				var val = $(item).val().trim();
+				if (val == "") {
+					$(item).next().show();
+					flag = true;
+					return false;
+				}
+			});
+			
+			if (!flag) {
+				var frm = document.prodInputFrm;
+				frm.submit();
+			}
+		});
 	});
 
 </script>
 
 <div class="container" align="center">
-	<form name="registerFrm">
+	<form name="prodInputFrm"
+			action="<%=request.getContextPath()%>/admin/productRegister.up"
+			method="POST"
+			enctype="multipart/form-data" >
 
 		<table id="tblProductRegister">
 			<thead>
@@ -120,11 +145,11 @@
 				<tr>
 					<td width="25%" class="prodInputName" style="padding-top: 10px;">카테고리</td>
 					<td width="75%" align="left" style="padding-top: 10px;">
-						<select name="fk_cnum" class="infoData">
-							<option>::: 선택하세요 :::</option>
+						<select name="fk_decode" class="infoData">
+							<option value="0">::: 선택하세요 :::</option>
 							
 							<c:forEach var="map" items="${requestScope.categoryList}">
-								<optgroup label="${map.cname}">
+								<optgroup label="${map.cname}">									
 									<c:forEach var="dcvo" items="${requestScope.detailCategoryList}">
 										<c:if test="${dcvo.fk_cnum eq map.cnum}">
 											<option value="${dcvo.decode}">${dcvo.dename}</option>
@@ -229,4 +254,4 @@
 	</form>
 </div>
 
-<jsp:include page="../../footer.jsp"/>
+<jsp:include page="../footer.jsp"/>

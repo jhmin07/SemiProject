@@ -4,7 +4,7 @@ public class ProductVO {
 
 	private int 	pnum;       // 제품번호
 	private String 	pname;      // 제품명
-	private int  	fk_cnum;    // 카테고리코드(Foreign Key)의 시퀀스번호 참조
+	private String  fk_decode;    // 세부 카테고리코드(Foreign Key)의 시퀀스번호 참조
 	private String  pcompany;   // 제조회사명
 	private String  pimage1;    // 제품이미지1   이미지파일명
 	private String  pimage2;    // 제품이미지2   이미지파일명 
@@ -29,12 +29,12 @@ public class ProductVO {
 	
 	public ProductVO() { }
 	
-	public ProductVO(int pnum, String pname, int fk_cnum, String pcompany, String pimage1, String pimage2, int pqty,
+	public ProductVO(int pnum, String pname, String fk_decode, String pcompany, String pimage1, String pimage2, int pqty,
 			int price, int saleprice, int fk_snum, String pcontent, int point, String pinputdate) {
 	
 		this.pnum = pnum;
 		this.pname = pname;
-		this.fk_cnum = fk_cnum;
+		this.fk_decode = fk_decode;
 		this.pcompany = pcompany;
 		this.pimage1 = pimage1;
 		this.pimage2 = pimage2;
@@ -64,12 +64,12 @@ public class ProductVO {
 		this.pname = pname;
 	}
 
-	public int getFk_cnum() {
-		return fk_cnum;
+	public String getFk_decode() {
+		return fk_decode;
 	}
 
-	public void setFk_cnum(int fk_cnum) {
-		this.fk_cnum = fk_cnum;
+	public void setFk_decode(String fk_decode) {
+		this.fk_decode = fk_decode;
 	}
 
 	public String getPcompany() {
