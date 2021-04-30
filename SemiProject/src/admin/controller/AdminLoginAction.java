@@ -20,52 +20,41 @@ public class AdminLoginAction extends AbstractController {
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		
 		
-		String method = request.getMethod();  // "GET" 또는 "POST" 
+		String method = request.getMethod();  
+		
+		String adId = request.getParameter("adId");
+		String adPwd = request.getParameter("adPwd");
+		String clientip = request.getRemoteAddr();
+		
 				
 				if(!"POST".equalsIgnoreCase(method)) {
-					// POST 방식으로 넘어온 것이 아니라면
-					/*
-					 * String message = "비정상적인 경로로 들어왔습니다."; String loc =
-					 * "javascript:history.back()";
-					 * 
-					 * request.setAttribute("message", message); request.setAttribute("loc", loc);
-					 * 
-					 * // super.setRedirect(false); super.setViewPage("/WEB-INF/msg.jsp");
-					 */
 					
 					super.setViewPage("/WEB-INF/admin/adminLogin.jsp");
 				}
 				
 				else {
-					// POST 방식으로 넘어온 것이라면
-					String adId = request.getParameter("adId");
-					String adPwd = request.getParameter("adPwd");
-					
-					// ===> 클라이언트의 IP 주소를 알아오는 것   <=== //
-					String clientip = request.getRemoteAddr();
-				
 					
 					Map<String, String> paraMap = new HashMap<>();
-					paraMap.put("userid", adId);
-					paraMap.put("pwd", adPwd);
+					paraMap.put("adId", adId);
+					paraMap.put("adPwd", adPwd);
 					paraMap.put("clientip", clientip);
 					
-					InterAdminDAO addao = new AdminDAO();
+					InterAdminDAO adao = new AdminDAO();
+					AdminVO loginadmin  = adao.loginAdmin(paraMap);
 					
-					AdminVO loginuser = addao.loginAdmin(paraMap);
 					
-					if(loginuser != null) {
+					if(loginadmin  != null) {
 						
 						
 						HttpSession session = request.getSession();
 						// 메모리에 생성되어져 있는 session 을 불러오는 것이다.
 						
-						session.setAttribute("loginuser", loginuser);
-						// session(세션)에 로그인 되어진 사용자 정보인 loginuser 을 키이름을 "loginuser" 으로 저장시켜두는 것이다.
+						session.setAttribute("loginadmin ", loginadmin);
+						// session(세션)에 로그인 되어진 사용자 정보인 loginadmin 을 키이름을 "loginadmin" 으로 저장시켜두는 것이다.
 					
-						
+						request.setAttribute("adId", adId);
 							super.setRedirect(true);
-							super.setViewPage(request.getContextPath()+"/adminMyPage.up");// adminhome을 또 만들어야 함
+							super.setViewPage(request.getContextPath()+"/admin/adminMyPage.up");// adminhome을 또 만들어야 함
 						
 						
 					}

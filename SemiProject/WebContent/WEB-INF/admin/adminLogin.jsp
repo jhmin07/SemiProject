@@ -164,8 +164,7 @@ button#gologin{
 		
 		
 		var frm = document.frm_login;
-	    frm.action = "<%= request.getContextPath()%>/member/adminLogin.up";
-	    frm.method = "post";
+	    frm.action = "<%= ctxPath%>/admin/adminLogin.up";
 		frm.submit();
 		
 	}// end of function goLogin()-----------------------------------------
@@ -175,19 +174,16 @@ button#gologin{
 <body>
 <%-- *** 로그인을 하기 위한 폼을 생성 *** --%>
 <!-- 로그인 정보 입력  -->
-<form id="frm_login">
+<form name="frm_login" method="post">
 	<div id="content">
 	<br><br>
 		<h2>로그인</h2>
 		<p><span style="background-color:navy; color: #fff;">[관리자모드]</span><br>RHOM 관리자모드 페이지 입니다. 회원께서는 뒤로가기를 눌러주세요.</p>
 		<fieldset class="login">
-		<input type="text" id="user_id" maxlength="20" placeholder="아이디를 입력해주세요.">
 		<input type="text" id="user_id" name="adId" maxlength="20" placeholder="아이디를 입력해주세요.">
 		<label for="user_id">아이디 입력</label>
-		<input type="password" id="user_pwd" maxlength="20" placeholder="비밀번호를 입력해주세요." onkeypress="if(event.keyCode == 13) { login_submit(); event.returnValue = false }">
 		<input type="password" id="user_pwd" name="adPwd" maxlength="20" placeholder="비밀번호를 입력해주세요." >
 		<label for="user_pwd"> 입력</label>
-		<a href="javascript:login_submit();" >로그인</a>
 		<button id="gologin" >로그인</button>
 		<ul>
 			<li> <a style="cursor: pointer;" data-toggle="modal" data-target="#userIdfind" data-dismiss="modal" data-backdrop="static"> [관리자모드] 아이디 찾기</a></li>
@@ -213,8 +209,8 @@ button#gologin{
 	        
 	        <div class="modal-body" style="height: 250px; width: 100%;">        
 		          <div id="idFind" >
-		          	<iframe style="border: none; width: 100%; height: 230px; " src="<%=ctxPath%>/admin/idFind.up">
-		          	</iframe>
+		          	<iframe style="border: none; width: 100%; height: 230px; " src="<%=ctxPath%>/member/idFind.up">
+		          	</iframe> 
 		          </div>	          
 	        </div>
 	         <div class="modal-footer">
@@ -244,8 +240,8 @@ button#gologin{
 	        <div class="modal-body" style="height: 250px; width: 100%;">
 	        
 		          <div id="idFind" >
-		          	<iframe style="border: none; width: 100%; height: 230px; " src="<%=ctxPath%>/admin/pwdFind.up">
-		          	</iframe>
+		          	 <iframe style="border: none; width: 100%; height: 230px; " src="<%=ctxPath%>/member/pwdFind.up">
+		          	</iframe> 
 		          </div>
 	          
 	        </div>

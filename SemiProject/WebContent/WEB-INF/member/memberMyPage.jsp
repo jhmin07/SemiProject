@@ -9,36 +9,40 @@
    
 <jsp:include page="../header4.jsp" />  
     
-<link rel="preconnect" href="https://fonts.gstatic.com">
-<link href="https://fonts.googleapis.com/css2?family=Orelega+One&family=PT+Serif:wght@400;700&family=Titillium+Web:wght@700&display=swap" rel="stylesheet">
-    
+
 <style type="text/css">
  
 
  
 h2{
 	clear: right;
-	padding: 150px 40px 50px 0;
+	padding: 200px 40px 0 0;
 	color: #000;
 	font-size: 30px;
 	text-align: center;
-	font-family: 'PT Serif', serif;
+	font-family: Georgia;
+}
+p{
+	padding: 0 40px 70px 0;
+    color: #a7a7a7;
+    font-size: 16px;
+    text-align: center;	
 }
 
  
 .button_base {
-    margin: 0;
+	margin-right: 13px;
     border: 0;
     font-size: 18px;
-    margin-left: 20px;
     position: relative;
-    left: 18%;
     width: 200px;
-    height: 40px;
+    height: 45px;
     text-align: center;
     box-sizing: border-box;
     display: inline-block;
-    font-family: 'PT Serif', serif;
+    left: 21%;
+    margin-bottom: 100px;
+}
 }
 
 .button_base:hover {
@@ -111,8 +115,8 @@ span.input{
 	     <div class="personalInfo">
 	     	<div><span class="input">${requestScope.userid}</span>님은 <span class="input" >[일반회원]</span>이십니다.</div>
 	     	<br>
-	     	<div>POINT :&nbsp;&nbsp;&nbsp;&nbsp;<span class="input" id="point">4000</span></div>
-	     	<div>COUPON :&nbsp;<span class="input" id="point">4</span></div>
+	     	<div>POINT :&nbsp;&nbsp;&nbsp;&nbsp;<span class="input" id="point">${requestScope.point}</span></div>
+	     	<div>COUPON :&nbsp;<span class="input" id="point">${requestScope.coupon}</span></div>
 	     </div> 
 		       
 		
