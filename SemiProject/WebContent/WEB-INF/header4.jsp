@@ -126,7 +126,7 @@ function myPage() {
 
 	<div id="mySidenav" class="sidenav">
 	  <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-	  <a class="sub2" href="#">침실 가구</a>
+	  <a class="sub2" href="<%= ctxPath%>/shop/mallByCategory.up?cnum=${requestScope.tbl_category.cnum}">침실 가구</a>
 	  <a class="sub2" href="#">거실 가구</a>
 	  <a class="sub2" href="#">주방 가구</a>
 	  <a class="sub2" href="#">드레스 룸</a>
