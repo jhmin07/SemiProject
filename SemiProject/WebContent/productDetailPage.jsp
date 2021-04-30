@@ -5,7 +5,7 @@
     String ctxPath = request.getContextPath();
 %>           
 
-<jsp:include page="header4.jsp" />
+<jsp:include page="/WEB-INF/header4.jsp" />
 
 <style type="text/css">
 
@@ -167,4 +167,4 @@ li {
 </div>
 
 
-<jsp:include page="footer.jsp" />
+<jsp:include page="/WEB-INF/footer.jsp" />

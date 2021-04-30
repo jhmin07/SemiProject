@@ -7,11 +7,8 @@
 %>    
 <jsp:include page="../header4.jsp" />  
 
-<title>RHOM 공식 홈페이지</title>
+<title>RHOM 공식 홈페이지[관리자모드]</title>
 <style type="text/css">
-#content{
-	margin-top: 100px;
-}
 div, h2, p{
 	margin: 0;
 	padding: 0;
@@ -94,18 +91,16 @@ a{
 	display: inline-block;
 }
 .login > ul > li:first-child {
-    margin: 0;
-    padding: 0;
+	float: left;
+    padding-right: 10px;
     border-right: 2px solid #dedede;
 }  
 .login > ul > li:last-child {
-	margin-right: 50px;
-	border-left: 2px solid #dedede;
+  	float: left;
+    padding-left: 10px;
+    margin-right: 30px;
 }  
-.login > ul > li {
-	float: left;
-    margin-left: 16px;
-}
+
 .login > ul > li > a {
     color: #999;
     font-size: 13px;
@@ -130,24 +125,24 @@ form{
 <body>
 <%-- *** 로그인을 하기 위한 폼을 생성 *** --%>
 <!-- 로그인 정보 입력  -->
- <div id="content">
-      <h2>로그인</h2>
-      <p>RHOM을 방문해 주셔서 감사합니다</p>
-      <fieldset class="login">
-      <form id="frm_login" method="POST" action="<%= request.getContextPath()%>/member/login.up">
-      <input type="text" id="user_id"  name="userid" maxlength="20" placeholder="아이디를 입력해주세요." />   
-      <input type="password" id="user_pwd" name="pwd" maxlength="20" placeholder="비밀번호를 입력해주세요." onkeypress="if(event.keyCode == 13) { login_submit(); event.returnValue = false }" />
-      <input type="submit" id="submit" value="로그인" style="background-color: black; color: white;  width: 450px;" />
-      </form>
-      <ul>
-         <li> <a style="cursor: pointer;" data-toggle="modal" data-target="#userIdfind" data-dismiss="modal">아이디 찾기</a>&nbsp;&nbsp;&nbsp;</li>
-         <li> <a style="cursor: pointer;" data-toggle="modal" data-target="#userpwdfind" data-dismiss="modal">비밀번호 찾기</a> </li>
-         <li> &nbsp;&nbsp;&nbsp;<a href="<%= ctxPath%>/member/memberRegister.up" >회원가입</a> </li>
-      </ul>
-      </fieldset>
-   </div>
-
-
+<form id="frm_login">
+	<div id="content">
+	<br><br>
+		<h2>로그인</h2>
+		<p><span style="background-color:navy; color: #fff;">[관리자모드]</span><br>RHOM 관리자모드 페이지 입니다. 회원께서는 뒤로가기를 눌러주세요.</p>
+		<fieldset class="login">
+		<input type="text" id="user_id" maxlength="20" placeholder="아이디를 입력해주세요.">
+		<label for="user_id">아이디 입력</label>
+		<input type="password" id="user_pwd" maxlength="20" placeholder="비밀번호를 입력해주세요." onkeypress="if(event.keyCode == 13) { login_submit(); event.returnValue = false }">
+		<label for="user_pwd"> 입력</label>
+		<a href="javascript:login_submit();" >로그인</a>
+		<ul>
+			<li> <a style="cursor: pointer;" data-toggle="modal" data-target="#userIdfind" data-dismiss="modal" data-backdrop="static"> [관리자모드] 아이디 찾기</a></li>
+			<li> <a style="cursor: pointer;" data-toggle="modal" data-target="#userpwdfind" data-dismiss="modal" data-backdrop="static"> [관리자모드] 비밀번호 찾기</a> </li>
+		</ul>
+		</fieldset>
+	</div>
+</form>
 
 <%-- ****** 아이디 찾기 Modal 시작****** --%>
   <div class="modal fade" id="userIdfind" role="dialog">

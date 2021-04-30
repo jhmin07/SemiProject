@@ -5,7 +5,7 @@
 	String ctxPath = request.getContextPath();
 %>
 
-<jsp:include page="../../header4.jsp"/>
+<jsp:include page="../header4.jsp"/>
 
 <title>회원가입</title>
 <style type="text/css">
@@ -455,4 +455,4 @@
 </form>	
 </div>
 
-<jsp:include page="../../footer.jsp"/>
+<jsp:include page="../footer.jsp"/>

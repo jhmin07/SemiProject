@@ -5,7 +5,7 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>   
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>  
 
-<jsp:include page="../../header4.jsp" />
+<jsp:include page="../header4.jsp" />
 
 <style type="text/css">
 	
@@ -107,4 +107,4 @@
 </div>
 
 
-<jsp:include page="../../footer.jsp" />
+<jsp:include page="../footer.jsp" />

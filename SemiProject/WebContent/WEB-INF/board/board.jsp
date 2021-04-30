@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>    
    
-<jsp:include page="../../header4.jsp"/>
+<jsp:include page="../header4.jsp"/>
 	
 
 
@@ -53,10 +53,22 @@
 	}
 	.page_click{
 		background-color: black;
-		color: white;
+		color: white !important;
 	}
 	td.page_hover:hover {
 		cursor: pointer;
+	}
+	table.writeSearchTable{
+		width: 90%;
+		text-align: center;
+	}
+	td#write{
+		text-align: left;
+		padding-left: 10px;
+	}
+	td#search{
+		text-align: right;
+		padding-right: 10px;
 	}
 </style>
 <script type="text/javascript">
@@ -109,21 +121,25 @@
 			</tr>
 		</tbody>
 	</table>
-	<div align="right" style="margin-right: 60px;">
-	<form name="SearchFrm">
-		<select id="searchType" name="searchType">
-			<option value="name">이름</option>
-			<option value="title">제목</option>
-			<option value="contents">내용</option>
-		</select>
-		<input type="text" id="searchWord" name="searchWord" />
-		<input type="text" style="display: none;">
-		<button type="button" onclick="goSearch();" style="margin-right: 30px;">검색</button>				
-	</form>
-	</div>
-
-
-
+		<table class="writeSearchTable">
+		<tr>
+			<td id="write">
+					<button>글쓰기</button>
+			</td>
+			<td id="search">
+					<form name="SearchFrm">
+						<select id="searchType" name="searchType">
+							<option value="name">이름</option>
+							<option value="title">제목</option>
+							<option value="contents">내용</option>
+						</select>
+						<input type="text" id="searchWord" name="searchWord" />
+						<input type="text" style="display: none;">
+						<button type="button" onclick="goSearch();" style="margin-right: 30px;">검색</button>				
+					</form>
+			</td>
+		</tr>
+	</table>
 		<table class="table table-bordered" style="width: 90%; margin-top: 20px;">
 		<thead>
 			<tr>
@@ -189,4 +205,4 @@
 	${requestScope.pageBar }
 
 </div>
-<jsp:include page="../../footer.jsp"/>	
+<jsp:include page="../footer.jsp"/>	
