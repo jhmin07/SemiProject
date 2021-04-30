@@ -106,4 +106,5 @@ public abstract class AbstractController implements InterCommand {
 		request.setAttribute("categoryList", categoryList);
 		request.setAttribute("detailCategoryList", detailCategoryList);
 	}
+	
 }
