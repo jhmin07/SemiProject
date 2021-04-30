@@ -7,10 +7,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import admin.controller.AdminDAO;
+import admin.controller.AdminVO;
+import admin.controller.InterAdminDAO;
 import common.controller.AbstractController;
-import member.model.AdminDAO;
-import member.model.AdminVO;
-import member.model.InterAdminDAO;
 
 
 public class AdminLoginAction extends AbstractController {

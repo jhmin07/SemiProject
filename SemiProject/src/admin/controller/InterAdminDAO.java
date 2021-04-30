@@ -1,7 +1,9 @@
-package member.model;
+package admin.controller;
 
 import java.sql.SQLException;
 import java.util.Map;
+
+import member.model.MemberVO;
 
 public interface InterAdminDAO {
 	
