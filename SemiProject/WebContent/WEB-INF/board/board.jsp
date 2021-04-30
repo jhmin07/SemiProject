@@ -106,6 +106,9 @@
 		frm.method = "GET";	// 숨길필요 없이 빨리빨리 이동해야해서 get 사용
 		frm.submit();
 	}
+	function goWriteNotice(){
+		location.href="boardWrite.up";
+	};
 </script>
 
 <div class="container" align="center">
@@ -125,7 +128,7 @@
 	<table class="writeSearchTable">
 		<tr>
 			<td id="write">
-					<button>글쓰기</button>
+					<button onClick="goWriteNotice();">글쓰기</button>
 			</td>
 			<td id="search">
 					<form name="SearchFrm">
