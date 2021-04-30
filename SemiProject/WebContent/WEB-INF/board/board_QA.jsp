@@ -130,9 +130,7 @@
 	<table class="writeSearchTable">
 		<tr>
 			<td id="write">
-				<c:if test="${requestSession.userid == 'admin' }">
 					<button>글쓰기</button>
-				</c:if>
 			</td>
 			<td id="search">
 					<form name="SearchFrm">

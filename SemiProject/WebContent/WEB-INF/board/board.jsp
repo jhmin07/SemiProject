@@ -107,7 +107,7 @@
 		frm.submit();
 	}
 	function goWriteNotice(){
-		location.href="boardWrite.up";
+		location.href="/WEB-INF/board/boardWrite.jsp";
 	};
 </script>
 
@@ -127,9 +127,9 @@
 	</table>
 	<table class="writeSearchTable">
 		<tr>
-			<td id="write">
-					<button onClick="goWriteNotice();">글쓰기</button>
-			</td>
+			<c:if test="${requestSession.userid == 'admin' }">
+				<button onClick="goWriteNotice();">글쓰기</button>
+			</c:if>
 			<td id="search">
 					<form name="SearchFrm">
 						<select id="searchType" name="searchType">
