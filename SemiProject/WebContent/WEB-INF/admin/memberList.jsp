@@ -127,7 +127,7 @@
 		</tbody>
 	</table>
 
-	<div>
+	<div align="center" style="font-size: 13pt;">
 		${requestScope.pageBar}
 	</div>
 </div>	

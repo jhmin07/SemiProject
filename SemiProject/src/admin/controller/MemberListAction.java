@@ -93,7 +93,7 @@ public class MemberListAction extends AbstractController {
 
 			while(!(loop > blockSize || pageNo > totalPage)) {
 				if(pageNo == Integer.parseInt(currentShowPageNo)) {
-					pageBar += "&nbsp;<span style='font-weight: bold; font-size: 13pt; background-color: #d9f2d9;'>"+pageNo+"</span>&nbsp;";
+					pageBar += "&nbsp;<span style='font-weight: bold; font-size: 15pt; background-color: #d9f2d9;'>"+pageNo+"</span>&nbsp;";
 				}
 				else {
 					pageBar += "&nbsp;<a href='memberList.up?currentShowPageNo="+pageNo+"&searchType="+searchType+"&searchWord="+searchWord+"'>"+pageNo+"</a>&nbsp;";
