@@ -90,7 +90,7 @@ span.input{
 		 location.href= "<%= ctxPath%>/member/";
 	 });
 	 $("div#myInfo").bind("click", function(){
-		 location.href= "<%= ctxPath%>/member/memberEdit.up";
+		 location.href= "<%= ctxPath%>/member/memberEdit.up?userid=${sessionScope.loginuser.userid}";
 	 });
 	 $("div#coupon").bind("click", function(){
 		 location.href= "<%= ctxPath%>/product/";
