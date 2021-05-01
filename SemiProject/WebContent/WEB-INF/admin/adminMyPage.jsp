@@ -7,7 +7,7 @@
     String ctxPath = request.getContextPath();
 
 %>
-<jsp:include page="../header4_forAdmin.jsp" />     
+<jsp:include page="../header4.jsp" />     
     
 <style type="text/css">
  
@@ -27,17 +27,20 @@ p{
     font-size: 16px;
     text-align: center;	
 }
+div.buttons{
+	/* border: solid 1px red; */
+	padding-left: 150px;
+}
 
 .button_base {
+	
 	margin-right: 13px;
-    border: 0;
     font-size: 18px;
     width: 250px;
     height: 45px;
     text-align: center;
     box-sizing: border-box;
     display: inline-block;
-    left: 21%;
     margin-bottom: 100px;
 }
 

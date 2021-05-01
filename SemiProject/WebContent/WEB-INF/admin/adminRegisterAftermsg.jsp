@@ -4,7 +4,7 @@
 <% 
 	String ctxPath = request.getContextPath();
 %>
-<jsp:include page="../header4_forAdmin.jsp"/>
+<jsp:include page="../header4.jsp"/>
 <style type="text/css">
 	div.container {		
 		margin: 80px auto;		

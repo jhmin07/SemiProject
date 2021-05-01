@@ -5,7 +5,7 @@
 	String ctxPath = request.getContextPath();
 %>
 
-<jsp:include page="../header4_forAdmin.jsp"/>
+<jsp:include page="../header4.jsp"/>
 
 <title>관리자등록</title>
 <style type="text/css">

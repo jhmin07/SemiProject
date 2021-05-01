@@ -85,6 +85,7 @@ span.hsub1{
 	font-weight: bold;
 	margin-right: 5px;
 	font-size: 10pt;
+	
 }
 
 </style>
@@ -98,9 +99,7 @@ function closeNav() {
 	  document.getElementById("mySidenav").style.width = "0";
 	}
 
-	function goNotice(){
-		location.href = "<%=request.getContextPath()%>/detailMenu/board.up";
-	}
+function goBoard(){ location.href = "<%=request.getContextPath()%>/board/board.up";}
 
 function goHome(){
 	location.href = "<%=request.getContextPath()%>/home.up";
@@ -112,9 +111,16 @@ function LogIn() {
 function LogOut() {
 	location.href="<%= request.getContextPath()%>/member/logout.up";
 }
+function LogOut_admin() {
+	location.href="<%= request.getContextPath()%>/admin/adminLogout.up";
+}
 function myPage() {
 	var userid = "${sessionScope.loginuser.userid}";
 	location.href="<%= request.getContextPath()%>/member/memberMyPage.up?userid="+userid;	
+}
+function myPage_admin() {
+	var userid = "${sessionScope.loginadmin.adId}";
+	location.href="<%= request.getContextPath()%>/admin/adminMyPage.up?adId="+adId;	
 }
 	
 </script>
@@ -133,14 +139,14 @@ function myPage() {
 	  <hr style="border: solid 1px #CDCDCD; width: 190px; margin-top: 30px;">
 	  <br>
 	  <div align="center" style="color: white;">
-	  	<c:if test="${empty sessionScope.loginuser}">
+	  	<c:if test="${empty sessionScope.loginuser && empty sessionScope.loginadmin}">
 		 	<span class="submenubtn" onclick="LogIn()">로그인</span>|
 		 </c:if>	
-	  	<c:if test="${not empty sessionScope.loginuser}">
+	  	<c:if test="${not empty sessionScope.loginuser || not empty sessionScope.loginadmin}">
 		 	<span class="submenubtn" onclick="LogOut()" >로그아웃</span>|
 		 </c:if>			 
 		 <span class="submenubtn" >주문내역</span>|
-		 <span class="submenubtn" id="Notice" onClick="goNotice();" >고객센터</span>
+		 <span class="submenubtn" id="Notice" onClick="goBoard();" >고객센터</span>
 	  </div>
 	</div>
 
@@ -148,14 +154,23 @@ function myPage() {
   <span style="font-size:30px;cursor:pointer; width:15%; vertical-align: middle;" onclick="openNav()"><img id="mainheadermenu" src="<%= ctxPath %>/image/ProjectImg/menu.png" style="width: 50px;" align="middle"/></span>
   <span class="hsub1" style="width:60%; text-align: center; padding-left: 185px;" onclick="goHome()"><img class="headerlogo" src="<%= ctxPath %>/image/ProjectImg/logo2.png" style="width:120px; height:50px; cursor: pointer;" align="middle"/></span>
   
-  	<c:if test="${empty sessionScope.loginuser}">
+ 
+  	<c:if test="${empty sessionScope.loginuser && empty sessionScope.loginadmin}">
   	  <span class="hsub1" style="margin-left: 200px;" onclick="LogIn()"><img class="headerlogo"  src="<%= ctxPath%>/image/ProjectImg/login.png" style="width:28px; height:23px; cursor: pointer;" align="middle" />로그인</span>
+  	  <span class="hsub1"><img class="headerlogo"  src="<%= ctxPath%>/image/ProjectImg/shoppingbag.png" style="width:28px; height:23px; cursor: pointer;" align="middle" />장바구니</span>
     </c:if>
-    <c:if test="${not empty sessionScope.loginuser}">
-  	  <span class="hsub1" style="margin-left: 100px;" onclick="myPage()"><img class="headerlogo"  src="<%= ctxPath%>/image/ProjectImg/login.png" style="width:28px; height:23px; cursor: pointer;" align="middle" />마이페이지</span>
-  	  <span class="hsub1" onclick="LogOut()"><img class="headerlogo"  src="<%= ctxPath%>/image/logout.png" style="width:28px; height:23px; cursor: pointer;" align="middle" />로그아웃</span>
+    <c:if test="${not empty sessionScope.loginuser || not empty sessionScope.loginadmin}">
+    	 <c:if test="${not empty sessionScope.loginuser && empty sessionScope.loginadmin}">
+    	 	<span class="hsub1" style="margin-left: 80px;" onclick="myPage()"><img class="headerlogo"  src="<%= ctxPath%>/image/ProjectImg/login.png" style="width:28px; height:23px; cursor: pointer;" align="middle" />마이페이지</span>
+  	  		<span class="hsub1" onclick="LogOut()"><img class="headerlogo"  src="<%= ctxPath%>/image/logout.png" style="width:28px; height:23px; cursor: pointer;" align="middle" />로그아웃</span>
+  	  		<span class="hsub1"><img class="headerlogo"  src="<%= ctxPath%>/image/ProjectImg/shoppingbag.png" style="width:28px; height:23px; cursor: pointer;" align="middle" />장바구니</span>
+    	 </c:if>
+    	 <c:if test="${empty sessionScope.loginuser && not empty sessionScope.loginadmin}">
+    	 	<span class="hsub1" style="margin-left: 100px;" onclick="myPage_admin()"><img class="headerlogo"  src="<%= ctxPath%>/image/ProjectImg/login.png" style="width:28px; height:23px; cursor: pointer;" align="middle" />관리자페이지</span>
+  	  		<span class="hsub1" onclick="LogOut_admin()"><img class="headerlogo"  src="<%= ctxPath%>/image/logout.png" style="width:28px; height:23px; cursor: pointer;" align="middle" />로그아웃</span>
+    	 </c:if>
     </c:if>  
-    <span class="hsub1"><img class="headerlogo"  src="<%= ctxPath%>/image/ProjectImg/shoppingbag.png" style="width:28px; height:23px; cursor: pointer;" align="middle" />장바구니</span>
+   
   
 </div>
 
