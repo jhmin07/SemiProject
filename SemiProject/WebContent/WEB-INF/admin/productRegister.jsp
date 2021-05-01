@@ -5,55 +5,64 @@
 	String ctxPath = request.getContextPath();
 %>
 
-<jsp:include page="../header4.jsp"/>
+<jsp:include page="../header4.jsp" />     
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"> 
 <script type="text/javascript" src="<%= ctxPath%>/jquery-ui-1.11.4.custom/jquery-ui.min.js"></script>
 
 <title>상품등록</title>
 <style type="text/css">
+div.container {
+	margin: 80px auto;
+}
 
-	div.container {		
-		margin: 80px auto;
-	}
-	
-	table#tblMemberRegister {		
-		width: 98%;          
-		margin: 10px;	
-	}  
-	
-	th#th {				
-		text-align: center;		
-		font-size: 30pt; 
-		font-family: 'Papyrus', Fantasy; 
-		font-weight: bold;
-	}	
-	
-	td {
-		line-height: 30px;
-		padding-top: 8px;
-		padding-bottom: 8px;
-	}
-	
-	span.star {
-		color: red;
-		font-weight: bold;
-		font-size: 13pt;
-	}
-	
-	span.info {
-		color: gray;
-		font-size: 9.5pt;
-	}
-	
-	span.error {
-		color: red;
-		margin-left: 10px;
-		font-size: 9.5pt;
-		font-weight: bold;
-	}
-	select {
-		padding: 7px 0;
-	}
+table#tblMemberRegister {
+	width: 98%;
+	margin: 10px;
+}
+
+h2#prodRegh2 {
+	clear: right;
+	padding: 30px;
+	color: #000;
+	font-size: 30px;
+	text-align: center;
+	font-family: Georgia;
+}
+/* 
+th#prodRegth {
+	text-align: center;
+	font-size: 30pt;
+	font-family: Georgia;
+	font-weight: bold;
+}
+ */
+td {
+	line-height: 30px;
+	padding-top: 8px;
+	padding-bottom: 8px;
+}
+
+span.star {
+	color: red;
+	font-weight: bold;
+	font-size: 13pt;
+}
+
+span.info {
+	color: gray;
+	font-size: 9.5pt;
+}
+
+span.error {
+	color: red;
+	margin-left: 10px;
+	font-size: 9.5pt;
+	font-weight: bold;
+}
+
+select {
+	padding: 7px 0;
+}
 </style>
 
 <script type="text/javascript">
@@ -133,14 +142,16 @@
 			action="<%=request.getContextPath()%>/admin/productRegister.up"
 			method="POST"
 			enctype="multipart/form-data" >
-
+		
+		<h2 id="prodRegh2">PRODUCT REGISTER</h2>
 		<table id="tblProductRegister">
+		<%--
 			<thead>
 				<tr>
-					<th colspan="2" id="th" style="padding: 30px;">상품등록</th>
+					<th colspan="2" id="prodRegth" >PRODUCT REGISTER</th>
 				</tr>
 			</thead>
-
+		--%>
 			<tbody>
 				<tr>
 					<td width="25%" class="prodInputName" style="padding-top: 10px;">카테고리</td>
