@@ -134,7 +134,7 @@
 	<table class="writeSearchTable">
 		<tr>
 			<td id="write">
-					<button>글쓰기</button>
+					<button style="background-color: black; color: white; font-size: 20px; font-weight: bold;">글쓰기</button>
 			</td>
 			<td id="search">
 					<form name="SearchFrm">

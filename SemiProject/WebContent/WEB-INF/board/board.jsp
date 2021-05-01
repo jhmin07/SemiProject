@@ -60,15 +60,10 @@
 	}
 	table.writeSearchTable{
 		width: 90%;
-		text-align: center;
-	}
-	td#write{
-		text-align: left;
-		padding-left: 10px;
-	}
-	td#search{
 		text-align: right;
-		padding-right: 10px;
+	}
+	table.writeSearchTable td#write{
+		width: 85px;
 	}
 </style>
 <script type="text/javascript">
@@ -127,11 +122,6 @@
 
 	<table class="writeSearchTable">
 		<tr>
-			<td>
-			<%-- <c:if test="${requestSession.userid == 'admin' }"> --%>
-				<button onClick="goWriteNotice();">글쓰기</button>
-			<%-- </c:if> --%>
-			</td>
 			<td id="search">
 					<form name="SearchFrm">
 						<select id="searchType" name="searchType">
@@ -141,8 +131,13 @@
 						</select>
 						<input type="text" id="searchWord" name="searchWord" />
 						<input type="text" style="display: none;">
-						<button type="button" onclick="goSearch();" style="margin-right: 30px;">검색</button>				
+						<button type="button" onclick="goSearch();" style="background-color: white; color: black; font-size: 17px; font-weight: bold; border-radius: 5%">검색</button>				
 					</form>
+			</td>
+			<td id="write">
+			<%-- <c:if test="${requestSession.userid == 'admin' }"> --%>
+				<button onClick="goWriteNotice();" style="background-color: black; color: white; font-size: 17px; font-weight: bold; border-radius: 5%">글쓰기</button>
+			<%-- </c:if> --%>
 			</td>
 		</tr>
 	</table>
