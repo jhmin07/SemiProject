@@ -1,18 +1,14 @@
-package detailMenu.controller;
+package board.controller;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import QA.model.InterQADAO;
+import QA.model.QADAO;
+import QA.model.QAVO;
 import common.controller.AbstractController;
-import member.model.InterMemberDAO;
-import member.model.MemberDAO;
-import member.model.MemberVO;
-import notice.model.InterNoticeDAO;
-import notice.model.NoticeDAO;
-import notice.model.NoticeVO;
-
-public class ContentOneDetailAction extends AbstractController {
+public class QaOneDetailAction extends AbstractController {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -23,11 +19,13 @@ public class ContentOneDetailAction extends AbstractController {
 				if( loginuser!=null && "admin".equals(loginuser.getUserid()) ) {
 					// 관리자(admin)로 로그인 했을 경우
 				 */
-					String ctNo = request.getParameter("ctNo");
-					InterNoticeDAO ndao = new NoticeDAO();
-					NoticeVO nvo = ndao.contentOneDetail(ctNo);
+					String qaNo = request.getParameter("qaNo");
+					InterQADAO qdao = new QADAO();
+					QAVO qvo = qdao.qaOneDetail(qaNo);
 					
-					request.setAttribute("nvo", nvo);
+					System.out.println(qvo.getFk_userid());
+					
+					request.setAttribute("qvo", qvo);
 					
 					/////////////////////////////////////////////////
 					// *** 현재페이지를 돌아갈 페이지(goBackURL)로 주소 지정하기
@@ -37,7 +35,7 @@ public class ContentOneDetailAction extends AbstractController {
 					request.setAttribute("goBackURL", goBackURL);
 					
 					super.setRedirect(false);
-					super.setViewPage("/WEB-INF/board/boardNoticeDetail.jsp");
+					super.setViewPage("/WEB-INF/board/QANoticeDetail.jsp");
 				/*}
 				else {
 					// 로그인을 안한 경우 또는 일반사용자로 로그인 한 경우

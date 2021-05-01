@@ -1,4 +1,4 @@
-package detailMenu.controller;
+package board.controller;
 
 import java.util.HashMap;
 import java.util.List;
@@ -7,6 +7,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import common.controller.AbstractController;
+import detailMenu.controller.MyUtil;
 import notice.model.InterNoticeDAO;
 import notice.model.NoticeDAO;
 import notice.model.NoticeVO;
@@ -145,7 +146,7 @@ public class BoardAction extends AbstractController {
 						int menu = 1;
 						request.setAttribute("menu", menu);
 					super.setRedirect(false);
-			        super.setViewPage("/WEB-INF/board/board.jsp");			
+			        super.setViewPage("/WEB-INF/board/notice.jsp");			
 					
 					/*
 					 * } else { // 로그인을 안한 경우 또는 일반사용자로 로그인 한 경우

@@ -58,61 +58,51 @@
 	td.page_hover:hover {
 		cursor: pointer;
 	}
-<<<<<<< HEAD
-		table.writeSearchTable{
-=======
 	table.writeSearchTable{
->>>>>>> refs/heads/main
 		width: 90%;
-		text-align: center;
-	}
-	td#write{
-		text-align: left;
-		padding-left: 10px;
-	}
-	td#search{
 		text-align: right;
-		padding-right: 10px;
+	}
+	table.writeSearchTable td#write{
+		width: 85px;
 	}
 </style>
 <script type="text/javascript">
-	$(document).ready(function(){		
+	$(document).ready(function(){	
 		
 		if("${fn:trim(requestScope.searchWord)}" != ""){
 			$("select#searchType").val("${requestScope.searchType}");
 			$("input#searchWord").val("${requestScope.searchWord}");
 		}
 		
-		$(".GoodsQA").addClass("page_click");
-		$(".Notice").removeClass("page_click");
+		$(".GoodsQA").removeClass("page_click");
+		$(".Notice").addClass("page_click");
 		
 		$("td.GoodsQA").click(function(){
-			$(".GoodsQA").addClass("page_click");
-			$(".Notice").removeClass("page_click");
-			location.href="<%=request.getContextPath()%>/detailMenu/boardQA.up";
+			location.href="<%=request.getContextPath()%>/board/boardQA.up";
 		});
 		$("td.Notice").click(function(){
-			$(".GoodsQA").removeClass("page_click");
-			$(".Notice").addClass("page_click");
-			location.href="<%=request.getContextPath()%>/detailMenu/board.up" ;
+			location.href="<%=request.getContextPath()%>/board/board.up" ;
 		});
-		
-		$("tr.QAHead").click(function(){
-			var qaNo = $(this).children(".qaNo").text();				
+		$("tr.NoticeHead").click(function(){
+			var ctNo = $(this).children(".ctNo").text();				
 			// $(this) 는 td가 아니라 tr 이므로 자식들(td) 중 class가 .userid인 것들을 찾는다.
 			
-			  location.href = "<%=request.getContextPath()%>/detailMenu/qaOneDetail.up?qaNo="+qaNo+"&goBackURL=${requestScope.goBackURL}";
+			  location.href = "<%=request.getContextPath()%>/board/contentOneDetail.up?ctNo="+ctNo+"&goBackURL=${requestScope.goBackURL}";
 		});
+		
 	});
 	
 	
 	// Function Declaration
 	function goSearch(){
 		var frm = document.SearchFrm;
-		frm.action = "boardQA.up"; // 자기자신한테 간다. 그냥 목록 갯수만 바꿔줄 뿐
+		frm.action = "board.up"; // 자기자신한테 간다. 그냥 목록 갯수만 바꿔줄 뿐
 		frm.method = "GET";	// 숨길필요 없이 빨리빨리 이동해야해서 get 사용
 		frm.submit();
 	}
+	function goWriteNotice(){
+		location.href="<%=request.getContextPath()%>/board/noticeWrite.up";
+	};
 </script>
 
 <div class="container" align="center">
@@ -130,12 +120,8 @@
 		</tbody>
 	</table>
 
-
 	<table class="writeSearchTable">
 		<tr>
-			<td id="write">
-					<button style="background-color: black; color: white; font-size: 20px; font-weight: bold;">글쓰기</button>
-			</td>
 			<td id="search">
 					<form name="SearchFrm">
 						<select id="searchType" name="searchType">
@@ -145,12 +131,17 @@
 						</select>
 						<input type="text" id="searchWord" name="searchWord" />
 						<input type="text" style="display: none;">
-						<button type="button" onclick="goSearch();" style="margin-right: 30px;">검색</button>				
+						<button type="button" onclick="goSearch();" style="background-color: white; color: black; font-size: 17px; font-weight: bold; border-radius: 5%">검색</button>				
 					</form>
 			</td>
+			<c:if test="${sessionScope.loginadmin.adId != null}">
+				<td id="write">
+					<button onClick="goWriteNotice();" style="background-color: black; color: white; font-size: 17px; font-weight: bold; border-radius: 5%">글쓰기</button>
+				</td>
+			</c:if>
 		</tr>
 	</table>
-
+	
 
 		<table class="table table-bordered" style="width: 90%; margin-top: 20px;">
 		<thead>
@@ -163,15 +154,44 @@
 			</tr>
 		</thead>
 		
-						
+		<tbody>
+			<tr>
+				<td class="list list2">3</td>
+				<td class="list ctTitle">배송 기간, 배송비 안내, 적립금, 게시판 이용안내</td>
+				<td class="list list2">관리자</td>
+				<td class="list list2">2021-04-22</td>
+				<td class="list list2">10</td>
+			</tr>
+		</tbody>
+		
+		<tbody>
+			<tr>
+				<td class="list list2">2</td>
+				<td class="list ctTitle">게시판 이용규정 안내</td>
+				<td class="list list2">관리자</td>
+				<td class="list list2">2021-04-22</td>
+				<td class="list list2">20</td>
+			</tr>
+		</tbody>
+		
+		<tbody>
+			<tr>
+				<td class="list list2">1</td>
+				<td class="list ctTitle">AS센터 휴무안내</td>
+				<td class="list list2">관리자</td>
+				<td class="list list2">2021-04-20</td>
+				<td class="list list2">30</td>
+			</tr>
+		</tbody>
+				
 		<tbody id="NoticeList">
-        	<c:forEach var="qvo" items="${requestScope.qaList}">
-        		<tr class= "QAHead">
-        			<td class="qaNo">${qvo.qaNo}</td>
-        			<td class="Title">${qvo.qaTitle}</td>
-        			<td>${qvo.fk_userid}</td>
-        			<td>${qvo.qaRegisterday}</td>
-        			<td>${qvo.qaViewcount}</td>
+        	<c:forEach var="nvo" items="${requestScope.noticeList}">
+        		<tr class= "NoticeHead">
+        			<td class="ctNo">${nvo.ctNo}</td>
+        			<td class="Title">${nvo.ctTitle}</td>
+        			<td>${nvo.fk_adId}</td>
+        			<td>${nvo.ctRegisterday}</td>
+        			<td>${nvo.ctViewcount}</td>
         		</tr>
         	</c:forEach>
         </tbody>
@@ -179,6 +199,7 @@
         
         
 	</table>
+
 	
 </div>
 

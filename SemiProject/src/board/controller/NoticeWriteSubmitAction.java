@@ -16,14 +16,14 @@ import notice.model.InterNoticeDAO;
 import notice.model.NoticeDAO;
 import notice.model.NoticeVO;
 
-public class BoardWriteSubmitAction extends AbstractController {
+public class NoticeWriteSubmitAction extends AbstractController {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		
 
 		HttpSession session = request.getSession();
-		AdminVO adId = (AdminVO) session.getAttribute("adId");
+		AdminVO adId = (AdminVO) session.getAttribute("loginadmin");
 		 
 		if(adId.getAdId() !=null ) {
 			
@@ -38,9 +38,9 @@ public class BoardWriteSubmitAction extends AbstractController {
          // !!!! 크로스 사이트 스크립트 공격에 대응하는 안전한 코드(시큐어코드) 작성하기 !!!! // 
             // 아래처럼 하면 <>가 태그가 아니라 걍 부등호로 인식된다.
             noticeTitle = noticeTitle.replaceAll("<", "&lt;");
-            noticeTitle = noticeTitle.replaceAll("<", "&gt;");
+            noticeTitle = noticeTitle.replaceAll(">", "&gt;");
             noticeContent = noticeContent.replaceAll("<", "&lt;");
-            noticeContent = noticeTitle.replaceAll("<", "&gt;");
+            noticeContent = noticeTitle.replaceAll(">", "&gt;");
 
             
             noticeTitle = noticeTitle.replaceAll("\r\n", "<br>");
@@ -82,7 +82,8 @@ public class BoardWriteSubmitAction extends AbstractController {
 			  
 			 request.setAttribute("message", message); request.setAttribute("loc", loc);
 			 
-			 // super.setRedirect(false); super.setViewPage("/WEB-INF/msg.jsp"); }
+			 super.setRedirect(false); 
+			 super.setViewPage("/WEB-INF/msg.jsp");
 			 
 
 		}

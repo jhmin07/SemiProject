@@ -209,6 +209,33 @@ public class QADAO implements InterQADAO {
 				  return qvo; 
 	}
 
+	// tbl_qaboard 테이블에 Q&A insert 하기
+	@Override
+	public int QAInsert(QAVO qvo) throws SQLException {
+	      int result = 0;
+	      try {
+	         conn = ds.getConnection();
+
+	         String sql = " insert into tbl_qaBoard(qaNo, qaTitle, qaContent, qaPwd, fk_userid, qaRegisterday, qaViewcount) " +  
+	                    " values(seq_tbl_qaBoard_qaNo.nextval, ? , ? , ? , ? , sysdate,0)";
+	     
+	         pstmt = conn.prepareStatement(sql);
+	         
+	         pstmt.setString(1, qvo.getQaTitle());
+	         pstmt.setString(2, qvo.getQaContent());
+	         pstmt.setString(3, qvo.getQaPwd()); 
+	         pstmt.setString(4, qvo.getFk_userid());     
+	        
+	            
+	         result = pstmt.executeUpdate();
+	         
+	      } finally {
+	         close();
+	      }
+	      
+	      return result;
+	}
+
 	
 }	
 
