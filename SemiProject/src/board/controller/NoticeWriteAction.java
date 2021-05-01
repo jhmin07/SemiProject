@@ -11,13 +11,13 @@ import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 import admin.model.AdminVO;
 import common.controller.AbstractController;
 
-public class BoardWriteAction extends AbstractController {
+public class NoticeWriteAction extends AbstractController {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 	
 		HttpSession session = request.getSession();
-		AdminVO adId = (AdminVO) session.getAttribute("adId");
+		AdminVO adId = (AdminVO) session.getAttribute("loginadmin");
 		
 		if(adId.getAdId() !=null ) {
 				
@@ -25,14 +25,17 @@ public class BoardWriteAction extends AbstractController {
 		String adminId = adId.getAdId();
 		request.setAttribute("adminId", adminId);
 		super.setRedirect(false);
-		super.setViewPage("/WEB-INF/board/boardWrite.jsp");	
+		super.setViewPage("/WEB-INF/board/noticeWrite.jsp");	
 		
-		  } else { String message = "관리자만 접근이 가능합니다."; String loc =
-		  "javascript:history.back()";
+		  }
+		else { 
+			String message = "관리자만 접근이 가능합니다."; 
+			String loc = "javascript:history.back()";
 		  
 		  request.setAttribute("message", message); request.setAttribute("loc", loc);
 		  
-		  // super.setRedirect(false); super.setViewPage("/WEB-INF/msg.jsp"); }
+		  // super.setRedirect(false);
+		  super.setViewPage("/WEB-INF/msg.jsp");
 		 
 		  }
 			
