@@ -1,6 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     
+<%@ taglib prefix="c"   uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"  %>
+    
 <%
     String ctxPath = request.getContextPath();
 
@@ -113,9 +116,9 @@ span.input{
 	     </div>
 	     
 	     <div class="personalInfo">
-	     	<div><span class="input">${requestScope.userid}</span>님은 <span class="input" >[일반회원]</span>이십니다.</div>
+	     	<div><span class="input">${(sessionScope.loginuser).name}</span>님은 <span class="input" >[일반회원]</span>이십니다.</div>
 	     	<br>
-	     	<div>POINT :&nbsp;&nbsp;&nbsp;&nbsp;<span class="input" id="point">${requestScope.point}</span></div>
+	     	<div>POINT :&nbsp;&nbsp;&nbsp;&nbsp;<span class="input" id="point"><fmt:formatNumber value="${(sessionScope.loginuser).point}" pattern="###,###" /></span></div>
 	     	<div>COUPON :&nbsp;<span class="input" id="point">${requestScope.coupon}</span></div>
 	     </div> 
 		       

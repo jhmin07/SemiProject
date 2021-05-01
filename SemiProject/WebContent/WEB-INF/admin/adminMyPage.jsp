@@ -7,7 +7,7 @@
     String ctxPath = request.getContextPath();
 
 %>
-<jsp:include page="../header4.jsp" />     
+<jsp:include page="../header4_forAdmin.jsp" />     
     
 <style type="text/css">
  
@@ -101,7 +101,7 @@ span.input{
 
 <div class="container">
 	<h2>ADMINISTRATOR PAGE</h2>
-	<p>안녕하세요 <span style="font-weight: bold; color: black;">${adId}</span>님 [관리자 모드입니다.]</p>
+	<p>안녕하세요 <span style="font-weight: bold; color: black;">${(sessionScope.loginadmin).adName}</span>님 [관리자 모드입니다.]</p>
 	<div class="buttons">
 	 	<div class="button_base b01" id="manageMember">
 	     	MANAGE MEMBER
