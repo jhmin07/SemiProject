@@ -66,6 +66,64 @@ create table tbl_admin
 --,constraint UQ_tbl_member_email  unique(email)-- 이메일은 같은 회사이메일을 사용한다는 조건이 있을 수 도 있음?
 );
 
+insert into tbl_member(userid, pwd, name, email, mobile, postcode, address, detailaddress, extraaddress, gender, birthday)
+values ('admin1', 'qwer1234!', '관리자1', 'test1@naver.com', '010-5678-3456', '01234', '서울시', '마포구', '123', '1', '1995-01-01');
+insert into tbl_member(userid, pwd, name, email, mobile, postcode, address, detailaddress, extraaddress, gender, birthday)
+values ('admin2', 'qwer1234!', '테스트2', 'test2@naver.com', '010-5555-3456', '01234', '서울시', '마포구', '123', '1', '1995-01-01');
+
+update tbl_member set userid = 'admin' where userid = 'admin1';
+commit;
+
+select *
+from tbl_admin;
+
+-------------------------------------------------------------------------------------------
+-- ====================================관리자 회원관리======================================
+-------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+--- *** 오라클에서 프로시저를 사용하여 회원을 대량으로 입력(insert)한다. *** ---
+select *
+from user_constraints
+where table_name = 'TBL_MEMBER';
+
+-- 이메일을 대량으로 넣기 위해 어쩔 수 없이 email에 대한 unique 제약을 없애도록 한다.
+alter table tbl_member
+drop constraint UQ_TBL_MEMBER_EMAIL;
+
+select *
+from tbl_member
+order by registerday desc;
+-- admin 과 동일한 정보
+-- pwd: qwer1234$ email: admin5@naver.com mobile: 01050505050
+
+create or replace procedure pcd_tbl_member_insert
+(p_userid   IN      varchar2
+,p_name     IN      varchar2
+,p_gender   IN      varchar2)
+is
+begin
+    for i in 1..100 loop
+        insert into tbl_member(userid, pwd, name, email, mobile, postcode, address, detailaddress, extraaddress, gender, birthday)
+        values(p_userid||i, '9695b88a59a1610320897fa84cb7e144cc51f2984520efb77111d94b402a8382', p_name||i, 'cxVL+tRNzHaO7lLS3ZxY+6Cjj4ip6eyCtPp8d0hDht8=', 'kbv4JIm7Z/3++0k4OgBUtw==', '03900', '서울 마포구 가양대로 1', '123동 5678호', ' (상암동)', p_gender, '1995-01-02');
+    end loop;
+end pcd_tbl_member_insert;
+-- Procedure PCD_TBL_MEMBER_INSERT이(가) 컴파일되었습니다.
+
+exec pcd_tbl_member_insert('kimys', '김유신', '1');
+-- PL/SQL 프로시저가 성공적으로 완료되었습니다.
+commit;
+
+exec pcd_tbl_member_insert('youks', '유관순', '2');
+-- PL/SQL 프로시저가 성공적으로 완료되었습니다.
+commit;
+
+select *
+from tbl_member
+order by name asc;
+
+select count(*)
+from tbl_member; -- 204
+
 -------------------------------------------------------------------------------------------
 -- ==================================상품관련====================================
 --------------------------------------------------------------------------------------------

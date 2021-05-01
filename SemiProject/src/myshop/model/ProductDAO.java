@@ -312,14 +312,14 @@ public class ProductDAO implements InterProductDAO {
 	      try {
 	         conn = ds.getConnection();
 	         
-	         String sql = " insert into tbl_product(pnum, pname, fk_cnum, pcompany, pimage1, pimage2, pqty, price, saleprice, fk_snum, pcontent, point) " +  
+	         String sql = " insert into tbl_product(pnum, pname, fk_decode, pcompany, pimage1, pimage2, pqty, price, saleprice, fk_snum, pcontent, point) " +  
 	                    " values(?,?,?,?,?,?,?,?,?,?,?,?)";
 	         
 	         pstmt = conn.prepareStatement(sql);
 	         
 	         pstmt.setInt(1, pvo.getPnum());
 	         pstmt.setString(2, pvo.getPname());
-	         pstmt.setInt(3, pvo.getFk_cnum());    
+	         pstmt.setString(3, pvo.getFk_decode());    
 	         pstmt.setString(4, pvo.getPcompany()); 
 	         pstmt.setString(5, pvo.getPimage1());    
 	         pstmt.setString(6, pvo.getPimage2()); 

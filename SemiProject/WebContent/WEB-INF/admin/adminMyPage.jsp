@@ -1,47 +1,44 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>        
+    
 <%
     String ctxPath = request.getContextPath();
 
 %>
-   
-    
-<link rel="preconnect" href="https://fonts.gstatic.com">
-<link href="https://fonts.googleapis.com/css2?family=Orelega+One&family=PT+Serif:wght@400;700&family=Titillium+Web:wght@700&display=swap" rel="stylesheet">
+<jsp:include page="../header4.jsp" />     
     
 <style type="text/css">
  
-
  
 h2{
+	
 	clear: right;
 	padding: 200px 40px 0 0;
 	color: #000;
 	font-size: 30px;
 	text-align: center;
-	font-family: 'PT Serif', serif;
+	font-family: Georgia;
 }
 p{
-	padding: 0 40px 10px 0;
+	padding: 0 40px 70px 0;
     color: #a7a7a7;
     font-size: 16px;
     text-align: center;	
 }
- 
+
 .button_base {
-    margin: 0;
+	margin-right: 13px;
     border: 0;
     font-size: 18px;
-    margin-left: 20px;
-    position: relative;
-    left: 27%;
-    width: 200px;
-    height: 40px;
+    width: 250px;
+    height: 45px;
     text-align: center;
     box-sizing: border-box;
     display: inline-block;
-    font-family: 'PT Serif', serif;
+    left: 21%;
+    margin-bottom: 100px;
 }
 
 .button_base:hover {
@@ -74,18 +71,18 @@ span.input{
 	
 	font-weight: bold;
 }
-
-
  
  </style>   
+ 
  <script type="text/javascript">
- $(function(){
+ 
+ $(document).ready(function(){
 	 
 	 $("div#manageMember").bind("click", function(){
-		 location.href= "<%= ctxPath%>/admin/";
+		 location.href= "<%= ctxPath%>/admin/memberList.up";
 	 });
 	 $("div#adminRegister").bind("click", function(){
-		 location.href= "<%= ctxPath%>/admin/";
+		 location.href= "<%= ctxPath%>/admin/adminRegister.up";
 	 });
 	 $("div#productRegister").bind("click", function(){
 		 location.href= "<%= ctxPath%>/product/";
@@ -97,13 +94,14 @@ span.input{
  
  </script>
  
-<jsp:include page="../header4.jsp" />   
+
 
 <div class="container">
-	<h2>ADMIN PAGE</h2>
-	<p>[관리자 모드입니다.]</p>
-	     <div class="button_base b01" id="manageMember">
-	     	MANAGE MEMBER
+	<h2>ADMINISTRATOR PAGE</h2>
+	<p>안녕하세요 <span style="font-weight: bold; color: black;">${adId}</span>님 [관리자 모드입니다.]</p>
+	<div class="buttons" align="center">
+	 	<div class="button_base b01" id="manageMember">
+	     	MEMBER MANAGEMENT
 	     </div>
 	     <div class="button_base b01" id="adminRegister">
 	     	ADMIN REGISTER
@@ -111,6 +109,8 @@ span.input{
 	     <div class="button_base b01" id="productRegister">
 	     	PRODUCT REGISTER
 	     </div>
+	</div>
+	    
 	     
 	     
 <!-- 	     <div class="personalInfo">
