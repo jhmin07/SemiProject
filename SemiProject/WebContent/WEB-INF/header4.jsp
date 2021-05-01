@@ -119,7 +119,7 @@ function myPage() {
 	location.href="<%= request.getContextPath()%>/member/memberMyPage.up?userid="+userid;	
 }
 function myPage_admin() {
-	var userid = "${sessionScope.loginadmin.adId}";
+	var adId = "${sessionScope.loginadmin.adId}";
 	location.href="<%= request.getContextPath()%>/admin/adminMyPage.up?adId="+adId;	
 }
 	
