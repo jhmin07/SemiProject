@@ -14,5 +14,8 @@ public interface InterNoticeDAO {
 	List<NoticeVO> selectPagingContent(Map<String, String> paraMap) throws SQLException;
 
 	NoticeVO contentOneDetail(String ctNo) throws SQLException;
+
+	// tbl_product 테이블에 공지사항 insert 하기
+	int noticeInsert(NoticeVO nvo) throws SQLException;
 	
 }

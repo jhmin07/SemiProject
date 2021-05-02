@@ -208,6 +208,33 @@ public class NoticeDAO implements InterNoticeDAO {
 		
 		return nvo;
 	}
+
+	// tbl_product 테이블에 공지사항 insert 하기
+	@Override
+	public int noticeInsert(NoticeVO nvo) throws SQLException {
+		int result = 0;
+	      
+	      try {
+	         conn = ds.getConnection();
+
+	         String sql = " insert into tbl_noticeBoard(ctNo, ctTitle,ctContent, fk_adId, ctRegisterday, ctViewcount) " +  
+	                    " values(seq_tbl_noticeBoard_ctNo.nextval,?,?,?,sysdate,0)";
+	     
+	         pstmt = conn.prepareStatement(sql);
+	         
+	         pstmt.setString(1, nvo.getCtContent());
+	         pstmt.setString(2, nvo.getCtContent());
+	         pstmt.setString(3, nvo.getFk_adId());    
+	        
+	            
+	         result = pstmt.executeUpdate();
+	         
+	      } finally {
+	         close();
+	      }
+	      
+	      return result;
+	}
 	
 }	
 

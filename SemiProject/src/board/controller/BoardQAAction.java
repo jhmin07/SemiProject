@@ -1,4 +1,4 @@
-package detailMenu.controller;
+package board.controller;
 
 import java.util.HashMap;
 import java.util.List;
@@ -11,6 +11,7 @@ import QA.model.InterQADAO;
 import QA.model.QADAO;
 import QA.model.QAVO;
 import common.controller.AbstractController;
+import detailMenu.controller.MyUtil;
 
 public class BoardQAAction extends AbstractController {
 
@@ -146,7 +147,7 @@ public class BoardQAAction extends AbstractController {
 						request.setAttribute("menu", menu);	
 						
 					super.setRedirect(false);
-			        super.setViewPage("/WEB-INF/board/board_QA.jsp");			
+			        super.setViewPage("/WEB-INF/board/QA.jsp");			
 					
 					/*
 					 * } else { // 로그인을 안한 경우 또는 일반사용자로 로그인 한 경우

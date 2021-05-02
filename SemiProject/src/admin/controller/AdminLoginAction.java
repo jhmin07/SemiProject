@@ -49,12 +49,14 @@ public class AdminLoginAction extends AbstractController {
 						HttpSession session = request.getSession();
 						// 메모리에 생성되어져 있는 session 을 불러오는 것이다.
 						
-						session.setAttribute("loginadmin ", loginadmin);
+						session.setAttribute("loginadmin", loginadmin);
 						// session(세션)에 로그인 되어진 사용자 정보인 loginadmin 을 키이름을 "loginadmin" 으로 저장시켜두는 것이다.
-					
-						request.setAttribute("adId", adId);
+						
+						//System.out.println("로그인성공");
+						//System.out.println(loginadmin.getAdName());
+						
 							super.setRedirect(true);
-							super.setViewPage(request.getContextPath()+"/admin/adminMyPage.up");// adminhome을 또 만들어야 함
+							super.setViewPage(request.getContextPath()+"/admin/adminMyPage.up");
 						
 						
 					}
