@@ -15,7 +15,7 @@ public class MemberListAction extends AbstractController {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-	/*	
+		
 		// == 관리자 모드, 관리자로 로그인 했을 때만 조회가 가능하도록 한다. 
 		HttpSession session = request.getSession();
 		
@@ -23,7 +23,7 @@ public class MemberListAction extends AbstractController {
 		
 		if(loginadmin != null) {
 			// 관리자모드에서 로그인 했을 경우
-	*/		
+			
 			InterAdminDAO adao = new AdminDAO();
 
 			String currentShowPageNo = request.getParameter("currentShowPageNo"); // 관리자가 보고자하는 페이지번호			
@@ -120,8 +120,8 @@ public class MemberListAction extends AbstractController {
 			request.setAttribute("goBackURL", currentURL);			
 
 		//	super.setRedirect(false);
-			super.setViewPage("/WEB-INF/admin/memberList.jsp");			
-	/*		
+			super.setViewPage("/WEB-INF/admin/memberList.jsp");
+			
 		}
 		else {
 			// 관리자모드에서 로그인을 안한 경우
@@ -133,8 +133,7 @@ public class MemberListAction extends AbstractController {
 			
 		//	super.setRedirect(false);
 			super.setViewPage("/WEB-INF/msg.jsp");
-		}
-	*/	
+		}	
 	}
 
 }
