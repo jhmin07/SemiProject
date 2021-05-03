@@ -5,7 +5,7 @@
 <%
 	String ctxPath = request.getContextPath();
 %>    
-<jsp:include page="../header4_forAdmin.jsp" />  
+<jsp:include page="../header4.jsp" />  
 <title>RHOM 공식 홈페이지[관리자모드]</title>
 <style type="text/css">
 div, h2, p{

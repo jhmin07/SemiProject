@@ -29,6 +29,7 @@ public class AdminLoginAction extends AbstractController {
 				
 				if(!"POST".equalsIgnoreCase(method)) {
 					
+					super.setRedirect(false);
 					super.setViewPage("/WEB-INF/admin/adminLogin.jsp");
 				}
 				

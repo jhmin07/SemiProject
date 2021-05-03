@@ -44,9 +44,9 @@ p{
     box-sizing: border-box;
     display: inline-block;
     left: 21%;
-    margin-bottom: 100px;
+    margin-bottom: 40px;
 }
-}
+
 
 .button_base:hover {
     cursor: pointer;
@@ -66,11 +66,13 @@ p{
 }
 
 div.personalInfo{
-	
-	width: 500px;
+	/* border: solid 1px red; */
+	width: 650px;
 	position: relative;
-    left: 28%;
-	margin-top: 50px;
+    left: 21%;
+/*     background-color: #CBCBCB; */
+    
+
 	
 }
 
@@ -88,7 +90,7 @@ span.input{
 		 location.href= "<%= ctxPath%>/member/";
 	 });
 	 $("div#myInfo").bind("click", function(){
-		 location.href= "<%= ctxPath%>/member/memberEdit.up";
+		 location.href= "<%= ctxPath%>/member/memberEdit.up?userid=${sessionScope.loginuser.userid}";
 	 });
 	 $("div#coupon").bind("click", function(){
 		 location.href= "<%= ctxPath%>/product/";
@@ -104,7 +106,7 @@ span.input{
 
 <div class="container">
 	<h2>MY PAGE</h2>
-	
+	<p>안녕하세요 <span style="font-weight: bold; color: black;">${(sessionScope.loginuser).name}</span>님 마이페이지입니다.</p>
 	     <div class="button_base b01" id="orderList">
 	     	ORDER LIST
 	     </div>
