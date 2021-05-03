@@ -17,5 +17,7 @@ public interface InterNoticeDAO {
 
 	// tbl_product 테이블에 공지사항 insert 하기
 	int noticeInsert(NoticeVO nvo) throws SQLException;
+
+	int contentHitUp(int hit, int ctNo) throws SQLException;
 	
 }

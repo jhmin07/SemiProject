@@ -61,7 +61,7 @@
 
 	table.writeSearchTable{
 		width: 90%;
-		text-align: center;
+		text-align: right;
 	}
 	table.writeSearchTable td#write{
 		width: 85px;
@@ -140,9 +140,11 @@
 						<button type="button" onclick="goSearch();" style="background-color: white; color: black; font-size: 17px; font-weight: bold; border-radius: 5%">검색</button>				
 					</form>
 			</td>
-			<td id="write">
-					<button onClick="goWriteQA();" style="background-color: black; color: white; font-size: 17px; font-weight: bold; border-radius: 5%">글쓰기</button>
-			</td>
+			<c:if test="${requestScope.loginuser.userid != null}">
+				<td id="write">
+						<button onClick="goWriteQA();" style="background-color: black; color: white; font-size: 17px; font-weight: bold; border-radius: 5%">글쓰기</button>
+				</td>
+			</c:if>
 		</tr>
 	</table>
 

@@ -31,6 +31,58 @@
    div.NoticeDetailDiv{
    		margin-bottom: 200px;
    }
+   button#comment{
+   	width: 150px; 
+   	height: 100px; 
+	color: white; 
+	background-color: #66a3ff;
+   	font-size: 22px; 
+   	font-weight: bold; 
+   	border-radius: 5%;
+   	border: none;
+   }
+    button#comment:hover{
+   	font-size: 22px; 
+   	font-weight: bold; 
+   	color: #66a3ff; 
+	background-color: white;
+   	border: solid 2px #66a3ff;
+   	border-radius: 5%;
+   }
+    button#noticeList{
+   	width: 150px; 
+   	height: 40px; 
+	color: white; 
+	background-color: #66a3ff;
+   	font-size: 22px; 
+   	font-weight: bold; 
+   	border-radius: 5%;
+   	border: none;
+   }
+    button#noticeList:hover{
+   	font-size: 22px; 
+   	font-weight: bold; 
+   	color: #66a3ff; 
+	background-color: white;
+   	border: solid 2px #66a3ff;
+   	border-radius: 5%;
+   }
+   table#QACommentTable th{
+   	background-color: #99c2ff;
+   	color : #003380;
+   	font-size: 15px;
+   	font-weight: bold;
+   	text-align: center;
+   }
+   table#QACommentTable td{
+   	background-color: #e6f0ff;
+   	color : black;
+   	font-size: 13px;
+   	text-align: center;
+   }
+   table#QACommentTable tr{
+   	height: 50px;
+   }
 </style>
 
 <script type="text/javascript">
@@ -39,12 +91,8 @@
 	
 	$(document).ready(function(){
 		
-		     
-	      
-	      
+		CommentView();
 		
-		
-
 		goBackURL = "${requestScope.goBackURL}";
 		// 자바스크립트에서는  replaceall 이 없고 replace 밖에 없다.
 	    // !!! 자바스크립트에서 replace를 replaceall 처럼 사용하기 !!! //
@@ -63,7 +111,60 @@
 	function goQAList(){
 		location.href = "/SemiProject/"+goBackURL;
 	}
-	
+	function goQAComment(){
+		var frm = document.QACommentFrm;
+		frm.action = "QAComment.up?"; 
+		frm.method = "GET";	// 숨길필요 없이 빨리빨리 이동해야해서 get 사용
+		frm.submit();
+	}
+	function CommentView(){
+		$.ajax({	// 화면의 변화는 없고 DB만 바꿔줄거라서 ajax를 사용
+			   url:"<%=request.getContextPath()%>/board/commentView.up",
+			   type:"post",
+			   data:{"qaNo":"${requestScope.qvo.qaNo}"},
+			   dataType:"json",
+			   success:function(json){
+				   var html = "";
+				   if(json.length != 0) {
+					   html += '<table id="QACommentTable"><thead><tr>'+
+			   		   		   '<th style="width: 50px;">NO.</th>'+
+					   		   '<th style="width: 500px;">댓글</th>'+
+					   		   '<th style="width: 100px;">관리자</th>'+
+					   		   '<th style="width: 300px;">작성일자</th>'+
+					   		   '</tr></thead>'+
+									'<tbody>';
+					   $.each(json, function(index,item){
+						   var addno = item.addno;
+						   var addSubject = item.addSubject;
+						   var fk_qaNo = item.fk_qaNo;
+						   var writer = item.writer;
+						   var addRegisterday = item.addRegisterday;
+							html += '<tr>'+
+								   '<td>'+addno+'</td>'+
+								   '<td>'+addSubject+'</td>'+
+								   '<td>'+writer+'</td>'+
+								   '<td>'+addRegisterday+'</td>';
+						});
+					   
+						html +=	 '</tbody>'+
+									'</table>';
+						$("div#commentList").html(html);
+				   } else{
+		                 // 처음부터 데이터가 존재하지 않는 경우
+		                // !!! 주의 !!!
+		                // if(json == null) 이 아님!!!
+		                // if(json.length == 0) 으로 해야함!!
+		                html += "등록된 댓글이 없습니다.....";
+		                
+						$("div#commentList").html(html);;
+		              } 
+				   
+			   },
+			   error: function(request, status, error){
+		            alert("code: "+request.status+"\n"+"message: "+request.responseText+"\n"+"error: "+error);
+		         }
+		   });
+	}
 </script>
 <div class="container NoticeDetailDiv">
 	<c:if test="${empty requestScope.qvo}">
@@ -94,15 +195,23 @@
 			</tbody> 
 		</table>
 		
-		
-		
+		<br><br>
+		<div id="commentList">
+			
+		</div>
+		<c:if test="${sessionScope.loginadmin.adId != null}">
+			<form name="QACommentFrm">
+				<a><input name="QAComment" style="width: 700px; height: 200px; margin-left: 100px; border: solid 2px #66a3ff" type="text"/>&nbsp;&nbsp;<button id="comment" onclick="goQAComment()">댓글달기</button></a>
+				<input name="qaNo" type="hidden" value="${requestScope.qvo.qaNo}"/>
+			</form>
+		</c:if>    
+		    
+		<div>
+			<button id="noticeList" style="margin-top: 50px;" type="button" onclick="goQAList()">Q&A목록</button>
+		   &nbsp;&nbsp;
+		</div>
 	</c:if>    
-	    
-	    
-	<div>
-		<button style="margin-top: 50px;" type="button" onclick="goQAList()">공지사항목록</button>
-	   &nbsp;&nbsp;
-	</div>
+	
 
 </div>
 

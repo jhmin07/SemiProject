@@ -29,6 +29,9 @@ public class ContentOneDetailAction extends AbstractController {
 					
 					request.setAttribute("nvo", nvo);
 					
+					int n = ndao.contentHitUp(nvo.getCtViewcount(), nvo.getCtNo());
+					
+					
 					/////////////////////////////////////////////////
 					// *** 현재페이지를 돌아갈 페이지(goBackURL)로 주소 지정하기
 					String goBackURL = request.getParameter("goBackURL");
