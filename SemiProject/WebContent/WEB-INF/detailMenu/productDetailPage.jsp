@@ -74,6 +74,22 @@ li {
 		<img src="<%= ctxPath %>/image/ProjectImg/Poduct.png" style="width:450px; height:400px; cursor: pointer; ">
 	</div>
 	
+	<c:if test=""></c:if>
+	<c:if test=""></c:if>
+	<c:if test=""></c:if>
+	<c:if test=""></c:if>
+	<c:if test=""></c:if>
+	<c:if test=""></c:if>
+	<c:if test=""></c:if>
+	<c:if test=""></c:if>
+	<c:if test=""></c:if>
+	<c:if test=""></c:if>
+	<c:if test=""></c:if>
+	<c:if test=""></c:if>
+	<c:if test=""></c:if>
+	<c:if test=""></c:if>
+	<c:if test=""></c:if>
+	
 	<div style="display:table-cell; width: 50%; text-align: left; padding-left: 160px; vertical-align: middle; ">	
 
 		<h3 style="font-weight: bold;">${requestScope.pvo.pname}</h3>
