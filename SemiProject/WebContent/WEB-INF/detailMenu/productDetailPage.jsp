@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %> 
 
 <%
     String ctxPath = request.getContextPath();
@@ -52,7 +54,7 @@ li {
 	
 	<div style="display:table-cell; width: 50%; text-align: left; padding-left: 160px; vertical-align: middle; ">	
 
-		<h3 style="font-weight: bold;">VL 45 PENDANT - 370</h3>
+		<h3 style="font-weight: bold;">${requestScope.pvo.pname}</h3>
 		<br>
 		<form id="pdt">
 		<table style="vertical-align: middle;">
@@ -60,12 +62,12 @@ li {
 					<tr>
 						<td class="pdt_th">NAME</td>
 						<td class="pdt_td" >
-							<span > VL 45 PENDANT - 370 </span>
+							<span > ${requestScope.pvo.pname}</span>
 						</td>
 					<tr>
 					<tr>
 						<td class="pdt_th">PRICE</td>
-						<td class="pdt_td" >\&nbsp;<fmt:formatNumber value="${requestScope.pvo.saleprice}" pattern="###,###" /></td>
+						<td class="pdt_td" >\ 5,000,000</td>
 					<tr>
 					<tr>
 						<td class="pdt_th">QUANTITY</td>
@@ -77,8 +79,8 @@ li {
 						</td>
 					<tr>
 					<tr>
-						<td class="pdt_th">MILEAGE</td>
-						<td class="pdt_td" >350</td>
+						<td class="pdt_th">POINT</td>
+						<td class="pdt_td" >${requestScope.pvo.point}</td>
 					<tr>
 					<tr>
 						<td class="pdt_th">OPTION</td>
@@ -105,11 +107,7 @@ li {
 <img src="<%= ctxPath %>/image/ProjectImg/product2.png" />
 <br>
 <h2 style="text-align: center; margin :50px 0 20px 0;" align="center">DESCRIPTION</h2>
-<span>
-<br>
-원목의 부드럽고 아늑한 느낌을 살린 수납형 협탁입니다
-<br>
-사선으로 살짝 기울어진 비대칭 다리 디자인이 특징이며 헤르펜 프레임과 매칭해 개성있는 스타일을 완성합니다</span>
+<span> ${requestScope.pvo.pcontent} </span>
 </div>
 
 <div id="deliveryreturn_content">
