@@ -11,8 +11,8 @@ import javax.servlet.http.HttpSession;
 import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
+import admin.model.AdminVO;
 import common.controller.AbstractController;
-import member.model.MemberVO;
 import myshop.model.InterProductDAO;
 import myshop.model.ProductDAO;
 import myshop.model.ProductVO;
@@ -24,10 +24,7 @@ public class ProductRegisterAction extends AbstractController {
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		
 		// === 관리자(admin)로 로그인 했을 때만 제품등록이 가능하도록 한다. === //
-//		HttpSession session = request.getSession();
-//		MemberVO loginuser = (MemberVO) session.getAttribute("loginuser");
-//		
-//		if (loginuser != null && "admin".equals(loginuser.getUserid())) { // 관리자(admin)로 로그인 했을 경우
+		if (checkLoginAdmin(request)) { // 관리자(admin)로 로그인 했을 경우
 			String method = request.getMethod();
 			
 			if (!"POST".equalsIgnoreCase(method)) { // GET 이라면
@@ -49,7 +46,6 @@ public class ProductRegisterAction extends AbstractController {
 	            HttpSession session = request.getSession();
 	            ServletContext svlCtx = session.getServletContext();
 	            
-	            System.out.println("svlCtx.getInitParameter => "+ svlCtx.getInitParameter("imagePath"));
 	            String imagesDir = svlCtx.getRealPath("/image");
 //	            System.out.println("=== 첨부되어지는 이미지 파일이 올라가는 절대경로 imagesDir ==> " + imagesDir);
 	            
@@ -130,11 +126,11 @@ public class ProductRegisterAction extends AbstractController {
 	            
 	            if(n*m==1) {
 	               message = "제품등록 성공!!";
-	               loc = request.getContextPath()+"/shop/mallHome1.up";
+	               loc = request.getContextPath()+"/admin/adminMyPage.up";
 	            }
 	            else {
 	               message = "제품등록 실패!!";
-	               loc = request.getContextPath()+"/shop/admin/productRegister.up";
+	               loc = request.getContextPath()+"/admin/productRegister.up";
 	            }
 	            
 	            request.setAttribute("message", message);
@@ -142,17 +138,17 @@ public class ProductRegisterAction extends AbstractController {
 	            
 	            super.setViewPage("/WEB-INF/msg.jsp");
 			}
-//		}
-//		else { // 로그인을 안한 경우 또는 일반사용자로 로그인 한 경우  
-//	         String message = "관리자만 접근이 가능합니다.";
-//	         String loc = "javascript:history.back()";
-//	         
-//	         request.setAttribute("message", message);
-//	         request.setAttribute("loc", loc);
-//	         
-//	      // super.setRedirect(false);
-//	         super.setViewPage("/WEB-INF/msg.jsp");
-//		}
+		}
+		else { // 로그인을 안한 경우 또는 일반사용자로 로그인 한 경우  
+	         String message = "관리자만 접근이 가능합니다.";
+	         String loc = "javascript:history.back()";
+	         
+	         request.setAttribute("message", message);
+	         request.setAttribute("loc", loc);
+	         
+	      // super.setRedirect(false);
+	         super.setViewPage("/WEB-INF/msg.jsp");
+		}
 	}
 
 }

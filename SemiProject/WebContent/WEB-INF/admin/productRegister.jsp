@@ -5,55 +5,72 @@
 	String ctxPath = request.getContextPath();
 %>
 
-<jsp:include page="../header4.jsp"/>
+<jsp:include page="../header4.jsp" />     
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"> 
 <script type="text/javascript" src="<%= ctxPath%>/jquery-ui-1.11.4.custom/jquery-ui.min.js"></script>
 
 <title>상품등록</title>
 <style type="text/css">
+div.container {
+	margin: 80px auto;
+}
 
-	div.container {		
-		margin: 80px auto;
-	}
-	
-	table#tblMemberRegister {		
-		width: 98%;          
-		margin: 10px;	
-	}  
-	
-	th#th {				
-		text-align: center;		
-		font-size: 30pt; 
-		font-family: 'Papyrus', Fantasy; 
-		font-weight: bold;
-	}	
-	
-	td {
-		line-height: 30px;
-		padding-top: 8px;
-		padding-bottom: 8px;
-	}
-	
-	span.star {
-		color: red;
-		font-weight: bold;
-		font-size: 13pt;
-	}
-	
-	span.info {
-		color: gray;
-		font-size: 9.5pt;
-	}
-	
-	span.error {
-		color: red;
-		margin-left: 10px;
-		font-size: 9.5pt;
-		font-weight: bold;
-	}
-	select {
-		padding: 7px 0;
-	}
+table#tblMemberRegister {
+	width: 98%;
+	margin: 10px;
+}
+
+h2#prodRegh2 {
+	clear: right;
+	padding-top: 30px;
+	padding-bottom: 10px;
+	color: #000;
+	font-size: 30px;
+	text-align: center;
+	font-family: Georgia;
+}
+
+p#prodRegP{
+	padding-bottom: 20px;
+    color: #a7a7a7;
+    font-size: 16px;
+    text-align: center;	
+}
+/* 
+th#prodRegth {
+	text-align: center;
+	font-size: 30pt;
+	font-family: Georgia;
+	font-weight: bold;
+}
+ */
+td {
+	line-height: 30px;
+	padding-top: 8px;
+	padding-bottom: 8px;
+}
+
+span.star {
+	color: red;
+	font-weight: bold;
+	font-size: 13pt;
+}
+
+span.info {
+	color: gray;
+	font-size: 9.5pt;
+}
+
+span.error {
+	color: red;
+	margin-left: 10px;
+	font-size: 9.5pt;
+	font-weight: bold;
+}
+
+select {
+	padding: 7px 0;
+}
 </style>
 
 <script type="text/javascript">
@@ -113,8 +130,16 @@
 			$(".infoData").each(function(index, item){
 				var val = $(item).val().trim();
 				if (val == "") {
+					$(item).focus();
 					$(item).next().show();
 					flag = true;
+					
+					$(item).blur(function(){
+						val = $(item).val().trim();
+						if (val != "") {
+							$(item).next().hide();
+						}
+					});
 					return false;
 				}
 			});
@@ -124,6 +149,7 @@
 				frm.submit();
 			}
 		});
+		
 	});
 
 </script>
@@ -133,20 +159,23 @@
 			action="<%=request.getContextPath()%>/admin/productRegister.up"
 			method="POST"
 			enctype="multipart/form-data" >
-
+		
+		<h2 id="prodRegh2">PRODUCT REGISTER</h2>
+		<p id="prodRegP">[관리자모드] 제품등록 페이지입니다. 아래 형식에 맞게 제품정보를 등록해주세요.</p>
 		<table id="tblProductRegister">
+		<%--
 			<thead>
 				<tr>
-					<th colspan="2" id="th" style="padding: 30px;">상품등록</th>
+					<th colspan="2" id="prodRegth" >PRODUCT REGISTER</th>
 				</tr>
 			</thead>
-
+		--%>
 			<tbody>
 				<tr>
 					<td width="25%" class="prodInputName" style="padding-top: 10px;">카테고리</td>
 					<td width="75%" align="left" style="padding-top: 10px;">
 						<select name="fk_decode" class="infoData">
-							<option value="0">::: 선택하세요 :::</option>
+							<option value="">::: 선택하세요 :::</option>
 							
 							<c:forEach var="map" items="${requestScope.categoryList}">
 								<optgroup label="${map.cname}">									
@@ -210,7 +239,7 @@
 					<td width="25%" class="prodInputName">제품스펙</td>
 					<td width="75%" align="left" style="border-top: hidden; border-bottom: hidden;">
 						<select name="fk_snum" class="infoData">
-							<option>::: 선택하세요 :::</option>
+							<option value="">::: 선택하세요 :::</option>
 							<c:forEach var="spvo" items="${specList}">
 							<option value="${spvo.snum}">${spvo.sname}</option>
 							</c:forEach>
