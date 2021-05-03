@@ -84,18 +84,17 @@ table.odr_info td:nth-child(2) {
 		
 	});
 	
-	
 	// == 주문 성공 메세지 보내기 == //
 	function orderSuccessSendMsg() {
         var dataObj;
-        var mobile = ${sessionScope.loginuser.mobile};
+        var mobile = "01085618498";
         var smsContent = "[심플침대프레임]...외 2건 주문완료되었습니다";
         
-        dataObj = {"mobile":"${mobile}",
-                  "smsContent": "${smsContent}"};
+        dataObj = {"mobile":mobile,
+                  "smsContent":smsContent};
          
 		$.ajax({
-			url:"<%=request.getContextPath()%>/member/smsSend.up",
+			url:"<%=request.getContextPath()%>/admin/smsSend.up",
 			type:"POST",
 			data:dataObj,
 			dataType:"json",
@@ -103,6 +102,8 @@ table.odr_info td:nth-child(2) {
 				// json 은 {"group_id":"R2G2yDfncqLQd7GF","success_count":1,"error_count":0}
 				if (json.success_count == 1) {
 					console.log("문자전송 성공");
+					// 문자 전송되는 것 확인 완료
+					// mobile: 01085618498 smsContent[심플침대프레임]...외 2건 주문완료되었습니다
 				}
 				else if (json.error_count != 0) {
 					console.log("문자전송 실패");
