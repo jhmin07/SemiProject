@@ -9,13 +9,18 @@
 
 <jsp:include page="/WEB-INF/header4.jsp" />
 
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
 <style type="text/css">
 
 table tbody tr {
   height: 15px;
 }
 
-td.pdt_th {
+td.pdt_main {
 	font-weight: bold;
 	width: 100px;
 }
@@ -43,7 +48,24 @@ li {
 </style>
 
 <script type="text/javascript">
-
+	$( function() {
+		
+	var spinner = $( "#spinner" ).spinner();
+	
+	$("input#spinner").spinner({
+		spin: function(event, ui) {
+            if(ui.value > 10) {
+               $(this).spinner("value", 10);
+               return false;
+            }
+            else if(ui.value < 1) {
+               $(this).spinner("value", 1);
+               return false;
+            }
+         }
+	});
+	// spinner.spinner( "value", 5 );
+	}); // end of $( function(){} );
 </script>
 
 <div id="detailcontainer" style="width:100%; margin-top: 100px; background-color: #f2f2f2; display: table; height: 500px;" align="center">
@@ -60,31 +82,29 @@ li {
 		<table style="vertical-align: middle;">
 				<tbody>
 					<tr>
-						<td class="pdt_th">NAME</td>
-						<td class="pdt_td" >
+						<td class="pdt_main">NAME</td>
+						<td class="pdt_sub" >
 							<span > ${requestScope.pvo.pname}</span>
 						</td>
 					<tr>
 					<tr>
-						<td class="pdt_th">PRICE</td>
-						<td class="pdt_td" >\ 5,000,000</td>
+						<td class="pdt_main">PRICE</td>
+						<td class="pdt_sub">\ <fmt:formatNumber value="${requestScope.pvo.saleprice}" pattern="###,###" /></td>
 					<tr>
 					<tr>
-						<td class="pdt_th">QUANTITY</td>
-						<td class="pdt_td" >
-							<select>
-								<option>1</option>
-								<option>2</option>
-							</select>
+						<td class="pdt_main">QUANTITY</td>
+						<td class="pdt_sub" >
+							<label for="spinner"></label>
+	 						<input id="spinner" name="value" size="3pt" value="1" style="height: 20px;">
 						</td>
 					<tr>
 					<tr>
-						<td class="pdt_th">POINT</td>
-						<td class="pdt_td" >${requestScope.pvo.point}</td>
+						<td class="pdt_main">POINT</td>
+						<td class="pdt_sub" >${requestScope.pvo.point}&nbsp;<span >&nbsp;POINT</span></td>
 					<tr>
 					<tr>
-						<td class="pdt_th">OPTION</td>
-						<td class="pdt_td">
+						<td class="pdt_main">OPTION</td>
+						<td class="pdt_sub">
 							<select style="width: 150px;">
 								<option>1</option>
 								<option>2</option>
