@@ -88,7 +88,7 @@ span.input{
 		 location.href= "<%= ctxPath%>/admin/adminRegister.up";
 	 });
 	 $("div#productRegister").bind("click", function(){
-		 location.href= "<%= ctxPath%>/product/";
+		 location.href= "<%= ctxPath%>/admin/productRegister.up";
 	 });
 	 
  });
