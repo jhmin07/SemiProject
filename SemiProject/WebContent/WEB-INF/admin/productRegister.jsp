@@ -217,7 +217,7 @@ select {
 				<tr>
 					<td width="25%" class="prodInputName">제품수량</td>
 					<td width="75%" align="left" style="border-top: hidden; border-bottom: hidden;">
-						<input id="spinnerPqty" name="pqty" value="1" style="width: 30px; height: 20px;"> 개
+						<input id="spinnerPqty" name="pqty" value="1" style="width: 30px; height: 20px;" class="spinner"> 개
 						<span class="error">필수입력</span>
 					</td>
 				</tr>

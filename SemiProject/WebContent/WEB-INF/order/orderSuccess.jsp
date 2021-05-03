@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <% 
 	String ctxPath = request.getContextPath();
@@ -7,96 +9,134 @@
 <jsp:include page="../header4.jsp"/>
 <style type="text/css">
 div.container {
-	margin: 80px auto;
+	margin: 100px auto;
 }
 
-div#odrSucesMsg {
+div.odrscContainer {
+	width: 80%;
+}
+
+div#odrSucesContent {
 	text-align: center;
-	width: 70%;
 	margin: 50px auto;
 	border: solid 1px gray;
-	padding: 20px;
+	padding: 50px;
 }
 
-span#sucesSpan {
-	color: red;
-	font-weight: bold;
+h2#odrthankyou {
+	clear: right;
+	padding-top: 30px;
+	padding-bottom: 10px;
+	color: #000;
+	font-size: 30px;
+	text-align: center;
+	font-family: Georgia;
 }
 
-<%-- 주문정보 관련 css --%>
+button.odrscBtn {
+	border: none;
+	background-color: black;
+	color: white;
+	width: 200px;
+	height: 40px;
+	margin: 20px 5px;
+}
+
+/* 주문정보 관련 css */
 table.odr_list, table.odr_info {
 	border-bottom: solid 1px #ddd !important;
 	/* border: solid 1px red; */
 }
-
 table.odr_list > thead {
 	background-color: #f2f2f2;
 }
-
 img.odr_img {
 	width: 100px;
 	height: 100px;
 }
-
 tr.odr_tr > td {
 	/* border: solid 1px red; */
 	vertical-align: middle !important;
 }
 
-<%-- 배송정보 관련 css --%>
+/* 배송정보 관련 css */
 table.odr_info tr {
 	height: 50px;
 }
-
 table.odr_info>tbody td:nth-child(1) {
 	width: 20%;
 	font-weight: bold;
 	background-color: #f2f2f2;
 }
-
 table.odr_info td:nth-child(2) {
 	/* width: 80%; */
 	text-align: left;
 }
 
+
 </style>
 
 <script type="text/javascript">
-function goHome(){
-	location.href = "<%=request.getContextPath()%>/home.up";
-}
+
+	$(document).ready(function(){
+		orderSuccessSendMsg();
+		
+		
+	});
+	
+	
+	// == 주문 성공 메세지 보내기 == //
+	function orderSuccessSendMsg() {
+        var dataObj;
+        var mobile = ${sessionScope.loginuser.mobile};
+        var smsContent = "[심플침대프레임]...외 2건 주문완료되었습니다";
+        
+        dataObj = {"mobile":"${mobile}",
+                  "smsContent": "${smsContent}"};
+         
+		$.ajax({
+			url:"<%=request.getContextPath()%>/member/smsSend.up",
+			type:"POST",
+			data:dataObj,
+			dataType:"json",
+			success:function(json){
+				// json 은 {"group_id":"R2G2yDfncqLQd7GF","success_count":1,"error_count":0}
+				if (json.success_count == 1) {
+					console.log("문자전송 성공");
+				}
+				else if (json.error_count != 0) {
+					console.log("문자전송 실패");
+				}
+			},
+			error: function(request, status, error){
+				alert("code: "+request.status+"\n"+"message: "+request.responseText+"\n"+"error: "+error);
+			}
+		});
+	}
+	
+	// == 쇼핑계속하기 == //
+	function goHome(){
+		location.href = "<%=request.getContextPath()%>/home.up";
+	}
+	
+	// == 주문내역확인하기 == //
+	function goOrderListCheck() {
+		location.href = "<%=request.getContextPath()%>/orderListCheck.up"; // 파일 미생성
+	}
 </script>
 
-<div class="container">	
-	<div id="odrSucesMsg">
-		<h3>감사합니다!&nbsp;<span id="sucesSpan">주문이 완료</span>되었습니다.</h3>
-		<span>주문번호:</span>
-	</div>
+<div class="container odrscContainer">	
+	<c:set var="odrList" value="심플침대프레임 심플침대매트리스"/>
 	
-	<%-- 주문 완료된 상품 리스트 보여주기 --%>
-	<table class="table odr_list">
-		<thead>
-			<tr>
-				<th>이미지</th>
-				<th>상품정보</th>
-				<th>상품금액</th>
-				<th>할인금액</th>
-				<th>수량</th>
-				<th rowspan="2">주문금액</th>
-			</tr>
-		</thead>
+	<div id="odrSucesContent">
+		<h2 id="odrthankyou">THANK YOU</h2>
+		<p>주문내용<br>
+			[심플침대프레임]...외 2건 주문완료되었습니다
+		</p>
 		
-		<tbody>
-			<tr class="odr_tr">
-				<td><img class="odr_img" src="<%=ctxPath%>/imagesContents2/${prod.image}.jpg"></td>
-				<td>의자</td>
-				<td>10,000원</td>
-				<td>2,000원</td>
-				<td>1</td>
-				<td style="background-color: #f2f2f2; text-align: center;">8,000원</td>
-			</tr>
-		</tbody>
-	</table>
+		<button type="button" class="odrscBtn" onclick="goHome();">쇼핑계속하기</button>
+		<button type="button" class="odrscBtn" onclick="goOrderListCheck();" style="background-color: #80bfff;">주문내역확인하기</button>
+	</div>
 	
 	<br>
 	
