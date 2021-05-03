@@ -199,12 +199,14 @@
 		////////////////////////////////////////////////////////////
 		
 		var yyhtml = "";
+		yyhtml += "<option value = ''>선택</option>";
 		for(var i=1950; i<=2050; i++){			
 			yyhtml += "<option value = '"+i+"'>"+i+"</option>";						
 		}
 		$("select#birthyyyy").html(yyhtml);
 		
 		var mmhtml = "";
+		mmhtml += "<option value = ''>선택</option>";
 		for(var i=1; i<=12; i++){
 			if(i<10){
 				mmhtml += "<option value = '0"+i+"'>0"+i+"</option>";
@@ -216,6 +218,7 @@
 		$("select#birthmm").html(mmhtml);
 		
 		var ddhtml = "";
+		ddhtml += "<option value = ''>선택</option>";
 		for(var i=1; i<=31; i++){
 			if(i<10){
 				ddhtml += "<option value = '0"+i+"'>0"+i+"</option>";
