@@ -209,7 +209,7 @@ button#gologin{
 	        
 	        <div class="modal-body" style="height: 250px; width: 100%;">        
 		          <div id="idFind" >
-		          	<iframe style="border: none; width: 100%; height: 230px; " src="<%=ctxPath%>/member/idFind.up">
+		          	<iframe style="border: none; width: 100%; height: 230px; " src="<%=ctxPath%>/admin/admin_idFind.up">
 		          	</iframe> 
 		          </div>	          
 	        </div>
@@ -234,13 +234,13 @@ button#gologin{
 		          <h4 class="modal-title" align="center" style="font-weight:bold; font-size: 25pt;">비밀번호 찾기</h4>
 		          <br>
 		          <div align="center" >회원님의 비밀번호를 잊으셨나요?</div>
-		          <div align="center" >아이디와 가입 시 기제한 이메일 주소를 입력하시면 인증 후 고객님의 정보를 알려드립니다.</div>
+		          <div align="center" >아이디와 가입 시 기재한 이메일 주소를 입력하시면 인증 후 고객님의 정보를 알려드립니다.</div>
 	        </div>
 	        
 	        <div class="modal-body" style="height: 250px; width: 100%;">
 	        
 		          <div id="idFind" >
-		          	 <iframe style="border: none; width: 100%; height: 230px; " src="<%=ctxPath%>/member/pwdFind.up">
+		          	 <iframe style="border: none; width: 100%; height: 230px; " src="<%=ctxPath%>/admin/admin_pwdFind.up">
 		          	</iframe> 
 		          </div>
 	          
