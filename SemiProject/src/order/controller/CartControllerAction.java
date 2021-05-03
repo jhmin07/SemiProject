@@ -1,16 +1,13 @@
 package order.controller;
 
-import java.util.HashMap;
-import java.util.Map;
+
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+
 
 import common.controller.AbstractController;
-import member.model.InterMemberDAO;
-import member.model.MemberDAO;
-import member.model.MemberVO;
+
 import order.model.CartDAO;
 import order.model.CartVO;
 import order.model.InterCartDAO;
@@ -19,8 +16,7 @@ public class CartControllerAction extends AbstractController {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		
-		super.setViewPage("/WEB-INF/order/cart.jsp");// 장바구니 페이지로 이동함.
+	
 		
 		if(super.checkLogin(request)) {
 			// 로그인을 했으면
