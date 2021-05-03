@@ -4,7 +4,6 @@ import java.util.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import admin.model.*;
 import common.controller.AbstractController;
@@ -16,12 +15,8 @@ public class MemberListAction extends AbstractController {
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		
-		// == 관리자 모드, 관리자로 로그인 했을 때만 조회가 가능하도록 한다. 
-		HttpSession session = request.getSession();
-		
-		AdminVO loginadmin = (AdminVO) session.getAttribute("loginadmin");
-		
-		if(loginadmin != null) {
+		// == 관리자 모드, 관리자로 로그인 했을 때만 조회가 가능하도록 한다.				
+		if(checkLoginAdmin(request)) {
 			// 관리자모드에서 로그인 했을 경우
 			
 			InterAdminDAO adao = new AdminDAO();
