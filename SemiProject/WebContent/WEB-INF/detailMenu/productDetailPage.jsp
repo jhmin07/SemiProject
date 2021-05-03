@@ -150,8 +150,8 @@ li {
 	<c:if test="${requestScope.pvo.fk_decode eq 30001}"><img src="<%= ctxPath %>/image/product/kitchen/주방/${requestScope.pvo.pimage2}" style="width:450px; height:400px; cursor: pointer; "></c:if>
 	<c:if test="${requestScope.pvo.fk_decode eq 30002}"><img src="<%= ctxPath %>/image/product/kitchen/주방/${requestScope.pvo.pimage2}" style="width:450px; height:400px; cursor: pointer; "></c:if>
 	<c:if test="${requestScope.pvo.fk_decode eq 30003}"><img src="<%= ctxPath %>/image/product/kitchen/주방/${requestScope.pvo.pimage2}" style="width:450px; height:400px; cursor: pointer; "></c:if>
-	<c:if test="${requestScope.pvo.fk_decode eq 40001}"><img src="<%= ctxPath %>/image/product/dressRoom/DressingTable/${requestScope.pvo.pimage2}" style="width:450px; height:400px; cursor: pointer; "></c:if>
-	<c:if test="${requestScope.pvo.fk_decode eq 40002}"><img src="<%= ctxPath %>/image/product/dressRoom/Hanger/${requestScope.pvo.pimage2}" style="width:450px; height:400px; cursor: pointer; "></c:if>
+	<c:if test="${requestScope.pvo.fk_decode eq 40001}"><img src="<%= ctxPath %>/image/product/dressRoom/Hanger/${requestScope.pvo.pimage2}" style="width:450px; height:400px; cursor: pointer; "></c:if>
+	<c:if test="${requestScope.pvo.fk_decode eq 40002}"><img src="<%= ctxPath %>/image/product/dressRoom/DressingTable/${requestScope.pvo.pimage2}" style="width:450px; height:400px; cursor: pointer; "></c:if>
 	<c:if test="${requestScope.pvo.fk_decode eq 40003}"><img src="<%= ctxPath %>/image/product/dressRoom/Mirror/${requestScope.pvo.pimage2}" style="width:450px; height:400px; cursor: pointer; "></c:if>
 <br>
 <h2 style="text-align: center; margin :50px 0 20px 0;" align="center">DESCRIPTION</h2>
