@@ -19,10 +19,10 @@ public class SmsSendAction extends AbstractController {
 		// HashMap 에 받는사람번호, 보내는사람번호, 문자내용 등 을 저장한뒤 Coolsms 클래스의 send를 이용해 보냅니다.
 		
 		// String api_key = "발급받은 본인의 API Key";  // 발급받은 본인 API Key
-		String api_key = "NCSZMA3YOPXWY0UF"; 
+		String api_key = ""; 
 		
 		// String api_secret = "발급받은 본인의 API Secret";  // 발급받은 본인 API Secret
-		String api_secret = "0JIO4QUI4FTFJJLD3FSNJTPOEQITYNPI"; 
+		String api_secret = ""; 
 		
 		Message coolsms = new Message(api_key, api_secret);
 		
