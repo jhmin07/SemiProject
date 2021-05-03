@@ -38,6 +38,11 @@
 		font-weight: bold;
 		font-size: 13pt;
 	}
+	span.star_1 {		
+		color: blue;
+		font-weight: bold;
+		font-size: 13pt;
+	}
 	
 	span.info {
 		color: gray;
@@ -205,14 +210,16 @@
 		
 		<tbody>
 			<tr>			
-				<td colspan="2" align="right"><span class="star">*</span>&nbsp;<span class="info">필수입력사항</span></td>			
+				<td colspan="2" align="right">
+					<span class="star">*</span>&nbsp;<span class="info">필수입력사항</span>&nbsp;
+					<span class="star_1">*</span>&nbsp;<span class="info">수정불가사항</span>
+				</td>
 			</tr>
 			<tr>
-				<td style="width: 20%; font-weight: bold;">성명&nbsp;<span class="star">*</span></td>
+				<td style="width: 20%; font-weight: bold;">성명&nbsp;<span class="star_1">*</span></td>
 				<td style="width: 80%; text-align: left;">
 					<input type="hidden" name="userid" value="${sessionScope.loginuser.userid}"/>
-					<input type="text" name="name" id="name" value="${sessionScope.loginuser.name}" class="requiredInfo" readonly/>
-					<span class="error">성명은 필수입력 사항입니다.</span>	
+					<input type="text" name="name" id="name" value="${sessionScope.loginuser.name}" class="requiredInfo" readonly/>						
 				</td>
 			</tr>
 			<tr>
@@ -229,9 +236,8 @@
 				</td>				
 			</tr>
 			<tr>
-				<td style="font-weight: bold;">이메일&nbsp;<span class="star">*</span></td>
-				<td style="text-align: left;"><input type="text" name="email" id="email" value="${sessionScope.loginuser.email}" class="requiredInfo" readonly/>&nbsp;					
-					<span class="error">이메일 형식에 맞지 않습니다.</span>					
+				<td style="font-weight: bold;">이메일&nbsp;<span class="star_1">*</span></td>
+				<td style="text-align: left;"><input type="text" name="email" id="email" value="${sessionScope.loginuser.email}" class="requiredInfo" readonly/>
 				</td>
 				
 			</tr>

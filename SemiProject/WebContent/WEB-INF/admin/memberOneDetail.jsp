@@ -73,8 +73,9 @@
 	
 	div#smsResult {
 		clear: both;
-		color: red;
-		padding: 20px;
+		color: #ff8533;
+		padding-top: 20px;
+		font-weight: bold;
 	}  
 	
 	div#button {
@@ -129,17 +130,17 @@
 			}
 			
 			$.ajax({ // 페이지 이동 없이 실행
-				url:"<%= request.getContextPath()%>/member/smsSend.up",
+				url:"<%= request.getContextPath()%>/admin/smsSend.up",
 				type:"POST",
 				data:dataObj,
 				dataType:"json",
 				success:function(json){					
 					
 					if(json.success_count == 1){
-						$("div#smsResult").html("문자전송이 성공되었습니다");
+						$("div#smsResult").html("▶ 문자전송이 성공되었습니다");
 					}
 					else if(json.error_count != 0){
-						$("div#smsResult").html("문자전송이 실패되었습니다");
+						$("div#smsResult").html("▶ 문자전송이 실패되었습니다");
 					}
 					
 					$("div#smsResult").show();
@@ -208,7 +209,7 @@
 			</tr>  
 			<tr>
 				<td class="td1">생년월일</td>
-				<td class="td2">${fn:substring(birthday, 0, 4)}.${fn:substring(birthday, 4, 6)}.${fn:substring(birthday, 6, 8)}</td>
+				<td class="td2"> ${fn:substring(birthday, 0, 4)}-${fn:substring(birthday, 4, 6)}-${fn:substring(birthday, 6, 8)}</td>
 			</tr>  
 			<tr>
 				<td class="td1">나이</td>
