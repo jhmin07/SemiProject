@@ -28,4 +28,10 @@ public interface InterAdminDAO {
 
 		// userid 값을 입력받아 회원 1명에 대한 상세정보 알아오기(select)
 		MemberVO memberOneDetail(String userid) throws SQLException;
+
+		// 아이디 찾기
+		String findUserid(Map<String, String> paraMap) throws SQLException;
+
+		// 비번찾기
+		boolean isUserExist(Map<String, String> paraMap) throws SQLException;
 }
