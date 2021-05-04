@@ -13,11 +13,12 @@
 <style type="text/css">
 div.container {
 	margin: 80px auto;
+	width: 1000px !important;
 }
 
 table#tblMemberRegister {
-	width: 98%;
-	margin: 10px;
+	
+	
 }
 
 h2#prodRegh2 {
@@ -44,10 +45,16 @@ th#prodRegth {
 	font-weight: bold;
 }
  */
+/* td.prodInputName {
+	background-color: #333;
+	color: white;
+} */
+ 
 td {
 	line-height: 30px;
 	padding-top: 8px;
 	padding-bottom: 8px;
+	padding-left: 10px;
 }
 
 span.star {
@@ -71,11 +78,24 @@ span.error {
 select {
 	padding: 7px 0;
 }
+
+input.optInput {
+	width: 50%;
+	line-height: 20px;
+	padding: 4px; 
+	margin: 0 10px;
+}
+
+div.optDiv {
+	padding: 10px;
+}
 </style>
 
 <script type="text/javascript">
 	
-	$(document).ready(function(){
+	var optCnt = 0;
+	
+	$(document).ready(function(event){
 		$("span.error").hide();
 		
 		/* $("select[name=fk_decode]").change(function(){
@@ -152,6 +172,31 @@ select {
 		
 	});
 
+	
+	// == Function Declaration == // 
+	function optAdd() {
+		var html = "";
+		html += '<div class="optDiv">'+
+					'<select name="onum'+ optCnt +'" class="optionData">' +
+						'<option value="">::: 선택하세요 :::</option>'+
+						'<option value="0">색상</option>' +
+						'<option value="1">크기</option>'+
+						'<option value="2">조립유무</option>'+
+					'</select>'+
+					'<input type="text" name="ocontent'+ optCnt +'" class="optInput"/>';
+		html += '<button type="button" class="optDelBtn btn btn-danger" onclick="optDel();">삭제</button></div>';
+		$("div#divoptattach").append(html);
+		
+		optCnt++;
+	}
+	
+	function optDel() {
+		$("button.optDelBtn").bind("click", function(){
+			$(this).parent().remove();
+		});
+	}
+	
+	
 </script>
 
 <div class="container" align="center">
@@ -162,7 +207,7 @@ select {
 		
 		<h2 id="prodRegh2">PRODUCT REGISTER</h2>
 		<p id="prodRegP">[관리자모드] 제품등록 페이지입니다. 아래 형식에 맞게 제품정보를 등록해주세요.</p>
-		<table id="tblProductRegister">
+		<table id="tblProductRegister" >
 		<%--
 			<thead>
 				<tr>
@@ -193,21 +238,21 @@ select {
 				</tr>
 				<tr>
 					<td width="25%" class="prodInputName">제품명</td>
-					<td width="75%" align="left" style="border-top: hidden; border-bottom: hidden;">
+					<td width="75%" align="left" >
 						<input type="text" style="width: 300px;" name="pname" class="box infoData" /> 
 						<span class="error">필수입력</span>
 					</td>
 				</tr>
 				<tr>
 					<td width="25%" class="prodInputName">제조사</td>
-					<td width="75%" align="left" style="border-top: hidden; border-bottom: hidden;">
+					<td width="75%" align="left" >
 						<input type="text" style="width: 300px;" name="pcompany" class="box infoData" /> 
 						<span class="error">필수입력</span>
 					</td>
 				</tr>
 				<tr>
 					<td width="25%" class="prodInputName">제품이미지</td>
-					<td width="75%" align="left" style="border-top: hidden; border-bottom: hidden;">
+					<td width="75%" align="left" >
 						<input type="file" name="pimage1" class="infoData" />
 						<span class="error">필수입력</span>
 						<input type="file" name="pimage2" class="infoData" />
@@ -216,8 +261,8 @@ select {
 				</tr>
 				<tr>
 					<td width="25%" class="prodInputName">제품수량</td>
-					<td width="75%" align="left" style="border-top: hidden; border-bottom: hidden;">
-						<input id="spinnerPqty" name="pqty" value="1" style="width: 30px; height: 20px;"> 개
+					<td width="75%" align="left" >
+						<input id="spinnerPqty" name="pqty" value="1" style="width: 30px; height: 20px;" class="spinner"> 개
 						<span class="error">필수입력</span>
 					</td>
 				</tr>
@@ -256,14 +301,13 @@ select {
 				<tr>
 					<td width="25%" class="prodInputName" style="padding-bottom: 10px;">제품포인트</td>
 					<td width="75%" align="left" style="border-top: hidden; border-bottom: hidden; padding-bottom: 10px;">
-						<input type="text" style="width: 100px;" name="point"
-						class="box infoData" /> POINT <span class="error">필수입력</span>
+						<input type="text" style="width: 100px;" name="point" class="box infoData" /> POINT <span class="error">필수입력</span>
 					</td>
 				</tr>
 				
 				<%-- ==== 첨부파일 타입 추가하기 ==== --%>
 				<tr>
-					<td width="25%" class="prodInputName" style="padding-bottom: 10px;">추가이미지파일(선택)</td>
+					<td width="25%" class="prodInputName" style="padding-bottom: 10px; vertical-align: top;">추가이미지파일(선택)</td>
 					<td>
 						<label for="spinnerImgQty">파일갯수 : </label> 
 						<input id="spinnerImgQty" value="0" style="width: 30px; height: 20px;">
@@ -271,6 +315,16 @@ select {
 						<input type="hidden" name="attachCount" id="attachCount" />
 					</td>
 				</tr>
+				
+				<tr style="background-color: #f2f2f2;">
+					<td width="25%" class="prodInputName" style="padding-bottom: 10px; vertical-align: top;">추가옵션(선택)<br>
+						<button type="button" onclick="optAdd();" class="btn btn-primary">추가</button>
+					</td>
+					<td>
+						<div id="divoptattach"></div>
+					</td>
+				</tr>
+				
 
 				<tr style="height: 70px;">
 					<td colspan="2" align="center" style="border-left: hidden; border-bottom: hidden; border-right: hidden;">
@@ -280,6 +334,7 @@ select {
 				</tr>
 			</tbody>
 		</table>
+		
 	</form>
 </div>
 

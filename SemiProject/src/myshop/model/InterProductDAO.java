@@ -55,6 +55,9 @@ public interface InterProductDAO {
 	List<DetailCategoryVO> selectdetailList(String cnum) throws SQLException;
 
 	
+	// 장바구니에 담기
+	int addCart(String userid, String pnum, String odAmount) throws SQLException;
+	
 
 
 	
