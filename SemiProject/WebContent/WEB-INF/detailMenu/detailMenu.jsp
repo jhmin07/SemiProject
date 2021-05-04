@@ -32,6 +32,14 @@ div#product{
 	margin-top: 5px;
 	margin-bottom: 40px;
 }
+a.pagebar{
+	display: inline-block;
+	margin-bottom: 10px;
+	
+}
+div#pagebar{
+text-align: center;
+}
 </style>
 </head>
 <body>
@@ -50,10 +58,10 @@ div#product{
 			<a href="<%=ctxPath%>/detailMenu/menu.up?cnum=${cnum}&decode=${devo.decode}">
 				<img src="<%=ctxPath%>/image/product/${pvo.fk_decode}/${pvo.pimage1}" class="prodImg" "/>
 				<div id="name">
-				<a href="#">	
-				<span>${pvo.pname}</span>
-				</a>
+				<a href="<%=ctxPath%>/detailMenu/menu.up?cnum=${cnum}&decode=${devo.decode}">	
+				<span>${pvo.pname}</span><br>	
 				<span><fmt:formatNumber value="${pvo.saleprice}" pattern="#,###" /> 원</span>
+				</a>
 				</div>
 			</a>			
 		  </td>
@@ -63,6 +71,11 @@ div#product{
 	    <c:set var="i" value="${i+1}" />
 	  </c:forEach>
 	</table>
+		<div id="pagebar">${requestScope.pageBar}</div>
+	 <c:if test="${empty requestScope.productList}"> 
+    	제품진열 준비중입니다.
+   	 </c:if> 
+   </div>	
 </div> 	
 <%-- <c:forEach var="pvo" items="${requestScope.productList}" varStatus="status">
 	<div class="product" >

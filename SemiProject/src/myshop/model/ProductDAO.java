@@ -641,7 +641,7 @@ public class ProductDAO implements InterProductDAO {
 
 		// 페이지바를 만들기 위해서 특정카테고리의 제품개수에 대한 총페이지수 알아오기(select)
 		@Override
-		public int getTotalPage(String fk_decode) throws SQLException {
+		public int getTotalPage(String decode) throws SQLException {
 			
 			int totalPage = 0;
 		      
@@ -654,7 +654,7 @@ public class ProductDAO implements InterProductDAO {
 		         
 		         pstmt = conn.prepareStatement(sql);
 		         
-		         pstmt.setString(1, fk_decode);
+		         pstmt.setString(1, decode);
 		               
 		         rs = pstmt.executeQuery();
 		         

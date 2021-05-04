@@ -88,6 +88,7 @@ span.hsub1{
 	
 }
 
+
 </style>
 
 <script type="text/javascript">
@@ -127,6 +128,7 @@ function goCart() {
 	location.href="<%= request.getContextPath()%>/order/cartController.up?userid="+userid;
 }
 	
+
 </script>
 
 </head>
@@ -136,10 +138,12 @@ function goCart() {
 
 	<div id="mySidenav" class="sidenav">
 	  <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-	  <a class="sub2" href="<%= ctxPath%>/shop/category.up?cnum=1">침실 가구</a>
+	  <a class="sub2" href="<%= ctxPath%>/shop/category.up?cnum=1">침실 가구</a>    
 	  <a class="sub2" href="<%= ctxPath%>/shop/category.up?cnum=2">거실 가구</a>
 	  <a class="sub2" href="<%= ctxPath%>/shop/category.up?cnum=3">주방 가구</a>
 	  <a class="sub2" href="<%= ctxPath%>/shop/category.up?cnum=4">드레스 룸</a>
+
+
 	  <hr style="border: solid 1px #CDCDCD; width: 190px; margin-top: 30px;">
 	  <br>
 	  <div align="center" style="color: white;">
