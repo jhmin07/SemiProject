@@ -337,7 +337,7 @@ table.odr_info input[type=text]{
 			alert("이용약관에 동의해주세요.");
 			return ;
 		}
---%>		
+--%>			
 		var url = "<%=request.getContextPath()%>/order/goPayment.up?lastpay_price="+lastpay_price+"&name=kimys";
 		window.open(url, "goPayment", 
 					"left=350px, top=100px, width=820px, height=600px");
@@ -352,10 +352,12 @@ table.odr_info input[type=text]{
 	
 	function submitOrderFrm() {
 		var frm = document.orderFrm;
-		frm.action = "<%=request.getContextPath()%>/order/orderlist_insert.up";
+		frm.action = "<%=request.getContextPath()%>/order/orderProcess.up";
 		frm.method = "post";
 		frm.submit();
 	}
+	
+
 	
 </script>
 

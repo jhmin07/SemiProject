@@ -25,6 +25,9 @@ div#product{
 	text-align: center;
 	/* margin-bottom: 30px; */
 }
+a{
+	color: black;
+}
 .detailbody{
 	margin-left: 50px;
 }
@@ -35,10 +38,11 @@ div#product{
 a.pagebar{
 	display: inline-block;
 	margin-bottom: 10px;
+	color: black;
 	
 }
 div#pagebar{
-text-align: center;
+	text-align: center;
 }
 </style>
 </head>
