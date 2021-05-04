@@ -1,12 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <%
 	String ctxPath = request.getContextPath();
-	//    /SemiProject
 %>
 
-<jsp:include page="menuHeader.jsp"/> 
+<jsp:include page="../header4.jsp"/> 
 
 <!DOCTYPE html>
 <html>
@@ -14,9 +14,10 @@
 <meta charset="UTF-8">
 <!-- <title>이불커버</title> -->
 <style type="text/css">
-#coverContents{
-	/* margin-top: 50px; */
-	margin-left: 80px;
+
+/* #detailContents{
+	/* margin-top: 50px; 
+	margin-left: 10%;
 }
 .productImg{
 	width: 300px;
@@ -25,25 +26,66 @@
 }
 .product{
 	text-align: center;
-	/* margin-bottom: 30px; */
+	/* margin-bottom: 30px; 
 }
 .name{
 	margin-top: 10px;
+} */
+.demanu{
+	width: 505px;
+	height: 600px;
 }
+div#detailMain{
+	/* padding-left: 5%; */
+	margin-top: 45px;
+	/* border: solid 5px blue; */
+}
+div#dename{
+	border: 4px solid white;
+	border-radius: 10%;
+	color: white;
+	font-size: 50px;
+	position: absolute;
+	top: 50%;
+  	left: 50%;
+  	transform: translate(-50%, -50%);
+}
+
 </style>
 </head>
 <body>
 
-<h5 style="text-align: center; border: solid 1px gray;">이불커버 메뉴 클릭</h5>
+<!-- <h5 style="text-align: center; border: solid 1px gray;">상세페이지 메인 </h5> -->
 
-<div id= "coverContents">
+<div id="detailMain">
+ <c:set var="i" value="0" />
+	<c:set var="j" value="3" />
+	<table>
+	  <c:forEach items="${detailList}" var="devo">
+	    <c:if test="${i%j == 0}">
+	    <tr>
+	    </c:if>
+	      <td style="position: relative;">
+			<a href="<%=ctxPath%>/detailMenu/menu.up?cnum=${cnum}&decode=${devo.decode}">
+				<img src="<%=ctxPath%>/image/menu${devo.decode}.jpg" class="demanu"/>
+				<div id="dename">${devo.dename}</div>
+			</a>			
+		  </td>
+	    <c:if test="${i%j == j-1}">
+	    </tr>
+	    </c:if>
+	    <c:set var="i" value="${i+1}" />
+	  </c:forEach>
+	</table>
+</div> 	
+<%--<div id= "detailContents">
 	<div class="product">
 		<article>
 			<a href="<%=ctxPath%>/WEB-INF/detailMenu/blueCover.up">
 				<img src="<%=ctxPath%>/image/blueCover.PNG" class="productImg"/>
 			</a>
 			<div class="name">
-				<a href="<%=ctxPath%>/WEB-INF/menu01.jsp">	
+				<a href="<%=ctxPath%>/WEB-INF/detailMenu/blueCover.up">	
 					<span>모슬린 이불커버(블랙)</span>
 				</a>
 				<span>119,000 원 - 179,000 원</span>
@@ -142,7 +184,7 @@
 			</div>
 		</article>	
 	</div>
-</div>	
+</div>	 --%>
 
 </body>
 </html>

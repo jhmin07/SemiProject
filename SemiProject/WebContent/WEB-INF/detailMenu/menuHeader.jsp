@@ -1,12 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    
-
-    
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%
 	String ctxPath = request.getContextPath();
 %>
 <jsp:include page="../header4.jsp"/> 
+
     
 <!DOCTYPE html>
 <html>
@@ -20,8 +19,10 @@ div{
 }
 div#headMenu{
 	margin-top: 100px;
-	margin-left: 80px;
-
+	margin-left: 20px;
+}
+#detailCategory{
+	float: left;
 }
 a{
 	cursor: pointer;
@@ -31,30 +32,49 @@ a{
 a:hover{
 	color: black;
 }
-img{
+img.demanu{
 	width: 85px;
 	height: 85px;
+	margin-left: 20px;
+	border-radius: 50%;
 }
-article{
-	margin-left: 30px;
-}
-.category{
-	margin-top: 5px;
+a.category{
+	margin: 5px 0px 10px 20px;
 	font-size: 11px;
+	text-align: center;
 }
 </style>
-
 </head>
 <body>
 
 <div id= "headMenu" class="container">
-	<div>
-		<article>
+	
+	<%-- <%@ include file="/WEB-INF/detailMenu/categoryList.jsp" %> --%>
+	<table id=detailCategory>
+		<thead>
+		<tr>			
+			<c:forEach var="devo" items="${detailList}">
+				
+			<td><a href="<%=ctxPath%>/detailMenu/menu.up?cnum=${cnum}&decode=${devo.decode}">
+					<img src="<%=ctxPath%>/image/menu${devo.decode}.jpg" class="demanu"/>
+				</a></td>
+			</c:forEach>	
+		</tr>	
+		<tr>	
+			<c:forEach var="devo" items="${detailList}">
+				<td><a href="<%=ctxPath%>/detailMenu/menu.up?cnum=${cnum}&decode=${devo.decode}" class="category" >
+					${devo.dename}
+				</a></td>
+			</c:forEach>
+		</tr>
+		</thead>
+	</table>  
+	<%-- 	<article>
 			<a href="<%=ctxPath%>/detailMenu/menu01.up">
 				<img src="<%=ctxPath%>/image/menu01.PNG" />
 			</a>
 			<a href="<%=ctxPath%>/WEB-INF/menu01.jsp" class="category" style="text-align: center">	
-				<span>이불커버</span>
+				<span>${requestScope.categoryList}이불커버</span>
 			</a>
 		</article>	
 	</div>
@@ -87,7 +107,7 @@ article{
 				<span>베개커버</span>
 			</a>
 		</article>	
-	</div>
+	</div> --%>
 </div>	
 	<br>
 <!-- 	<div id="contents">
