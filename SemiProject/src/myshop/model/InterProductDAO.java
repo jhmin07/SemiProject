@@ -49,10 +49,11 @@ public interface InterProductDAO {
 	List<ProductVO> selectProductByCategory(Map<String, String> paraMap) throws SQLException;
 		
 	// 페이지바를 만들기 위해서 특정카테고리의 제품개수에 대한 총페이지수 알아오기(select)
-	int getTotalPage(String fk_decode) throws SQLException;
+	int getTotalPage(String decode) throws SQLException;
 
 	//세부카테고리 목록 조회해오기
 	List<DetailCategoryVO> selectdetailList(String cnum) throws SQLException;
+
 	
 
 

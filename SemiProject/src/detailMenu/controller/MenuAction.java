@@ -72,8 +72,8 @@ public class MenuAction extends AbstractController {
 	      
 	   // **** [맨처음][이전] 만들기 **** //
 	      if( pageNo != 1 ) {
-	         pageBar += "&nbsp;<a href='menu.up?decode="+decode+"&currentShowPageNo=1'>[맨처음]</a>&nbsp;"; 
-	         pageBar += "&nbsp;<a href='menu.up?decode="+decode+"&currentShowPageNo="+(pageNo-1)+"'>[이전]</a>&nbsp;";
+	         pageBar += "&nbsp;<a class='pagebar' href='menu.up?cnum="+cnum+"&decode="+decode+"&currentShowPageNo=1'>[맨처음]</a>&nbsp;"; 
+	         pageBar += "&nbsp;<a class='pagebar' href='menu.up?cnum="+cnum+"&decode="+decode+"&currentShowPageNo="+(pageNo-1)+"'>[이전]</a>&nbsp;";
 	      }
 	      
 	      while( !(loop > blockSize || pageNo > totalPage) ) {
@@ -82,7 +82,7 @@ public class MenuAction extends AbstractController {
 	            pageBar += "&nbsp;<span style='border:solid 1px gray; color:red; padding: 2px 4px;'>"+pageNo+"</span>&nbsp;"; 
 	         }
 	         else {
-	            pageBar += "&nbsp;<a href='menu.up?decode="+decode+"&currentShowPageNo="+pageNo+"'>"+pageNo+"</a>&nbsp;";    
+	            pageBar += "&nbsp;<a class='pagebar' href='menu.up?cnum="+cnum+"&decode="+decode+"&currentShowPageNo="+pageNo+"'>"+pageNo+"</a>&nbsp;";    
 	         }
 	         
 	         loop++;    // 1 2 3 4 5 6 7 8 9 10 
@@ -94,8 +94,8 @@ public class MenuAction extends AbstractController {
 	      
 	      // **** [다음][마지막] 만들기 **** //
 	      if( pageNo <= totalPage ) {
-	         pageBar += "&nbsp;<a href='menu.up?decode="+decode+"&currentShowPageNo="+pageNo+"'>[다음]</a>&nbsp;"; 
-	         pageBar += "&nbsp;<a href='menu.up?decode="+decode+"&currentShowPageNo="+totalPage+"'>[마지막]</a>&nbsp;";
+	         pageBar += "&nbsp;<a class='pagebar' href='menu.up?cnum="+cnum+"&decode="+decode+"&currentShowPageNo="+pageNo+"'>[다음]</a>&nbsp;"; 
+	         pageBar += "&nbsp;<a class='pagebar' href='menu.up?cnum="+cnum+"&decode="+decode+"&currentShowPageNo="+totalPage+"'>[마지막]</a>&nbsp;";
 	      }
 	      
 	      
