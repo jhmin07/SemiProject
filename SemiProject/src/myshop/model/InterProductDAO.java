@@ -44,5 +44,17 @@ public interface InterProductDAO {
 	
 	// 제품번호를 가지고서 해당 제품의 정보를 조회해오기
 	ProductVO productDetailPage(String pnum) throws SQLException;
+
+	// 특정 카테고리에 속하는 제품들을 일반적인 페이징 처리하여 조회(select)해오기
+	List<ProductVO> selectProductByCategory(Map<String, String> paraMap) throws SQLException;
+		
+	// 페이지바를 만들기 위해서 특정카테고리의 제품개수에 대한 총페이지수 알아오기(select)
+	int getTotalPage(String fk_decode) throws SQLException;
+
+	//세부카테고리 목록 조회해오기
+	List<DetailCategoryVO> selectdetailList(String cnum) throws SQLException;
+	
+
+
 	
 }
