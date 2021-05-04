@@ -15,16 +15,13 @@
          text-align: right;
          width: 75%;
       }
-      div#contents2{      
+      div.contents23{      
       display: inline-block;
       background-color: #d9d9d9;
       text-align: center;
       padding-bottom: 50px;
-           
-   }
-   div.subcontainer{
-      text-align: center;
-      background-color: white;   
+	  /* border: solid 1px red; */ 
+      text-align: center;  
       width: 100%;
    }
    div#newItem{
@@ -36,13 +33,30 @@
       background-color: #d9d9d9;
    }
    table#content2MidBox{
+      display: inline-block;
       overflow:hidden;
       height: 340px;
-      width: 100%;
-      /* border: solid 1px green; */
+      width: 80%;
       text-align: center;
+      background-color: #ebded0;
+      padding-left: 50px;
+      padding-right: 50px;
+     /* border: solid 1px green; */
    }
-   td.content2SQ{
+   table.content3MidBox{
+      display: inline-block;
+      height: 680px;
+      width: 80%;
+      text-align: center;
+      background-color: white;
+      padding-left: 50px;
+      padding-right: 50px;
+     /*  border: solid 1px green; */
+   }
+   table.content3MidBox td.content3SQ{
+      overflow:hidden;
+   }
+   td.contentSQ{
      /*  border: solid 1px yellow; */
       display: inline-block;
       text-align: center;
@@ -57,7 +71,14 @@
       height: 280px;
       /* border: solid 1px red; */
     }
-    div.subcarousel img{
+    img.content3Img{
+      width: 400px;
+      height: 280px;
+      /* border: solid 1px red; */
+    }
+    img.bigImg{
+      overflow: hidden;
+      display: inline-block;
       width: 450px;
       height: 340px;
     
@@ -67,17 +88,18 @@
       height: 340px;
      /*  border: solid 1px blue; */
     }
-    .content2HoverGray{
+    .contentHoverGray{
        background-color: #333333;
 
     }
-    .content2Hover{
-       opacity: 0.7;
+    .contentHover{
+       opacity: 0.3;
     }
-    td.content2SQ:hover{
+    td.contentSQ:hover{
        cursor: pointer;
       padding-top: 0px;
     }
+    
 </style>
 
 <script type="text/javascript">
@@ -87,21 +109,43 @@
    
    $(document).ready(function(){
        $("div.subcarouselDiv").hide();
-       $("img.content2Img").removeClass("content2Hover");
-       $("table#content2MidBox").removeClass("content2HoverGray");
+       $("img.content2Img").removeClass("contentHover");
+       $("table#content2MidBox").removeClass("contentHoverGray");
+
+       $("div.subcarouselDiv").hide();
+       $("img.content3Img").removeClass("contentHover");
+       $("table.content3MidBox").removeClass("contentHoverGray");
+       
+       
        
        
       $("td.content2SQ").hover(function(){
-          $("img.content2Img").addClass("content2Hover");
-          $(this).children("img.content2Img").removeClass("content2Hover");
-          $("table#content2MidBox").addClass("content2HoverGray");
+          $("img.content2Img").addClass("contentHover");
+          $(this).children("img.content2Img").removeClass("contentHover");
+          $("table#content2MidBox").addClass("contentHoverGray");
           $(this).children("img.content2Img").hide();
           $(this).children("div.subcarouselDiv").show();
       }, function(){
-         $("img.content2Img").removeClass("content2Hover");
-          $("table#content2MidBox").removeClass("content2HoverGray");
+         $("img.content2Img").removeClass("contentHover");
+          $("table#content2MidBox").removeClass("contentHoverGray");
          $(this).children("img.content2Img").show();
          $(this).children("div.subcarouselDiv").hide();
+      });   
+         
+         $("td.content3SQ").hover(function(){
+             $("img.content3Img").addClass("contentHover");
+             $(this).children("img.content3Img").removeClass("contentHover");
+             $("table.content3MidBox").addClass("contentHoverGray");
+             $(this).children("img.content3Img").hide();
+             $(this).children("div.subcarouselDiv").show();
+         }, function(){
+            $("img.content3Img").removeClass("contentHover");
+             $("table.content3MidBox").removeClass("contentHoverGray");
+            $(this).children("img.content3Img").show();
+            $(this).children("div.subcarouselDiv").hide();       
+         
+         
+         
       });
       
       
@@ -151,28 +195,28 @@
 
 
 
-<div id="contents2" class="subcontainer">
+<div id="contents2" class="contents23 subcontainer">
 
-   <div id="newItem">NEW ITEM</div>
-   <table id="content2MidBox" class="content2HoverGray">
+   <div id="newItem">HIT ITEM</div>
+   <table id="content2MidBox" class="contentHoverGray">
 
 
-<td class="content2SQ">
+	<td class="content2SQ contentSQ">
 
-         <img class="content2Img content2Hover" id="content2Img1" src="image/imagesContents2/sofa01.jpeg" alt="소파1">    
+         <img class="content2Img content2Hover" id="content2Img1" src="image/product/kitchen/tool/tool_01_01.jpg" alt="소파1">    
            <div class="subcarouselDiv">
              <div id="myCarousel1" class="carousel slide" data-ride="carousel">
 
              <!-- Wrapper for slides -->
              <div class="carousel-inner">
                <div class="item active">
-                 <img src="image/imagesContents2/sofa01.jpeg" alt="소파1" style="width:100%;">
+                 <img class="bigImg" src="image/product/kitchen/tool/tool_01_02.jpg" alt="소파1" style="width:100%;">
                </div>
                <div class="item">
-                 <img src="image/imagesContents2/sofa02.jpeg" alt="소파2" style="width:100%;">
+                 <img class="bigImg" src="image/product/kitchen/tool/tool_01_03.jpg" alt="소파2" style="width:100%;">
                </div>
                <div class="item">
-                 <img src="image/imagesContents2/sofa03.jpg" alt="소파3" style="width:100%;">
+                 <img class="bigImg" src="image/product/kitchen/tool/tool_01_04.jpg" alt="소파3" style="width:100%;">
                </div>
              </div>
          
@@ -188,21 +232,21 @@
    </td>
          
         
-      <td class="content2SQ">
-         <img class="content2Img content2Hover" id="content2Img2" src="image/imagesContents2/table01.jpg" alt="테이블1">    
+      <td class="content2SQ contentSQ">
+         <img class="content2Img content2Hover" id="content2Img2" src="image/product/kitchen/storage/storage_02_01.jpg" alt="테이블1">    
            <div class="subcarouselDiv">
            <div id="myCarousel2" class="subcarousel slide" data-ride="carousel">
                <div class="carousel-inner">
                   <div class="item active">
-                    <img src="image/imagesContents2/table01.jpg" alt="테이블2" style="width:100%;">
+                    <img class="bigImg" class="bigImg" src="image/product/kitchen/storage/storage_02_03.jpg" alt="테이블2" style="width:100%;">
                   </div>
       
                   <div class="item">
-                    <img src="image/imagesContents2/table02.jpg" alt="테이블1" style="width:100%;">
+                    <img class="bigImg" src="image/product/kitchen/storage/storage_02_05.jpg" alt="테이블1" style="width:100%;">
                   </div>
                 
                   <div class="item">
-                    <img src="image/imagesContents2/table03.JPG" alt="테이블3" style="width:100%;">
+                    <img class="bigImg" src="image/product/kitchen/storage/storage_02_04.jpg" alt="테이블3" style="width:100%;">
                   </div>
                 </div>
       
@@ -221,21 +265,21 @@
          
          
          
-      <td class="content2SQ">
-         <img class="content2Img content2Hover" id="content2Img1" src="image/imagesContents2/closet01.JPG" alt="옷장1">    
+      <td class="content2SQ contentSQ">
+         <img class="content2Img content2Hover" id="content2Img1" src="image/product/kitchen/furniture/furniture_09_02.jpg" alt="옷장1">    
            <div class="subcarouselDiv">
            <div id="myCarousel3" class="subcarousel slide" data-ride="carousel">
                <div class="carousel-inner">
                   <div class="item active">
-                    <img src="image/imagesContents2/closet01.JPG" alt="옷장2" style="width:100%;">
+                    <img class="bigImg" src="image/product/kitchen/furniture/furniture_09_01.jpg" alt="옷장2" style="width:100%;">
                   </div>
       
                   <div class="item">
-                    <img src="image/imagesContents2/closet02.JPG" alt="옷장1" style="width:100%;">
+                    <img class="bigImg" src="image/product/kitchen/furniture/furniture_09_03.jpg" alt="옷장1" style="width:100%;">
                   </div>
                 
                   <div class="item">
-                    <img src="image/imagesContents2/closet03.JPG" alt="옷장3" style="width:100%;">
+                    <img class="bigImg" src="image/product/kitchen/furniture/furniture_09_04.jpg" alt="옷장3" style="width:100%;">
                   </div>
                 </div>
       
@@ -249,10 +293,207 @@
             </div>
             </div>
          </td>
- 
-      
     </table>
 </div>
+
+
+
+<div id="contents3" class="contents23 subcontainer">
+   <div id="newItem">NEW ITEM</div>
+   <table class="contentHoverGray content3MidBox">
+
+	<tr>
+	<td class="content3SQ contentSQ">
+
+         <img class="content3Img contentHover" id="content3Img1" src="image/product/livingRoom/carpet/carpet_01_01.JPG" alt="소파1">    
+           <div class="subcarouselDiv">
+             <div id="myCarousel4" class="carousel slide" data-ride="carousel">
+
+             <!-- Wrapper for slides -->
+             <div class="carousel-inner">
+               <div class="item active">
+                 <img class="bigImg" src="image/product/livingRoom/carpet/carpet_01_02.JPG" alt="소파1" style="width:100%;">
+               </div>
+               <div class="item">
+                 <img class="bigImg" src="image/product/livingRoom/carpet/carpet_02_01.JPG" alt="소파2" style="width:100%;">
+               </div>
+               <div class="item">
+                 <img class="bigImg" src="image/product/livingRoom/carpet/carpet_02_02.JPG" alt="소파3" style="width:100%;">
+               </div>
+             </div>
+         
+             <!-- Left and right controls -->
+             <a class="left carousel-control" href="#myCarousel4" data-slide="prev">
+               <span class="sr-only">Previous</span>
+             </a>
+             <a class="right carousel-control" href="#myCarousel4" data-slide="next">
+               <span class="sr-only">Next</span>
+             </a>
+           </div>
+            </div>
+   	  </td>
+      <td class="content3SQ contentSQ">
+         <img class="content3Img contentHover" id="content3Img2" src="image/product/livingRoom/cabinet/cabinet_01_01.JPG" alt="테이블1">    
+           <div class="subcarouselDiv">
+           <div id="myCarousel5" class="subcarousel slide" data-ride="carousel">
+               <div class="carousel-inner">
+                  <div class="item active">
+                    <img class="bigImg" src="image/product/livingRoom/cabinet/cabinet_02_01.JPG" alt="테이블2" style="width:100%;">
+                  </div>
+      
+                  <div class="item">
+                    <img class="bigImg" src="image/product/livingRoom/cabinet/cabinet_02_01.JPG" alt="테이블1" style="width:100%;">
+                  </div>
+                
+                  <div class="item">
+                    <img class="bigImg" src="image/product/livingRoom/cabinet/cabinet_02_02.JPG" alt="테이블3" style="width:100%;">
+                  </div>
+                </div>
+      
+               
+                <a class="left carousel-control" href="#myCarousel5" data-slide="prev">
+                  <span class="sr-only">Previous</span>
+                </a>
+                <a class="right carousel-control" href="#myCarousel5" data-slide="next">
+                  <span class="sr-only">Next</span>
+                </a>
+            </div>
+            </div>
+         </td>
+         
+         
+         
+         
+         
+      <td class="content3SQ contentSQ">
+         <img class="content3Img contentHover" id="content3Img3" src="image/product/kitchen/furniture/furniture_05_02.jpg" alt="옷장1">    
+           <div class="subcarouselDiv">
+           <div id="myCarousel6" class="subcarousel slide" data-ride="carousel">
+               <div class="carousel-inner">
+                  <div class="item active">
+                    <img class="bigImg" src="image/product/kitchen/furniture/furniture_05_01.jpg" alt="옷장2" style="width:100%;">
+                  </div>
+      
+                  <div class="item">
+                    <img class="bigImg" src="image/product/kitchen/furniture/furniture_05_03.jpg" alt="옷장1" style="width:100%;">
+                  </div>
+                
+                  <div class="item">
+                    <img class="bigImg" src="image/product/kitchen/furniture/furniture_05_04.jpg" alt="옷장3" style="width:100%;">
+                  </div>
+                </div>
+      
+               
+                <a class="left carousel-control" href="#myCarousel6" data-slide="prev">
+                  <span class="sr-only">Previous</span>
+                </a>
+                <a class="right carousel-control" href="#myCarousel6" data-slide="next">
+                  <span class="sr-only">Next</span>
+                </a>
+            </div>
+            </div>
+         </td>
+      </tr> 
+    
+    <tr>
+		<td class="content3SQ contentSQ">
+
+         <img class="content3Img contentHover" id="content3Img1" src="image/product/kitchen/tool/tool_04_01.jpg" alt="소파1">    
+           <div class="subcarouselDiv">
+             <div id="myCarousel4" class="carousel slide" data-ride="carousel">
+
+             <!-- Wrapper for slides -->
+             <div class="carousel-inner">
+               <div class="item active">
+                 <img class="bigImg" src="image/product/kitchen/tool/tool_04_02.jpg" alt="소파1" style="width:100%;">
+               </div>
+               <div class="item">
+                 <img class="bigImg" src="image/product/kitchen/tool/tool_04_03.jpg" alt="소파2" style="width:100%;">
+               </div>
+               <div class="item">
+                 <img class="bigImg" src="image/product/kitchen/tool/tool_04_04.jpg" alt="소파3" style="width:100%;">
+               </div>
+             </div>
+         
+             <!-- Left and right controls -->
+             <a class="left carousel-control" href="#myCarousel4" data-slide="prev">
+               <span class="sr-only">Previous</span>
+             </a>
+             <a class="right carousel-control" href="#myCarousel4" data-slide="next">
+               <span class="sr-only">Next</span>
+             </a>
+           </div>
+            </div>
+   </td>
+         
+        
+      <td class="content3SQ contentSQ">
+         <img class="content3Img contentHover" id="content3Img2" src="image/product/kitchen/storage/storage_13_01.jpg" alt="테이블1">    
+           <div class="subcarouselDiv">
+           <div id="myCarousel5" class="subcarousel slide" data-ride="carousel">
+               <div class="carousel-inner">
+                  <div class="item active">
+                    <img class="bigImg" src="image/product/kitchen/storage/storage_13_03.jpg" alt="테이블2" style="width:100%;">
+                  </div>
+      
+                  <div class="item">
+                    <img class="bigImg" src="image/product/kitchen/storage/storage_13_05.jpg" alt="테이블1" style="width:100%;">
+                  </div>
+                
+                  <div class="item">
+                    <img class="bigImg" src="image/product/kitchen/storage/storage_13_04.jpg" alt="테이블3" style="width:100%;">
+                  </div>
+                </div>
+      
+               
+                <a class="left carousel-control" href="#myCarousel5" data-slide="prev">
+                  <span class="sr-only">Previous</span>
+                </a>
+                <a class="right carousel-control" href="#myCarousel5" data-slide="next">
+                  <span class="sr-only">Next</span>
+                </a>
+            </div>
+            </div>
+         </td>
+         
+         
+         
+         
+         
+      <td class="content3SQ contentSQ">
+         <img class="content3Img contentHover" id="content3Img3" src="image/product/kitchen/furniture/furniture_21_02.jpg" alt="옷장1">    
+           <div class="subcarouselDiv">
+           <div id="myCarousel6" class="subcarousel slide" data-ride="carousel">
+               <div class="carousel-inner">
+                  <div class="item active">
+                    <img class="bigImg" src="image/product/kitchen/furniture/furniture_21_01.jpg" alt="옷장2" style="width:100%;">
+                  </div>
+      
+                  <div class="item">
+                    <img class="bigImg" src="image/product/kitchen/furniture/furniture_22_01.jpg" alt="옷장1" style="width:100%;">
+                  </div>
+                
+                  <div class="item">
+                    <img class="bigImg" src="image/product/kitchen/furniture/furniture_22_02.jpg" alt="옷장3" style="width:100%;">
+                  </div>
+                </div>
+      
+               
+                <a class="left carousel-control" href="#myCarousel6" data-slide="prev">
+                  <span class="sr-only">Previous</span>
+                </a>
+                <a class="right carousel-control" href="#myCarousel6" data-slide="next">
+                  <span class="sr-only">Next</span>
+                </a>
+            </div>
+            </div>
+         </td>
+      </tr> 
+    </table>
+</div>
+
+
+
 
 
 
