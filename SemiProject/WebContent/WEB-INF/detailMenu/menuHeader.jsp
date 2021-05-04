@@ -14,7 +14,7 @@
 <!-- <title>메뉴헤드메뉴</title> -->
 <style type="text/css">
 
-div{
+div#headMenu{
 	display: inline-block;
 }
 div#headMenu{
@@ -24,7 +24,7 @@ div#headMenu{
 #detailCategory{
 	float: left;
 }
-a{
+div#headMenu > a{
 	cursor: pointer;
 	display: block;
 	color: black;
