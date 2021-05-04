@@ -16,6 +16,8 @@ public interface InterQADAO {
 	// tbl_qaboard 테이블에 Q&A insert 하기
 	int QAInsert(QAVO qvo) throws SQLException;
 
+	int qaHitUp(int hit, int qaNo) throws SQLException;
+
 
 
 	
