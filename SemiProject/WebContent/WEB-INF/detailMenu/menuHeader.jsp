@@ -14,22 +14,22 @@
 <!-- <title>메뉴헤드메뉴</title> -->
 <style type="text/css">
 
-div#headMenu{
+/* div#headMenu{
 	display: inline-block;
-}
+} */
 div#headMenu{
 	margin-top: 100px;
 	margin-left: 20px;
 }
-#detailCategory{
+/* #detailCategory{
 	float: left;
-}
+} */
 div#headMenu > a{
 	cursor: pointer;
 	display: block;
 	color: black;
 }
-a:hover{
+div#headMenu > a:hover{
 	color: black;
 }
 img.demanu{
@@ -37,10 +37,13 @@ img.demanu{
 	height: 85px;
 	margin-left: 20px;
 	border-radius: 50%;
+	float: left;
 }
 a.category{
 	margin: 5px 0px 10px 20px;
 	font-size: 11px;
+	color: black;
+	display:block;
 	text-align: center;
 }
 </style>
@@ -50,7 +53,7 @@ a.category{
 <div id= "headMenu" class="container">
 	
 	<%-- <%@ include file="/WEB-INF/detailMenu/categoryList.jsp" %> --%>
-	<table id=detailCategory>
+	<table id=detailCategory text-align: center;>
 		<thead>
 		<tr>			
 			<c:forEach var="devo" items="${detailList}">
