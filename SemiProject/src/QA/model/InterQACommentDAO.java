@@ -9,4 +9,6 @@ public interface InterQACommentDAO {
 
 	List<QACommentVO> qaView(String qaNo) throws SQLException;
 
+	int getCommentCnt(String qaNo) throws SQLException;
+
 }

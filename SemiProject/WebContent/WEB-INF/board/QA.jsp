@@ -69,6 +69,7 @@
 </style>
 <script type="text/javascript">
 	$(document).ready(function(){		
+		commentCnt();
 		
 		if("${fn:trim(requestScope.searchWord)}" != ""){
 			$("select#searchType").val("${requestScope.searchType}");
@@ -108,6 +109,29 @@
 	function goWriteQA(){
 		location.href="<%=request.getContextPath()%>/board/QAWrite.up";
 	};
+	function commentCnt(){
+		$("td.qaNo").each(function(index,item){
+			var qaNo = $(this).val();
+			console.log("$(this).val()=>" + $(this).val());
+			$.ajax({	// 화면의 변화는 없고 DB만 바꿔줄거라서 ajax를 사용
+				   url:"<%=request.getContextPath()%>/board/commentCnt.up",
+				   type:"post",
+				   data:{"qaNo":qaNo},
+				   dataType:"json",
+				   success:function(json){
+					  
+							$("a#commentCnt").html(json.CommentCnt);
+					   		console.log(json.CommentCnt);
+					   
+				   },
+				   error: function(request, status, error){
+			            alert("code: "+request.status+"\n"+"message: "+request.responseText+"\n"+"error: "+error);
+			         }
+			   });
+		});
+		
+	
+	}
 </script>
 
 <div class="container" align="center">
@@ -162,9 +186,9 @@
 		
 						
 		<tbody id="NoticeList">
-        	<c:forEach var="qvo" items="${requestScope.qaList}">
+        	<c:forEach var="qvo" items="${requestScope.qaList}" varStatus="index">
         		<tr class= "QAHead">
-        			<td class="qaNo">${qvo.qaNo}</td>
+        			<td class="qaNo">${qvo.qaNo}<a id="commentCnt"></a></td>
         			<td class="Title">${qvo.qaTitle}</td>
         			<td>${qvo.fk_userid}</td>
         			<td>${qvo.qaRegisterday}</td>

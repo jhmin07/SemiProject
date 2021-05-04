@@ -108,4 +108,30 @@ public class QACommentDAO implements InterQACommentDAO {
 		
 	}
 
+	@Override
+	public int getCommentCnt(String qaNo) throws SQLException {
+		int n =0;
+	      try {
+	         conn = ds.getConnection();
+
+	         String sql = " select count(*) " +  
+	                      " from tbl_coment " +
+	                      " where fk_qaNo = ? ";
+	     
+	         pstmt = conn.prepareStatement(sql);
+	         
+	         pstmt.setString(1, qaNo);  
+	        
+	         rs = pstmt.executeQuery();
+	         n = rs.getInt("count(*)");
+	         
+	      } catch (SQLException e) {
+			e.printStackTrace();
+		 } finally {
+	         close();
+	      }
+	      
+	      return n;
+	}
+
 }
