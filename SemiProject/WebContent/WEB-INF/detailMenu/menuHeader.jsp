@@ -24,7 +24,7 @@ div#headMenu{
 #detailCategory{
 	float: left;
 }
-a{
+div#headMenu > a{
 	cursor: pointer;
 	display: block;
 	color: black;
