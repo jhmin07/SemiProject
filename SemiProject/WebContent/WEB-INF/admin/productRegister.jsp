@@ -80,9 +80,9 @@ select {
 }
 
 input.optInput {
-	width: 40%;
+	width: 50%;
 	line-height: 20px;
-	padding: 4px 0; 
+	padding: 4px; 
 	margin: 0 10px;
 }
 
