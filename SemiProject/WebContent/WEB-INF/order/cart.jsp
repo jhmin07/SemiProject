@@ -327,7 +327,7 @@ $(document).ready(function(){
 			<tr>
 				<th><input type="checkbox" name="checkall"/><span id="check"></span></th>
 				<th>이미지</th>
-				<th>상품정보(option)</th>
+				<th>상품정보</th>
 				<th>판매가</th>
 				<th>수량</th>
 				<th>적립금</th>
@@ -339,7 +339,7 @@ $(document).ready(function(){
 		
 		<tbody>
 		
-			<c:forEach var="var" begin="1" end="8">
+			<c:forEach var="pro" begin="1" end="8">
 				<%-- test value 값 --%>
 				<c:set var="product_price" value="10000"/>
 				<c:set var="order_cnt" value="1"/>
@@ -347,7 +347,7 @@ $(document).ready(function(){
 				<tr class="odr_tr">
 					<td ><input type="checkbox" name="product" id="product${var}"/><span id="check"></span></td>
 					<td><label for="product${var}"><img class="cart_image" src="<%=ctxPath%>/image/cart/sample_cart${var}.jpg" ></label></td>
-					<td><span id="productName_cart">XXL 사이즈 린넨커버</span><br>제품번호 <span id="cart_productNumber">4212900825070</span><br><span id="cart_productOption">70 x 90 cm</span></td>
+					<td><span id="productName_cart">${product_name}</span><br>제품번호 <span id="cart_productNumber">${product_num}</span><br><span id="cart_productOption">${product_option}</span></td>
 					<td><fmt:formatNumber value="${product_price}" pattern="#,###" /> 원</td>
 					<td id="td_plusminus"><img id="minus_cart" src="../image/cart/minus.png" onclick="count_minus()"/>&nbsp;<input class="count" type='text' name='count' value='${order_cnt}' size='1' readonly />&nbsp;<img id="Plus_cart" onclick="count_plus()" src="../image/cart/plus.png" /></td>
 					<td><fmt:formatNumber value="${product_price*0.01}" pattern="#,###" /></td>
