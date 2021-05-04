@@ -14,7 +14,7 @@
 <!-- <title>메뉴헤드메뉴</title> -->
 <style type="text/css">
 
-div{
+div#headMenu{
 	display: inline-block;
 }
 div#headMenu{
