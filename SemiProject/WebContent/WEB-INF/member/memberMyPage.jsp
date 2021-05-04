@@ -87,7 +87,7 @@ span.input{
  $(function(){
 	 
 	 $("div#orderList").bind("click", function(){
-		 location.href= "<%= ctxPath%>/member/";
+		 location.href= "<%= ctxPath%>/order/orderList.up";
 	 });
 	 $("div#myInfo").bind("click", function(){
 		 location.href= "<%= ctxPath%>/member/memberEdit.up?userid=${sessionScope.loginuser.userid}";
