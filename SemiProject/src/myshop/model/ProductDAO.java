@@ -668,6 +668,64 @@ public class ProductDAO implements InterProductDAO {
 		      
 		      return totalPage;
 		}
+		
+		// 장바구니에 담기
+		@Override
+		public int addCart(String userid, String pnum, String odAmount) throws SQLException {
+			
+			int n = 0;
+			
+			try {
+				
+				conn = ds.getConnection();
+				
+				String sql = " select cartno "
+						  	  + " from tbl_cart "
+						  	  + " where fk_userid = ? and fk_pnum = ? ";
+				
+				pstmt = conn.prepareStatement(sql);
+		        pstmt.setString(1, userid);
+		        pstmt.setString(2, pnum);
+		          
+		        rs = pstmt.executeQuery();
+		        
+		        if ( rs.next() ) {
+		        	// 어떤 제품을 추가로 장바구니에 넣고자 하는 경우
+		        	
+		        	int cartno = rs.getInt("cartno");
+		        	
+		        	sql = " update tbl_cart set odAmount = odAmount + ? "
+		        		+	" where cartno = ? ";
+		        	 
+		        	pstmt = conn.prepareStatement(sql);
+		        	pstmt.setInt(1, Integer.parseInt(odAmount));
+		        	pstmt.setInt(2, cartno);
+		        	
+		        	n = pstmt.executeUpdate();
+		        	
+		        }
+		        else {
+		        	// 장바구니에 존재하지 않는 새로운 제품을 넣고자 하는 경우
+		        	
+		        	sql = " insert into tbl_cart(cartno, fk_userid, fk_pnum, odAmount, cartdate) "
+		                    + " values(seq_tbl_cart_cartno.nextval, ?, ?, ?, default) ";
+		        	
+		        	pstmt = conn.prepareStatement(sql);
+		        	pstmt.setString(1, userid);
+		        	pstmt.setInt(2, Integer.parseInt(pnum));
+		        	pstmt.setInt(3, Integer.parseInt(odAmount));
+		        	
+		        	n = pstmt.executeUpdate();
+		        	
+		        }
+				
+			} finally {
+				close();
+			}
+			
+			return n;
+			
+		}
 
 	
 }
