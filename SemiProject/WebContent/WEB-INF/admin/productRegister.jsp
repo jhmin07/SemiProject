@@ -170,6 +170,14 @@ div.optDiv {
 			}
 		});
 		
+		$("select.optionData").change(function(){
+			console.log("setoname()");
+			var oname = $(this).val();
+			 
+			console.log(oname);
+			$(this).next().val(oname);
+			
+		});
 	});
 
 	
@@ -177,24 +185,39 @@ div.optDiv {
 	function optAdd() {
 		var html = "";
 		html += '<div class="optDiv">'+
-					'<select name="onum'+ optCnt +'" class="optionData">' +
+					'<select name="onum'+ optCnt +'" class="optionData" onchange="setoname(this);">' +
 						'<option value="">::: 선택하세요 :::</option>'+
 						'<option value="0">색상</option>' +
 						'<option value="1">크기</option>'+
 						'<option value="2">조립유무</option>'+
 					'</select>'+
-					'<input type="text" name="ocontent'+ optCnt +'" class="optInput"/>';
-		html += '<button type="button" class="optDelBtn btn btn-danger" onclick="optDel();">삭제</button></div>';
+					'<input type="text" name="oname"'+optCnt+' hidden/>'+
+					'<input type="text" name="ocontents'+ optCnt +'" class="optInput"/>';
+		html += '<button type="button" class="optDelBtn btn btn-danger" onclick="optDel(this);">삭제</button></div>';
 		$("div#divoptattach").append(html);
 		
 		optCnt++;
 	}
 	
-	function optDel() {
-		$("button.optDelBtn").bind("click", function(){
-			$(this).parent().remove();
-		});
+	function optDel(item) {
+		$(item).parent().remove();
 	}
+	 
+	function setoname(item) {
+		var onum = $(item).val();
+		var oname = "";
+		$("select.optionData > option").each(function(index, option){
+			if (option.value == onum) {
+				oname = option.text;
+				return false;
+			}
+		});
+		
+		//console.log("onum => "+onum);
+		//console.log("oname => "+oname);
+		
+		$(item).next().val(oname);
+	} 
 	
 	
 </script>
