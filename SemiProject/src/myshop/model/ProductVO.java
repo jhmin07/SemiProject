@@ -16,6 +16,7 @@ public class ProductVO {
 	private int 	point;      // 포인트 점수                                         
 	private String 	pinputdate; // 제품입고일자	
 	
+	private DetailCategoryVO decategvo; // 세부카테고리VO
 	private CategoryVO categvo; // 카테고리VO 
 	private SpecVO spvo;        // 스펙VO 
 	
@@ -95,7 +96,6 @@ public class ProductVO {
 	public void setPimage2(String pimage2) {
 		this.pimage2 = pimage2;
 	}
-
 	public int getPqty() {
 		return pqty;
 	}
@@ -166,6 +166,14 @@ public class ProductVO {
 
 	public void setSpvo(SpecVO spvo) {
 		this.spvo = spvo;
+	}
+	
+	public DetailCategoryVO getDecategvo() {
+		return decategvo;
+	}
+
+	public void setDecategvo(DetailCategoryVO decategvo) {
+		this.decategvo = decategvo;
 	}
 	
 	///////////////////////////////////////////////
