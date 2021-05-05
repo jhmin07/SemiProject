@@ -102,9 +102,7 @@ div.optDiv {
 	$(document).ready(function(event){
 		$("span.error").hide();
 		
-		/* $("select[name=fk_decode]").change(function(){
-			console.log($(this).val());
-		}); */
+		$("input#optCnt").val(optCnt);
 		
 		$("input#spinnerPqty").spinner({
 			spin:function(event,ui){
@@ -151,6 +149,7 @@ div.optDiv {
 		$("input#btnRegister").click(function(){
 			var flag = false;
 			
+			<%--
 			$(".infoData").each(function(index, item){
 				var val = $(item).val().trim();
 				if (val == "") {
@@ -167,7 +166,7 @@ div.optDiv {
 					return false;
 				}
 			});
-			
+			--%>	
 			if (!flag) {
 				var frm = document.prodInputFrm;
 				frm.submit();
@@ -188,13 +187,15 @@ div.optDiv {
 						'<option value="1">크기</option>'+
 						'<option value="2">조립유무</option>'+
 					'</select>'+
-					'<input type="text" name="oname"'+optCnt+' hidden/>'+
+					'<input type="hidden" name="oname'+optCnt+'" />'+
 					'<input type="text" name="ocontents'+ optCnt +'" class="optInput" placeholder="옵션내용"/>'+
-					'<input type="text" name="addprice"'+optCnt+' class="optInput" placeholder="추가금액"/>';
+					'<input type="text" name="addprice'+optCnt+'" class="optInput" placeholder="추가금액"/>';
 		html += '<button type="button" class="optDelBtn btn btn-danger" onclick="optDel(this);">삭제</button></div>';
 		$("div#divoptattach").append(html);
 		
 		optCnt++;
+		console.log(optCnt);
+		$("input#optCnt").val(optCnt);
 	}
 	
 	function optDel(item) {
@@ -343,6 +344,7 @@ div.optDiv {
 					</td>
 					<td>
 						<div id="divoptattach"></div>
+						<input type="hidden" name="optCnt" id="optCnt" />
 					</td>
 				</tr>
 				

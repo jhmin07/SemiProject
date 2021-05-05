@@ -44,5 +44,8 @@ public interface InterProductDAO {
 	
 	// 제품번호를 가지고서 해당 제품의 정보를 조회해오기
 	ProductVO productDetailPage(String pnum) throws SQLException;
+
+	// tbl_option 테이블에 제품의 추가이미지 파일명 insert 해주기  
+	int product_option_insert(OptionVO ovo) throws SQLException;
 	
 }
