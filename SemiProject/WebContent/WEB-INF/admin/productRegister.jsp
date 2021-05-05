@@ -80,10 +80,14 @@ select {
 }
 
 input.optInput {
-	width: 50%;
+	width: 110px;
 	line-height: 20px;
 	padding: 4px; 
-	margin: 0 10px;
+	margin-left: 5px;
+}
+
+button.optDelBtn {
+	margin-left: 5px;
 }
 
 div.optDiv {
@@ -170,14 +174,7 @@ div.optDiv {
 			}
 		});
 		
-		$("select.optionData").change(function(){
-			console.log("setoname()");
-			var oname = $(this).val();
-			 
-			console.log(oname);
-			$(this).next().val(oname);
-			
-		});
+		
 	});
 
 	
@@ -186,13 +183,14 @@ div.optDiv {
 		var html = "";
 		html += '<div class="optDiv">'+
 					'<select name="onum'+ optCnt +'" class="optionData" onchange="setoname(this);">' +
-						'<option value="">::: 선택하세요 :::</option>'+
+						'<option value="">:::선택하세요:::</option>'+
 						'<option value="0">색상</option>' +
 						'<option value="1">크기</option>'+
 						'<option value="2">조립유무</option>'+
 					'</select>'+
 					'<input type="text" name="oname"'+optCnt+' hidden/>'+
-					'<input type="text" name="ocontents'+ optCnt +'" class="optInput"/>';
+					'<input type="text" name="ocontents'+ optCnt +'" class="optInput" placeholder="옵션내용"/>'+
+					'<input type="text" name="addprice"'+optCnt+' class="optInput" placeholder="추가금액"/>';
 		html += '<button type="button" class="optDelBtn btn btn-danger" onclick="optDel(this);">삭제</button></div>';
 		$("div#divoptattach").append(html);
 		
