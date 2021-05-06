@@ -50,6 +50,8 @@ li {
 <script type="text/javascript">
 	$( function() {
 		
+	//	console.log("${optionList}");
+	//	console.log("${pvo}");
 	// console.log(${requestScope.pvo.fk_decode});	
 		
 	var spinner = $( "#spinner" ).spinner();
@@ -156,13 +158,16 @@ li {
 						</td>
 					<tr>
 					<tr>
-						<td class="pdt_main">OPTION</td>
-						<td class="pdt_sub">
-							<select style="width: 150px;">
-								<option>1</option>
-								<option>2</option>
-							</select>
-						</td>
+						<c:if test="${!requestScope.optionList eq null}">
+							<td class="pdt_main">OPTION</td>
+							<c:forEach></c:forEach>
+							<td class="pdt_sub">
+								<select style="width: 150px;">
+									<option>1</option>
+									<option>2</option>
+								</select>
+							</td>
+						</c:if>
 					<tr>
 				</tbody>
 			</table>
