@@ -185,8 +185,8 @@ div.optDiv {
 				}
 				
 				var $addprice = $onum.next().next().next();
-				var regExg = /^[0-9]+$/;
-				var bool = regExg.test($addprice.val());
+				var regExp = /^[0-9]+$/;
+				var bool = regExp.test($addprice.val());
 				
 				if (!bool) {
 					alert("추가금액을 올바르게 입력하세요.");
@@ -207,6 +207,8 @@ div.optDiv {
 
 	
 	// == Function Declaration == // 
+	
+	// == 옵션 추가 버튼 클릭 시 실행되는 함수 == // 
 	function optAdd() {
 		var html = "";
 		html += '<div class="optDiv">'+
@@ -223,14 +225,16 @@ div.optDiv {
 		$("div#divoptattach").append(html);
 		
 		optCnt++;
-		console.log(optCnt);
+		// console.log(optCnt);
 		$("input#optCnt").val(optCnt);
 	}
 	
+	// == 옵션 삭제 버튼 클릭 시 실행되는 함수 == //
 	function optDel(item) {
 		$(item).parent().remove();
 	}
 	 
+	// == 선택된 옵션번호에 해당하는 옵션이름 input 태그에 값 설정하기 == //
 	function setoname(item) {
 		var onum = $(item).val();
 		var oname = "";
