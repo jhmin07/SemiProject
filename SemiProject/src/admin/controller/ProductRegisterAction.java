@@ -14,6 +14,7 @@ import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 import admin.model.AdminVO;
 import common.controller.AbstractController;
 import myshop.model.InterProductDAO;
+import myshop.model.OptionVO;
 import myshop.model.ProductDAO;
 import myshop.model.ProductVO;
 import myshop.model.SpecVO;
@@ -26,7 +27,7 @@ public class ProductRegisterAction extends AbstractController {
 		// === 관리자(admin)로 로그인 했을 때만 제품등록이 가능하도록 한다. === //
 		if (checkLoginAdmin(request)) { // 관리자(admin)로 로그인 했을 경우
 			String method = request.getMethod();
-			
+
 			if (!"POST".equalsIgnoreCase(method)) { // GET 이라면
 				// 카테고리 목록 조회해오기
 				super.getCategoryList(request);
@@ -60,7 +61,8 @@ public class ProductRegisterAction extends AbstractController {
 					super.setViewPage("/WEB-INF/msg.jsp");
 					return;
 				}
-
+				
+	
 				// 새로운 제품 등록시 form 태그에서 입력한 값들을 얻어오기
 				String fk_decode = mtrequest.getParameter("fk_decode");
 				String pname = mtrequest.getParameter("pname");
@@ -121,10 +123,43 @@ public class ProductRegisterAction extends AbstractController {
 	            	if (m == 0) break;
 	            }
 	            
+	            
+	            // === 추가옵션한 정보가 있다면 tbl_option 테이블에 정보 insert 하기
+	            int optCnt = Integer.parseInt(mtrequest.getParameter("optCnt"));
+	            int l = 1;
+	            
+	            for (int i=0; i<optCnt; i++) { // i 는 태그에 달린 번호를 뜻한다.
+	            	String onum = mtrequest.getParameter("onum"+i); // onum 은 0(색상), 1(크기), 2(조립유무) 값이 들어온다. 
+	            	
+	            	if (onum != null) { // 추가하고 삭제했을 경우 해당 번호의 태그가 없어지기 때문에
+	            		OptionVO ovo = new OptionVO();
+	            		
+	            		String oname = mtrequest.getParameter("oname"+i);
+	            		int addprice = Integer.parseInt(mtrequest.getParameter("addprice"+i));
+	            		String ocontents = mtrequest.getParameter("ocontents"+i);
+	            		
+	            		ovo.setOnum(Integer.parseInt(onum));
+	            		ovo.setOname(oname);
+	            		ovo.setFk_pnum(pnum);
+	            		ovo.setAddprice(addprice);
+	            		ovo.setOcontents(ocontents);
+	            		
+	            		l = pdao.product_option_insert(ovo);
+//	            		System.out.println(i +","+ onum + "," + oname +","+addprice +","+ocontents);
+//	            		optCnt => 4 (4번 추가 후 1번 태그 한개 삭제한 결과)
+//	            		0,0,색상,0,핑크
+//	            		2,1,크기,10000,100 x 150
+//	            		3,2,조립유무,5000,가능
+	            		
+	            		if (l == 0) break;
+	            	}
+	            }
+	            
+	            
 	            String message = "";
 	            String loc = "";
 	            
-	            if(n*m==1) {
+	            if(n*m*l==1) {
 	               message = "제품등록 성공!!";
 	               loc = request.getContextPath()+"/admin/adminMyPage.up";
 	            }

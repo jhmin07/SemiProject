@@ -510,4 +510,3 @@ nominvalue
 nocycle
 nocache;
 --Sequence SEQ_TBL_COMENT_NO이(가) 생성되었습니다.
-
