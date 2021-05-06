@@ -353,15 +353,25 @@ create table tbl_order (
 orderCode       varchar2(50) not null   -- 주문코드
 ,fk_userid      varchar2(50) not null   -- 회원아이디
 ,totalPrice     number       not null   -- 주문총액
-,totalPoint     varchar2(20)            -- 주문총포인트
+,totalPoint     number                  -- 주문총포인트
 ,orderDate      Date    default sysdate -- 주문일자
 ,constraint  PK_tbl_order_orderCode primary key(orderCode)
 ,constraint  FK_tbl_order_fk_userid foreign key(fk_userid) references tbl_member(userid)
 );
 -- Table TBL_ORDER이(가) 생성되었습니다.
 
+insert into tbl_order(orderCode, fk_userid, totalPrice, totalPoint, orderDate) values ('1', 'kimys', 10000, 100, '21/03/21');
+insert into tbl_order(orderCode, fk_userid, totalPrice, totalPoint) values ('2', 'kimys', 20000, 200);
+insert into tbl_order(orderCode, fk_userid, totalPrice, totalPoint, orderDate) values ('3', 'kimys', 10000, 100, '20/12/21');
+insert into tbl_order(orderCode, fk_userid, totalPrice, totalPoint, orderDate) values ('4', 'kimys', 10000, 100, '21/01/31');
+commit;
+
+select ordercode, fk_userid, totalprice, totalpoint, to_char(orderdate, 'yyyy-mm-dd') AS orderdate
+from tbl_order
+where fk_userid = 'kimys';
 
 -- 주문상세 테이블 생성
+-- drop table tbl_order_details purge;
 create table tbl_order_details (
 odNo            number          not null -- 주문상세일련번호
 ,fk_orderCode   varchar2(50)    not null -- 주문코드
@@ -376,9 +386,11 @@ odNo            number          not null -- 주문상세일련번호
 );
 -- Table TBL_ORDER_DETAILS이(가) 생성되었습니다.
 
-
+select *
+from tbl_order_details;
 
 -- 배송지정보 테이블 생성
+-- drop table tbl_delivery purge;
 create table tbl_delivery ( --receiver 을 rec 로 표현
 fk_orderCode        varchar2(50)    -- 주문코드
 ,recMobile          varchar2(200)   -- 연락처 (AES-256 암호화/복호화 대상) 

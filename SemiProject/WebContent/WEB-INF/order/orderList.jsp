@@ -1,6 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
 <% 
 	String ctxPath = request.getContextPath();
 %>
@@ -78,8 +81,11 @@ tr.odr_tr > td {
 </style>
 
 <script type="text/javascript">
-$(document).ready(function(){	
-			
+$(document).ready(function(){				
+	
+	$("input#fromDate").html("${requestScope.fromDate}");
+	$("input#toDate").html("${requestScope.toDate}");
+	
 	// === 전체 datepicker 옵션 일괄 설정하기 ===  
     //     한번의 설정으로 $("input#fromDate"), $('input#toDate')의 옵션을 모두 설정할 수 있다.
 	$(function() {
@@ -112,6 +118,9 @@ $(document).ready(function(){
 		// To의 초기값을 오늘로 설정
 		$('input#toDate').datepicker('setDate', 'today'); // (-1D:하루전, -1M:한달전, -1Y:일년전), (+1D:하루후, +1M:한달후, +1Y:일년후)
 	});
+	
+	
+	
 });
 	
 	// Function Declaration
@@ -143,6 +152,14 @@ $(document).ready(function(){
 		$("#fromDate").datepicker( "option", "maxDate", endDate );
 	}
 
+	
+	// 날짜별 주문조회하기
+	function showOrderListByDate(){
+		var frm = document.orderListFrm;
+		frm.action = "<%= ctxPath%>/order/orderList.up";
+		frm.method = "GET";
+		frm.submit();
+	}
 </script>
 
 <div class="container">	
@@ -161,33 +178,35 @@ $(document).ready(function(){
 			<option value="order_return">반품</option>
 		</select>
 		
-	<%-- 조회기간 --%>	
-		<br>
-		<span class="period">
-			<span class="chkbox">
-				<input type="radio" class="dateType" id="dateType1" onclick="setSearchDate('0d')"/>
-				<label for="dateType1">오늘</label>
+		<%-- 조회기간 --%>
+		<form name="orderListFrm">			
+			<br>
+			<span class="period">
+				<span class="chkbox">
+					<input type="radio" class="dateType" id="dateType1" onclick="setSearchDate('0d')"/>
+					<label for="dateType1">오늘</label>
+				</span>
+				<span class="chkbox">
+					<input type="radio" class="dateType" id="dateType2" onclick="setSearchDate('1w')"/>
+					<label for="dateType2">1주일</label>
+				</span>
+				<span class="chkbox">
+					<input type="radio" class="dateType" id="dateType3" onclick="setSearchDate('1m')"/>
+					<label for="dateType3">1개월</label>
+				</span>
+				<span class="chkbox">
+					<input type="radio" class="dateType" id="dateType4" onclick="setSearchDate('3m')"/>
+					<label for="dateType4">3개월</label>
+				</span>
+				<span class="chkbox">
+					<input type="radio" class="dateType" id="dateType5" onclick="setSearchDate('6m')"/>
+					<label for="dateType5">6개월</label>
+				</span>
 			</span>
-			<span class="chkbox">
-				<input type="radio" class="dateType" id="dateType2" onclick="setSearchDate('1w')"/>
-				<label for="dateType2">1주일</label>
-			</span>
-			<span class="chkbox">
-				<input type="radio" class="dateType" id="dateType3" onclick="setSearchDate('1m')"/>
-				<label for="dateType3">1개월</label>
-			</span>
-			<span class="chkbox">
-				<input type="radio" class="dateType" id="dateType4" onclick="setSearchDate('3m')"/>
-				<label for="dateType4">3개월</label>
-			</span>
-			<span class="chkbox">
-				<input type="radio" class="dateType" id="dateType5" onclick="setSearchDate('6m')"/>
-				<label for="dateType5">6개월</label>
-			</span>
-		</span>
-	
-		<input type="text" class="datepicker" id="fromDate" autocomplete="off"> - <input type="text" class="datepicker" id="toDate" autocomplete="off">
-		<span id="showOrderList" onclick="gosearch()">조회</span>
+		
+			<input type="text" class="datepicker" id="fromDate" name="fromDate" autocomplete="off"> - <input type="text" class="datepicker" id="toDate" name="toDate" autocomplete="off">
+			<span id="showOrderList" onclick="showOrderListByDate()">조회</span>
+		</form>
 	</div>
 	
 	<div style="margin: 5px 0;">
@@ -210,9 +229,30 @@ $(document).ready(function(){
 		</thead>
 		
 		<tbody>
+		<%-- 
+			<c:if test="${empty requestScope.orderList}">
+				<tr>
+					<td colspan="7" align="center">
+						장바구니에 담긴 상품이 없습니다.
+					</td>
+				</tr>
+			</c:if>
+			
+			<c:if test="${not empty requestScope.cartList}">
+				<c:forEach var="ordervo" items="${requestScope.orderList}" varStatus="status">
+				<td>${ordervo.orderDate}</td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				</c:forEach>			
+			</c:if>
+		--%>	
 			<tr class="odr_tr">				
 				<td>2021-05-04</td>
-				<td><img class="odr_img" src="<%=ctxPath%>/image/product/kitchen/furniture/furniture_01_01.jpg"></td>
+				<td><img class="odr_img" src="<%=ctxPath%>/image/product/30001/furniture_01_01.jpg"></td>
 				<td></td>
 				<td>1개</td>
 				<td>10,000원</td>

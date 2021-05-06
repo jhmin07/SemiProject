@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import javax.naming.Context;
@@ -65,6 +67,45 @@ public class OrderDAO implements InterOrderDAO {
 		}
 		
 		return n;
+	}
+
+	
+	// 주문 내역 조회(select) 하는 함수
+	@Override
+	public List<OrderVO> selectOrderList(Map<String, String> paraMap, String userid) throws SQLException {
+		List<OrderVO> orderList = new ArrayList<>();
+		
+		try {
+			conn = ds.getConnection();
+			
+			String sql = " select totalprice, totalpoint, to_char(orderdate, 'yyyy-mm-dd') AS orderdate "
+					   + " from tbl_order "
+					   + " where fk_userid = ?"
+					   + " and orderdate between ? and ? ";
+			
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, userid);
+			pstmt.setString(2, paraMap.get("fromDate"));
+			pstmt.setString(3, paraMap.get("toDate"));
+			
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				OrderVO ovo = new OrderVO();
+				
+				ovo.setTotalPrice(rs.getInt(1));
+				ovo.setTotalPoint(rs.getInt(2));
+				ovo.setOrderDate(rs.getString(3));
+				
+				orderList.add(ovo);
+			}
+			
+		} finally {
+			close();
+		}
+		
+		return orderList;
 	}
 
 }
