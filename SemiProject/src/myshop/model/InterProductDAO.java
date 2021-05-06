@@ -59,6 +59,7 @@ public interface InterProductDAO {
 	int addCart(String userid, String pnum, String odAmount) throws SQLException;
 	
 
-
+	// tbl_option 테이블에 제품의 추가이미지 파일명 insert 해주기  
+	int product_option_insert(OptionVO ovo) throws SQLException;
 	
 }
