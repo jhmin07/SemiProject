@@ -50,6 +50,8 @@ li {
 <script type="text/javascript">
 	$( function() {
 		
+	// console.log(${requestScope.pvo.fk_decode});	
+		
 	var spinner = $( "#spinner" ).spinner();
 	
 	$("input#spinner").spinner({
@@ -64,37 +66,72 @@ li {
             }
          }
 	});
-	// spinner.spinner( "value", 5 );
-	}); // end of $( function(){} );
+	
+	}); // end of $(function(){});
+	
+	function goCart() {
+		   // pnum 은 장바구니에 담을 제품번호 이다.
+		   console.log("dd")
+		   // === 주문량에 대한 유효성 검사하기 === //
+		   var frm = document.pdtFrm;
+		   frm.method = "post";
+		   frm.action = "<%= request.getContextPath()%>/order/goCart.up";
+		   frm.submit();
+		   
+/* 		   
+ 
+ 		   var regExp = /^[0-9]+$/; // 숫자만 체크하는 정규표현식 
+		   var odAmount = frm.odAmount.value;
+		   var bool = regExp.test(odAmount);
+		   
+		   if(!bool) {
+			   // 숫자 이외의 값이 들어온 경우
+			   alert("주문갯수는 1개 이상이어야 합니다.");
+			   frm.odAmount.value = "1";
+			   frm.odAmount.focus();
+			   return; // 종료 
+		   }
+		   
+		   // 문자형태로 숫자로만 들어온 경우 
+		   odAmount = parseInt(odAmount);
+		   if(odAmount < 1) {
+			   alert("주문갯수는 1개 이상이어야 합니다.");
+			   frm.odAmount.value = "1";
+			   frm.odAmount.focus();
+			   return; // 종료 
+		   } 
+*/
+
+		   
+	   }// end of function goCart(pnum) {}------------------------------------	
+	
+	
 </script>
 
 <div id="detailcontainer" style="width:100%; margin-top: 100px; background-color: #f2f2f2; display: table; height: 500px;" align="center">
 	
 	<div style="display:table-cell; width: 50%; vertical-align: middle;" >
-		<img src="<%= ctxPath %>/image/ProjectImg/Poduct.png" style="width:450px; height:400px; cursor: pointer; ">
+	<c:if test="${requestScope.pvo.fk_decode eq 10001}"><img src="<%= ctxPath %>/image/product/10001/${requestScope.pvo.pimage1}" style="width:450px; height:400px; cursor: pointer; "></c:if>
+	<c:if test="${requestScope.pvo.fk_decode eq 10002}"><img src="<%= ctxPath %>/image/product/10002/${requestScope.pvo.pimage1}" style="width:450px; height:400px; cursor: pointer; "></c:if>
+	<c:if test="${requestScope.pvo.fk_decode eq 10003}"><img src="<%= ctxPath %>/image/product/10003/${requestScope.pvo.pimage1}" style="width:450px; height:400px; cursor: pointer; "></c:if>
+	<c:if test="${requestScope.pvo.fk_decode eq 10004}"><img src="<%= ctxPath %>/image/product/10004/${requestScope.pvo.pimage1}" style="width:450px; height:400px; cursor: pointer; "></c:if>
+	<c:if test="${requestScope.pvo.fk_decode eq 20001}"><img src="<%= ctxPath %>/image/product/20001/${requestScope.pvo.pimage1}" style="width:450px; height:400px; cursor: pointer; "></c:if>
+	<c:if test="${requestScope.pvo.fk_decode eq 20002}"><img src="<%= ctxPath %>/image/product/20002/${requestScope.pvo.pimage1}" style="width:450px; height:400px; cursor: pointer; "></c:if>
+	<c:if test="${requestScope.pvo.fk_decode eq 20003}"><img src="<%= ctxPath %>/image/product/20003/${requestScope.pvo.pimage1}" style="width:450px; height:400px; cursor: pointer; "></c:if>
+	<c:if test="${requestScope.pvo.fk_decode eq 20004}"><img src="<%= ctxPath %>/image/product/20004/${requestScope.pvo.pimage1}" style="width:450px; height:400px; cursor: pointer; "></c:if>
+	<c:if test="${requestScope.pvo.fk_decode eq 30001}"><img src="<%= ctxPath %>/image/product/30001/${requestScope.pvo.pimage1}" style="width:450px; height:400px; cursor: pointer; "></c:if>
+	<c:if test="${requestScope.pvo.fk_decode eq 30002}"><img src="<%= ctxPath %>/image/product/30002/${requestScope.pvo.pimage1}" style="width:450px; height:400px; cursor: pointer; "></c:if>
+	<c:if test="${requestScope.pvo.fk_decode eq 30003}"><img src="<%= ctxPath %>/image/product/30003/${requestScope.pvo.pimage1}" style="width:450px; height:400px; cursor: pointer; "></c:if>
+	<c:if test="${requestScope.pvo.fk_decode eq 40001}"><img src="<%= ctxPath %>/image/product/40001/${requestScope.pvo.pimage1}" style="width:450px; height:400px; cursor: pointer; "></c:if>
+	<c:if test="${requestScope.pvo.fk_decode eq 40002}"><img src="<%= ctxPath %>/image/product/40002/${requestScope.pvo.pimage1}" style="width:450px; height:400px; cursor: pointer; "></c:if>
+	<c:if test="${requestScope.pvo.fk_decode eq 40003}"><img src="<%= ctxPath %>/image/product/40003/${requestScope.pvo.pimage1}" style="width:450px; height:400px; cursor: pointer; "></c:if>
 	</div>
-	
-	<c:if test=""></c:if>
-	<c:if test=""></c:if>
-	<c:if test=""></c:if>
-	<c:if test=""></c:if>
-	<c:if test=""></c:if>
-	<c:if test=""></c:if>
-	<c:if test=""></c:if>
-	<c:if test=""></c:if>
-	<c:if test=""></c:if>
-	<c:if test=""></c:if>
-	<c:if test=""></c:if>
-	<c:if test=""></c:if>
-	<c:if test=""></c:if>
-	<c:if test=""></c:if>
-	<c:if test=""></c:if>
-	
+
 	<div style="display:table-cell; width: 50%; text-align: left; padding-left: 160px; vertical-align: middle; ">	
 
 		<h3 style="font-weight: bold;">${requestScope.pvo.pname}</h3>
 		<br>
-		<form id="pdt">
+		<form name="pdtFrm">
 		<table style="vertical-align: middle;">
 				<tbody>
 					<tr>
@@ -108,15 +145,15 @@ li {
 						<td class="pdt_sub">\ <fmt:formatNumber value="${requestScope.pvo.saleprice}" pattern="###,###" /></td>
 					<tr>
 					<tr>
+						<td class="pdt_main">POINT</td>
+						<td class="pdt_sub" >${requestScope.pvo.point}&nbsp;<span >&nbsp;POINT</span></td>
+					<tr>					
+					<tr>
 						<td class="pdt_main">QUANTITY</td>
 						<td class="pdt_sub" >
 							<label for="spinner"></label>
-	 						<input id="spinner" name="value" size="3pt" value="1" style="height: 20px;">
+	 						<input id="spinner" name="odAmount" size="3pt" value="1" style="height: 20px;">
 						</td>
-					<tr>
-					<tr>
-						<td class="pdt_main">POINT</td>
-						<td class="pdt_sub" >${requestScope.pvo.point}&nbsp;<span >&nbsp;POINT</span></td>
 					<tr>
 					<tr>
 						<td class="pdt_main">OPTION</td>
@@ -129,7 +166,8 @@ li {
 					<tr>
 				</tbody>
 			</table>
-			<input type="submit"  value="장바구니에 담기"  style="background-color: black; color: white;  width: 350px; margin-top: 10px; height: 30px;"/>
+			<button type="button"  onclick="goCart();" style="background-color: black; color: white;  width: 350px; margin-top: 10px; height: 30px;">장바구니에 담기</button>
+			<input type="hidden" name="pnum" value="${requestScope.pvo.pnum}" />
 			<br>
 			<input type="submit" value="주문하러 가기" style="background-color: black; color: white;  width: 350px; margin-top: 5px; height: 30px;" />
 			</form>
@@ -140,7 +178,20 @@ li {
 
 <div align="center" style="margin-top: 100px;">
 <div id="description_content">
-<img src="<%= ctxPath %>/image/ProjectImg/product2.png" />
+	<c:if test="${requestScope.pvo.fk_decode eq 10001}"><img src="<%= ctxPath %>/image/product/10001/${requestScope.pvo.pimage2}" style="width:450px; height:400px; cursor: pointer; "></c:if>
+	<c:if test="${requestScope.pvo.fk_decode eq 10002}"><img src="<%= ctxPath %>/image/product/10002/${requestScope.pvo.pimage2}" style="width:450px; height:400px; cursor: pointer; "></c:if>
+	<c:if test="${requestScope.pvo.fk_decode eq 10003}"><img src="<%= ctxPath %>/image/product/10003/${requestScope.pvo.pimage2}" style="width:450px; height:400px; cursor: pointer; "></c:if>
+	<c:if test="${requestScope.pvo.fk_decode eq 10004}"><img src="<%= ctxPath %>/image/product/10004/${requestScope.pvo.pimage2}" style="width:450px; height:400px; cursor: pointer; "></c:if>
+	<c:if test="${requestScope.pvo.fk_decode eq 20001}"><img src="<%= ctxPath %>/image/product/20001/${requestScope.pvo.pimage2}" style="width:450px; height:400px; cursor: pointer; "></c:if>
+	<c:if test="${requestScope.pvo.fk_decode eq 20002}"><img src="<%= ctxPath %>/image/product/20002/${requestScope.pvo.pimage2}" style="width:450px; height:400px; cursor: pointer; "></c:if>
+	<c:if test="${requestScope.pvo.fk_decode eq 20003}"><img src="<%= ctxPath %>/image/product/20003/${requestScope.pvo.pimage2}" style="width:450px; height:400px; cursor: pointer; "></c:if>
+	<c:if test="${requestScope.pvo.fk_decode eq 20004}"><img src="<%= ctxPath %>/image/product/20004/${requestScope.pvo.pimage2}" style="width:450px; height:400px; cursor: pointer; "></c:if>
+	<c:if test="${requestScope.pvo.fk_decode eq 30001}"><img src="<%= ctxPath %>/image/product/30001/${requestScope.pvo.pimage2}" style="width:450px; height:400px; cursor: pointer; "></c:if>
+	<c:if test="${requestScope.pvo.fk_decode eq 30002}"><img src="<%= ctxPath %>/image/product/30002/${requestScope.pvo.pimage2}" style="width:450px; height:400px; cursor: pointer; "></c:if>
+	<c:if test="${requestScope.pvo.fk_decode eq 30003}"><img src="<%= ctxPath %>/image/product/30003/${requestScope.pvo.pimage2}" style="width:450px; height:400px; cursor: pointer; "></c:if>
+	<c:if test="${requestScope.pvo.fk_decode eq 40001}"><img src="<%= ctxPath %>/image/product/40001/${requestScope.pvo.pimage2}" style="width:450px; height:400px; cursor: pointer; "></c:if>
+	<c:if test="${requestScope.pvo.fk_decode eq 40002}"><img src="<%= ctxPath %>/image/product/40002/${requestScope.pvo.pimage2}" style="width:450px; height:400px; cursor: pointer; "></c:if>
+	<c:if test="${requestScope.pvo.fk_decode eq 40003}"><img src="<%= ctxPath %>/image/product/40003/${requestScope.pvo.pimage2}" style="width:450px; height:400px; cursor: pointer; "></c:if>
 <br>
 <h2 style="text-align: center; margin :50px 0 20px 0;" align="center">DESCRIPTION</h2>
 <span> ${requestScope.pvo.pcontent} </span>

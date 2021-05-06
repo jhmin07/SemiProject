@@ -325,5 +325,64 @@ public class AdminDAO implements InterAdminDAO {
 		return mvo;
 	}
 
+	// 아이디 찾기_ 관리자
+	@Override
+	public String findUserid(Map<String, String> paraMap) throws SQLException {
+		
+		String adminID = null;
+		
+		try {
+			 conn = ds.getConnection();
+			 
+			 String sql = " select adId "
+			 		    + " from tbl_admin "
+			 		    + " where adName = ? and adEmail = ? ";
+			 
+			 pstmt = conn.prepareStatement(sql);
+			 pstmt.setString(1, paraMap.get("name") );
+			 pstmt.setString(2, aes.encrypt(paraMap.get("email")));
+			 
+			 rs = pstmt.executeQuery();
+			 
+			 if(rs.next()) {
+				 adminID = rs.getString(1);
+			 }
+		}catch(GeneralSecurityException | UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}finally {
+			close();
+		}
+		
+		return adminID;
+	}
+
+	@Override
+	public boolean isUserExist(Map<String, String> paraMap) throws SQLException {
+		boolean isUserExist = false;
+		
+		try {
+			conn = ds.getConnection();
+			 
+			 String sql = " select userid "
+			 		    + " from tbl_admin "
+			 		    + " where userid = ? and email = ? ";
+			 
+			 pstmt = conn.prepareStatement(sql);
+			 pstmt.setString(1, paraMap.get("userid") );
+			 pstmt.setString(2, aes.encrypt(paraMap.get("email")));
+			 
+			 rs = pstmt.executeQuery();
+			 
+			 isUserExist = rs.next();
+		
+		} catch(GeneralSecurityException | UnsupportedEncodingException e) {
+			e.printStackTrace();
+		} finally {
+			close();
+		}
+		
+		return isUserExist;		
+	}
+
 
 }

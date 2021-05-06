@@ -74,7 +74,7 @@ public class NoticeWriteSubmitAction extends AbstractController {
             request.setAttribute("message", message);
             request.setAttribute("loc", loc);
             
-            super.setViewPage("/WEB-INF/msg.jsp");;
+            super.setViewPage("/WEB-INF/msg.jsp");
 			
 			 } 
 		else { String message = "관리자만 접근이 가능합니다."; String loc =

@@ -125,8 +125,8 @@ div#cart_side{
  	background-color:#FCF8E3; 
  	color:#A38C60; 
  	text-align:center; 
- 	height: 80px; 
- 	font-size:9pt;
+ 	font-size:10pt;
+ 	padding:5px;
  }
  td#cart_productNumber{
 	font-size:11pt;
@@ -139,7 +139,7 @@ div#cart_side{
 	padding-top:20px;
  }
 
- td#td_plusminus>img{
+ td#td_plusminus> img{
 	width:15px;
 	height:15px;
 	cursor: pointer;
@@ -224,8 +224,7 @@ button:hover{
 <script type="text/javascript">
 
 $(document).ready(function(){
-	
-	var qty = 1; //디폴트 수량 나중에는 수량이 넘어올 것임
+
 	
 	//== 체크박스 전체선택/전체해제 == //
 	$("input:checkbox[name=checkall]").click(function(){
@@ -261,27 +260,6 @@ $(document).ready(function(){
 	});
 	
 	
-/* 	//== 수량 변경하기 ==//
-	$("img#minus_cart").click(function(){
-		
-		if( qty > 1){
-			qty -= 1;
-		}
-		else{
-			alert("수량은 한개 이상 구매 하셔야 합니다.");
-			return;
-		}
-		$("span#order_cnt").val(qty);
-	});
-	
-	$("img#plus_cart").click(function(){
-		
-		if( qty >= 1){
-			qty += 1;
-		}
-		$("span#order_cnt").val(qty);
-		
-	}); */
 	
 	/* 
 	//== 장바구니 물건 삭제하기 ==//
@@ -302,7 +280,34 @@ $(document).ready(function(){
 
 // function declation
 
-
+	function count_plus() {
+		
+		var n = Number($("input#count").val());
+		
+		 if(n>100){
+			alert("주문가능한 수량을 초과하였습니다.");
+			return;
+		}
+		else{
+			$("input#count").val(n + 1);
+		}
+		
+		
+	}
+	
+	function count_minus() {
+		
+		var n = Number($("input#count").val());
+		
+		if(n == 1){
+			alert("최소수량은 1개 이상입니다.");
+		}
+		else{
+			$("input#count").val(n - 1);
+		}
+		
+		
+	}
 
 
 
@@ -315,14 +320,14 @@ $(document).ready(function(){
 
 <div id="cart_content">
 	<button type="button" id="btnDelete">장바구니 비우기</button>
-	  
+	<form name='form'>  
 	<table class="table odr_list table-hover">
 	  
 	  	<thead>
 			<tr>
 				<th><input type="checkbox" name="checkall"/><span id="check"></span></th>
 				<th>이미지</th>
-				<th>상품정보(option)</th>
+				<th>상품정보</th>
 				<th>판매가</th>
 				<th>수량</th>
 				<th>적립금</th>
@@ -333,7 +338,8 @@ $(document).ready(function(){
 		</thead>
 		
 		<tbody>
-			<c:forEach var="var" begin="1" end="8">
+		
+			<c:forEach var="pro" begin="1" end="8">
 				<%-- test value 값 --%>
 				<c:set var="product_price" value="10000"/>
 				<c:set var="order_cnt" value="1"/>
@@ -341,23 +347,24 @@ $(document).ready(function(){
 				<tr class="odr_tr">
 					<td ><input type="checkbox" name="product" id="product${var}"/><span id="check"></span></td>
 					<td><label for="product${var}"><img class="cart_image" src="<%=ctxPath%>/image/cart/sample_cart${var}.jpg" ></label></td>
-					<td><span id="productName_cart">XXL 사이즈 린넨커버</span><br>제품번호 <span id="cart_productNumber">4212900825070</span><br><span id="cart_productOption">70 x 90 cm</span></td>
+					<td><span id="productName_cart">${product_name}</span><br>제품번호 <span id="cart_productNumber">${product_num}</span><br><span id="cart_productOption">${product_option}</span></td>
 					<td><fmt:formatNumber value="${product_price}" pattern="#,###" /> 원</td>
-					<td id="td_plusminus"><img id="minus_cart" src="image/cart/minus.png" />&nbsp;<span id="order_cnt" style="padding:4px;"><fmt:formatNumber value="${order_cnt}" pattern="#,###" /></span>&nbsp;<img id="Plus_cart" src="image/cart/plus.png" /></td>
+					<td id="td_plusminus"><img id="minus_cart" src="../image/cart/minus.png" onclick="count_minus()"/>&nbsp;<input class="count" type='text' name='count' value='${order_cnt}' size='1' readonly />&nbsp;<img id="Plus_cart" onclick="count_plus()" src="../image/cart/plus.png" /></td>
 					<td><fmt:formatNumber value="${product_price*0.01}" pattern="#,###" /></td>
 					<td><fmt:formatNumber value="${product_price*order_cnt}" pattern="#,###" /> 원</td>
 					<!-- 삭제 버튼을 누르면 delete.do로 장바구니 개별 id (삭제하길원하는 장바구니 id)를 보내서 삭제한다. -->
-					<td><a href="<%= ctxPath %>/order/cart_delete.up?cart_id=<%-- ${id} --%>"><img id="delete_cart" src="image/cart/delete.png" style="width: 10px; height: 10px;"/></a></td> <!-- 변함없을 예정 -->
+					<td><a href="<%= ctxPath %>/order/cart_delete.up?cart_id=<%-- ${id} --%>"><img id="delete_cart" src="../image/cart/delete.png" style="width: 10px; height: 10px;"/></a></td> <!-- 변함없을 예정 -->
 					
 
 				</tr>
 				
 				<c:set var="total_price" value="${total_price + product_price * order_cnt}"/>	
 			</c:forEach>
-			
+		
 		</tbody>
+		
       </table>
-         
+       </form> 
 </div>
 
 
@@ -366,7 +373,7 @@ $(document).ready(function(){
 	<table>
 
 		<tr>
-			<th class="side_cart" id="cart_th_3" colspan="2" >주문요약<br>(<span id="count_product_cart">2</span>제품)</th>
+			<th class="side_cart" id="cart_th_3" colspan="2" >주문요약<br>(<span id="count_product_cart"></span>제품)</th>
 		</tr>
 
 		<tr class="side_cart" id="total_price_in_cart">
@@ -391,7 +398,8 @@ $(document).ready(function(){
 	<br><br>
 	
 	<div id="cart_promo">
-		프로모션 코드가 있으신가요? 나중에 결제페이지에서 입력하십시오
+		POINT를 합산하여 할인된 금액은 <br>
+		주문페이지에서 확인 가능합니다.
 	</div>
 	<br>
 

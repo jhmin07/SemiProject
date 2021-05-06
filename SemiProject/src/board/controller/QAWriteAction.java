@@ -20,7 +20,7 @@ public class QAWriteAction extends AbstractController {
 
 		HttpSession session = request.getSession();
 		MemberVO loginuser = (MemberVO) session.getAttribute("loginuser");
-
+		
 		if(loginuser.getUserid() !=null ) {
 		super.setRedirect(false);
 		super.setViewPage("/WEB-INF/board/QAWrite.jsp");	

@@ -66,11 +66,12 @@ p{
 }
 
 div.personalInfo{
-	/* border: solid 1px red; */
+	padding: 30px;
+/* 	border: solid 2px #9FA7B6; */
 	width: 650px;
 	position: relative;
     left: 21%;
-/*     background-color: #CBCBCB; */
+     background-color: #F1F3F4; 
     
 
 	
@@ -87,7 +88,7 @@ span.input{
  $(function(){
 	 
 	 $("div#orderList").bind("click", function(){
-		 location.href= "<%= ctxPath%>/member/";
+		 location.href= "<%= ctxPath%>/order/orderList.up";
 	 });
 	 $("div#myInfo").bind("click", function(){
 		 location.href= "<%= ctxPath%>/member/memberEdit.up?userid=${sessionScope.loginuser.userid}";
@@ -106,7 +107,7 @@ span.input{
 
 <div class="container">
 	<h2>MY PAGE</h2>
-	<p>안녕하세요 <span style="font-weight: bold; color: black;">${(sessionScope.loginuser).name}</span>님 마이페이지입니다.</p>
+	<p>안녕하세요 RHOME을 이용해주셔서 감사합니다. <br><span style="font-weight: bold; color: black;">${(sessionScope.loginuser).name}</span>님의 마이페이지 입니다.</p>
 	     <div class="button_base b01" id="orderList">
 	     	ORDER LIST
 	     </div>

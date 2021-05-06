@@ -9,9 +9,7 @@
 
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
 <style type="text/css">	
 	img#boardImg {
 		width: 90%;		
@@ -61,7 +59,7 @@
 
 	table.writeSearchTable{
 		width: 90%;
-		text-align: center;
+		text-align: right;
 	}
 	table.writeSearchTable td#write{
 		width: 85px;
@@ -69,6 +67,7 @@
 </style>
 <script type="text/javascript">
 	$(document).ready(function(){		
+		commentCnt();
 		
 		if("${fn:trim(requestScope.searchWord)}" != ""){
 			$("select#searchType").val("${requestScope.searchType}");
@@ -108,6 +107,36 @@
 	function goWriteQA(){
 		location.href="<%=request.getContextPath()%>/board/QAWrite.up";
 	};
+	function commentCnt(){
+		$("td.qaNo").each(function(index,item){
+			var qaNo = $(this).text();
+			var $this = $(this);
+			console.log("write" + $("td#write").text());
+			console.log("qaNo" + qaNo);
+			$.ajax({	// 화면의 변화는 없고 DB만 바꿔줄거라서 ajax를 사용
+				   url:"<%=request.getContextPath()%>/board/commentCnt.up",
+				   type:"post",
+				   data:{"qaNo":qaNo},
+				   dataType:"json",
+				   success:function(json){
+					   var html="";
+					   var now=$this.next().text();
+					   if(json.CommentCnt!=0){
+						   html = now + "&nbsp;&nbsp;&nbsp;("+json.CommentCnt+")";
+					   }
+					   else{
+						   html = now;
+					   }	
+					  		$this.next().html(html);
+				   },
+				   error: function(request, status, error){
+			            alert("code: "+request.status+"\n"+"message: "+request.responseText+"\n"+"error: "+error);
+			         }
+			   });
+		});
+		
+	
+	}
 </script>
 
 <div class="container" align="center">
@@ -140,9 +169,11 @@
 						<button type="button" onclick="goSearch();" style="background-color: white; color: black; font-size: 17px; font-weight: bold; border-radius: 5%">검색</button>				
 					</form>
 			</td>
-			<td id="write">
-					<button onClick="goWriteQA();" style="background-color: black; color: white; font-size: 17px; font-weight: bold; border-radius: 5%">글쓰기</button>
-			</td>
+			<c:if test="${requestScope.loginuser.userid != null}">
+				<td id="write">
+						<button onClick="goWriteQA();" style="background-color: black; color: white; font-size: 17px; font-weight: bold; border-radius: 5%">글쓰기</button>
+				</td>
+			</c:if>
 		</tr>
 	</table>
 
@@ -160,9 +191,9 @@
 		
 						
 		<tbody id="NoticeList">
-        	<c:forEach var="qvo" items="${requestScope.qaList}">
+        	<c:forEach var="qvo" items="${requestScope.qaList}" varStatus="index">
         		<tr class= "QAHead">
-        			<td class="qaNo">${qvo.qaNo}</td>
+        			<td class="qaNo" id=index>${qvo.qaNo}</td>
         			<td class="Title">${qvo.qaTitle}</td>
         			<td>${qvo.fk_userid}</td>
         			<td>${qvo.qaRegisterday}</td>

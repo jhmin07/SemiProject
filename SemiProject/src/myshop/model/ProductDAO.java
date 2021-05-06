@@ -521,6 +521,214 @@ public class ProductDAO implements InterProductDAO {
 		
 	}
 
+
+	//세부카테고리 목록 조회해오기
+		@Override
+		public List<DetailCategoryVO> selectdetailList(String cnum) throws SQLException {
+			
+			List<DetailCategoryVO> detailList = new ArrayList<>();
+
+			try {
+				conn = ds.getConnection();
+
+				String sql = " select fk_cnum, decode, dename "+
+								" from tbl_detailCategory P "+
+								" JOIN tbl_category C "+
+								" ON P.fk_cnum = C.cnum "+
+								" where C.cnum = ? ";
+
+				pstmt = conn.prepareStatement(sql);
+
+				pstmt.setString(1, cnum);
+				
+				rs = pstmt.executeQuery();
+
+				while (rs.next()) {
+					DetailCategoryVO devo = new DetailCategoryVO();
+					devo.setFk_cnum(rs.getInt(1));
+					devo.setDecode(rs.getString(2));
+					devo.setDename(rs.getString(3));
+
+					detailList.add(devo);
+				}
+
+			} finally {
+				close();
+			}
+
+			return detailList;
+		}
+
+		// 특정 카테고리에 속하는 제품들을 일반적인 페이징 처리하여 조회(select)해오기
+		@Override
+		public List<ProductVO> selectProductByCategory(Map<String, String> paraMap) throws SQLException {
+			
+			List<ProductVO> prodList = new ArrayList<>();
+			
+			try {
+				conn=ds.getConnection();
+				
+				String sql = " select dename, sname, pnum, pname, pcompany, pimage1, pimage2, pqty, price, saleprice, pcontent, point, pinputdate, fk_decode "+
+								" from "+
+								" ( "+
+								"    select rownum AS RNO, dename, sname, pnum, pname, pcompany, pimage1, pimage2, pqty, price, saleprice, pcontent, point, pinputdate, fk_decode "+
+								"    from "+
+								"    ( "+
+								"        select C.dename, S.sname, pnum, pname, pcompany, pimage1, pimage2, pqty, price, saleprice, pcontent, point, pinputdate,  fk_decode "+
+								"        from "+
+								"        ( "+
+								"            select pnum, pname, pcompany, pimage1, pimage2, pqty, price, saleprice, pcontent, point, to_char(pinputdate, 'yyyy-mm-dd') as pinputdate, fk_decode, fk_snum "+
+								"            from tbl_product "+
+								"            where fk_decode = ? "+
+								"            order by pnum desc "+
+								"        ) P "+
+								"        JOIN tbl_detailCategory C "+
+								"        ON P.fk_decode = C.decode "+
+								"        JOIN tbl_spec S "+
+								"        ON P.fk_snum = S.snum "+
+								"    ) V "+
+								" ) T "+
+								" where T.RNO between ? and ? ";
+				
+				pstmt = conn.prepareStatement(sql);
+				
+				int currentShowPageNo = Integer.parseInt(paraMap.get("currentShowPageNo"));
+				int sizePerPage = 8;
+				
+				pstmt.setString(1, paraMap.get("decode"));
+				pstmt.setInt(2, (currentShowPageNo * sizePerPage) - (sizePerPage - 1)); 
+		        pstmt.setInt(3, (currentShowPageNo * sizePerPage));  
+		        
+		        rs = pstmt.executeQuery();
+		        
+		        while(rs.next()) {
+		        	
+		        	ProductVO pvo = new ProductVO();
+		        	
+		        	 pvo.setPnum(rs.getInt("pnum"));      // 제품번호
+		             pvo.setPname(rs.getString("pname")); // 제품명
+		             
+		             DetailCategoryVO decategvo = new DetailCategoryVO(); 
+		             decategvo.setDename(rs.getString("dename"));  // 카테고리명  
+		             //decategvo.setDecode(rs.getString("fk_decode"));
+		    
+		             pvo.setDecategvo(decategvo);				// 세부카테고리
+		             pvo.setFk_decode(rs.getString("fk_decode"));
+		             pvo.setPcompany(rs.getString("pcompany")); // 제조회사명
+		             pvo.setPimage1(rs.getString("pimage1"));   // 제품이미지1   이미지파일명
+		             pvo.setPimage2(rs.getString("pimage2"));   // 제품이미지2   이미지파일명
+		             pvo.setPqty(rs.getInt("pqty"));            // 제품 재고량
+		             pvo.setPrice(rs.getInt("price"));          // 제품 정가
+		             pvo.setSaleprice(rs.getInt("saleprice"));  // 제품 판매가(할인해서 팔 것이므로)
+		               
+		             SpecVO spvo = new SpecVO(); 
+		             spvo.setSname(rs.getString("sname")); // 스펙이름 
+		             
+		             pvo.setSpvo(spvo); // 스펙 
+		               
+		             pvo.setPcontent(rs.getString("pcontent"));       // 제품설명 
+		             pvo.setPoint(rs.getInt("point"));              // 포인트 점수        
+		             pvo.setPinputdate(rs.getString("pinputdate")); // 제품입고일자                                             
+		             
+		             prodList.add(pvo);
+		        }// end of while
+		        
+			} finally {
+				close();
+			}
+			
+			return prodList;
+		}
+
+		// 페이지바를 만들기 위해서 특정카테고리의 제품개수에 대한 총페이지수 알아오기(select)
+		@Override
+		public int getTotalPage(String decode) throws SQLException {
+			
+			int totalPage = 0;
+		      
+		      try {
+		         conn = ds.getConnection();
+		         
+		         String sql = " select  count(*) "  
+		                  + " from tbl_product "
+		                  + " where fk_decode = ? "; 
+		         
+		         pstmt = conn.prepareStatement(sql);
+		         
+		         pstmt.setString(1, decode);
+		               
+		         rs = pstmt.executeQuery();
+		         
+		         rs.next();
+		         
+		         totalPage = rs.getInt(1);
+		         
+		      } finally {
+		         close();
+		      }      
+		      
+		      return totalPage;
+		}
+		
+		// 장바구니에 담기
+		@Override
+		public int addCart(String userid, String pnum, String odAmount) throws SQLException {
+			
+			int n = 0;
+			
+			try {
+				
+				conn = ds.getConnection();
+				
+				String sql = " select cartno "
+						  	  + " from tbl_cart "
+						  	  + " where fk_userid = ? and fk_pnum = ? ";
+				
+				pstmt = conn.prepareStatement(sql);
+		        pstmt.setString(1, userid);
+		        pstmt.setString(2, pnum);
+		          
+		        rs = pstmt.executeQuery();
+		        
+		        if ( rs.next() ) {
+		        	// 어떤 제품을 추가로 장바구니에 넣고자 하는 경우
+		        	
+		        	int cartno = rs.getInt("cartno");
+		        	
+		        	sql = " update tbl_cart set odAmount = odAmount + ? "
+		        		+	" where cartno = ? ";
+		        	 
+		        	pstmt = conn.prepareStatement(sql);
+		        	pstmt.setInt(1, Integer.parseInt(odAmount));
+		        	pstmt.setInt(2, cartno);
+		        	
+		        	n = pstmt.executeUpdate();
+		        	
+		        }
+		        else {
+		        	// 장바구니에 존재하지 않는 새로운 제품을 넣고자 하는 경우
+		        	
+		        	sql = " insert into tbl_cart(cartno, fk_userid, fk_pnum, odAmount, cartdate) "
+		                    + " values(seq_tbl_cart_cartno.nextval, ?, ?, ?, default) ";
+		        	
+		        	pstmt = conn.prepareStatement(sql);
+		        	pstmt.setString(1, userid);
+		        	pstmt.setInt(2, Integer.parseInt(pnum));
+		        	pstmt.setInt(3, Integer.parseInt(odAmount));
+		        	
+		        	n = pstmt.executeUpdate();
+		        	
+		        }
+				
+			} finally {
+				close();
+			}
+			
+			return n;
+			
+		}
+
+		
 	// tbl_option 테이블에 제품의 추가이미지 파일명 insert 해주기  
 	@Override
 	public int product_option_insert(OptionVO ovo) throws SQLException {

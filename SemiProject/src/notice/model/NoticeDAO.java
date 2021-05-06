@@ -235,6 +235,32 @@ public class NoticeDAO implements InterNoticeDAO {
 	      
 	      return result;
 	}
+
+	@Override
+	public int contentHitUp(int hit, int ctNo) throws SQLException {
+		int result = 0;
+	      
+	      try {
+	         conn = ds.getConnection();
+
+	         String sql = " update tbl_noticeBoard set ctViewcount = ? " + 
+	         			  "			    where ctNo = ? ";
+	     
+	         pstmt = conn.prepareStatement(sql);
+	         
+	         pstmt.setInt(1, hit+1);
+	         pstmt.setInt(2, ctNo);
+	        
+	            
+	         result = pstmt.executeUpdate();
+	         
+	      } finally {
+	         close();
+	      }
+	      
+	      return result;
+		
+	}
 	
 }	
 

@@ -131,7 +131,7 @@ function goWrite(){
 	</table>
 
 	<form name="QAWrite">
-		<span id="QAWriter">작성자:${requestScope.loginuser.userId}</span>
+		<span id="QAWriter">작성자:${requestScope.loginuser.userid}</span>
 		<br><br>
 		<table>
 			<tbody>

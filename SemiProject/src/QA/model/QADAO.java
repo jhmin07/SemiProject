@@ -178,7 +178,7 @@ public class QADAO implements InterQADAO {
 
 	@Override
 	public QAVO qaOneDetail(String qaNo) throws SQLException {
-		QAVO qvo = null; 
+		QAVO qvo = new QAVO(); 
 		try { 
 			conn = ds.getConnection(); 
 			String sql = " select qaNo, qaTitle,qaContent,qaPwd, fk_userid, qaRegisterday, qaViewcount " +
@@ -225,6 +225,31 @@ public class QADAO implements InterQADAO {
 	         pstmt.setString(2, qvo.getQaContent());
 	         pstmt.setString(3, qvo.getQaPwd()); 
 	         pstmt.setString(4, qvo.getFk_userid());     
+	        
+	            
+	         result = pstmt.executeUpdate();
+	         
+	      } finally {
+	         close();
+	      }
+	      
+	      return result;
+	}
+
+	@Override
+	public int qaHitUp(int hit, int qaNo) throws SQLException {
+		int result = 0;
+	      
+	      try {
+	         conn = ds.getConnection();
+
+	         String sql = " update tbl_qaBoard set qaViewcount = ? " + 
+	         			  "			    where qaNo = ? ";
+	     
+	         pstmt = conn.prepareStatement(sql);
+	         
+	         pstmt.setInt(1, hit+1);
+	         pstmt.setInt(2, qaNo);
 	        
 	            
 	         result = pstmt.executeUpdate();
