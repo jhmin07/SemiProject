@@ -36,56 +36,58 @@
       display: inline-block;
       overflow:hidden;
       height: 340px;
-      width: 80%;
+      width: 85%;
       text-align: center;
       background-color: #ebded0;
-      padding-left: 50px;
-      padding-right: 50px;
+      padding-left: 35px;
+      padding-right: 35px;
      /* border: solid 1px green; */
    }
    table.content3MidBox{
       display: inline-block;
       height: 680px;
-      width: 80%;
+      width: 85%;
       text-align: center;
       background-color: white;
-      padding-left: 50px;
-      padding-right: 50px;
-     /*  border: solid 1px green; */
+      padding-left: 35px;
+      padding-right: 35px;
+    /* border: solid 1px green; */
    }
    table.content3MidBox td.content3SQ{
       overflow:hidden;
    }
    td.contentSQ{
-     /*  border: solid 1px yellow; */
+     /* border: solid 1px yellow; */
       display: inline-block;
       text-align: center;
-      margin-left: 10px;
-      margin-right: 10px;
-      width: 450px;
-      height: 340px;
-      padding-top: 30px;
+      margin-left: 3px;
+      margin-right: 3px;
+      width: 400px;
+      height: 310px;
+      margin-top: 15px;
+      margin-bottom: 15px;
+      padding-top: 25px;
    }
     img.content2Img{
-      width: 400px;
-      height: 280px;
+      width: 360px;
+      height: 260px;
       /* border: solid 1px red; */
     }
     img.content3Img{
-      width: 400px;
-      height: 280px;
+      width: 360px;
+      height: 260px;
       /* border: solid 1px red; */
     }
     img.bigImg{
       overflow: hidden;
       display: inline-block;
-      width: 450px;
-      height: 340px;
+      width: 400px;
+      height: 310px;
     
     }
     div.subcarouselDiv{ 
-      width: 450px;
-      height: 340px;
+      width: 400px;
+      height: 310px;
      /*  border: solid 1px blue; */
     }
     .contentHoverGray{

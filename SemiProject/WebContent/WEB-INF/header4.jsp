@@ -14,12 +14,16 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Gothic+A1&family=Nanum+Gothic&family=Nanum+Gothic+Coding&display=swap" rel="stylesheet">
+
 <link rel="stylesheet" type="text/css" href="<%= ctxPath%>/jquery-ui-1.11.4.custom/jquery-ui.css" />
 <script type="text/javascript" src="<%= ctxPath%>/jquery-ui-1.11.4.custom/jquery-ui.min.js"></script>
 
 <style>
 body {
-  font-family: "Lato", sans-serif;
+  /* font-family: "Lato", sans-serif ,  'Nanum Gothic Coding', monospace, 'Gothic A1', sans-serif; */
+  font-family: 'Nanum Gothic', sans-serif;
 }
 .sidenav {
   height: 100%;

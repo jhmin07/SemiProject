@@ -80,10 +80,14 @@ select {
 }
 
 input.optInput {
-	width: 50%;
+	width: 110px;
 	line-height: 20px;
 	padding: 4px; 
-	margin: 0 10px;
+	margin-left: 5px;
+}
+
+button.optDelBtn {
+	margin-left: 5px;
 }
 
 div.optDiv {
@@ -98,9 +102,7 @@ div.optDiv {
 	$(document).ready(function(event){
 		$("span.error").hide();
 		
-		/* $("select[name=fk_decode]").change(function(){
-			console.log($(this).val());
-		}); */
+		$("input#optCnt").val(optCnt);
 		
 		$("input#spinnerPqty").spinner({
 			spin:function(event,ui){
@@ -147,6 +149,7 @@ div.optDiv {
 		$("input#btnRegister").click(function(){
 			var flag = false;
 			
+			<%--
 			$(".infoData").each(function(index, item){
 				var val = $(item).val().trim();
 				if (val == "") {
@@ -163,12 +166,13 @@ div.optDiv {
 					return false;
 				}
 			});
-			
+			--%>	
 			if (!flag) {
 				var frm = document.prodInputFrm;
 				frm.submit();
 			}
 		});
+		
 		
 	});
 
@@ -177,24 +181,42 @@ div.optDiv {
 	function optAdd() {
 		var html = "";
 		html += '<div class="optDiv">'+
-					'<select name="onum'+ optCnt +'" class="optionData">' +
-						'<option value="">::: 선택하세요 :::</option>'+
+					'<select name="onum'+ optCnt +'" class="optionData" onchange="setoname(this);">' +
+						'<option value="">:::선택하세요:::</option>'+
 						'<option value="0">색상</option>' +
 						'<option value="1">크기</option>'+
 						'<option value="2">조립유무</option>'+
 					'</select>'+
-					'<input type="text" name="ocontent'+ optCnt +'" class="optInput"/>';
-		html += '<button type="button" class="optDelBtn btn btn-danger" onclick="optDel();">삭제</button></div>';
+					'<input type="hidden" name="oname'+optCnt+'" />'+
+					'<input type="text" name="ocontents'+ optCnt +'" class="optInput" placeholder="옵션내용"/>'+
+					'<input type="text" name="addprice'+optCnt+'" class="optInput" placeholder="추가금액"/>';
+		html += '<button type="button" class="optDelBtn btn btn-danger" onclick="optDel(this);">삭제</button></div>';
 		$("div#divoptattach").append(html);
 		
 		optCnt++;
+		console.log(optCnt);
+		$("input#optCnt").val(optCnt);
 	}
 	
-	function optDel() {
-		$("button.optDelBtn").bind("click", function(){
-			$(this).parent().remove();
-		});
+	function optDel(item) {
+		$(item).parent().remove();
 	}
+	 
+	function setoname(item) {
+		var onum = $(item).val();
+		var oname = "";
+		$("select.optionData > option").each(function(index, option){
+			if (option.value == onum) {
+				oname = option.text;
+				return false;
+			}
+		});
+		
+		//console.log("onum => "+onum);
+		//console.log("oname => "+oname);
+		
+		$(item).next().val(oname);
+	} 
 	
 	
 </script>
@@ -322,6 +344,7 @@ div.optDiv {
 					</td>
 					<td>
 						<div id="divoptattach"></div>
+						<input type="hidden" name="optCnt" id="optCnt" />
 					</td>
 				</tr>
 				
