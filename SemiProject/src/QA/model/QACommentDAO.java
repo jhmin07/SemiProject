@@ -123,8 +123,9 @@ public class QACommentDAO implements InterQACommentDAO {
 	         pstmt.setString(1, qaNo);  
 	        
 	         rs = pstmt.executeQuery();
-	         n = rs.getInt("count(*)");
-	         
+	         if(rs.next()) {
+		         n = rs.getInt("count(*)");
+		        }
 	      } catch (SQLException e) {
 			e.printStackTrace();
 		 } finally {

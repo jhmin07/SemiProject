@@ -50,11 +50,11 @@ public class MenuAction extends AbstractController {
 		request.setAttribute("productList", productList);
 		
 		// **** ========= 페이지바 만들기 ========= **** //
-	      
+	    		  
 	      //  페이지바를 만들기 위해서 특정카테고리의 제품개수에 대한 총페이지수 알아오기(select)
 		  int totalPage = pdao.getTotalPage(decode);
 		  
-		 // System.out.println("~~~ 확인용 totalPage : "+totalPage);		  
+		  // System.out.println("~~~ 확인용 totalPage : "+totalPage);		  
 		  
 		  String pageBar = "";
 		  
@@ -69,14 +69,14 @@ public class MenuAction extends AbstractController {
 		  
 		// !!!! 다음은 pageNo 를 구하는 공식이다. !!!! // 
 	      pageNo = ( ( Integer.parseInt(currentShowPageNo) - 1)/blockSize ) * blockSize + 1; 
+	      int currentN = Integer.parseInt(currentShowPageNo);
 	      
-	   // **** [맨처음][이전] 만들기 **** //
-	      if( pageNo != 1 ) {
-	         pageBar += "&nbsp;<a class='pagebar' href='menu.up?cnum="+cnum+"&decode="+decode+"&currentShowPageNo=1'>[맨처음]</a>&nbsp;"; 
-	         pageBar += "&nbsp;<a class='pagebar' href='menu.up?cnum="+cnum+"&decode="+decode+"&currentShowPageNo="+(pageNo-1)+"'>[이전]</a>&nbsp;";
-	      }
-	      
-	      while( !(loop > blockSize || pageNo > totalPage) ) {
+	      // **** [맨처음][이전] 만들기 **** //
+	      pageBar += "&nbsp;<a class='pagebar' href='menu.up?cnum="+cnum+"&decode="+decode+"&currentShowPageNo=1'>&laquo;</a>&nbsp;"; 
+	      //pageBar += "&nbsp;<a class='pagebar' href='menu.up?cnum="+cnum+"&decode="+decode+"&currentShowPageNo="+(currentN-1)+"'>&laquo;</a>&nbsp;";
+
+
+	      while( !(loop-0.9 > (double)((double)totalPage/8))) {
 	         
 	         if( pageNo == Integer.parseInt(currentShowPageNo) ) {
 	            pageBar += "&nbsp;<span style='border:solid 1px gray; color:red; padding: 2px 4px;'>"+pageNo+"</span>&nbsp;"; 
@@ -92,11 +92,10 @@ public class MenuAction extends AbstractController {
 	                    // 21 
 	      }// end of while----------------------------------------------
 	      
-	      // **** [다음][마지막] 만들기 **** //
-	      if( pageNo <= totalPage ) {
-	         pageBar += "&nbsp;<a class='pagebar' href='menu.up?cnum="+cnum+"&decode="+decode+"&currentShowPageNo="+pageNo+"'>[다음]</a>&nbsp;"; 
-	         pageBar += "&nbsp;<a class='pagebar' href='menu.up?cnum="+cnum+"&decode="+decode+"&currentShowPageNo="+totalPage+"'>[마지막]</a>&nbsp;";
-	      }
+	      // **** [다음][마지막] 만들기 **** //	     
+          //pageBar += "&nbsp;<a class='pagebar' href='menu.up?cnum="+cnum+"&decode="+decode+"&currentShowPageNo="+(currentN+1)+"'>&raquo;</a>&nbsp;"; 
+          pageBar += "&nbsp;<a class='pagebar' href='menu.up?cnum="+cnum+"&decode="+decode+"&currentShowPageNo="+(pageNo-1)+"'>&raquo;</a>&nbsp;";
+	      
 	      
 	      
 	      request.setAttribute("pageBar", pageBar);
