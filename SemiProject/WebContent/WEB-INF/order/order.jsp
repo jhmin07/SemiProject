@@ -520,13 +520,13 @@ table.odr_info input[type=text]{
 				<tr>
 					<td>주소&nbsp;<span class="star">*</span></td>
 					<td>
-						<input type="text" id="postcode2" name="postcode2" size="6" maxlength="5" />&nbsp;&nbsp;
+						<input type="text" id="postcode2" name="recPostcode" size="6" maxlength="5" />&nbsp;&nbsp;
 						<%-- 우편번호 찾기 --%> 
 						<img id="zipcodeSearch2" src="<%=ctxPath%>/image/우편번호찾기.png" onclick="postSearch2()" style="vertical-align: middle;" /><br />
 						<span class="error">우편번호 형식이 아닙니다.</span>
-						<input type="text" id="address2" name="address2" size="40" placeholder="주소" /><br /> 
-						<input type="text" id="detailAddress2" name="detailAddress2" size="40" placeholder="상세주소" />&nbsp;
-						<input type="text" id="extraAddress2" name="extraAddress2" size="40" placeholder="참고항목" /> 
+						<input type="text" id="address2" name="recAddress" size="40" placeholder="주소" /><br /> 
+						<input type="text" id="detailAddress2" name="recDetailAddress" size="40" placeholder="상세주소" />&nbsp;
+						<input type="text" id="extraAddress2" name="recExtraAddress" size="40" placeholder="참고항목" /> 
 						<span class="error">주소를 입력하세요</span>
 					</td>
 				</tr>
@@ -536,14 +536,14 @@ table.odr_info input[type=text]{
 						<input type="text" id="hp2_1" name="hp2_1" size="6" maxlength="3" value="010" readonly />&nbsp;-&nbsp;
 						<input type="text" id="hp2_2" name="hp2_2" size="6" maxlength="4" />&nbsp;-&nbsp;
 						<input type="text" id="hp2_3" name="hp2_3" size="6" maxlength="4" />
-						<input type="text" id="hp2" name="hp2" hidden />
+						<input type="text" id="hp2" name="recMobile" hidden />
 						<span class="error">휴대폰 형식이 아닙니다.</span>
 					</td>
 				</tr>
 				<tr>
 					<td>배송메시지</td>
 					<td>
-						<textarea rows="4" cols="100" name="deliveryMsg" placeholder="요청사항을 입력해주세요."></textarea>
+						<textarea rows="4" cols="100" name="dvMessage" placeholder="요청사항을 입력해주세요."></textarea>
 					</td>
 				</tr>
 			</tbody>
