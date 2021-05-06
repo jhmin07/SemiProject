@@ -149,7 +149,7 @@ div.optDiv {
 		$("input#btnRegister").click(function(){
 			var flag = false;
 			
-			<%--
+			<%-- 상품 정보 입력 검사 --%>
 			$(".infoData").each(function(index, item){
 				var val = $(item).val().trim();
 				if (val == "") {
@@ -166,7 +166,36 @@ div.optDiv {
 					return false;
 				}
 			});
-			--%>	
+				
+			
+			<%-- 추가 옵션 부분 검사 --%>
+			$("div.optDiv").each(function(index, item){
+				var $onum = $(item).find("select");
+				if ($onum.val().trim() == "") {
+					alert("옵션분류를 선택하세요.");
+					$onum.focus();
+					return false;
+				}
+				
+				var $ocontents = $onum.next().next();
+				if ($ocontents.val().trim() == "") {
+					alert("옵션내용을 입력하세요.");
+					$ocontents.focus();
+					return false;
+				}
+				
+				var $addprice = $onum.next().next().next();
+				var regExg = /^[0-9]+$/;
+				var bool = regExg.test($addprice.val());
+				
+				if (!bool) {
+					alert("추가금액을 올바르게 입력하세요.");
+					$addprice.focus();
+					return false;
+				}
+			});
+			
+			
 			if (!flag) {
 				var frm = document.prodInputFrm;
 				frm.submit();
