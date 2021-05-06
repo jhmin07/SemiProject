@@ -24,13 +24,22 @@
    
    		height: 100px;
    }
-   td.NoticeContent{
-   
-   		height: 300px;
-   }
+    table.NoticeDetail{
+    	width: 100%;
+    	text-align: center;
+    }
    div.NoticeDetailDiv{
    		margin-top: 200px;
    		margin-bottom: 200px;
+   }
+    div#tableContainer{
+    	width: 100%;
+    	border: solid 1px hidden;
+    	text-align: center;
+    }
+   td.NoticeContent{
+   
+   		height: 300px;
    }
     button#noticeList{
    	width: 150px; 
@@ -82,13 +91,13 @@
 	}
 	
 </script>
-<div class="container NoticeDetailDiv">
+<div class="container NoticeDetailDiv" style="">
 	<c:if test="${empty requestScope.nvo}">
 		존재하지 않는 글입니다.
 	</c:if>
 	<c:if test="${not empty requestScope.nvo}">
-	
-		<table class="NoticeDetail" style="width: 90%; margin-top: 100px; \">
+		<div id="tableContainer">
+		<table class="NoticeDetail" >
 			<thead>
 				<tr>
 					<th style="text-align: center; color:#737373; font-size: 25px; font-weight: bold;">${requestScope.nvo.ctTitle}</th>
@@ -110,7 +119,7 @@
 				</tr>
 			</tbody> 
 		</table>
-		
+		</div>
 		
 		
 	</c:if>    
