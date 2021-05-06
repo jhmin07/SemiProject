@@ -111,20 +111,20 @@ li {
 <div id="detailcontainer" style="width:100%; margin-top: 100px; background-color: #f2f2f2; display: table; height: 500px;" align="center">
 	
 	<div style="display:table-cell; width: 50%; vertical-align: middle;" >
-	<c:if test="${requestScope.pvo.fk_decode eq 10001}"><img src="SemiProject/image/ProjectImg/Poduct.png" style="width:450px; height:400px; cursor: pointer; "></c:if>
-	<c:if test="${requestScope.pvo.fk_decode eq 10002}"><img src="<%= ctxPath %>/image/ProjectImg/Poduct.png" style="width:450px; height:400px; cursor: pointer; "></c:if>
-	<c:if test="${requestScope.pvo.fk_decode eq 10003}"><img src="<%= ctxPath %>/image/ProjectImg/Poduct.png" style="width:450px; height:400px; cursor: pointer; "></c:if>
-	<c:if test="${requestScope.pvo.fk_decode eq 10004}"><img src="<%= ctxPath %>/image/ProjectImg/Poduct.png" style="width:450px; height:400px; cursor: pointer; "></c:if>
-	<c:if test="${requestScope.pvo.fk_decode eq 20001}"><img src="<%= ctxPath %>/image/product/livingRoom/sofa/${requestScope.pvo.pimage1}" style="width:450px; height:400px; cursor: pointer; "></c:if>
-	<c:if test="${requestScope.pvo.fk_decode eq 20002}"><img src="<%= ctxPath %>/image/product/livingRoom/table/${requestScope.pvo.pimage1}" style="width:450px; height:400px; cursor: pointer; "></c:if>
-	<c:if test="${requestScope.pvo.fk_decode eq 20003}"><img src="<%= ctxPath %>/image/product/livingRoom/cabinet/${requestScope.pvo.pimage1}" style="width:450px; height:400px; cursor: pointer; "></c:if>
-	<c:if test="${requestScope.pvo.fk_decode eq 20004}"><img src="<%= ctxPath %>/image/product/livingRoom/carpet/${requestScope.pvo.pimage1}" style="width:450px; height:400px; cursor: pointer; "></c:if>
-	<c:if test="${requestScope.pvo.fk_decode eq 30001}"><img src="<%= ctxPath %>/image/product/kitchen/주방/${requestScope.pvo.pimage1}" style="width:450px; height:400px; cursor: pointer; "></c:if>
-	<c:if test="${requestScope.pvo.fk_decode eq 30002}"><img src="<%= ctxPath %>/image/product/kitchen/주방/${requestScope.pvo.pimage1}" style="width:450px; height:400px; cursor: pointer; "></c:if>
-	<c:if test="${requestScope.pvo.fk_decode eq 30003}"><img src="<%= ctxPath %>/image/product/kitchen/주방/${requestScope.pvo.pimage1}" style="width:450px; height:400px; cursor: pointer; "></c:if>
-	<c:if test="${requestScope.pvo.fk_decode eq 40001}"><img src="<%= ctxPath %>/image/product/dressRoom/Hanger/${requestScope.pvo.pimage1}" style="width:450px; height:400px; cursor: pointer; "></c:if>
-	<c:if test="${requestScope.pvo.fk_decode eq 40002}"><img src="<%= ctxPath %>/image/product/dressRoom/DressingTable/${requestScope.pvo.pimage1}" style="width:450px; height:400px; cursor: pointer; "></c:if>
-	<c:if test="${requestScope.pvo.fk_decode eq 40003}"><img src="<%= ctxPath %>/image/product/dressRoom/Mirror/${requestScope.pvo.pimage1}" style="width:450px; height:400px; cursor: pointer; "></c:if>
+	<c:if test="${requestScope.pvo.fk_decode eq 10001}"><img src="<%= ctxPath %>/image/product/10001/${requestScope.pvo.pimage1}" style="width:450px; height:400px; cursor: pointer; "></c:if>
+	<c:if test="${requestScope.pvo.fk_decode eq 10002}"><img src="<%= ctxPath %>/image/product/10002/${requestScope.pvo.pimage1}" style="width:450px; height:400px; cursor: pointer; "></c:if>
+	<c:if test="${requestScope.pvo.fk_decode eq 10003}"><img src="<%= ctxPath %>/image/product/10003/${requestScope.pvo.pimage1}" style="width:450px; height:400px; cursor: pointer; "></c:if>
+	<c:if test="${requestScope.pvo.fk_decode eq 10004}"><img src="<%= ctxPath %>/image/product/10004/${requestScope.pvo.pimage1}" style="width:450px; height:400px; cursor: pointer; "></c:if>
+	<c:if test="${requestScope.pvo.fk_decode eq 20001}"><img src="<%= ctxPath %>/image/product/20001/${requestScope.pvo.pimage1}" style="width:450px; height:400px; cursor: pointer; "></c:if>
+	<c:if test="${requestScope.pvo.fk_decode eq 20002}"><img src="<%= ctxPath %>/image/product/20002/${requestScope.pvo.pimage1}" style="width:450px; height:400px; cursor: pointer; "></c:if>
+	<c:if test="${requestScope.pvo.fk_decode eq 20003}"><img src="<%= ctxPath %>/image/product/20003/${requestScope.pvo.pimage1}" style="width:450px; height:400px; cursor: pointer; "></c:if>
+	<c:if test="${requestScope.pvo.fk_decode eq 20004}"><img src="<%= ctxPath %>/image/product/20004/${requestScope.pvo.pimage1}" style="width:450px; height:400px; cursor: pointer; "></c:if>
+	<c:if test="${requestScope.pvo.fk_decode eq 30001}"><img src="<%= ctxPath %>/image/product/30001/${requestScope.pvo.pimage1}" style="width:450px; height:400px; cursor: pointer; "></c:if>
+	<c:if test="${requestScope.pvo.fk_decode eq 30002}"><img src="<%= ctxPath %>/image/product/30002/${requestScope.pvo.pimage1}" style="width:450px; height:400px; cursor: pointer; "></c:if>
+	<c:if test="${requestScope.pvo.fk_decode eq 30003}"><img src="<%= ctxPath %>/image/product/30003/${requestScope.pvo.pimage1}" style="width:450px; height:400px; cursor: pointer; "></c:if>
+	<c:if test="${requestScope.pvo.fk_decode eq 40001}"><img src="<%= ctxPath %>/image/product/40001/${requestScope.pvo.pimage1}" style="width:450px; height:400px; cursor: pointer; "></c:if>
+	<c:if test="${requestScope.pvo.fk_decode eq 40002}"><img src="<%= ctxPath %>/image/product/40002/${requestScope.pvo.pimage1}" style="width:450px; height:400px; cursor: pointer; "></c:if>
+	<c:if test="${requestScope.pvo.fk_decode eq 40003}"><img src="<%= ctxPath %>/image/product/40003/${requestScope.pvo.pimage1}" style="width:450px; height:400px; cursor: pointer; "></c:if>
 	</div>
 
 	<div style="display:table-cell; width: 50%; text-align: left; padding-left: 160px; vertical-align: middle; ">	
@@ -178,20 +178,20 @@ li {
 
 <div align="center" style="margin-top: 100px;">
 <div id="description_content">
-	<c:if test="${requestScope.pvo.fk_decode eq 10001}"><img src="<%= ctxPath %>/image/ProjectImg/Poduct.png" style="width:450px; height:400px; cursor: pointer; "></c:if>
-	<c:if test="${requestScope.pvo.fk_decode eq 10002}"><img src="<%= ctxPath %>/image/ProjectImg/Poduct.png" style="width:450px; height:400px; cursor: pointer; "></c:if>
-	<c:if test="${requestScope.pvo.fk_decode eq 10003}"><img src="<%= ctxPath %>/image/ProjectImg/Poduct.png" style="width:450px; height:400px; cursor: pointer; "></c:if>
-	<c:if test="${requestScope.pvo.fk_decode eq 10004}"><img src="<%= ctxPath %>/image/ProjectImg/Poduct.png" style="width:450px; height:400px; cursor: pointer; "></c:if>
-	<c:if test="${requestScope.pvo.fk_decode eq 20001}"><img src="<%= ctxPath %>/image/product/livingRoom/sofa/${requestScope.pvo.pimage2}" style="width:450px; height:400px; cursor: pointer; "></c:if>
-	<c:if test="${requestScope.pvo.fk_decode eq 20002}"><img src="<%= ctxPath %>/image/product/livingRoom/table/${requestScope.pvo.pimage2}" style="width:450px; height:400px; cursor: pointer; "></c:if>
-	<c:if test="${requestScope.pvo.fk_decode eq 20003}"><img src="<%= ctxPath %>/image/product/livingRoom/cabinet/${requestScope.pvo.pimage2}" style="width:450px; height:400px; cursor: pointer; "></c:if>
-	<c:if test="${requestScope.pvo.fk_decode eq 20004}"><img src="<%= ctxPath %>/image/product/livingRoom/carpet/${requestScope.pvo.pimage2}" style="width:450px; height:400px; cursor: pointer; "></c:if>
-	<c:if test="${requestScope.pvo.fk_decode eq 30001}"><img src="<%= ctxPath %>/image/product/kitchen/주방/${requestScope.pvo.pimage2}" style="width:450px; height:400px; cursor: pointer; "></c:if>
-	<c:if test="${requestScope.pvo.fk_decode eq 30002}"><img src="<%= ctxPath %>/image/product/kitchen/주방/${requestScope.pvo.pimage2}" style="width:450px; height:400px; cursor: pointer; "></c:if>
-	<c:if test="${requestScope.pvo.fk_decode eq 30003}"><img src="<%= ctxPath %>/image/product/kitchen/주방/${requestScope.pvo.pimage2}" style="width:450px; height:400px; cursor: pointer; "></c:if>
-	<c:if test="${requestScope.pvo.fk_decode eq 40001}"><img src="<%= ctxPath %>/image/product/dressRoom/Hanger/${requestScope.pvo.pimage2}" style="width:450px; height:400px; cursor: pointer; "></c:if>
-	<c:if test="${requestScope.pvo.fk_decode eq 40002}"><img src="<%= ctxPath %>/image/product/dressRoom/DressingTable/${requestScope.pvo.pimage2}" style="width:450px; height:400px; cursor: pointer; "></c:if>
-	<c:if test="${requestScope.pvo.fk_decode eq 40003}"><img src="<%= ctxPath %>/image/product/dressRoom/Mirror/${requestScope.pvo.pimage2}" style="width:450px; height:400px; cursor: pointer; "></c:if>
+	<c:if test="${requestScope.pvo.fk_decode eq 10001}"><img src="<%= ctxPath %>/image/product/10001/${requestScope.pvo.pimage2}" style="width:450px; height:400px; cursor: pointer; "></c:if>
+	<c:if test="${requestScope.pvo.fk_decode eq 10002}"><img src="<%= ctxPath %>/image/product/10002/${requestScope.pvo.pimage2}" style="width:450px; height:400px; cursor: pointer; "></c:if>
+	<c:if test="${requestScope.pvo.fk_decode eq 10003}"><img src="<%= ctxPath %>/image/product/10003/${requestScope.pvo.pimage2}" style="width:450px; height:400px; cursor: pointer; "></c:if>
+	<c:if test="${requestScope.pvo.fk_decode eq 10004}"><img src="<%= ctxPath %>/image/product/10004/${requestScope.pvo.pimage2}" style="width:450px; height:400px; cursor: pointer; "></c:if>
+	<c:if test="${requestScope.pvo.fk_decode eq 20001}"><img src="<%= ctxPath %>/image/product/20001/${requestScope.pvo.pimage2}" style="width:450px; height:400px; cursor: pointer; "></c:if>
+	<c:if test="${requestScope.pvo.fk_decode eq 20002}"><img src="<%= ctxPath %>/image/product/20002/${requestScope.pvo.pimage2}" style="width:450px; height:400px; cursor: pointer; "></c:if>
+	<c:if test="${requestScope.pvo.fk_decode eq 20003}"><img src="<%= ctxPath %>/image/product/20003/${requestScope.pvo.pimage2}" style="width:450px; height:400px; cursor: pointer; "></c:if>
+	<c:if test="${requestScope.pvo.fk_decode eq 20004}"><img src="<%= ctxPath %>/image/product/20004/${requestScope.pvo.pimage2}" style="width:450px; height:400px; cursor: pointer; "></c:if>
+	<c:if test="${requestScope.pvo.fk_decode eq 30001}"><img src="<%= ctxPath %>/image/product/30001/${requestScope.pvo.pimage2}" style="width:450px; height:400px; cursor: pointer; "></c:if>
+	<c:if test="${requestScope.pvo.fk_decode eq 30002}"><img src="<%= ctxPath %>/image/product/30002/${requestScope.pvo.pimage2}" style="width:450px; height:400px; cursor: pointer; "></c:if>
+	<c:if test="${requestScope.pvo.fk_decode eq 30003}"><img src="<%= ctxPath %>/image/product/30003/${requestScope.pvo.pimage2}" style="width:450px; height:400px; cursor: pointer; "></c:if>
+	<c:if test="${requestScope.pvo.fk_decode eq 40001}"><img src="<%= ctxPath %>/image/product/40001/${requestScope.pvo.pimage2}" style="width:450px; height:400px; cursor: pointer; "></c:if>
+	<c:if test="${requestScope.pvo.fk_decode eq 40002}"><img src="<%= ctxPath %>/image/product/40002/${requestScope.pvo.pimage2}" style="width:450px; height:400px; cursor: pointer; "></c:if>
+	<c:if test="${requestScope.pvo.fk_decode eq 40003}"><img src="<%= ctxPath %>/image/product/40003/${requestScope.pvo.pimage2}" style="width:450px; height:400px; cursor: pointer; "></c:if>
 <br>
 <h2 style="text-align: center; margin :50px 0 20px 0;" align="center">DESCRIPTION</h2>
 <span> ${requestScope.pvo.pcontent} </span>
