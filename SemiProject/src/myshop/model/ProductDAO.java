@@ -521,6 +521,7 @@ public class ProductDAO implements InterProductDAO {
 		
 	}
 
+
 	//세부카테고리 목록 조회해오기
 		@Override
 		public List<DetailCategoryVO> selectdetailList(String cnum) throws SQLException {
@@ -727,5 +728,32 @@ public class ProductDAO implements InterProductDAO {
 			
 		}
 
+		
+	// tbl_option 테이블에 제품의 추가이미지 파일명 insert 해주기  
+	@Override
+	public int product_option_insert(OptionVO ovo) throws SQLException {
+		int n = 0;
+		
+		try {
+			conn = ds.getConnection();
+			
+			String sql = "insert into tbl_option (optionNo, onum, oname, fk_pnum, addprice, ocontents) "
+					+ "values (seq_tbl_option_optionNo.nextval, ?, ?, ?, ?, ?)";
+			
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, ovo.getOnum());
+			pstmt.setString(2, ovo.getOname());
+			pstmt.setInt(3, ovo.getFk_pnum());
+			pstmt.setInt(4, ovo.getAddprice());
+			pstmt.setString(5, ovo.getOcontents());
+			
+			n = pstmt.executeUpdate();
+			
+		} finally {
+			close();
+		}
+		
+		return n;
+	}
 	
 }
