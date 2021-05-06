@@ -26,10 +26,27 @@
    }
    td.NoticeContent{
    
-   		height: 800px;
+   		height: 300px;
    }
    div.NoticeDetailDiv{
+   		margin-top: 200px;
    		margin-bottom: 200px;
+   }
+    button#noticeList{
+   	width: 150px; 
+   	height: 40px; 
+	color: white; 
+	background-color: #bfbfbf;
+   	font-size: 22px; 
+   	font-weight: bold; 
+   	border: none;
+   }
+    button#noticeList:hover{
+   	font-size: 22px; 
+   	font-weight: bold; 
+   	color: #bfbfbf; 
+	background-color: white;
+   	border: solid 2px #bfbfbf;
    }
 </style>
 
@@ -100,7 +117,7 @@
 	    
 	    
 	<div>
-		<button style="margin-top: 50px;" type="button" onclick="goNoticeList()">공지사항목록</button>
+		<button id="noticeList" style="margin-top: 50px;" type="button" onclick="goNoticeList()">공지사항목록</button>
 	   &nbsp;&nbsp;
 	</div>
 
