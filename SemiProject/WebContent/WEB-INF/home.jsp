@@ -33,14 +33,14 @@
    table#content2MidBox{
       display: inline-block;
       overflow:hidden;
-      height: 500px;
+      height: 600px;
       width: 100%;
       text-align: center;
      /* border: solid 1px green; */
    }
    table.content3MidBox{
       display: inline-block;
-      height: 500px;
+      height: 600px;
       width: 100%;
       text-align: center;
    /*  border: solid 1px green; */
@@ -53,30 +53,28 @@
       display: inline-block;
       text-align: center;
       width: 506px;
-      height: 500px;
+      height: 600px;
       overflow: hidden;
    }
     img.content2Img{
       width: 506px;
-      height: 400px;
-      margin-top: 40px;
+      height: 600px;
       /* border: solid 1px red;  */
     }
     img.content3Img{
       width: 506px;
-      height: 400px;
-      margin-top: 40px;
+      height: 600px;
       /* border: solid 1px red; */
     }
     img.bigImg{
       overflow: hidden;
       display: inline-block;
-      height: 500px !important;
+      height: 600px !important;
     
     }
     div.subcarouselDiv{ 
       width: 506px;
-      height: 500px;
+      height: 600px;
      /*  border: solid 1px blue; */
     }
     .contentHoverGray{
@@ -100,7 +98,7 @@
    $(document).ready(function(){
 
 		$('div.subcarousel').carousel({
-		    interval: 500,
+		    interval: 1600,
 		    pause: false,
 		    wrap: true
 		});
@@ -204,10 +202,8 @@
          <img class="content2Img content2Hover" id="content2Img1" src="image/product/30003/tool_01_01.jpg" alt="툴1">    
 
            <div class="subcarouselDiv">
-             <div id="myCarousel1" class="subcarousel carousel slide" data-ride="carousel" >
-
-
-             <!-- Wrapper for slides -->
+           <div id="myCarousel1" class="subcarousel carousel slide" data-ride="carousel" >
+   			<!-- Wrapper for slides -->
              <div class="carousel-inner">
                <div class="item active">
                  <img class="bigImg" src="image/product/30003/tool_01_02.jpg" alt="툴1_1" style="width:100%;">
@@ -219,16 +215,8 @@
                  <img class="bigImg" src="image/product/30003/tool_01_04.jpg" alt="툴1_1" style="width:100%;">
                </div>
              </div>
-         
-             <!-- Left and right controls -->
-             <a class="left carousel-control" href="#myCarousel1" data-slide="prev">
-               <span class="sr-only">Previous</span>
-             </a>
-             <a class="right carousel-control" href="#myCarousel1" data-slide="next">
-               <span class="sr-only">Next</span>
-             </a>
            </div>
-            </div>
+           </div>
    </td>
          
         
@@ -249,14 +237,6 @@
                     <img class="bigImg" src="image/product/30002/storage_02_04.jpg" alt="저장2_3" style="width:100%;">
                   </div>
                 </div>
-      
-               
-                <a class="left carousel-control" href="#myCarousel2" data-slide="prev">
-                  <span class="sr-only">Previous</span>
-                </a>
-                <a class="right carousel-control" href="#myCarousel2" data-slide="next">
-                  <span class="sr-only">Next</span>
-                </a>
             </div>
             </div>
          </td>
@@ -282,14 +262,6 @@
                     <img class="bigImg" src="image/product/30001/furniture_09_04.jpg" alt="옷장3" style="width:100%;">
                   </div>
                 </div>
-      
-               
-                <a class="left carousel-control" href="#myCarousel3" data-slide="prev">
-                  <span class="sr-only">Previous</span>
-                </a>
-                <a class="right carousel-control" href="#myCarousel3" data-slide="next">
-                  <span class="sr-only">Next</span>
-                </a>
             </div>
             </div>
          </td>
@@ -321,14 +293,6 @@
                  <img class="bigImg" src="image/product/20004/carpet_02_02.JPG" alt="소파3" style="width:100%;">
                </div>
              </div>
-         
-             <!-- Left and right controls -->
-             <a class="left carousel-control" href="#myCarousel4" data-slide="prev">
-               <span class="sr-only">Previous</span>
-             </a>
-             <a class="right carousel-control" href="#myCarousel4" data-slide="next">
-               <span class="sr-only">Next</span>
-             </a>
            </div>
             </div>
    	  </td>
@@ -349,14 +313,6 @@
                     <img class="bigImg" src="image/product/20003/cabinet_02_02.JPG" alt="테이블3" style="width:100%;">
                   </div>
                 </div>
-      
-               
-                <a class="left carousel-control" href="#myCarousel5" data-slide="prev">
-                  <span class="sr-only">Previous</span>
-                </a>
-                <a class="right carousel-control" href="#myCarousel5" data-slide="next">
-                  <span class="sr-only">Next</span>
-                </a>
             </div>
             </div>
          </td>
@@ -382,14 +338,6 @@
                     <img class="bigImg" src="image/product/30001/furniture_05_04.jpg" alt="옷장3" style="width:100%;">
                   </div>
                 </div>
-      
-               
-                <a class="left carousel-control" href="#myCarousel6" data-slide="prev">
-                  <span class="sr-only">Previous</span>
-                </a>
-                <a class="right carousel-control" href="#myCarousel6" data-slide="next">
-                  <span class="sr-only">Next</span>
-                </a>
             </div>
             </div>
          </td>
