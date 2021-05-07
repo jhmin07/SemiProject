@@ -852,4 +852,45 @@ public class ProductDAO implements InterProductDAO {
 			return newHitList;
 	}
 	
+	// 제품번호를 가지고서 해당 제품의 옵션정보를 조회해오기
+	@Override
+	public List<OptionVO> selectoname(String pnum) throws SQLException {
+		
+		List<OptionVO> onameList = new ArrayList<>();
+		
+		try {
+			conn = ds.getConnection();
+
+			String sql = " select distinct(oname),onum "+
+							 " from tbl_option " +
+						 	 " where fk_pnum = ? ";
+
+			pstmt = conn.prepareStatement(sql);
+
+			pstmt.setString(1, pnum);
+			
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				
+				OptionVO ovo = new OptionVO();
+				
+				String oname = rs.getString(1);
+				int onum = rs.getInt(2);
+				
+				ovo.setOnum(onum);
+				ovo.setOname(oname);
+				
+				onameList.add(ovo);
+				
+			}
+
+		} finally {
+			close();
+		}
+		
+		return onameList;
+		
+	}
+	
 }

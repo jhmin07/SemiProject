@@ -69,4 +69,7 @@ public interface InterProductDAO {
 	// New 또는 HIT 상품 불러오기	
 	List<ProductVO> newHitList(String fk_snum) throws SQLException;
 	
+	// 제품번호를 가지고서 해당 제품의 옵션정보를 조회해오기
+	List<OptionVO> selectoname(String pnum) throws SQLException;
+	
 }
