@@ -82,7 +82,6 @@
 <script type="text/javascript">
 $(document).ready(function(){	
 	
-	
 	if("${fn:trim(requestScope.searchWord)}" != ""){
 		$("select#searchType").val("${requestScope.searchType}");
 		$("input#searchWord").val("${requestScope.searchWord}");
@@ -97,29 +96,21 @@ $(document).ready(function(){
 	$("td.Notice").click(function(){
 		location.href="<%=request.getContextPath()%>/board/board.up" ;
 	});
-	$("tr.NoticeHead").click(function(){
-		var ctNo = $(this).children(".ctNo").text();				
-		// $(this) 는 td가 아니라 tr 이므로 자식들(td) 중 class가 .userid인 것들을 찾는다.
-		
-		  location.href = "<%=request.getContextPath()%>/board/contentOneDetail.up?ctNo="+ctNo+"&goBackURL=${requestScope.goBackURL}";
-	});
-
-	$("input.QAinput").click(function(){
-		$(this).val("");
-	});
+	
 });
 
 // Function Declaration
-function goWrite(){
-	var frm = document.QAWrite;
-	frm.action = "QAWriteSubmit.up?"; // 자기자신한테 간다. 그냥 목록 갯수만 바꿔줄 뿐
+function goModify(){
+	var frm = document.QAModify;
+	frm.action = "QAModifySubmit.up?"; 
+	// 자기자신한테 간다. 그냥 목록 갯수만 바꿔줄 뿐
 	frm.method = "GET";	// 숨길필요 없이 빨리빨리 이동해야해서 get 사용
 	frm.submit();
 }
 </script>
 
 
-<div class="container" id="noticeWrite" align="center">
+<div class="container" id="QAWrite" align="center">
 	<img id="boardImg" src="../image/board.png"/>
 	<table class="table page_tab" style="margin: 25px 0;">
 		<tbody>
@@ -127,39 +118,40 @@ function goWrite(){
 				<td class="page_tab1 GoodsQA page_hover">
 					<a class="GoodsQA boardA">상품 Q&A</a>
 				</td>
-				<td class="page_tab1 Notice page_hover">
-					<a class="Notice boardA">공지사항</a>
+				<td class="page_tab1 QA page_hover">
+					<a class="QA boardA">공지사항</a>
 				</td>
 			</tr>
 		</tbody>
 	</table>
 
-	<form name="QAWrite">
-		<span id="QAWriter">작성자:${sessionScope.loginuser.userid}</span>
+	<form name="QAModify">
+		<span id="QAWriter">작성자:${requestScope.userid}</span>
 		<br><br>
 		<table>
 			<tbody>
 				<tr>
-					<td><input class="QAPwd QAinput" value="글 비밀번호를 입력하세요"  type="text" name="QAPwd"/></td>
+					<td><input type="hidden" class="QANo QAinput" value="${requestScope.qvo.qaNo}" name="qaNo"/></td>
 				</tr>
 				<tr>
-					<td><span>&nbsp;</span></td>
-				<tr>
-					<td><input class="QATitle QAinput" value="제목을 입력하세요"  type="text" name="QATitle"/></td>
-				</tr>
-				<tr>
-					<td><span>&nbsp;</span></td>
-				</tr>
-				<tr>
-					<td><input class="QAContent QAinput" value="내용을 입력하세요"  type="text" name="QAContent" /></td>
+					<td><input class="QATitle QAinput" value="${requestScope.qvo.qaTitle}"  type="text" name="QATitle"/></td>
 				</tr>
 				<tr>
 					<td><span>&nbsp;</span></td>
 				</tr>
+				<tr>
+					<td><input class="QAContent QAinput" value="${requestScope.qvo.qaContent}"  type="text" name="QAContent" /></td>
+				</tr>
+				<tr>
+					<td><span>&nbsp;</span></td>
+				</tr>
+				<!-- <tr>
+					<td><input type="file" name="QAImg" class="QAImg" /></td>
+				</tr> -->
 			</tbody>
 		</table>
 		<br><br>
-		<button onClick="goWrite();" style="background-color: #196666; color: white; height: 50px; width: 150px; font-size: 25px; font-weight: bold;">작성완료</button>
+		<button onClick='goModify();' style="background-color: #196666; color: white; height: 50px; width: 150px; font-size: 25px; font-weight: bold;">작성완료</button>
 	</form>
 
 </div>

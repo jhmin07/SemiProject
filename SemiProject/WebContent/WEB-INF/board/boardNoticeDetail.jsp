@@ -57,6 +57,12 @@
 	background-color: white;
    	border: solid 2px #bfbfbf;
    }
+   button.NoticemodiDel{
+   		display: inline-block;
+   		text-align: center;
+   		font-size: 15pt;
+   		border: solid 1px #bfbfbf;
+   }
 </style>
 
 <script type="text/javascript">
@@ -89,6 +95,14 @@
 	function goNoticeList(){
 		location.href = "/SemiProject/"+goBackURL;
 	}
+	function goNoticeDel(){
+		location.href = "<%=request.getContextPath()%>/board/NoticeDel.up?ctNo="+${requestScope.nvo.ctNo};
+			   
+	}
+	function goNoticeModi(){
+		location.href = "<%=request.getContextPath()%>/board/NoticeModi.up?ctNo="+${requestScope.nvo.ctNo};
+			   
+	}
 	
 </script>
 <div class="container NoticeDetailDiv" style="">
@@ -100,13 +114,13 @@
 		<table class="NoticeDetail" >
 			<thead>
 				<tr>
-					<th style="text-align: center; color:#737373; font-size: 25px; font-weight: bold;">${requestScope.nvo.ctTitle}</th>
+					<th style="text-align: center; color:#737373; font-size: 18px; font-weight: bold;">${requestScope.nvo.ctTitle}</th>
 				</tr>
 			</thead>
 			
 			<tbody>
 				<tr>
-					<td class="NoticeDate" style="text-align: left; color:#737373; font-size: 17px;">Date : ${requestScope.nvo.ctRegisterday}
+					<td class="NoticeDate" style="text-align: left; color:#737373; font-size: 15px;">Date : ${requestScope.nvo.ctRegisterday}
 						<br>
 						Name : ${requestScope.nvo.fk_adId}
 					</td>
@@ -115,7 +129,7 @@
 			
 			<tbody>
 				<tr>
-					<td class="NoticeContent" style="text-align: left; font-size: 22px;"><br><br>${requestScope.nvo.ctContent}<br><br><br><br></td>
+					<td class="NoticeContent" style="text-align: left; font-size: 15px;"><br><br>${requestScope.nvo.ctContent}<br><br><br><br></td>
 				</tr>
 			</tbody> 
 		</table>
@@ -123,8 +137,14 @@
 		
 		
 	</c:if>    
-	    
-	    
+	 <c:if test="${requestScope.nvo.fk_adId eq sessionScope.loginadmin.adId}">   
+	   <div style="text-align: center;">	
+	   	<br>
+	 	<button class="NoticemodiDel" onClick="goNoticeModi()">수정하기</button>
+	 	<a>&nbsp;&nbsp;&nbsp;</a>
+	 	<button class="NoticemodiDel" onClick="goNoticeDel()">삭제하기</button>
+	   </div>
+	 </c:if> 
 	<div>
 		<button id="noticeList" style="margin-top: 50px;" type="button" onclick="goNoticeList()">공지사항목록</button>
 	   &nbsp;&nbsp;

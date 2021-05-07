@@ -6,7 +6,7 @@
 
 <style type="text/css">
       div.contents1 {
-         padding: 0;
+      	 margin-top: 70px;
          width: 100%;
            z-index: -1;
       }
@@ -27,7 +27,7 @@
       font-weight: bold;
       text-align: center;
       margin-top: 30px;
-      font-size: 18pt;
+      font-size: 25pt;
       padding-top: 20px;
    }
    table#content2MidBox{
@@ -193,7 +193,9 @@
 
 <div id="contents2" class="contents23 subcontainer">
 
-   <div id="newItem">HIT ITEM</div>
+   
+   <div id="newItem"><br>HIT ITEM</div>
+   <br><br>
    <table id="content2MidBox" class="contentHoverGray">
 
 
@@ -270,8 +272,10 @@
 
 
 
+   <br><br>
 <div id="contents3" class="contents23 subcontainer">
-   <div id="newItem">NEW ITEM</div>
+   <div id="newItem"><br><br>NEW ITEM</div>
+   <br><br>
    <table class="contentHoverGray content3MidBox">
 
 	<tr>

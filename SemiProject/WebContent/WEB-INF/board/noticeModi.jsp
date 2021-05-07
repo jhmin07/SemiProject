@@ -56,22 +56,22 @@
 	
 	
 	
-	div#QAWrite{
+	div#noticeWrite{
 		margin-top: 100px;
 	}
-	input.QATitle{
+	input.noticeTitle{
 		font-size: 10pt;
 		color: gray;
 		height: 40px;
 		width: 1000px
 	}
-	input.QAContent{
+	input.noticeContent{
 		font-size: 10pt;
 		color: gray;
 		height: 700px;
 		width: 1000px; 		
 	}
-	span#QAWriter{
+	span#noticeWriter{
 		display: inline-block;
 		width: 90%;
 		font-size: 15pt;
@@ -82,14 +82,13 @@
 <script type="text/javascript">
 $(document).ready(function(){	
 	
-	
 	if("${fn:trim(requestScope.searchWord)}" != ""){
 		$("select#searchType").val("${requestScope.searchType}");
 		$("input#searchWord").val("${requestScope.searchWord}");
 	}
 	
-	$(".Notice").removeClass("page_click");
-	$(".GoodsQA").addClass("page_click");
+	$(".GoodsQA").removeClass("page_click");
+	$(".Notice").addClass("page_click");
 	
 	$("td.GoodsQA").click(function(){
 		location.href="<%=request.getContextPath()%>/board/boardQA.up";
@@ -97,22 +96,14 @@ $(document).ready(function(){
 	$("td.Notice").click(function(){
 		location.href="<%=request.getContextPath()%>/board/board.up" ;
 	});
-	$("tr.NoticeHead").click(function(){
-		var ctNo = $(this).children(".ctNo").text();				
-		// $(this) 는 td가 아니라 tr 이므로 자식들(td) 중 class가 .userid인 것들을 찾는다.
-		
-		  location.href = "<%=request.getContextPath()%>/board/contentOneDetail.up?ctNo="+ctNo+"&goBackURL=${requestScope.goBackURL}";
-	});
 
-	$("input.QAinput").click(function(){
-		$(this).val("");
-	});
 });
 
 // Function Declaration
-function goWrite(){
-	var frm = document.QAWrite;
-	frm.action = "QAWriteSubmit.up?"; // 자기자신한테 간다. 그냥 목록 갯수만 바꿔줄 뿐
+function goModify(){
+	var frm = document.noticeModify;
+	frm.action = "noticeModifySubmit.up?"; 
+	// 자기자신한테 간다. 그냥 목록 갯수만 바꿔줄 뿐
 	frm.method = "GET";	// 숨길필요 없이 빨리빨리 이동해야해서 get 사용
 	frm.submit();
 }
@@ -134,32 +125,33 @@ function goWrite(){
 		</tbody>
 	</table>
 
-	<form name="QAWrite">
-		<span id="QAWriter">작성자:${sessionScope.loginuser.userid}</span>
+	<form name="noticeModify">
+		<span id="noticeWriter">작성자:${requestScope.adminId}</span>
 		<br><br>
 		<table>
 			<tbody>
 				<tr>
-					<td><input class="QAPwd QAinput" value="글 비밀번호를 입력하세요"  type="text" name="QAPwd"/></td>
+					<td><input type="hidden" class="noticeNo Noticeinput" value="${requestScope.nvo.ctNo}" name="ctNo"/></td>
 				</tr>
 				<tr>
-					<td><span>&nbsp;</span></td>
-				<tr>
-					<td><input class="QATitle QAinput" value="제목을 입력하세요"  type="text" name="QATitle"/></td>
-				</tr>
-				<tr>
-					<td><span>&nbsp;</span></td>
-				</tr>
-				<tr>
-					<td><input class="QAContent QAinput" value="내용을 입력하세요"  type="text" name="QAContent" /></td>
+					<td><input class="noticeTitle Noticeinput" value="${requestScope.nvo.ctTitle}"  type="text" name="noticeTitle"/></td>
 				</tr>
 				<tr>
 					<td><span>&nbsp;</span></td>
 				</tr>
+				<tr>
+					<td><input class="noticeContent Noticeinput" value="${requestScope.nvo.ctContent}"  type="text" name="noticeContent" /></td>
+				</tr>
+				<tr>
+					<td><span>&nbsp;</span></td>
+				</tr>
+				<!-- <tr>
+					<td><input type="file" name="noticeImg" class="noticeImg" /></td>
+				</tr> -->
 			</tbody>
 		</table>
 		<br><br>
-		<button onClick="goWrite();" style="background-color: #196666; color: white; height: 50px; width: 150px; font-size: 25px; font-weight: bold;">작성완료</button>
+		<button onClick='goModify();' style="background-color: #196666; color: white; height: 50px; width: 150px; font-size: 25px; font-weight: bold;">작성완료</button>
 	</form>
 
 </div>
