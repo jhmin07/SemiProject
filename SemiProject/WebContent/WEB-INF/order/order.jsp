@@ -326,6 +326,7 @@ table.odr_info input[type=text]{
 	
 	// == 결제하기 버튼 클릭 시 결제창 띄우기 == // 
 	function paymentGoFunc(lastpay_price) {
+		paymentComplete();
 <%--		
 		// 필수 입력 사항 모두 입력되었는지 검사
 		var requiredInfoFlag = requiredInfoCheck();
@@ -339,12 +340,13 @@ table.odr_info input[type=text]{
 			alert("이용약관에 동의해주세요.");
 			return ;
 		}
---%>			
+			
 		var url = "<%=request.getContextPath()%>/order/goPayment.up?lastpay_price="+lastpay_price+"&name=kimys";
 		window.open(url, "goPayment", 
 					"left=350px, top=100px, width=820px, height=600px");
 		
 		$("input:text[name=totalPrice]").val(lastpay_price);
+--%>		
 	}
 	
 	function paymentComplete() {
@@ -352,29 +354,27 @@ table.odr_info input[type=text]{
 		$.ajax({
 			url:"<%=request.getContextPath()%>/order/orderProcess.up",
 			type:"post",
-			data:{"pnum_es":${pnum_es},
-				"oqty_es":${oqty_es},
-				"cartno_es":${cartno_es},
-				"totalPrice_es":str_totalPrice,
-				"sumtotalPrice":sumtotalPrice,
-				"sumtotalPoint":sumtotalPoint},
+			data:{"pnum_es":"${requestScope.pnum_es}",
+				"oqty_es":"${requestScope.oqty_es}",
+				"cartno_es":"${requestScope.cartno_es}",
+				"totalPrice_es":"${requestScope.totalPrice_es}",
+				"sumtotalPrice":"${requestScope.sumtotalPrice}",
+				"sumtotalPoint":"${requestScope.sumtotalPoint}"},
 			dataType:"json",
 			success:function(json){
 				if (json.isSuccess == 1) {
-					location.href = "<%=request.getContextPath()%>/shop/orderList.up";
+					alert("주문성공!!");
+					<%-- location.href = "<%=request.getContextPath()%>/order/orderSuccess.up"; --%>
+					// submitOrderFrm(); // 배송지 입력 정보 저장하러 가기
 				}
 			},
 		});
-		
-		
-		submitOrderFrm();
-		
 		// console.log("결제 성공");
 	}
 	
 	function submitOrderFrm() {
 		var frm = document.orderFrm;
-		frm.action = "<%=request.getContextPath()%>/order/orderProcess.up";
+		frm.action = "<%=request.getContextPath()%>/order/orderSuccess.up";
 		frm.method = "post";
 		frm.submit();
 	}

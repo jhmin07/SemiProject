@@ -88,7 +88,7 @@ public class ProductRegisterAction extends AbstractController {
 				
 				InterProductDAO pdao = new ProductDAO();
 				int pnum = pdao.getPnumOfProduct(); // 제품번호 채번해오기
-	            System.out.println("pnum => " +pnum);
+//	            System.out.println("pnum => " +pnum);
 				
 	            ProductVO pvo = new ProductVO();
 	            pvo.setPnum(pnum);

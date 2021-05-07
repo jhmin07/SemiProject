@@ -39,8 +39,8 @@ public class OrderAction extends AbstractController {
 //		String sumtotalPoint = request.getParameter("sumtotalPoint");
 		
 		String pnum_es = "12,11,10";
-		String oqty_es = "4,3,3";
-		String cartno_es = "5,9,10";
+		String oqty_es = "3,2,3";
+		String cartno_es = "4,5,6";
 		String totalPrice_es= "40000,30000,30000";
 		String sumtotalPrice = "100000";
 		String sumtotalPoint = "100";

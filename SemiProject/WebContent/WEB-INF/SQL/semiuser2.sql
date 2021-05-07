@@ -376,7 +376,14 @@ odNo            number          not null -- 주문상세일련번호
 );
 -- Table TBL_ORDER_DETAILS이(가) 생성되었습니다.
 
-
+-- "주문상세 일련번호 시퀀스" 생성
+create sequence seq_tbl_orderdetail
+start with 1
+increment by 1
+nomaxvalue
+nominvalue
+nocycle
+nocache;
 
 -- 배송지정보 테이블 생성
 create table tbl_delivery ( --receiver 을 rec 로 표현
