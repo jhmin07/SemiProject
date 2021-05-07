@@ -40,7 +40,7 @@ public class OrderAction extends AbstractController {
 		
 		String pnum_es = "12,11,10";
 		String oqty_es = "1,1,1";
-		String cartno_es = "8,9,10";
+		String cartno_es = "14,15,16";
 		String totalPrice_es= "40000,30000,30000";
 		String sumtotalPrice = "100000";
 		String sumtotalPoint = "100";

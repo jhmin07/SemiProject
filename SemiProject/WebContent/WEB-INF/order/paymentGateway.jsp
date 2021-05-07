@@ -23,8 +23,8 @@ $(document).ready(function() {
        merchant_uid : 'merchant_' + new Date().getTime(), // 가맹점에서 생성/관리하는 고유 주문번호
        name : '결제테스트(코인충전|주문명)',	 // 코인충전 또는 order 테이블에 들어갈 주문명 혹은 주문 번호. (선택항목)원활한 결제정보 확인을 위해 입력 권장(PG사 마다 차이가 있지만) 16자 이내로 작성하기를 권장
        amount : '100',	  // '${lastpay_price}'  결제 금액 number 타입. 필수항목. 
-       buyer_email : '',  // 구매자 email
-       buyer_name : '${name}',	  // 구매자 이름 
+       buyer_email : '${sessionScope.loginuser.email}',  // 구매자 email
+       buyer_name : '${sessionScope.loginuser.name}',	  // 구매자 이름 
        buyer_tel : '',    // 구매자 전화번호 (필수항목)
        buyer_addr : '',  
        buyer_postcode : '',
@@ -67,8 +67,8 @@ $(document).ready(function() {
 			
         } else {
             // location.href="/MyMVC";
-            location.href="/Semiproject/main/content2.up";
-            alert("결제에 실패하였습니다.");
+            alert("결제에 실패했습니다.");
+            location.href="javascript:history.back();";
             self.close();
        }
 

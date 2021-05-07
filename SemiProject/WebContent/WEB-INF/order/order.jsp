@@ -74,7 +74,7 @@ table.odr_info input[type=text]{
 	
 	$(document).ready(function(){
 		$("span.error").hide();
-	
+		autoOdrInfoInput();
 		
 		// == 라디오(주문자 정보와 동일, 새로운 배송지) 선택 사항 구현 == //
 		$("input:radio[name=reveiceRadio]").click(function() {
@@ -114,6 +114,22 @@ table.odr_info input[type=text]{
 	
 	// ======= Function Declaration ====== //
 	
+	function autoOdrInfoInput() {
+		$("input#name1").val("${sessionScope.loginuser.name}");
+		$("input#postcode1").val("${sessionScope.loginuser.postcode}");
+		$("input#address1").val("${sessionScope.loginuser.address}");
+		$("input#detailAddress1").val("${sessionScope.loginuser.detailaddress}");
+		$("input#extraAddress1").val("${sessionScope.loginuser.extraaddress}");
+		
+		var mobile = "${sessionScope.loginuser.mobile}";
+		$("input#hp1_1").val(mobile.substr(0,3));
+		$("input#hp1_2").val(mobile.substr(3,4));
+		$("input#hp1_3").val(mobile.substr(7,4));
+		
+		var email = "${sessionScope.loginuser.email}".split("@");
+		$("input#emailid").val(email[0]);
+		$("input#emaildotcom").val(email[1]);
+	}
 	
 	function postSearch1() {
 		// == 우편번호 찾기 == // 
@@ -326,8 +342,8 @@ table.odr_info input[type=text]{
 	
 	// == 결제하기 버튼 클릭 시 결제창 띄우기 == // 
 	function paymentGoFunc(lastpay_price) {
-		paymentComplete();
-<%--		
+		// paymentComplete(); test
+
 		// 필수 입력 사항 모두 입력되었는지 검사
 		var requiredInfoFlag = requiredInfoCheck();
 		if (requiredInfoFlag == false) {
@@ -340,13 +356,13 @@ table.odr_info input[type=text]{
 			alert("이용약관에 동의해주세요.");
 			return ;
 		}
-			
-		var url = "<%=request.getContextPath()%>/order/goPayment.up?lastpay_price="+lastpay_price+"&name=kimys";
+		
+		var url = "<%=request.getContextPath()%>/order/goPayment.up?sumtotalPrice="+${requestScope.sumtotalPrice};
 		window.open(url, "goPayment", 
 					"left=350px, top=100px, width=820px, height=600px");
 		
 		$("input:text[name=totalPrice]").val(lastpay_price);
---%>		
+		
 	}
 	
 	function paymentComplete() {
@@ -364,8 +380,7 @@ table.odr_info input[type=text]{
 			success:function(json){
 				if (json.isSuccess == 1) {
 					alert("주문성공!!");
-					<%-- location.href = "<%=request.getContextPath()%>/order/orderSuccess.up"; --%>
-					// submitOrderFrm(); // 배송지 입력 정보 저장하러 가기
+					submitOrderFrm(); // 배송지 입력 정보 저장하러 가기
 				}
 			},
 		});
