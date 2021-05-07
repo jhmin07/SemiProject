@@ -113,6 +113,8 @@ table.odr_info input[type=text]{
 
 	
 	// ======= Function Declaration ====== //
+	
+	
 	function postSearch1() {
 		// == 우편번호 찾기 == // 
 		new daum.Postcode({
@@ -345,8 +347,28 @@ table.odr_info input[type=text]{
 		$("input:text[name=totalPrice]").val(lastpay_price);
 	}
 	
-	function orderComplete() {
+	function paymentComplete() {
+		
+		$.ajax({
+			url:"<%=request.getContextPath()%>/order/orderProcess.up",
+			type:"post",
+			data:{"pnum_es":${pnum_es},
+				"oqty_es":${oqty_es},
+				"cartno_es":${cartno_es},
+				"totalPrice_es":str_totalPrice,
+				"sumtotalPrice":sumtotalPrice,
+				"sumtotalPoint":sumtotalPoint},
+			dataType:"json",
+			success:function(json){
+				if (json.isSuccess == 1) {
+					location.href = "<%=request.getContextPath()%>/shop/orderList.up";
+				}
+			},
+		});
+		
+		
 		submitOrderFrm();
+		
 		// console.log("결제 성공");
 	}
 	
@@ -385,34 +407,28 @@ table.odr_info input[type=text]{
 		</thead>
 		
 		<tbody>
-			<c:forEach var="prod" items="${mapList}" >
-				<%-- test value 값 --%>
-				<c:set var="product_price" value="${prod.prodprice}"/>
-				<c:set var="order_cnt" value="${prod.prodcnt}"/>
-				
+			<c:forEach var="map" items="${requestScope.mapList}" >
 				<tr class="odr_tr">
-					<%-- <td><input type="checkbox" name="product" id="product${var}"/></td> --%>
-					<td><img class="odr_img" src="<%=ctxPath%>/imagesContents2/${prod.image}.jpg" ></td>
-					<td>${prod.prodname}</td>
-					<td><fmt:formatNumber value="${prod.prodprice}" pattern="#,###" /> 원</td>
-					<td><fmt:formatNumber value="${prod.prodcnt}" pattern="#,###" /></td>
-					<td><fmt:formatNumber value="${prod.prodpoint}" pattern="#,###" /></td>
+					<td><img class="odr_img" src="<%=ctxPath%>/image/product/${map.fk_decode}/${map.pimage1}" alt="<%=ctxPath%>/image/product/${map.fk_decode}/${map.pimage1}" ></td>
+					<td>${map.pname}</td>
+					<td><fmt:formatNumber value="${map.price}" pattern="#,###" /> 원</td>
+					<td><fmt:formatNumber value="${map.saleprice}" pattern="#,###" /></td>
+					<td><fmt:formatNumber value="${map.point}" pattern="#,###" /></td>
 					<td>${prod.delivtype}</td>
 					<td>${prod.delivprice}</td>
-					<td><fmt:formatNumber value="${prod.prodsum}" pattern="#,###" /> 원</td>
+					<td><fmt:formatNumber value="${map.totalPrice}" pattern="#,###" /> 원</td>
 				</tr>
 				
-				<c:set var="total_price" value="${total_price + prod.prodprice * prod.prodcnt}" scope="request"/>
-				<c:set var="total_point" value="${total_point + prod.prodpoint}" scope="request"/>	
+				<c:set var="sumtotalSaleprice" value="${map.saleprice + sumtotalSaleprice}" scope="request"/>	
 			</c:forEach>
 			
 			<tr class="odr_total_price">
 				<td colspan="9">
-					[기본배송] 상품구매금액 <span><fmt:formatNumber value="${total_price}" pattern="#,###" /></span>
+					[기본배송] 상품구매금액 <span><fmt:formatNumber value="${requestScope.sumtotalPrice}" pattern="#,###" /></span>
 					<c:if test="${total_price >= 30000}"><c:set var="delivery_price" value="0"/></c:if>
 					+ 배송비 <span><fmt:formatNumber value="${delivery_price}" pattern="#,###" /></span>
-					- 상품할인금액 <span><fmt:formatNumber value="${sale_price}" pattern="#,###" /></span>
-					= 합계 : <span style="font-size: 15pt; font-weight: bold;"><fmt:formatNumber value="${total_price+delivery_price-sale_price}" pattern="#,###" /></span>원 
+					- 상품할인금액 <span><fmt:formatNumber value="${sumtotalSaleprice}" pattern="#,###" /></span>
+					= 합계 : <span style="font-size: 15pt; font-weight: bold;"><fmt:formatNumber value="${sumtotalPrice + delivery_price - sumtotalSaleprice}" pattern="#,###" /></span>원 
 				</td>
 			</tr>
 		</tbody>
@@ -421,9 +437,9 @@ table.odr_info input[type=text]{
 	<form name="orderFrm" hidden>
 		<%-- <input name="orderCode"/> --%>  
 		<%-- ${sessionScope.loginuser.userid} --%>
-		<input name="fk_userid" value="kimys"/>
-		<input name="totalPrice" />
-		<input name="totalPoint" value="${total_point}" />
+		<input name="fk_userid" value="${sessionScope.loginuser.userid}"/>
+		<input name="totalPrice" value="${requestScope.sumtotalPrice}" />
+		<input name="totalPoint" value="${requestScope.sumtotalPoint}" />
 	</form>
 	
 	

@@ -18,6 +18,25 @@ public class OrderProcessAction extends AbstractController {
 		
 		InterOrderDAO odao = new OrderDAO();
 		
+		String pnum_es = request.getParameter("pnum_es");
+		String oqty_es = request.getParameter("oqty_es");
+		String cartno_es = request.getParameter("cartno_es");
+		String totalPrice_es= request.getParameter("totalPrice_es");
+		String sumtotalPrice = request.getParameter("sumtotalPrice");
+		String sumtotalPoint = request.getParameter("sumtotalPoint");
+		
+		
+		if (pnum_es != null && oqty_es != null &&
+			cartno_es != null && totalPrice_es != null &&
+			sumtotalPrice != null && sumtotalPoint != null) {
+		
+		}
+		else if (pnum_es != null && oqty_es != null &&
+				cartno_es == null && totalPrice_es != null &&
+				sumtotalPrice != null && sumtotalPoint != null) {
+			
+		}
+		
 		String ordercode = odao.getOrdercode(); // 주문코드 가져오기 
 		
 		// == 주문내역 테이블에 주문 정보 삽입하기(insert) 과정 == //

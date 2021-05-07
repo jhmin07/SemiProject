@@ -11,6 +11,8 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
+import myshop.model.ProductVO;
+
 public class OrderDAO implements InterOrderDAO {
 	
 	private DataSource ds;
@@ -125,6 +127,45 @@ public class OrderDAO implements InterOrderDAO {
 			close();
 		}
 		return n;
+	}
+	
+	// 주문하기 페이지에서 보여줄 상품의 정보 가져오기 (select)
+	@Override
+	public ProductVO getProdInfo(String userid, String cartno) throws SQLException {
+		ProductVO pvo = null;
+		
+		try {
+			conn = ds.getConnection();
+
+			String sql = "select pimage1, pname, price, saleprice, point, fk_decode "+
+						"from tbl_product "+
+						"where pnum in ( "+
+						"    select fk_pnum "+
+						"    from tbl_cart "+
+						"    where fk_userid = ? and cartno = ? "+
+						")";
+
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, userid);
+			pstmt.setString(2, cartno);
+			rs = pstmt.executeQuery();
+			
+			if (rs.next()) {
+				pvo = new ProductVO();
+				
+				pvo.setPimage1(rs.getString(1));
+				pvo.setPname(rs.getString(2));
+				pvo.setPrice(rs.getInt(3));
+				pvo.setSaleprice(rs.getInt(4));
+				pvo.setPoint(rs.getInt(5));
+				pvo.setFk_decode(rs.getString(6));
+			}
+
+		} finally {
+			close();
+		}
+		
+		return pvo;
 	}
 
 	
