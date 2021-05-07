@@ -6,7 +6,7 @@
 <style type="text/css">
 footer{
  	background-color: #3e505e;
- 	margin-top: 300px;
+ 	/* margin-top: 10px; */
  	
 }
 div.footer{
