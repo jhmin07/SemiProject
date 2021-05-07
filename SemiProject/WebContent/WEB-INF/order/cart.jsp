@@ -202,7 +202,7 @@ button.del:hover{
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-<script type="text/javascript" src="<%= ctxPath %>/js/jquery.number.min.js"></script>
+<script src="<%= ctxPath %>/js/jquery.number.min.js"></script>
 <script type="text/javascript">
 
 $(document).ready(function(){
@@ -316,41 +316,31 @@ $(document).ready(function(){
        }// end of for----------------------- 
        
        /// === java 단으로 보내야할 최종 데이터 확인용 === //
-       console.log("제품번호들: "+str_pnum);
+/*        console.log("제품번호들: "+str_pnum);
        console.log("주문량들: "+str_oqty);
        console.log("장바구니번호들: "+str_cartno);
        console.log("제품별금액들: "+str_totalPrice);
        console.log("제품별금액들의 총합계: "+sumtotalPrice);
-       console.log("제품별포인트들의 총합계: "+sumtotalPoint);
+       console.log("제품별포인트들의 총합계: "+sumtotalPoint); */
        
        var a = $.number(sumtotalPrice); // "12,345"
        
-       $("span#totalprice").text(sumtotalPrice);
-        
-      <%--  $.ajax({
-     	 url:"<%=request.getContextPath()%>/shop/orderAdd.up",
-     	 type:"post",
-     	 data:{"pnum_s":str_pnum,
-     		 "oqty_s":str_oqty,
-     		 "cartno_s":str_cartno,
-     		 "totalPrice_s":str_totalPrice,
-     		 "sumtotalPrice":sumtotalPrice,
-     		 "sumtotalPoint":sumtotalPoint},
-     	dataType:"json",
-     	success:function(json){
-     		if(json.isSuccess==1){
-     			location.href = "<%= request.getContextPath()%>/shop/orderList.up";
-     		}
-     	},
-     	error: function(request, status, error){
-             alert("code: "+request.status+"\n"+"message: "+request.responseText+"\n"+"error: "+error);
-          } 
-     	 
-       }); --%>
+       $("span#totalPrice_1").text(a);
+       $("span#totalPrice_2").text(a);
+       
+       $("span#count_product_cart").text(allCnt);
        
 	}// end of 체크박스 토탈
 	
 	function goOrder(){
+		
+		var checkCnt = $("input:checkbox[name=pnum]:checked").length;
+	       
+	      if(checkCnt < 1) {
+	          alert("주문하실 제품을 선택하세요!!");
+	          return; //종료
+	       }
+	      else{
 		
 		 var allCnt = $("input:checkbox[name=product]").length;
 		  
@@ -417,6 +407,7 @@ $(document).ready(function(){
 	          } 
 	     	 
 	       }); 
+	      }
 		
 	}
 
@@ -626,7 +617,7 @@ $(document).ready(function(){
 
 		<tr class="side_cart" id="total_price_in_cart">
             <td>총 제품 : </td>
-            <td><span id="totalprice"></span> 원
+            <td><span id="totalPrice_1"></span> 원
            <input class="totalPrice" type="hidden" value="${cartvo.prod.totalPrice}" /></td>
          </tr>
          <tr class="side_cart" id="discount_price_in_cart">
@@ -640,7 +631,7 @@ $(document).ready(function(){
 
          <tr class="side_cart" id="side_cart_totalPrice">
             <td>합계 : </td>
-            <td><fmt:formatNumber value="${cartvo.prod.totalPrice+2500}" pattern="#,###" />원</td>
+            <td><span id="totalPrice_2"></span> 원</td>
          </tr>
 
 	</table>
