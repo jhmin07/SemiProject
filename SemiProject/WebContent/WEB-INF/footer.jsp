@@ -6,11 +6,11 @@
 <style type="text/css">
 footer{
  	background-color: #3e505e;
- 	margin-top: 300px;
+ 	/* margin-top: 10px; */
  	
 }
 div.footer{
-	margin: 100px 100px 0 100px ;
+	margin: 0px 100px 0 100px ;
 }
 div.footerClick{
 	display: inline;

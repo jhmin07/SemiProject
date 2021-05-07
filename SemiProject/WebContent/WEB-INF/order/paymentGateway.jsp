@@ -61,7 +61,7 @@ $(document).ready(function() {
 		//  $(opener.location).attr("href", "javascript:goCoinUpdate('${idx}','${coinmoney}');");
 			
 		
-			opener.location.href = "javascript:orderComplete();";
+			opener.location.href = "javascript:paymentComplete();";
 		
 		    self.close();
 			

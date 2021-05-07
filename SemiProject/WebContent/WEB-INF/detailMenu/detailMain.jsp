@@ -33,7 +33,8 @@
 } */
 .demanu{
 	width: 505px;
-	height: 600px;
+	height: 550px;
+	border: 1px solid #eee9dd;
 }
 div#detailMain{
 	/* padding-left: 5%; */

@@ -756,4 +756,141 @@ public class ProductDAO implements InterProductDAO {
 		return n;
 	}
 	
+	// 제품번호를 가지고서 해당 제품의 옵션정보를 조회해오기
+	@Override
+	public List<OptionVO> selectoption(String pnum) throws SQLException {
+		
+		List<OptionVO> optionList = new ArrayList<>();
+		
+		try {
+			conn = ds.getConnection();
+
+			String sql = " select onum, oname, fk_pnum, addprice, ocontents "+
+							 " from tbl_option " +
+						 	 " where fk_pnum = ? ";
+
+			pstmt = conn.prepareStatement(sql);
+
+			pstmt.setString(1, pnum);
+			
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				
+				OptionVO ovo = new OptionVO();
+				
+				int onum = rs.getInt("onum");
+				String oname = rs.getString("oname");
+				int fk_pnum = rs.getInt("fk_pnum");
+				int addprice = rs.getInt("addprice");
+				String ocontents = rs.getString("ocontents");
+				
+				ovo.setOnum(onum);
+				ovo.setOname(oname);
+				ovo.setFk_pnum(fk_pnum);
+				ovo.setAddprice(addprice);
+				ovo.setOcontents(ocontents);
+				
+				optionList.add(ovo);
+				
+			}
+
+		} finally {
+			close();
+		}
+		
+		return optionList;
+		
+	}
+
+	// New 또는 HIT 상품 불러오기
+		@Override
+		public List<ProductVO> newHitList(String fk_snum) throws SQLException {
+			
+			List<ProductVO> newHitList = new ArrayList<>();
+
+			try {
+				conn = ds.getConnection();
+
+				String sql = " select pnum, pname, pcompany, pimage1, pimage2, pqty, price, saleprice, pcontent, point, to_char(pinputdate, 'yyyy-mm-dd') as pinputdate, fk_decode, fk_snum "              
+			            	+ " from tbl_product "              
+			            	+ " where fk_snum = ? "          
+			            	+ " order by pinputdate desc ";
+
+				pstmt = conn.prepareStatement(sql);
+
+				pstmt.setString(1, fk_snum);
+				
+				rs = pstmt.executeQuery();
+
+				 while(rs.next()) {
+			        	
+		        	ProductVO pvo = new ProductVO();
+		        	
+		        	 pvo.setPnum(rs.getInt("pnum"));      // 제품번호
+		             pvo.setPname(rs.getString("pname")); // 제품명	             
+		             pvo.setPcompany(rs.getString("pcompany")); // 제조회사명
+		             pvo.setPimage1(rs.getString("pimage1"));   // 제품이미지1   이미지파일명
+		             pvo.setPimage2(rs.getString("pimage2"));   // 제품이미지2   이미지파일명
+		             pvo.setPqty(rs.getInt("pqty"));            // 제품 재고량
+		             pvo.setPrice(rs.getInt("price"));          // 제품 정가
+		             pvo.setSaleprice(rs.getInt("saleprice"));  // 제품 판매가(할인해서 팔 것이므로)
+		             pvo.setPcontent(rs.getString("pcontent"));       // 제품설명 
+		             pvo.setPoint(rs.getInt("point"));              // 포인트 점수        
+		             pvo.setPinputdate(rs.getString("pinputdate")); // 제품입고일자  	             
+		             pvo.setFk_decode(rs.getString("fk_decode"));               
+		                                                       
+		             
+		             newHitList.add(pvo);
+		        }// end of while
+				 
+				
+			} finally {
+				close();
+			}
+
+			return newHitList;
+	}
+	
+	// 제품번호를 가지고서 해당 제품의 옵션정보를 조회해오기
+	@Override
+	public List<OptionVO> selectoname(String pnum) throws SQLException {
+		
+		List<OptionVO> onameList = new ArrayList<>();
+		
+		try {
+			conn = ds.getConnection();
+
+			String sql = " select distinct(oname),onum "+
+							 " from tbl_option " +
+						 	 " where fk_pnum = ? ";
+
+			pstmt = conn.prepareStatement(sql);
+
+			pstmt.setString(1, pnum);
+			
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				
+				OptionVO ovo = new OptionVO();
+				
+				String oname = rs.getString(1);
+				int onum = rs.getInt(2);
+				
+				ovo.setOnum(onum);
+				ovo.setOname(oname);
+				
+				onameList.add(ovo);
+				
+			}
+
+		} finally {
+			close();
+		}
+		
+		return onameList;
+		
+	}
+	
 }

@@ -122,6 +122,7 @@ ul.payment_last > li {
 		
 	});
 
+	// == Function Declaration == //
 	function payAgreeCheck() {
 		var payCheckLen = $("input:checkbox[class=payAgreeAll]:checked").length
 		// console.log(payCheckLen);
@@ -131,6 +132,20 @@ ul.payment_last > li {
 		else 
 			return false;
 	}
+	
+	function usePoint() {
+		var url = "<%=request.getContextPath()%>/order/usingMyPoint.up";
+		window.open(url, "usingMyPoint", 
+					"left=100px, top=100px, width=555px, height=355px");
+	}
+	
+	function setPoint(pt) {
+		//$("td#point").next().val(pt);
+		$("input#pt").val(pt);
+		
+	}
+	
+	
 
 </script>
 
@@ -192,14 +207,17 @@ ul.payment_last > li {
 				<td><fmt:formatNumber value="${sale_price}" pattern="#,###" />원</td>
 			</tr>
 			<tr class="payment_tbody">
-				<td>추가할인금액</td>
+				<td>추가할인 금액</td>
 				<%-- 추가할인 금액 => 포인트 사용하는 걸로 변경해서 추가해볼 예정 --%>
-				<td><fmt:formatNumber value="${addsale_price}" pattern="#,###" />원</td>
-				<td style="text-align: left;"><button class="payment_button">내역보기</button></td>
+				<input id="pt" hidden/>
+				
+				<td id="point"><fmt:formatNumber value="${requestScope.usingPoint}" pattern="#,###" />원</td>
+				<td style="text-align: left;"><button class="payment_button" onclick="usePoint();">포인트 사용</button></td>
 			</tr>
 			<tr class="payment_tbody">
-				<td>총 부가결제금액</td>
-				<td><fmt:formatNumber value="${sale_price + addsale_price}" pattern="#,###" />원</td>
+				<td>배송비</td>
+				<td>3,000원</td>
+				<%-- <td><fmt:formatNumber value="${sale_price + addsale_price}" pattern="#,###" />원</td> --%>
 			</tr>
 		</tbody>
 	</table>
@@ -216,3 +234,4 @@ ul.payment_last > li {
 			<li><button id="paymentGo" onclick="paymentGoFunc(${lastpay_price})">결제하기</button></li>
 		</ul>
 	</div>
+	

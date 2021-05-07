@@ -64,7 +64,7 @@ public class GoCartAction extends AbstractController {
 	    		  
 	    		  if(n==1) {
 	    			  request.setAttribute("message", "장바구니 담기 성공!!");
-	                  request.setAttribute("loc", "cartList.up");
+	                  request.setAttribute("loc", "cartController.up");
 	                  // 장바구니 목록보여주기 페이지 이동 
 	    		  }
 	    		  else {
