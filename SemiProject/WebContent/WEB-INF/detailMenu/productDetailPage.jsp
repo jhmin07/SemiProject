@@ -50,6 +50,8 @@ li {
 <script type="text/javascript">
 	$( function() {
 		
+	//	console.log("${optionList}");
+	//	console.log("${pvo}");
 	// console.log(${requestScope.pvo.fk_decode});	
 		
 	var spinner = $( "#spinner" ).spinner();
@@ -155,15 +157,21 @@ li {
 	 						<input id="spinner" name="odAmount" size="3pt" value="1" style="height: 20px;">
 						</td>
 					<tr>
-					<tr>
-						<td class="pdt_main">OPTION</td>
-						<td class="pdt_sub">
-							<select style="width: 150px;">
-								<option>1</option>
-								<option>2</option>
-							</select>
+								
+					<tr>				
+						<c:forEach begin="1" end="1" var="option" items="${optionList}" >		
+								<td>${option.oname}</td>
+						</c:forEach>
+						
+						<td>
+							  <select style="width: 150px;">
+						           <c:forEach var="option" items="${optionList}" >		
+								       <option value="">${option.ocontents}</option>
+						           </c:forEach>			
+							  </select>
 						</td>
-					<tr>
+					</tr>	
+					
 				</tbody>
 			</table>
 			<button type="button"  onclick="goCart();" style="background-color: black; color: white;  width: 350px; margin-top: 10px; height: 30px;">장바구니에 담기</button>

@@ -24,13 +24,22 @@
    
    		height: 100px;
    }
-   td.NoticeContent{
-   
-   		height: 300px;
-   }
    div.NoticeDetailDiv{
    		margin-top: 200px;
    		margin-bottom: 200px;
+   }
+    table.NoticeDetail{
+    	width: 100%;
+    	text-align: center;
+    }s
+    div#tableContainer{
+    	width: 100%;
+    	border: solid 1px hidden;
+    	text-align: center;
+    }
+   td.NoticeContent{
+   
+   		height: 300px;
    }
    button#comment{
    	width: 150px; 
@@ -168,8 +177,8 @@
 		존재하지 않는 글입니다.
 	</c:if>
 	<c:if test="${not empty requestScope.qvo}">
-	
-		<table class="NoticeDetail" style="width: 90%; margin-top: 100px; \">
+	<div id="tableContainer">
+		<table class="NoticeDetail">
 			<thead>
 				<tr>
 					<th style="text-align: center; color:#737373; font-size: 25px; font-weight: bold;">${requestScope.qvo.qaTitle}</th>
@@ -191,7 +200,7 @@
 				</tr>
 			</tbody> 
 		</table>
-		
+		</div>
 		<br><br>
 		<div id="commentList">
 			

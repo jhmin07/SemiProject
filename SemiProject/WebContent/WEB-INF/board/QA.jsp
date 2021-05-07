@@ -11,6 +11,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <style type="text/css">	
+	div.QADiv{
+   		margin-top: 100px;
+   		margin-bottom: 200px;
+	}
 	img#boardImg {
 		width: 90%;		
 		height: 280px;
@@ -139,7 +143,7 @@
 	}
 </script>
 
-<div class="container" align="center">
+<div class="container QADiv" align="center">
 <img id="boardImg" src="../image/board.png"/>
 	<table class="table page_tab" style="margin: 25px 0;">
 		<tbody>
