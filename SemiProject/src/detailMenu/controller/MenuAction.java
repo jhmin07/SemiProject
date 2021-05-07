@@ -47,6 +47,7 @@ public class MenuAction extends AbstractController {
 		// 특정 카테고리에 속하는 제품들을 일반적인 페이징 처리하여 조회(select)해오기 
 		List<ProductVO> productList = pdao.selectProductByCategory(paraMap);
 		//System.out.println(paraMap);
+		
 		request.setAttribute("productList", productList);
 		
 		// **** ========= 페이지바 만들기 ========= **** //
@@ -95,11 +96,9 @@ public class MenuAction extends AbstractController {
 	      // **** [다음][마지막] 만들기 **** //	     
           //pageBar += "&nbsp;<a class='pagebar' href='menu.up?cnum="+cnum+"&decode="+decode+"&currentShowPageNo="+(currentN+1)+"'>&raquo;</a>&nbsp;"; 
           pageBar += "&nbsp;<a class='pagebar' href='menu.up?cnum="+cnum+"&decode="+decode+"&currentShowPageNo="+(pageNo-1)+"'>&raquo;</a>&nbsp;";
-	      
-	      
-	      
-	      request.setAttribute("pageBar", pageBar);
-	      
+	      	      	      
+	      request.setAttribute("pageBar", pageBar);	      
+			
 		  // super.setRedirect(false);
 		  super.setViewPage("/WEB-INF/detailMenu/detailMenu.jsp");
 	}

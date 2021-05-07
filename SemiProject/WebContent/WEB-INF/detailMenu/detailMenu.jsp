@@ -20,6 +20,7 @@ img.prodImg{
 	height: 350px;
 	/* display: inline-block; */
 	margin-left: 10px;	
+	border: 1px solid #eee9dd;
 }
 div#product{
 	text-align: center;
@@ -38,18 +39,19 @@ a{
 a.pagebar{
 	display: inline-block;
 	margin-bottom: 10px;
-	color: black;
-	
+	color: black;	
 }
 div#pagebar{
 	text-align: center;
 }
+
 </style>
 </head>
 <body>
 
 <!-- <h5 style="text-align: center; border: solid 1px gray;">이불커버 메뉴 클릭</h5> -->
   <%-- === 특정 카테고리에 속하는 제품들을 일반적인 페이징 처리하여 조회(select)해온 결과 === --%>
+
 <div id="product">
  <c:set var="i" value="0" />
 	<c:set var="j" value="4" />
@@ -75,10 +77,10 @@ div#pagebar{
 	    <c:set var="i" value="${i+1}" />
 	  </c:forEach>
 	</table>
-		<div id="pagebar">${requestScope.pageBar}</div>
-	 <c:if test="${empty requestScope.productList}"> 
+	<c:if test="${empty requestScope.productList}"> 
     	제품진열 준비중입니다.
-   	 </c:if> 
+   	</c:if>   	 
+	<div id="pagebar">${requestScope.pageBar}</div>	 
    </div>	
 </div> 	
 <%-- <c:forEach var="pvo" items="${requestScope.productList}" varStatus="status">

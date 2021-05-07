@@ -61,5 +61,8 @@ public interface InterProductDAO {
 
 	// tbl_option 테이블에 제품의 추가이미지 파일명 insert 해주기  
 	int product_option_insert(OptionVO ovo) throws SQLException;
+
+	// New 또는 HIT 상품 불러오기	
+	List<ProductVO> newHitList(String fk_snum) throws SQLException;
 	
 }

@@ -146,6 +146,8 @@ function goCart() {
 
 	<div id="mySidenav" class="sidenav">
 	  <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+	  <a class="sub2" href="<%= ctxPath%>/shop/newhithome.up?fk_snum=1">Hit item</a>    
+	  <a class="sub2" href="<%= ctxPath%>/shop/newhithome.up?fk_snum=2">New item</a>
 	  <a class="sub2" href="<%= ctxPath%>/shop/category.up?cnum=1">침실 가구</a>    
 	  <a class="sub2" href="<%= ctxPath%>/shop/category.up?cnum=2">거실 가구</a>
 	  <a class="sub2" href="<%= ctxPath%>/shop/category.up?cnum=3">주방 가구</a>
