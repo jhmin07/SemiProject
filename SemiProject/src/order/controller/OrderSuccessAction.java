@@ -16,14 +16,15 @@ public class OrderSuccessAction extends AbstractController {
 		InterOrderDAO odao = new OrderDAO();
 		
 		// == 배송지정보 테이블에 {주문코드,우편번호,주소,상세주소,주소참고항목,수취인,수취인연락처,배송메세지} 삽입하기(insert) == //
-		String recMobile = request.getParameter("recmobile");
+		String recMobile = request.getParameter("recMobile");
 		String recPostcode = request.getParameter("recPostcode");
 		String recAddress = request.getParameter("recAddress");
-		String recDetailaddress = request.getParameter("recDetailaddress");
-		String recExtraaddress = request.getParameter("recExtraaddress");
+		String recDetailaddress = request.getParameter("recDetailAddress");
+		String recExtraaddress = request.getParameter("recExtraAddress");
 		String dvMessage = request.getParameter("dvMessage");
+		String ordercode = request.getParameter("ordercode");
 		
-		String ordercode = odao.getOrdercode();
+		System.out.println("ordercode: "+ordercode +"recMobile"+recMobile);
 		
 		DeliverInfoVO delivo = new DeliverInfoVO();
 		delivo.setFk_orderCode(ordercode);

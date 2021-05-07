@@ -47,7 +47,7 @@ public class OrderProcessAction extends AbstractController {
 		String totalPrice_es= request.getParameter("totalPrice_es");
 		String sumtotalPrice = request.getParameter("sumtotalPrice");
 		String sumtotalPoint = request.getParameter("sumtotalPoint");		
-//		System.out.println("~~~~ 확인용 pnum: " + pnum_es + ", oqty: " + oqty_es + ", totalPrice: " + totalPrice_es);
+//		System.out.println("~~~~ 확인용 pnum: " + pnum_es + ", oqty: " + oqty_es + ", sumtotalPrice: " + sumtotalPrice);
 		
 		JSONObject jsonObj = new JSONObject();
 		String json = "";
@@ -90,6 +90,7 @@ public class OrderProcessAction extends AbstractController {
 			int isSuccess = odao.orderInsertProcess(paraMap);
 			if (isSuccess == 1) {
 				jsonObj.put("isSuccess", isSuccess);
+				jsonObj.put("ordercode", ordercode);
 				
 				json = jsonObj.toString();
 				// 주문자 정보(포인트 증가/감소) 업데이트하기

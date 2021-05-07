@@ -79,7 +79,7 @@ table.odr_info td:nth-child(2) {
 <script type="text/javascript">
 
 	$(document).ready(function(){
-		orderSuccessSendMsg();
+		// orderSuccessSendMsg();
 		
 		
 	});

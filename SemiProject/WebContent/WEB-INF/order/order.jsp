@@ -337,13 +337,18 @@ table.odr_info input[type=text]{
 			return false;
 		}
 		$("input#hp2").val($("input#hp2_1").val() + $("input#hp2_2").val() + $("input#hp2_3").val());
+		console.log($("input#hp2"));
 	}
 	
 	
 	// == 결제하기 버튼 클릭 시 결제창 띄우기 == // 
-	function paymentGoFunc(lastpay_price) {
-		// paymentComplete(); test
-
+	function paymentGoFunc() {
+		// paymentComplete();
+		// submitOrderFrm("20210507-31");
+		
+		var sumtotalPriceLast = Number($("span#sumtotalPriceLast").html().split(",").join(""));
+		console.log(sumtotalPriceLast);
+		
 		// 필수 입력 사항 모두 입력되었는지 검사
 		var requiredInfoFlag = requiredInfoCheck();
 		if (requiredInfoFlag == false) {
@@ -356,16 +361,17 @@ table.odr_info input[type=text]{
 			alert("이용약관에 동의해주세요.");
 			return ;
 		}
+		paymentComplete();
 		
-		var url = "<%=request.getContextPath()%>/order/goPayment.up?sumtotalPrice="+${requestScope.sumtotalPrice};
+		var url = "<%=request.getContextPath()%>/order/goPayment.up?sumtotalPrice="+sumtotalPriceLast;
 		window.open(url, "goPayment", 
 					"left=350px, top=100px, width=820px, height=600px");
-		
-		$("input:text[name=totalPrice]").val(lastpay_price);
 		
 	}
 	
 	function paymentComplete() {
+		
+		var sumtotalPriceLast = Number($("span#sumtotalPriceLast").html().split(",").join(""));
 		
 		$.ajax({
 			url:"<%=request.getContextPath()%>/order/orderProcess.up",
@@ -374,21 +380,23 @@ table.odr_info input[type=text]{
 				"oqty_es":"${requestScope.oqty_es}",
 				"cartno_es":"${requestScope.cartno_es}",
 				"totalPrice_es":"${requestScope.totalPrice_es}",
-				"sumtotalPrice":"${requestScope.sumtotalPrice}",
+				"sumtotalPrice":sumtotalPriceLast,
 				"sumtotalPoint":"${requestScope.sumtotalPoint}"},
 			dataType:"json",
 			success:function(json){
 				if (json.isSuccess == 1) {
-					alert("주문성공!!");
-					submitOrderFrm(); // 배송지 입력 정보 저장하러 가기
+					alert("주문이 완료되었습니다.");
+					submitOrderFrm(json.ordercode); // 배송지 입력 정보 저장하러 가기
 				}
 			},
 		});
 		// console.log("결제 성공");
 	}
 	
-	function submitOrderFrm() {
-		var frm = document.orderFrm;
+	function submitOrderFrm(ordercode) {		
+		var frm = document.deliverInfoFrm;
+		$("input#ordercode").val(ordercode);
+		
 		frm.action = "<%=request.getContextPath()%>/order/orderSuccess.up";
 		frm.method = "post";
 		frm.submit();
@@ -401,10 +409,12 @@ table.odr_info input[type=text]{
 <div class="container odr_container">
 	<h2 style="width: 80%; margin-bottom: 50px; color: gray;">- Order</h2>
 	
-	<c:set var="total_price" value="0" scope="request"/>
-	<c:set var="sale_price" value="0" scope="request"/>
-	<c:set var="delivery_price" value="3000" scope="request"/>
-	<c:set var="total_point" value="0" scope="request"/>
+	
+	<c:set var="sumtotalPrice" value="${requestScope.sumtotalPrice}" scope="request"/>
+	<c:set var="sumtotalPoint" value="${requestScope.sumtotalPoint}" scope="request"/>
+	<c:set var="sumSalePrice" value="0" scope="request"/>
+	<c:set var="deliveryPrice" value="3000" scope="request"/>
+	
 	
 	<table class="table odr_list">
 		<thead>
@@ -415,8 +425,8 @@ table.odr_info input[type=text]{
 				<th>판매가</th>
 				<th>수량</th>
 				<th>적립금</th>
-				<th>배송구분</th>
-				<th>배송비</th>
+				<!-- <th>배송구분</th>
+				<th>배송비</th> -->
 				<th>합계</th>
 			</tr>
 		</thead>
@@ -427,39 +437,33 @@ table.odr_info input[type=text]{
 					<td><img class="odr_img" src="<%=ctxPath%>/image/product/${map.fk_decode}/${map.pimage1}" alt="<%=ctxPath%>/image/product/${map.fk_decode}/${map.pimage1}" ></td>
 					<td>${map.pname}</td>
 					<td><fmt:formatNumber value="${map.price}" pattern="#,###" /> 원</td>
-					<td><fmt:formatNumber value="${map.saleprice}" pattern="#,###" /></td>
+					<td><fmt:formatNumber value="${map.oqty}" pattern="#,###" /></td>
 					<td><fmt:formatNumber value="${map.point}" pattern="#,###" /></td>
-					<td>${prod.delivtype}</td>
-					<td>${prod.delivprice}</td>
+					<%-- <td>${prod.delivtype}</td>
+					<td>${prod.delivprice}</td> --%>
 					<td><fmt:formatNumber value="${map.totalPrice}" pattern="#,###" /> 원</td>
 				</tr>
-				
-				<c:set var="sumtotalSaleprice" value="${map.saleprice + sumtotalSaleprice}" scope="request"/>	
+
+				<c:set var="sumSalePrice" value="${sumSalePrice + (map.price - map.saleprice)*map.oqty}" scope="request"/>
 			</c:forEach>
 			
 			<tr class="odr_total_price">
 				<td colspan="9">
 					[기본배송] 상품구매금액 <span><fmt:formatNumber value="${requestScope.sumtotalPrice}" pattern="#,###" /></span>
-					<c:if test="${total_price >= 30000}"><c:set var="delivery_price" value="0"/></c:if>
-					+ 배송비 <span><fmt:formatNumber value="${delivery_price}" pattern="#,###" /></span>
-					- 상품할인금액 <span><fmt:formatNumber value="${sumtotalSaleprice}" pattern="#,###" /></span>
-					= 합계 : <span style="font-size: 15pt; font-weight: bold;"><fmt:formatNumber value="${sumtotalPrice + delivery_price - sumtotalSaleprice}" pattern="#,###" /></span>원 
+					<c:if test="${sumtotalPrice >= 30000}"><c:set var="deliveryPrice" value="0" scope="request"/></c:if>
+					
+					+ 배송비 <span><fmt:formatNumber value="${deliveryPrice}" pattern="#,###" /></span>
+					- 상품할인금액 <span><fmt:formatNumber value="${sumSalePrice}" pattern="#,###" /></span>
+					
+					<c:set var="sumtotalPriceLast" value="${sumtotalPrice + deliveryPrice - sumtotalSaleprice}" scope="request"/>
+					= 합계 : <span style="font-size: 15pt; font-weight: bold;"><fmt:formatNumber value="${sumtotalPriceLast}" pattern="#,###" /></span>원 
 				</td>
 			</tr>
 		</tbody>
 	</table>
 	
-	<form name="orderFrm" hidden>
-		<%-- <input name="orderCode"/> --%>  
-		<%-- ${sessionScope.loginuser.userid} --%>
-		<input name="fk_userid" value="${sessionScope.loginuser.userid}"/>
-		<input name="totalPrice" value="${requestScope.sumtotalPrice}" />
-		<input name="totalPoint" value="${requestScope.sumtotalPoint}" />
-	</form>
-	
-	
 	<%-- 주문자 정보 입력폼 --%>
-	<form action="">
+	<form name="deliverInfoFrm">
 		<table class="table odr_info">
 			<thead>
 				<tr>
@@ -527,6 +531,7 @@ table.odr_info input[type=text]{
 			<thead>
 				<tr>
 					<td>배송 정보</td>
+					<input type="hidden" name="ordercode" id="ordercode"/>
 					<td style="text-align: right; vertical-align: bottom;"><span class="star">*</span>필수입력사항</td>
 				</tr>
 			</thead>
@@ -567,7 +572,7 @@ table.odr_info input[type=text]{
 						<input type="text" id="hp2_1" name="hp2_1" size="6" maxlength="3" value="010" readonly />&nbsp;-&nbsp;
 						<input type="text" id="hp2_2" name="hp2_2" size="6" maxlength="4" />&nbsp;-&nbsp;
 						<input type="text" id="hp2_3" name="hp2_3" size="6" maxlength="4" />
-						<input type="text" id="hp2" name="recMobile" hidden />
+						<input type="hidden" id="hp2" name="recMobile"  />
 						<span class="error">휴대폰 형식이 아닙니다.</span>
 					</td>
 				</tr>
