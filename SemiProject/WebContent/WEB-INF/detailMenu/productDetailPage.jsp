@@ -157,18 +157,18 @@ li {
 	 						<input id="spinner" name="odAmount" size="3pt" value="1" style="height: 20px;">
 						</td>
 					<tr>
-					<tr>
-						<c:if test="${!requestScope.optionList eq null}">
-							<td class="pdt_main">OPTION</td>
-							<c:forEach></c:forEach>
-							<td class="pdt_sub">
-								<select style="width: 150px;">
-									<option>1</option>
-									<option>2</option>
-								</select>
-							</td>
-						</c:if>
-					<tr>
+									
+						<c:forEach var="main" items="${optionList}" varStatus="sub">		
+								<tr>		
+									<td>${main.oname[status.index]}</td>
+									<td>
+										<select style="width: 150px;">
+											<option>${main.ocontents}</option>
+										</select>
+									</td>									
+								</tr>																
+						</c:forEach>					
+					
 				</tbody>
 			</table>
 			<button type="button"  onclick="goCart();" style="background-color: black; color: white;  width: 350px; margin-top: 10px; height: 30px;">장바구니에 담기</button>
