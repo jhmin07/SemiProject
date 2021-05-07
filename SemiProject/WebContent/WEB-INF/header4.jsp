@@ -132,8 +132,10 @@ function myPage_admin() {
 	location.href="<%= request.getContextPath()%>/admin/adminMyPage.up?adId="+adId;	
 }
 function goCart() {
-	var userid = "${sessionScope.loginuser.userid}";
-	location.href="<%= request.getContextPath()%>/order/cartController.up?userid="+userid;
+	
+	location.href="<%= request.getContextPath()%>/order/cartController.up";
+	
+	
 }
 	
 

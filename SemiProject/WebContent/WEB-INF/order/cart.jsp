@@ -15,7 +15,9 @@
 <style type="text/css">
 
 div.container{
-	margin: 0 50px;
+	
+	margin-left: 150px;
+	margin-right: 100px;
 }
 
  div#cart_content {
@@ -26,7 +28,7 @@ div.container{
 
 
 table.table{
-	width: 1000px;
+	width: 800px;
 }
 
 table.odr_list, table.odr_info {
@@ -38,10 +40,6 @@ table.odr_list > thead {
 	background-color: #f2f2f2;
 }
 
-img.cart_image {
-    width: 200px;
-    height: 240px;
-}
 
 
 tr.odr_tr > td {
@@ -51,10 +49,17 @@ tr.odr_tr > td {
 
 tr.odr_total_price > td {
 	text-align: right;
+	
 }
 
 img#delete_cart{
+	margin-left:9px;
 	cursor: pointer;
+	filter:contrast(30%);
+}
+img#delete_cart:hover{
+	cursor: pointer;
+	filter:contrast(200%);
 }
 
  th#cart_th_3{
@@ -68,8 +73,8 @@ img#delete_cart{
 div#cart_side{
 	float: left;
 	display: inline-block;
-	width: 350px; 
-	left: 70%;
+	width: 300px; 
+	left: 67%;
 	position: fixed;
 	/* box-shadow: 0 4px 4px gray;
 	background-color: #f2f2f2;
@@ -128,10 +133,10 @@ div#cart_side{
  	font-size:10pt;
  	padding:5px;
  }
- td#cart_productNumber{
+ span.cart_pname{
 	font-size:11pt;
 	color:#3A464D;
-	padding-top:20px;
+	
  }
  td#productPrice_cart{
 	font-weight: bold; 
@@ -151,51 +156,10 @@ div#cart_side{
  }
 
 /*   ------checkbox 디자인 변경-------- */
-/* 
-input[type="checkbox"] {
-    display:none;
-} 
-
-input[type="checkbox"] + span#check {
-    display: inline-block;
-    width: 24px;
-    height: 24px;
-    margin: -2px 10px 0 0;
-    vertical-align: middle;
-    background: url("image/cart/checkbox.svg") left top no-repeat;
-    cursor: pointer;
-    background-size: cover;
-
-}
 
 
-input[type="checkbox"]:checked + span#check {
 
-    background-img:url("image/cart/checkbox.svg") -26px top no-repeat;
-    background-size: cover;
-
-}
- */
- 
- /*--------------------*/
-/* button#btnDelete {
-
-    width:100px;
-    background-color: #f8585b;
-    border: none;
-    color:#fff;
-    padding: 15px 0;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 12px;
-    margin: 10px;
-    cursor: pointer;
-    border-radius:10px;
-
-} */
-
-button{
+button.del{
 	width:120px;
 	height: 30px;
 	color: #f8585b;
@@ -205,26 +169,64 @@ button{
 	border-radius: 20px;
 	transition:0.3s;
 	position: absolute;
-	left:63%;
+	left:59%;
 	top: 20%;
 	transform: translate(-50%,-50%);
 }
-button:focus {
+button.del:focus {
 	outline:0;
 }
-button:hover{
+button.del:hover{
 	background: #f8585b;
 	cursor: pointer;
 	color: #fff;
 	box-shadow: 0 2px 4px #f8585b;
 }
-</style>
 
-<script type="text/javascript" src="<%= ctxPath %>/js/jquery-3.3.1.min.js"></script>
+.card-1 {
+  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+  transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+  filter:contrast(50%);
+  color: white;
+  
+}
+
+.card-1:hover {
+ /*  box-shadow: 0 10px 5px rgba(0,0,0,0.25), 0 8px 6px rgba(0,0,0,0.22);  */
+ box-shadow:200px 0 0 0 rgba(0,0,0,0.5) inset; 
+  filter:contrast(100%);
+  cursor:pointer;
+}
+
+</style>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script src="<%= ctxPath %>/js/jquery.number.min.js"></script>
 <script type="text/javascript">
 
 $(document).ready(function(){
-
+	
+	// 스피너
+	$("input.spinner").spinner({
+		
+		spin: function(event, ui) {
+			if(ui.value > 100) {
+				$(this).spinner("value", 100);
+				return false;
+			}
+			else if(ui.value < 0) {
+				$(this).spinner("value", 0);
+				return false;
+			}
+		} 
+	
+	});// end of $(".spinner").spinner({});-----------------
+	
+	$("input.spinner").bind("spinstop", function(){
+		
+		goOqtyEdit(this);
+	});
 	
 	//== 체크박스 전체선택/전체해제 == //
 	$("input:checkbox[name=checkall]").click(function(){
@@ -259,53 +261,245 @@ $(document).ready(function(){
 		}
 	});
 	
-	
-	
-	/* 
-	//== 장바구니 물건 삭제하기 ==//
-	$("img#delete_cart").click(function(){
-		
-
-		
-	}); */
-	
-	//== 장바구니 물건 전체 삭제하기 ==//
-    $("#btnDelete").click(function(){
-        if(confirm("장바구니를 비우시겠습니까?")){
-            location.href="<%= ctxPath %>/order/cart_deleteAll.up";
-        }
-    });
+	$("input:checkbox[name=product]").click(function(){
+		total(this);
+	});
 	
 });
 
 // function declation
 
-	function count_plus() {
+	// 체크박스에 체크 된 것만 total에 넣기
+	function total(obj){
+		var index = $("input:checkbox[name=product]").index(obj);
+		var pnum = $("input:checkbox[name=product]").eq(index).val();
+		//var total = $("input#total").eq(index).val(); // 갯수를 곱한 가격
 		
-		var n = Number($("input#count").val());
 		
-		 if(n>100){
-			alert("주문가능한 수량을 초과하였습니다.");
-			return;
-		}
-		else{
-			$("input#count").val(n + 1);
-		}
+	  ///  == 체크가 된 것만 값을 읽어와서 배열에 넣어준다. /// 
+	   var allCnt = $("input:checkbox[name=product]").length;
+	  
+         
+       var pnumArr = new Array();
+       var odAmountArr = new Array();
+       var cartNoArr = new Array();
+       var totalPriceArr = new Array();
+       var totalPointArr = new Array();
+       
+       for(var i=0; i<allCnt; i++){
+     	  
+     	  if($("input:checkbox[name=product]").eq(i).is(":checked")){
+     		  pnumArr.push( $("input:checkbox[name=product]").eq(i).val() );
+     		  odAmountArr.push($("input.odAmount").eq(i).val() );
+     		  cartNoArr.push($("input.cartNo").eq(i).val() );
+     		  totalPriceArr.push( $("input#totalPrice").eq(i).val() );
+     		  totalPointArr.push( $("input#totalPoint").eq(i).val() );
+     	  }
+     	  
+       }// end of for-----------------------------
+       
+       var sumtotalPrice = 0;
+       for(var i=0; i<totalPriceArr.length; i++){
+     	
+     	sumtotalPrice+=parseInt(totalPriceArr[i])
+     	  
+       }// end of for-----------------------
+       
+       var str_pnum = pnumArr.join();
+ 	   var str_oqty = odAmountArr.join();
+ 	   var str_cartno= cartNoArr.join();
+       var str_totalPrice= totalPriceArr.join();
+       var sumtotalPoint = 0;
+       
+      for(var i=0; i<totalPointArr.length; i++){            	                	
+       	sumtotalPoint+=parseInt(totalPointArr[i]);           	  
+       }// end of for----------------------- 
+       
+       /// === java 단으로 보내야할 최종 데이터 확인용 === //
+/*        console.log("제품번호들: "+str_pnum);
+       console.log("주문량들: "+str_oqty);
+       console.log("장바구니번호들: "+str_cartno);
+       console.log("제품별금액들: "+str_totalPrice);
+       console.log("제품별금액들의 총합계: "+sumtotalPrice);
+       console.log("제품별포인트들의 총합계: "+sumtotalPoint); */
+       
+       var a = $.number(sumtotalPrice); // "12,345"
+       
+       $("span#totalPrice_1").text(a);
+       $("span#totalPrice_2").text(a);
+       
+       $("span#count_product_cart").text(allCnt);
+       
+	}// end of 체크박스 토탈
+	
+	function goOrder(){
 		
+		var checkCnt = $("input:checkbox[name=pnum]:checked").length;
+	       
+	      if(checkCnt < 1) {
+	          alert("주문하실 제품을 선택하세요!!");
+	          return; //종료
+	       }
+	      else{
+		
+		 var allCnt = $("input:checkbox[name=product]").length;
+		  
+         
+	       var pnumArr = new Array();
+	       var odAmountArr = new Array();
+	       var cartNoArr = new Array();
+	       var totalPriceArr = new Array();
+	       var totalPointArr = new Array();
+	       
+	       for(var i=0; i<allCnt; i++){
+	     	  
+	     	  if($("input:checkbox[name=product]").eq(i).is(":checked")){
+	     		  pnumArr.push( $("input:checkbox[name=product]").eq(i).val() );
+	     		  odAmountArr.push($("input.odAmount").eq(i).val() );
+	     		  cartNoArr.push($("input.cartNo").eq(i).val() );
+	     		  totalPriceArr.push( $("input#totalPrice").eq(i).val() );
+	     		  totalPointArr.push( $("input#totalPoint").eq(i).val() );
+	     	  }
+	     	  
+	       }// end of for-----------------------------
+	       
+	       var sumtotalPrice = 0;
+	       for(var i=0; i<totalPriceArr.length; i++){
+	     	
+	     	sumtotalPrice+=parseInt(totalPriceArr[i])
+	     	  
+	       }// end of for-----------------------
+	       
+	       var str_pnum = pnumArr.join();
+	 	   var str_oqty = odAmountArr.join();
+	 	   var str_cartno= cartNoArr.join();
+	       var str_totalPrice= totalPriceArr.join();
+	       var sumtotalPoint = 0;
+	       
+	      for(var i=0; i<totalPointArr.length; i++){            	                	
+	       	sumtotalPoint+=parseInt(totalPointArr[i]);           	  
+	       }// end of for----------------------- 
+		
+		/* console.log("제품번호들: "+str_pnum);
+	       console.log("주문량들: "+str_oqty);
+	       console.log("장바구니번호들: "+str_cartno);
+	       console.log("제품별금액들: "+str_totalPrice);
+	       console.log("제품별금액들의 총합계: "+sumtotalPrice);
+	       console.log("제품별포인트들의 총합계: "+sumtotalPoint); */
+		
+		 $.ajax({
+	     	 url:"<%=request.getContextPath()%>/order/orderAdd.up",
+	     	 type:"post",
+	     	 data:{"pnum_s":str_pnum,
+	     		 "oqty_s":str_oqty,
+	     		 "cartno_s":str_cartno,
+	     		 "totalPrice_s":str_totalPrice,
+	     		 "sumtotalPrice":sumtotalPrice,
+	     		 "sumtotalPoint":sumtotalPoint},
+	     	dataType:"json",
+	     	success:function(json){
+	     		if(json.isSuccess==1){
+	     			location.href = "<%= request.getContextPath()%>/order/order.up";
+	     		}
+	     	},
+	     	error: function(request, status, error){
+	             alert("code: "+request.status+"\n"+"message: "+request.responseText+"\n"+"error: "+error);
+	          } 
+	     	 
+	       }); 
+	      }
 		
 	}
+
+	 // === 장바구니 수량 수정하기 === //
+   function goOqtyEdit(obj) {
 	
-	function count_minus() {
+	   var index = $("input.spinner").index(obj);
+
+       var cartNo = $("input.cartNo").eq(index).val(); 
+
+       var odAmount = $(".odAmount").eq(index).val();
+  
+      
+     if(odAmount<=0){
+    	 alert("바꾸시려는 수량은 0개 이상이어야 합니다.");
+         location.href="javascript:history.go(0);";
+         return;
+     }
+  
+   // alert("장바구니번호 : " + cartno + "\n주문량 : " + oqty);
+      if(odAmount == "0") {
+         goDel(cartNo);
+      }
+      else {
+    	  $.ajax({
+     		 url:"<%= request.getContextPath()%>/order/cartEdit.up",
+     		 type:"post",
+     		 data:{"cartNo":cartNo,
+     			 "odAmount":odAmount},
+     		 dataType:"json",
+     		 success:function(json){
+     			 if(json.n==1) {
+     				 location.href="cartController.up";
+     			 }     			
+     		 },
+     		 error: function(request, status, error){
+                  alert("code: "+request.status+"\n"+"message: "+request.responseText+"\n"+"error: "+error);
+               }
+     	  });
+      }
+      
+    
+   
+   }// end of function goOqtyEdit(obj)-----------------
+   
+	// === 장바구니에서 특정 제품을 비우기 === //  
+	function goDel(cartNo) {
 		
-		var n = Number($("input#count").val());
+		var $target = $(event.target);
+		/* var pname = $target.parent().parent().find(".cart_pname").text(); */
 		
-		if(n == 1){
-			alert("최소수량은 1개 이상입니다.");
+			$.ajax({
+				url:"<%= request.getContextPath()%>/order/cart_delete.up",
+				type:"post",
+				data:{"cartNo":cartNo},
+				dataType:"json",
+				success:function(json){
+					location.href = "cartController.up";
+				},
+				error: function(request, status, error){
+					alert("code: "+request.status+"\n"+"message: "+request.responseText+"\n"+"error: "+error);
+				}
+			});
+		
+		
+	}// end of function goDel(cartno)---------------------------
+	
+   //== 장바구니 물건 전체 삭제하기 ==//
+	function goDelAll(cartNo) {
+		
+		var bool = confirm("장바구니를 전체 비우시겠습니까?");
+		
+		if(bool) {
+			
+			$.ajax({
+				url:"<%= request.getContextPath()%>/order/cart_deleteAll.up",
+				type:"post",
+				data:{"cartNo":cartNo},
+				dataType:"json",
+				success:function(json){
+					location.href = "cartController.up";
+				},
+				error: function(request, status, error){
+					alert("code: "+request.status+"\n"+"message: "+request.responseText+"\n"+"error: "+error);
+				}
+			});
+			
 		}
-		else{
-			$("input#count").val(n - 1);
+		else {
+	
+			alert("장바구니비우기를 취소하셨습니다.");
 		}
-		
 		
 	}
 
@@ -317,54 +511,99 @@ $(document).ready(function(){
 <div class="container">
 
  <h2 style="width: 80%; margin-top: 100px; margin-bottom: 50px; color: gray;">- Cart</h2>
-
+<form name="orderFrm">
 <div id="cart_content">
-	<button type="button" id="btnDelete">장바구니 비우기</button>
-	<form name='form'>  
+	<button type="button" class="del" onclick="goDelAll('${cartvo.cartNo}')">장바구니 비우기</button>
+	
 	<table class="table odr_list table-hover">
 	  
 	  	<thead>
 			<tr>
-				<th><input type="checkbox" name="checkall"/><span id="check"></span></th>
+				<th><input type="checkbox" id = "check" name="checkall"/><label for="check"></label></th>
 				<th>이미지</th>
 				<th>상품정보</th>
 				<th>판매가</th>
 				<th>수량</th>
-				<th>적립금</th>
 				<th>합계</th>
-				<th></th>
+				<th>삭제</th>
 				
 			</tr>
 		</thead>
 		
 		<tbody>
 		
-			<c:forEach var="pro" begin="1" end="8">
-				<%-- test value 값 --%>
-				<c:set var="product_price" value="10000"/>
-				<c:set var="order_cnt" value="1"/>
+	 <c:if test="${empty requestScope.cartList}">
+	   <tr>
+	   	  <td colspan="6" align="center">
+	   	    <span style="color: red; font-weight: bold;">
+	   	    	<br><br><img src="../image/cart/cart_icon.png" style="width: 200px; height: 120px; filter:contrast(20%);"><br><br>
+	   	    	장바구니에 담긴 상품이 없습니다.<br><br>
+	   	    </span>
+	   	  </td>	
+	   </tr>
+	   </c:if>
+	   
+	   <c:if test="${not empty requestScope.cartList}">
+		
+			<c:forEach var="cartvo" items="${requestScope.cartList}" varStatus="status"> 
 				
-				<tr class="odr_tr">
-					<td ><input type="checkbox" name="product" id="product${var}"/><span id="check"></span></td>
-					<td><label for="product${var}"><img class="cart_image" src="<%=ctxPath%>/image/cart/sample_cart${var}.jpg" ></label></td>
-					<td><span id="productName_cart">${product_name}</span><br>제품번호 <span id="cart_productNumber">${product_num}</span><br><span id="cart_productOption">${product_option}</span></td>
-					<td><fmt:formatNumber value="${product_price}" pattern="#,###" /> 원</td>
-					<td id="td_plusminus"><img id="minus_cart" src="../image/cart/minus.png" onclick="count_minus()"/>&nbsp;<input class="count" type='text' name='count' value='${order_cnt}' size='1' readonly />&nbsp;<img id="Plus_cart" onclick="count_plus()" src="../image/cart/plus.png" /></td>
-					<td><fmt:formatNumber value="${product_price*0.01}" pattern="#,###" /></td>
-					<td><fmt:formatNumber value="${product_price*order_cnt}" pattern="#,###" /> 원</td>
+				<tr class="odr_tr edit">
+					<td ><input type="checkbox" name="product" class="chkboxpnum" id="pnum${status.index}" value="${cartvo.fk_pnum}" /></td>
+					<td id="img" style="width:200px;"> <%-- 제품이미지 --%>
+						<a href="/SemiProject/detailMenu/productDetailPage.up?pnum=${cartvo.fk_pnum}">
+	                  
+	                  	<c:if test="${cartvo.prod.fk_decode eq 10001}"><img src="<%= ctxPath %>/image/product/10001/${cartvo.prod.pimage1}"  style="width: 200px; height: 240px; cusor:pointer;"></c:if>
+						<c:if test="${cartvo.prod.fk_decode eq 10002}"><img src="<%= ctxPath %>/image/product/10002/${cartvo.prod.pimage1}"  style="width: 200px; height: 240px; cusor:pointer;"></c:if>
+						<c:if test="${cartvo.prod.fk_decode eq 10003}"><img src="<%= ctxPath %>/image/product/10003/${cartvo.prod.pimage1}"  style="width: 200px; height: 240px; cusor:pointer;"></c:if>
+						<c:if test="${cartvo.prod.fk_decode eq 10004}"><img src="<%= ctxPath %>/image/product/10004/${cartvo.prod.pimage1}"  style="width: 200px; height: 240px; cusor:pointer;"></c:if>
+						<c:if test="${cartvo.prod.fk_decode eq 20001}"><img src="<%= ctxPath %>/image/product/20001/${cartvo.prod.pimage1}"  style="width: 200px; height: 240px; cusor:pointer;"></c:if>
+						<c:if test="${cartvo.prod.fk_decode eq 20002}"><img src="<%= ctxPath %>/image/product/20002/${cartvo.prod.pimage1}"  style="width: 200px; height: 240px; cusor:pointer;"></c:if>
+						<c:if test="${cartvo.prod.fk_decode eq 20003}"><img src="<%= ctxPath %>/image/product/20003/${cartvo.prod.pimage1}"  style="width: 200px; height: 240px; cusor:pointer;"></c:if>
+						<c:if test="${cartvo.prod.fk_decode eq 20004}"><img src="<%= ctxPath %>/image/product/20004/${cartvo.prod.pimage1}"  style="width: 200px; height: 240px; cusor:pointer;" ></c:if>
+						<c:if test="${cartvo.prod.fk_decode eq 30001}"><img src="<%= ctxPath %>/image/product/30001/${cartvo.prod.pimage1}"  style="width: 200px; height: 240px; cusor:pointer;" ></c:if>
+						<c:if test="${cartvo.prod.fk_decode eq 30002}"><img src="<%= ctxPath %>/image/product/30002/${cartvo.prod.pimage1}"  style="width: 200px; height: 240px; cusor:pointer;" ></c:if>
+						<c:if test="${cartvo.prod.fk_decode eq 30003}"><img src="<%= ctxPath %>/image/product/30003/${cartvo.prod.pimage1}"  style="width: 200px; height: 240px; cusor:pointer;"></c:if>
+						<c:if test="${cartvo.prod.fk_decode eq 40001}"><img src="<%= ctxPath %>/image/product/40001/${cartvo.prod.pimage1}"  style="width: 200px; height: 240px; cusor:pointer;"></c:if>
+						<c:if test="${cartvo.prod.fk_decode eq 40002}"><img src="<%= ctxPath %>/image/product/40002/${cartvo.prod.pimage1}"  style="width: 200px; height: 240px; cusor:pointer;"></c:if>
+						<c:if test="${cartvo.prod.fk_decode eq 40003}"><img src="<%= ctxPath %>/image/product/40003/${cartvo.prod.pimage1}"  style="width: 200px; height: 240px; cusor:pointer;" ></c:if>
+ 	
+	                    </a> 
+                    </td>
+					<td style="width:220px; text-align: left;" ><span class="cart_pname">${cartvo.prod.pname}</span><br><span id="cart_productOption"style="font-size: 11px;">옵션</span></td>
+						
+				   <td align="right" style="width:100px; text-align: left;"> <%-- 실제판매단가 및 포인트 --%> 
+	                   <fmt:formatNumber value="${cartvo.prod.saleprice}" pattern="###,###" /> 원
+	                   <input type="hidden" name="saleprice"  value="${cartvo.prod.saleprice}" />
+	                   <br/><span style="color: green; font-weight: bold; font-size: 9pt;"><fmt:formatNumber value="${cartvo.prod.point}" pattern="###,###" /> POINT</span>
+               	   </td>
+               	   
+					<td id="td_plusminus">
+					 <%-- 장바구니번호 --%>
+	               	   <input class="cartNo" type="hidden" name="cartNo" value="${cartvo.cartNo}" />
+					   <input class="spinner odAmount" name="odAmount" value="${cartvo.odAmount}" style="width: 20px; height: 20px;"><br>
+					
+				   </td>
+					
+               	   <td>
+               	   	<fmt:formatNumber value="${cartvo.prod.saleprice * cartvo.odAmount}" pattern="###,###" /> 원
+               	   	<input type="hidden" id="totalPrice"  value="${cartvo.prod.saleprice * cartvo.odAmount}">
+               	   	<input type="hidden" id="totalPoint"  value="${cartvo.prod.point * cartvo.odAmount}">
+               	   </td>
+               	   
 					<!-- 삭제 버튼을 누르면 delete.do로 장바구니 개별 id (삭제하길원하는 장바구니 id)를 보내서 삭제한다. -->
-					<td><a href="<%= ctxPath %>/order/cart_delete.up?cart_id=<%-- ${id} --%>"><img id="delete_cart" src="../image/cart/delete.png" style="width: 10px; height: 10px;"/></a></td> <!-- 변함없을 예정 -->
+					<td>
+						<span class="del" style="cursor: pointer;" onClick="goDel('${cartvo.cartNo}');"><img id="delete_cart" src="../image/cart/delete.png" style="width: 11px; height: 11px;"/></span>  
+					</td> 
 					
 
 				</tr>
 				
-				<c:set var="total_price" value="${total_price + product_price * order_cnt}"/>	
 			</c:forEach>
-		
+		</c:if>	
 		</tbody>
 		
       </table>
-       </form> 
+      
 </div>
 
 
@@ -378,7 +617,8 @@ $(document).ready(function(){
 
 		<tr class="side_cart" id="total_price_in_cart">
             <td>총 제품 : </td>
-            <td><span><fmt:formatNumber value="${total_price}" pattern="#,###" /></span>원</td>
+            <td><span id="totalPrice_1"></span> 원
+           <input class="totalPrice" type="hidden" value="${cartvo.prod.totalPrice}" /></td>
          </tr>
          <tr class="side_cart" id="discount_price_in_cart">
          	<td > - 상품할인금액 : </td>
@@ -386,12 +626,12 @@ $(document).ready(function(){
          </tr>
          <tr class="side_cart" id="side_hr">
          	<td > + 배송비 : </td>
-         	<td><fmt:formatNumber value="${delivery_price}" pattern="#,###" />원</td>
+         	<td><fmt:formatNumber value="2500" pattern="#,###" />원</td>
          </tr>
 
          <tr class="side_cart" id="side_cart_totalPrice">
             <td>합계 : </td>
-            <td><fmt:formatNumber value="${total_price+delivery_price-discount_price}" pattern="#,###" />원</td>
+            <td><span id="totalPrice_2"></span> 원</td>
          </tr>
 
 	</table>
@@ -403,11 +643,11 @@ $(document).ready(function(){
 	</div>
 	<br>
 
-	<div id="order_button_cart" >
+	<div class="card-1" id="order_button_cart" onclick="goOrder()">
 		주문하기
 	</div>
 </div>
-
+ </form> 
 </div>
 
 
