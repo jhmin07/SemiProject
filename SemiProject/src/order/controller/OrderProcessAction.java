@@ -63,8 +63,8 @@ public class OrderProcessAction extends AbstractController {
 			// == 주문내역 테이블에 insert 할 것들 == //
 			HttpSession session = request.getSession();
 			MemberVO loginuser = (MemberVO)session.getAttribute("loginuser");
-//			paraMap.put("fk_userid", loginuser.getUserid());
-			paraMap.put("fk_userid", "jeonyj");
+			paraMap.put("fk_userid", loginuser.getUserid());
+//			paraMap.put("fk_userid", "jeonyj");
 			
 			String ordercode = getOrdercode();
 			paraMap.put("ordercode", ordercode);
