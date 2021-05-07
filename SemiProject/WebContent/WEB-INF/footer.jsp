@@ -10,7 +10,7 @@ footer{
  	
 }
 div.footer{
-	margin: 100px 100px 0 100px ;
+	margin: 0px 100px 0 100px ;
 }
 div.footerClick{
 	display: inline;
