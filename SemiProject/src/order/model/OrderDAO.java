@@ -44,6 +44,129 @@ public class OrderDAO implements InterOrderDAO {
        }
     }
     
+    
+	// == Transaction 처리 ==
+	// 1. 주문내역 테이블에 주문내역 insert
+	// 2. 주문상세내역 테이블에 {주문코드,제품번호,주문량,주문가격,배송상태,배송일자,옵션} insert
+    // 3. 상품 재고 감소(update)
+	// 4. 장바구니 테이블에서 주문상품된 상품 delete
+    // 5. 사용자 포인트 증감(update)
+	@Override
+	public int orderInsertProcess(Map<String, Object> paraMap) throws SQLException {
+		int n1 = 0, n2 = 0, n3 = 0, n4 = 1, n5 = 0;
+		int isSuccess = 0;
+
+		try {
+			conn = ds.getConnection();
+			conn.setAutoCommit(false);
+			
+			// 1. 주문내역 테이블에 주문내역 insert
+			String sql = "insert into tbl_order(ordercode, fk_userid, totalprice, totalpoint)\n"
+					+ "values (?, ?, ?, ?)";
+
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, (String) paraMap.get("ordercode"));
+			pstmt.setString(2, (String) paraMap.get("fk_userid"));
+			pstmt.setString(3, (String) paraMap.get("sumtotalPrice"));
+			pstmt.setString(4, (String) paraMap.get("sumtotalPoint"));
+
+			n1 = pstmt.executeUpdate();
+//			System.out.println("~~~~~~ n1 : " + n1);
+			
+			// 2. 주문상세내역 테이블에 {주문코드,제품번호,주문량,주문가격,배송상태,배송일자,옵션} insert
+			if (n1 == 1) {
+				String[] pnumArr = (String[])paraMap.get("pnumArr");
+				String[] oqtyArr = (String[])paraMap.get("oqtyArr");
+				String[] totalPriceArr = (String[])paraMap.get("totalPriceArr");
+				
+				for (int i=0; i<pnumArr.length; i++) {
+					
+					sql = "insert into tbl_order_details(odNo, fk_orderCode, fk_pnum, odAmount, odPrice, deliveryCon, deliveryDone) "
+							+ "values (seq_tbl_orderdetail.nextval, ?, to_number(?), to_number(?), to_number(?), '', '')";
+
+					pstmt = conn.prepareStatement(sql);
+					pstmt.setString(1, (String) paraMap.get("ordercode"));
+					pstmt.setString(2, pnumArr[i]);
+					pstmt.setString(3, oqtyArr[i]);
+					pstmt.setString(4, totalPriceArr[i]);
+
+					n2 += pstmt.executeUpdate();
+				}
+				
+				if (n2 == pnumArr.length) {
+					n2 = 1;
+				}
+			}
+//			System.out.println("~~~~~~ n2 : " + n2);
+			
+		    // 3. 상품 재고 감소(update)
+			if (n2 == 1) {
+				String[] pnumArr = (String[]) paraMap.get("pnumArr");
+				String[] oqtyArr = (String[]) paraMap.get("oqtyArr");
+
+				for (int i = 0; i < pnumArr.length; i++) {
+					sql = " update tbl_product set pqty = pqty - ? " + 
+							" where pnum = ? ";
+
+					pstmt = conn.prepareStatement(sql);
+					pstmt.setInt(1, Integer.parseInt(oqtyArr[i]));
+					pstmt.setString(2, pnumArr[i]);
+
+					n3 += pstmt.executeUpdate();
+				}
+				
+				if (n3 == pnumArr.length) {
+					n3 = 1;
+				}
+			}
+//			System.out.println("~~~~~~ n3 : " + n3);
+			
+			// 4. 장바구니 테이블에서 주문상품된 상품 delete
+			if (paraMap.get("cartno_es") != null && n3 == 1) { // 장바구니에서 넘어와 결제가 진행되는 것이라면
+				sql = "delete from tbl_cart "
+					+ "where cartno in ("+ (String)paraMap.get("cartno_es") + ")";
+				
+				pstmt = conn.prepareStatement(sql);
+				n4 = pstmt.executeUpdate();
+			}
+//			System.out.println("~~~~~~ n4 : " + n4);
+			
+			// 5. 사용자 포인트 증감(update)
+			if (n4 > 0) {
+				sql = " update tbl_member set point = point + ? " 
+						+ " where userid = ? ";
+
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setInt(1, Integer.parseInt((String) paraMap.get("sumtotalPoint")));
+				pstmt.setString(2, (String) paraMap.get("fk_userid"));
+
+				n5 = pstmt.executeUpdate();
+			}
+//			System.out.println("~~~~~~ n5 : " + n5);
+			
+			// 6. 모든처리가 성공되었을시 commit 하기(commit)
+			if (n1 * n2 * n3 * n4 * n5 > 0) {
+				conn.commit();
+				conn.setAutoCommit(true); // 자동커밋으로 전환
+//				System.out.println("n1*n2*n3*n4*n5 = " + (n1 * n2 * n3 * n4 * n5));
+
+				isSuccess = 1;
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+			conn.rollback();
+			conn.setAutoCommit(true); // 자동커밋으로 전환
+			
+			isSuccess = 0;
+		} finally {
+			close();
+		}
+
+		return isSuccess;
+	}
+
+    
     // 주문 코드 알아오는 함수 
     @Override
 	public String getOrdercode() throws SQLException {
@@ -68,36 +191,6 @@ public class OrderDAO implements InterOrderDAO {
 		return ordercode;
 	}
     
-    
-	// 주문 내역 insert 하는 함수 
-	@Override
-	public int orderlistInsert(Map<String, String> paraMap) throws SQLException {
-		int n = 0;
-		
-		try {
-			conn = ds.getConnection();
-			String sql = "insert into tbl_order(ordercode, fk_userid, totalprice, totalpoint)\n"+
-						"values (?, ?, ?, ?)";
-			
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, paraMap.get("ordercode"));
-			pstmt.setString(2, paraMap.get("fk_userid"));
-			pstmt.setString(3, paraMap.get("totalPrice"));
-			pstmt.setString(4, paraMap.get("totalPoint"));
-			
-			conn.setAutoCommit(false);
-			
-			n = pstmt.executeUpdate();
-			
-		} catch (SQLException e) {
-			conn.rollback();
-		} finally {
-			close();
-		}
-		
-		return n;
-	}
-
 	// 배송지 정보 insert 하기
 	@Override
 	public int deliverInfoInsert(DeliverInfoVO delivo) throws SQLException {
@@ -168,6 +261,5 @@ public class OrderDAO implements InterOrderDAO {
 		return pvo;
 	}
 
-	
 
 }

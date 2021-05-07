@@ -39,8 +39,8 @@ public class OrderAction extends AbstractController {
 //		String sumtotalPoint = request.getParameter("sumtotalPoint");
 		
 		String pnum_es = "12,11,10";
-		String oqty_es = "4,3,3";
-		String cartno_es = "5,9,10";
+		String oqty_es = "1,1,1";
+		String cartno_es = "17,18,19";
 		String totalPrice_es= "40000,30000,30000";
 		String sumtotalPrice = "100000";
 		String sumtotalPoint = "100";
@@ -54,7 +54,11 @@ public class OrderAction extends AbstractController {
 		
 		List<Map<String, String>> mapList = new ArrayList<>();
 		int length = pnumArr.length;
-		String userid = "jeonyj";
+		
+		HttpSession session = request.getSession();
+		MemberVO loginuser = (MemberVO) session.getAttribute("loginuser");
+		String userid = loginuser.getUserid();
+//		String userid = "jeonyj";
 		
 		for (int i=0; i<length; i++) {
 			Map<String, String> map = new HashMap<>();

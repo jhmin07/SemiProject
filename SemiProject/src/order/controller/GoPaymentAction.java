@@ -10,9 +10,8 @@ public class GoPaymentAction extends AbstractController {
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		
-		String lastpay_price = request.getParameter("lastpay_price");
-		// System.out.println("lastPayPrice => " + lastpay_price);
-		request.setAttribute("lastpay_price", lastpay_price);
+		String sumtotalPrice = request.getParameter("sumtotalPrice");
+		request.setAttribute("sumtotalPrice", sumtotalPrice);
 		
 		super.setRedirect(false);
 		super.setViewPage("/WEB-INF/order/paymentGateway.jsp");
