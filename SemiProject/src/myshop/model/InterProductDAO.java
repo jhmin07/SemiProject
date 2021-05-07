@@ -66,4 +66,7 @@ public interface InterProductDAO {
 	// 제품번호를 가지고서 해당 제품의 옵션정보를 조회해오기
 	List<OptionVO> selectoption(String pnum) throws SQLException;
 	
+	// 제품번호를 가지고서 해당 제품의 옵션정보를 조회해오기
+	List<OptionVO> selectoname(String pnum) throws SQLException;
+	
 }
