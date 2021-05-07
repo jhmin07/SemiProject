@@ -72,6 +72,7 @@ div.personalInfo{
 	position: relative;
     left: 21%;
      background-color: #F1F3F4; 
+     margin-bottom: 150px;
     
 
 	

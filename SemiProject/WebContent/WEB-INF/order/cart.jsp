@@ -253,11 +253,13 @@ $(document).ready(function(){
 			});
 			
 			if(!bFlag) {	// 모든 체크박스가 체크되어있을 경우
-				$("input:checkbox[name=checkall]").prop("checked", true);			
+				$("input:checkbox[name=checkall]").prop("checked", true);	
+				
 			}
 		}
 		else {	// 현재 상품의 체크박스에 체크 해제했을 때
 			$("input:checkbox[name=checkall]").prop("checked", false);
+			
 		}
 	});
 	
@@ -327,8 +329,6 @@ $(document).ready(function(){
        
        $("span#totalPrice_1").text(a);
        $("span#totalPrice_2").text(a);
-       
-       $("span#count_product_cart").text(allCnt);
        
 	}// end of 체크박스 토탈
 	
@@ -612,7 +612,7 @@ $(document).ready(function(){
 	<table>
 
 		<tr>
-			<th class="side_cart" id="cart_th_3" colspan="2" >주문요약<br>(<span id="count_product_cart"></span>제품)</th>
+			<th class="side_cart" id="cart_th_3" colspan="2" >주문요약<br></th>
 		</tr>
 
 		<tr class="side_cart" id="total_price_in_cart">
