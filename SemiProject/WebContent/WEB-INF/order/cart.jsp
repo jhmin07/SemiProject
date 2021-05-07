@@ -198,6 +198,8 @@ button.del:hover{
   cursor:pointer;
 }
 
+input#price:focus { outline: none; }
+
 </style>
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
@@ -206,7 +208,9 @@ button.del:hover{
 <script type="text/javascript">
 
 $(document).ready(function(){
-	
+	$("span#totalPrice_1").text(0);
+    $("span#totalPrice_2").text(0);
+    $("span#discount").text(0);
 	// 스피너
 	$("input.spinner").spinner({
 		
@@ -234,6 +238,15 @@ $(document).ready(function(){
 		// 체크되어있으면 true, 해제되어있으면 false
 		
 		$("input:checkbox[name=product]").prop("checked", bool);
+		if(bool){
+			total(this);
+		}
+		else{
+			$("span#totalPrice_1").text(0);
+		    $("span#totalPrice_2").text(0);
+		    $("span#discount").text(0);
+		}
+		
 		// product 의 체크박스 상태를 checkall 의 체크상태와 동일하게 적용
 	});
 
@@ -261,6 +274,7 @@ $(document).ready(function(){
 			$("input:checkbox[name=checkall]").prop("checked", false);
 			
 		}
+		
 	});
 	
 	$("input:checkbox[name=product]").click(function(){
@@ -287,6 +301,9 @@ $(document).ready(function(){
        var cartNoArr = new Array();
        var totalPriceArr = new Array();
        var totalPointArr = new Array();
+       var totalBeforeArr = new Array();
+
+   
        
        for(var i=0; i<allCnt; i++){
      	  
@@ -296,14 +313,23 @@ $(document).ready(function(){
      		  cartNoArr.push($("input.cartNo").eq(i).val() );
      		  totalPriceArr.push( $("input#totalPrice").eq(i).val() );
      		  totalPointArr.push( $("input#totalPoint").eq(i).val() );
+     		 totalBeforeArr.push ( $("input:text[name=price]").eq(i).val() * $("input.odAmount").eq(i).val() );
+
      	  }
      	  
        }// end of for-----------------------------
        
+       var sumtotalBefore = 0;
+       for(var i=0; i<totalBeforeArr.length; i++){
+        	
+    	   sumtotalBefore +=parseInt(totalBeforeArr[i]);
+        	  
+        }// end of for-----------------------
+       
        var sumtotalPrice = 0;
        for(var i=0; i<totalPriceArr.length; i++){
      	
-     	sumtotalPrice+=parseInt(totalPriceArr[i])
+     	sumtotalPrice+=parseInt(totalPriceArr[i]);
      	  
        }// end of for-----------------------
        
@@ -325,10 +351,13 @@ $(document).ready(function(){
        console.log("제품별금액들의 총합계: "+sumtotalPrice);
        console.log("제품별포인트들의 총합계: "+sumtotalPoint); */
        
-       var a = $.number(sumtotalPrice); // "12,345"
+       var beforesale = $.number(sumtotalBefore);
+       var aftersale = $.number(sumtotalPrice); // "12,345"
+       var discount = $.number(sumtotalBefore-sumtotalPrice);
        
-       $("span#totalPrice_1").text(a);
-       $("span#totalPrice_2").text(a);
+       $("span#totalPrice_1").text(beforesale);
+       $("span#totalPrice_2").text(aftersale);
+       $("span#discount").text(discount);
        
 	}// end of 체크박스 토탈
 	
@@ -345,11 +374,13 @@ $(document).ready(function(){
 		 var allCnt = $("input:checkbox[name=product]").length;
 		  
          
-	       var pnumArr = new Array();
+		 var pnumArr = new Array();
 	       var odAmountArr = new Array();
 	       var cartNoArr = new Array();
 	       var totalPriceArr = new Array();
 	       var totalPointArr = new Array();
+	       var totalBeforeArr = new Array();
+	      
 	       
 	       for(var i=0; i<allCnt; i++){
 	     	  
@@ -359,9 +390,17 @@ $(document).ready(function(){
 	     		  cartNoArr.push($("input.cartNo").eq(i).val() );
 	     		  totalPriceArr.push( $("input#totalPrice").eq(i).val() );
 	     		  totalPointArr.push( $("input#totalPoint").eq(i).val() );
+	     		 totalBeforeArr.push ( $("input:text[name=price]").eq(i).val() * $("input.odAmount").eq(i).val() );
+	     		  
 	     	  }
 	     	  
 	       }// end of for-----------------------------
+	       
+	       var sumtotalBefore = 0;
+	       for(var i=0; i<totalBeforeArr.length; i++){
+	        	
+	    	   sumtotalBefore +=parseInt(totalBeforeArr[i])
+	       }
 	       
 	       var sumtotalPrice = 0;
 	       for(var i=0; i<totalPriceArr.length; i++){
@@ -503,8 +542,6 @@ $(document).ready(function(){
 		
 	}
 
-
-
 </script>
 
 
@@ -572,9 +609,11 @@ $(document).ready(function(){
 					<td style="width:220px; text-align: left;" ><span class="cart_pname">${cartvo.prod.pname}</span><br><span id="cart_productOption"style="font-size: 11px;">옵션</span></td>
 						
 				   <td align="right" style="width:100px; text-align: left;"> <%-- 실제판매단가 및 포인트 --%> 
+				      
+				       <input  type="text" style="color: red; font-size: 13px; text-decoration: line-through; width:60px; border:none;border-right:0px; border-top:0px; boder-left:0px; boder-bottom:0px;" name="price"  value="${cartvo.prod.price}" />
 	                   <fmt:formatNumber value="${cartvo.prod.saleprice}" pattern="###,###" /> 원
 	                   <input type="hidden" name="saleprice"  value="${cartvo.prod.saleprice}" />
-	                   <br/><span style="color: green; font-weight: bold; font-size: 9pt;"><fmt:formatNumber value="${cartvo.prod.point}" pattern="###,###" /> POINT</span>
+	                   <br/><span style="color: green; font-weight: bold; font-size: 11px;;"><fmt:formatNumber value="${cartvo.prod.point}" pattern="###,###" /> POINT</span>
                	   </td>
                	   
 					<td id="td_plusminus">
@@ -612,20 +651,22 @@ $(document).ready(function(){
 	<table>
 
 		<tr>
-			<th class="side_cart" id="cart_th_3" colspan="2" >주문요약<br></th>
+			<th class="side_cart" id="cart_th_3" colspan="2" >::: 주문요약 :::<br></th>
 		</tr>
 
 		<tr class="side_cart" id="total_price_in_cart">
             <td>총 제품 : </td>
-            <td><span id="totalPrice_1"></span> 원
-           <input class="totalPrice" type="hidden" value="${cartvo.prod.totalPrice}" /></td>
+            <td><span id="totalPrice_1" ></span> 원 <!-- style="text-decoration: line-through;" -->
+           <input  class="totalPrice" type="hidden" value="${cartvo.prod.totalPrice}" /></td>
          </tr>
-         <tr class="side_cart" id="discount_price_in_cart">
+         <tr class="side_cart" id="discount_price_in_cart" style="font-size:15px;">
          	<td > - 상품할인금액 : </td>
-         	<td><fmt:formatNumber value="${discount_price}" pattern="#,###" />원</td>
+         	<td>- <span id="discount"></span>원</td>
          </tr>
+         <!-- <tr class="side_cart" id="discount_price_in_cart" ></tr> -->
+  
          <tr class="side_cart" id="side_hr">
-         	<td > + 배송비 : </td>
+         	<td> + 배송비 : </td>
          	<td><fmt:formatNumber value="2500" pattern="#,###" />원</td>
          </tr>
 
@@ -644,7 +685,7 @@ $(document).ready(function(){
 	<br>
 
 	<div class="card-1" id="order_button_cart" onclick="goOrder()">
-		주문하기
+		주문하기 
 	</div>
 </div>
  </form> 
