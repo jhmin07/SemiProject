@@ -1,5 +1,7 @@
 package order.model;
 
+import myshop.model.ProductVO;
+
 public class CartVO {
 	
 	 private int cartNo;       //장바구니번호
@@ -7,6 +9,18 @@ public class CartVO {
 	 private int fk_pnum;    //제품번호
 	 private int odAmount;   //주문량
 	 private String cartDate;  // 입력일자
+	 
+	 private ProductVO prod;  //  제품정보객체 (오라클로 말하면 부모테이블)
+	 
+	 public CartVO() { }
+	   
+	 public CartVO(int cartNo, String fk_userid, int fk_pnum, int odAmount, ProductVO prod) {
+	      this.cartNo = cartNo;
+	      this.fk_userid = fk_userid;
+	      this.fk_pnum = fk_pnum;
+	      this.odAmount = odAmount;
+	      this.prod = prod;
+	   }
 	 
 	public int getCartNo() {
 		return cartNo;
@@ -38,5 +52,17 @@ public class CartVO {
 	public void setCartDate(String cartDate) {
 		this.cartDate = cartDate;
 	}
+
+	public ProductVO getProd() {
+		return prod;
+	}
+
+	public void setProd(ProductVO prod) {
+		this.prod = prod;
+	}
+
+
+	
+	
 	
 }
