@@ -21,6 +21,10 @@ public interface InterCartDAO {
 	// 장바구니 테이블에서 특정제품을 장바구니에서 수량을 변경하기  
 	int updateCart(String cartno, String oqty) throws SQLException ;
 
+	// 장바구니에 담긴 물건 갯수알아오기 select
+	int getCartCount(String userid) throws SQLException ;
+
+
 	
 
 

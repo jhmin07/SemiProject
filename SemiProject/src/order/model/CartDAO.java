@@ -229,4 +229,32 @@ public class CartDAO implements InterCartDAO{
 	      return n; 
 	}
 
+	//장바구니에 담긴 물건갯수 알아오기 select
+	@Override
+	public int getCartCount(String userid) throws SQLException {
+		int n = 0;
+	      
+	      try {
+	         conn = ds.getConnection();
+	         
+	         String sql = " select count(*) from tbl_cart "
+	                    + " where fk_userid = ? ";
+	                  
+	         pstmt = conn.prepareStatement(sql);
+	         pstmt.setString(1, userid);
+	         
+	         rs = pstmt.executeQuery();
+	         
+	         if(rs.next()) {
+	        	 n = rs.getInt(1);
+	         }
+	         
+	         
+	      } finally {
+	         close();
+	      }
+	      
+	      return n;
+	}
+
 }
