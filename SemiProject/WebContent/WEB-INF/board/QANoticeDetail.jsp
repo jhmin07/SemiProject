@@ -24,58 +24,64 @@
    
    		height: 100px;
    }
+   div.NoticeDetailDiv{
+   		margin-top: 200px;
+   		margin-bottom: 200px;
+   }
+    table.NoticeDetail{
+    	width: 100%;
+    	text-align: center;
+    }s
+    div#tableContainer{
+    	width: 100%;
+    	border: solid 1px hidden;
+    	text-align: center;
+    }
    td.NoticeContent{
    
-   		height: 800px;
-   }
-   div.NoticeDetailDiv{
-   		margin-bottom: 200px;
+   		height: 300px;
    }
    button#comment{
    	width: 150px; 
    	height: 100px; 
 	color: white; 
-	background-color: #66a3ff;
+	background-color: #bfbfbf;
    	font-size: 22px; 
    	font-weight: bold; 
-   	border-radius: 5%;
    	border: none;
    }
     button#comment:hover{
    	font-size: 22px; 
    	font-weight: bold; 
-   	color: #66a3ff; 
+   	color: #bfbfbf; 
 	background-color: white;
-   	border: solid 2px #66a3ff;
-   	border-radius: 5%;
+   	border: solid 2px #bfbfbf;
    }
     button#noticeList{
    	width: 150px; 
    	height: 40px; 
 	color: white; 
-	background-color: #66a3ff;
+	background-color: #bfbfbf;
    	font-size: 22px; 
    	font-weight: bold; 
-   	border-radius: 5%;
    	border: none;
    }
     button#noticeList:hover{
    	font-size: 22px; 
    	font-weight: bold; 
-   	color: #66a3ff; 
+   	color: #bfbfbf; 
 	background-color: white;
-   	border: solid 2px #66a3ff;
-   	border-radius: 5%;
+   	border: solid 2px #bfbfbf;
    }
    table#QACommentTable th{
-   	background-color: #99c2ff;
-   	color : #003380;
+   	background-color: #bfbfbf;
+   	color : black;
    	font-size: 15px;
    	font-weight: bold;
    	text-align: center;
    }
    table#QACommentTable td{
-   	background-color: #e6f0ff;
+   	background-color: #e6e6e6;
    	color : black;
    	font-size: 13px;
    	text-align: center;
@@ -171,8 +177,8 @@
 		존재하지 않는 글입니다.
 	</c:if>
 	<c:if test="${not empty requestScope.qvo}">
-	
-		<table class="NoticeDetail" style="width: 90%; margin-top: 100px; \">
+	<div id="tableContainer">
+		<table class="NoticeDetail">
 			<thead>
 				<tr>
 					<th style="text-align: center; color:#737373; font-size: 25px; font-weight: bold;">${requestScope.qvo.qaTitle}</th>
@@ -194,14 +200,15 @@
 				</tr>
 			</tbody> 
 		</table>
-		
+		</div>
 		<br><br>
 		<div id="commentList">
 			
 		</div>
 		<c:if test="${sessionScope.loginadmin.adId != null}">
+			<br><br><br>
 			<form name="QACommentFrm">
-				<a><input name="QAComment" style="width: 700px; height: 200px; margin-left: 100px; border: solid 2px #66a3ff" type="text"/>&nbsp;&nbsp;<button id="comment" onclick="goQAComment()">댓글달기</button></a>
+				<a><input name="QAComment" style="width: 700px; height: 200px; border: solid 2px #bfbfbf" type="text"/>&nbsp;&nbsp;<button id="comment" onclick="goQAComment()">댓글달기</button></a>
 				<input name="qaNo" type="hidden" value="${requestScope.qvo.qaNo}"/>
 			</form>
 		</c:if>    

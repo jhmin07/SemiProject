@@ -149,7 +149,7 @@ div.optDiv {
 		$("input#btnRegister").click(function(){
 			var flag = false;
 			
-			<%--
+			<%-- 상품 정보 입력 검사 --%>
 			$(".infoData").each(function(index, item){
 				var val = $(item).val().trim();
 				if (val == "") {
@@ -166,7 +166,36 @@ div.optDiv {
 					return false;
 				}
 			});
-			--%>	
+				
+			
+			<%-- 추가 옵션 부분 검사 --%>
+			$("div.optDiv").each(function(index, item){
+				var $onum = $(item).find("select");
+				if ($onum.val().trim() == "") {
+					alert("옵션분류를 선택하세요.");
+					$onum.focus();
+					return false;
+				}
+				
+				var $ocontents = $onum.next().next();
+				if ($ocontents.val().trim() == "") {
+					alert("옵션내용을 입력하세요.");
+					$ocontents.focus();
+					return false;
+				}
+				
+				var $addprice = $onum.next().next().next();
+				var regExp = /^[0-9]+$/;
+				var bool = regExp.test($addprice.val());
+				
+				if (!bool) {
+					alert("추가금액을 올바르게 입력하세요.");
+					$addprice.focus();
+					return false;
+				}
+			});
+			
+			
 			if (!flag) {
 				var frm = document.prodInputFrm;
 				frm.submit();
@@ -178,6 +207,8 @@ div.optDiv {
 
 	
 	// == Function Declaration == // 
+	
+	// == 옵션 추가 버튼 클릭 시 실행되는 함수 == // 
 	function optAdd() {
 		var html = "";
 		html += '<div class="optDiv">'+
@@ -194,14 +225,16 @@ div.optDiv {
 		$("div#divoptattach").append(html);
 		
 		optCnt++;
-		console.log(optCnt);
+		// console.log(optCnt);
 		$("input#optCnt").val(optCnt);
 	}
 	
+	// == 옵션 삭제 버튼 클릭 시 실행되는 함수 == //
 	function optDel(item) {
 		$(item).parent().remove();
 	}
 	 
+	// == 선택된 옵션번호에 해당하는 옵션이름 input 태그에 값 설정하기 == //
 	function setoname(item) {
 		var onum = $(item).val();
 		var oname = "";

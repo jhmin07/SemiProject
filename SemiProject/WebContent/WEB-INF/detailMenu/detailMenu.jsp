@@ -59,10 +59,10 @@ div#pagebar{
 	    <tr>
 	    </c:if>
 	      <td style="position: relative;">
-			<a href="<%=ctxPath%>/detailMenu/menu.up?cnum=${cnum}&decode=${devo.decode}">
+			<a href="<%=ctxPath%>/detailMenu/productDetailPage.up?pnum=${pvo.pnum}">
 				<img src="<%=ctxPath%>/image/product/${pvo.fk_decode}/${pvo.pimage1}" class="prodImg" "/>
 				<div id="name">
-				<a href="<%=ctxPath%>/detailMenu/menu.up?cnum=${cnum}&decode=${devo.decode}">	
+				<a href="<%=ctxPath%>/detailMenu/productDetailPage.up?pnum=${pvo.pnum}">	
 				<span>${pvo.pname}</span><br>	
 				<span><fmt:formatNumber value="${pvo.saleprice}" pattern="#,###" /> 원</span>
 				</a>

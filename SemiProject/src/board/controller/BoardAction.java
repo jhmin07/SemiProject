@@ -58,7 +58,6 @@ public class BoardAction extends AbstractController {
 								
 					// 페이징처리를 위해서 전체회원에 대한 총페이지 개수 알아오기(select)
 					int totalPage = ndao.selectTotalPage(paraMap);
-					System.out.println("totalPage 확인!! => " +totalPage);
 					if(Integer.parseInt(currentShowPageNo) > totalPage ) {	// 없는 페이지로 장난치는 경우
 						currentShowPageNo = "1";
 						paraMap.put("currentShowPageNo", currentShowPageNo);	// 다시 map에 저장한다.
@@ -73,7 +72,6 @@ public class BoardAction extends AbstractController {
 			        request.setAttribute("searchType", searchType); 
 			        request.setAttribute("searchWord", searchWord); 
 
-					System.out.println("qwertytrew"+noticeList.size());
 					String pageBar = "";
 					
 					int blockSize = 10;
@@ -136,7 +134,6 @@ public class BoardAction extends AbstractController {
 					  // *** 현재 페이지를 돌아갈 페이지(goBackURL)로 주소 지정하기 *** //
 						String currentURL = MyUtil.getCurrentURL(request);
 						// 회원조회를 했을시 현재 그 페이지로 그대로 되돌아가길 위한 용도로 쓰임
-						System.out.println("확인용 currentURL="+currentURL);
 						// setAttribute로 읽어가면서 &이전까지만 읽게 돼서
 						// member/memberList.up?currentShowPageNo=9&sizePerPage=10&searchType=name&searchWord=혜
 						// 에서 페이지 사이즈와 검색어에 대해서는 읽어오지 못하게 된다.

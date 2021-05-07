@@ -9,10 +9,14 @@
 
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script> -->
 <style type="text/css">	
+	div.noticeDiv{
+   		margin-top: 100px;
+   		margin-bottom: 200px;
+	}
 	img#boardImg {
 		width: 90%;		
 		height: 280px;
@@ -105,7 +109,7 @@
 	};
 </script>
 
-<div class="container" align="center">
+<div class="container noticeDiv" align="center">
 <img id="boardImg" src="../image/board.png"/>
 	<table class="table page_tab" style="margin: 25px 0;">
 		<tbody>
@@ -154,36 +158,7 @@
 			</tr>
 		</thead>
 		
-		<tbody>
-			<tr>
-				<td class="list list2">3</td>
-				<td class="list ctTitle">배송 기간, 배송비 안내, 적립금, 게시판 이용안내</td>
-				<td class="list list2">관리자</td>
-				<td class="list list2">2021-04-22</td>
-				<td class="list list2">10</td>
-			</tr>
-		</tbody>
 		
-		<tbody>
-			<tr>
-				<td class="list list2">2</td>
-				<td class="list ctTitle">게시판 이용규정 안내</td>
-				<td class="list list2">관리자</td>
-				<td class="list list2">2021-04-22</td>
-				<td class="list list2">20</td>
-			</tr>
-		</tbody>
-		
-		<tbody>
-			<tr>
-				<td class="list list2">1</td>
-				<td class="list ctTitle">AS센터 휴무안내</td>
-				<td class="list list2">관리자</td>
-				<td class="list list2">2021-04-20</td>
-				<td class="list list2">30</td>
-			</tr>
-		</tbody>
-				
 		<tbody id="NoticeList">
         	<c:forEach var="nvo" items="${requestScope.noticeList}">
         		<tr class= "NoticeHead">

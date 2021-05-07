@@ -9,10 +9,12 @@
 
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
 <style type="text/css">	
+	div.QADiv{
+   		margin-top: 100px;
+   		margin-bottom: 200px;
+	}
 	img#boardImg {
 		width: 90%;		
 		height: 280px;
@@ -141,7 +143,7 @@
 	}
 </script>
 
-<div class="container" align="center">
+<div class="container QADiv" align="center">
 <img id="boardImg" src="../image/board.png"/>
 	<table class="table page_tab" style="margin: 25px 0;">
 		<tbody>
