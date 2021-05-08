@@ -278,6 +278,9 @@ nocycle
 nocache;
 
 
+select *
+from tbl_product;
+
 -- 제품추가이미지 테이블 생성
 -- drop table tbl_addImage purge;
 create table tbl_addImage
@@ -353,22 +356,52 @@ create table tbl_order (
 orderCode       varchar2(50) not null   -- 주문코드
 ,fk_userid      varchar2(50) not null   -- 회원아이디
 ,totalPrice     number       not null   -- 주문총액
-,totalPoint     varchar2(20)            -- 주문총포인트
+,totalPoint     number                  -- 주문총포인트
 ,orderDate      Date    default sysdate -- 주문일자
 ,constraint  PK_tbl_order_orderCode primary key(orderCode)
 ,constraint  FK_tbl_order_fk_userid foreign key(fk_userid) references tbl_member(userid)
 );
 -- Table TBL_ORDER이(가) 생성되었습니다.
 
+insert into tbl_order(orderCode, fk_userid, totalPrice, totalPoint, orderDate) values ('1', 'kimys', 10000, 100, '21/03/21');
+insert into tbl_order(orderCode, fk_userid, totalPrice, totalPoint) values ('2', 'kimys', 20000, 200);
+insert into tbl_order(orderCode, fk_userid, totalPrice, totalPoint, orderDate) values ('3', 'kimys', 10000, 100, '20/12/21');
+insert into tbl_order(orderCode, fk_userid, totalPrice, totalPoint, orderDate) values ('4', 'kimys', 10000, 100, '21/01/31');
+commit;
+
+select *
+from tbl_product;
+
+select A.ordercode, A.fk_userid, A.totalprice, A.totalpoint, to_char(A.orderdate, 'yyyy-mm-dd') AS orderdate, B.fk_pnum, B.odAmount, B.deliveryCon, c.pname, c.pimage1, c.fk_decode
+from tbl_order A join tbl_order_details B
+on A.orderCode = B.fk_orderCode
+join tbl_product C
+on B.fk_pnum = C.pnum
+where fk_userid = 'kimys'
+and orderdate between '2020-12-01' and '2021-04-01'
+and B.deliveryCon = '1'
+order by orderdate desc;
+
+insert into tbl_order_details(odNo, fk_orderCode, fk_pnum, odAmount, odPrice, deliveryCon) values (1, '1', 16, 2, 139000, '2');
+insert into tbl_order_details(odNo, fk_orderCode, fk_pnum, odAmount, odPrice, deliveryCon) values (2, '2', 1, 1, 20000, '1');
+insert into tbl_order_details(odNo, fk_orderCode, fk_pnum, odAmount, odPrice, deliveryCon) values (3, '3', 2, 4, 10000, '3');
+insert into tbl_order_details(odNo, fk_orderCode, fk_pnum, odAmount, odPrice, deliveryCon) values (4, '4', 3, 3, 10000, '1');
+insert into tbl_order_details(odNo, fk_orderCode, fk_pnum, odAmount, odPrice, deliveryCon) values (5, '10', 5, 2, 139000, '2');
+insert into tbl_order_details(odNo, fk_orderCode, fk_pnum, odAmount, odPrice, deliveryCon) values (6, '11', 4, 1, 139000, '3');
+commit;
+
+select *
+from tbl_order_details;
 
 -- 주문상세 테이블 생성
+-- drop table tbl_order_details purge;
 create table tbl_order_details (
 odNo            number          not null -- 주문상세일련번호
 ,fk_orderCode   varchar2(50)    not null -- 주문코드
 ,fk_pnum        number(8)       not null -- 제품번호
 ,odAmount       number          not null -- 주문량
 ,odPrice        number          not null -- 주문가격
-,deliveryCon    varchar2(50)             -- 배송상태
+,deliveryCon    varchar2(50)             -- 배송상태( 1 : 주문만 받음,  2 : 배송중,  3 : 배송완료)
 ,deliveryDone   DATE                     -- 배송완료일자
 ,constraint  PK_tbl_order_details_odNo primary key(odNo)
 ,constraint  FK_tbl_order_details_fk_odCode foreign key(fk_orderCode) references tbl_order(orderCode)
@@ -376,16 +409,11 @@ odNo            number          not null -- 주문상세일련번호
 );
 -- Table TBL_ORDER_DETAILS이(가) 생성되었습니다.
 
--- "주문상세 일련번호 시퀀스" 생성
-create sequence seq_tbl_orderdetail
-start with 1
-increment by 1
-nomaxvalue
-nominvalue
-nocycle
-nocache;
+select *
+from tbl_order_details;
 
 -- 배송지정보 테이블 생성
+-- drop table tbl_delivery purge;
 create table tbl_delivery ( --receiver 을 rec 로 표현
 fk_orderCode        varchar2(50)    -- 주문코드
 ,recMobile          varchar2(200)   -- 연락처 (AES-256 암호화/복호화 대상) 
