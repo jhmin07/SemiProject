@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 package myshop.controller;
 
 import javax.servlet.http.HttpServletRequest;
@@ -96,4 +95,3 @@ public class ReviewDelAction extends AbstractController {
 	}
 
 }
->>>>>>> branch 'main' of https://github.com/jhmin07/SemiProject.git

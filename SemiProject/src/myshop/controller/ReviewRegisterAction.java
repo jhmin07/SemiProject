@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 package myshop.controller;
 
 import java.sql.SQLException;
@@ -134,4 +133,3 @@ public class ReviewRegisterAction extends AbstractController {
 	}
 
 }
->>>>>>> branch 'main' of https://github.com/jhmin07/SemiProject.git

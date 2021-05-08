@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 package my.util;
 
 import javax.servlet.http.HttpServletRequest;
@@ -114,4 +113,3 @@ public class MyUtil {
 	
 	
 }
->>>>>>> branch 'main' of https://github.com/jhmin07/SemiProject.git
