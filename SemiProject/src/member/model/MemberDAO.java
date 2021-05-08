@@ -475,17 +475,17 @@ public class MemberDAO implements InterMemberDAO {
         try {
            conn = ds.getConnection();
            
-           String sql = "select W.reviewNo, W.fk_decode, W.fk_pnum, W.reviewSubject, W.reviewRegisterday , W.review_like,  W.pname, W.pimage1, O.totalPrice, O.orderDate "+
-        		   "from tbl_order O join "+
-        		   "("+
-        		   "select reviewNo, fk_userid,  fk_pnum, reviewSubject, to_char(reviewRegisterday, 'yyyy-mm-dd hh24:mi:ss') AS reviewRegisterday , review_like,  pname, pimage1 "+
-        		   "from tbl_review R join tbl_product P "+
-        		   "on R.fk_pnum = P.pnum  "+
-        		   "where R.fk_userid = ? "+
-        		   ") W"+
-        		   "on o.fk_userid = W.fk_userid "+
-        		   "where w.fk_userid = ? ";
-           
+			String sql = 
+						" select distinct  W.reviewNo, W.fk_decode, W.fk_pnum, W.reviewSubject, W.reviewRegisterday , W.review_like,  W.pname, W.pimage1, O.totalPrice, O.orderDate "+
+						" from tbl_order O join "+
+						" ( "+
+						" select reviewNo, fk_userid, fk_decode,  fk_pnum, reviewSubject, to_char(reviewRegisterday, 'yyyy-mm-dd hh24:mi:ss') AS reviewRegisterday , review_like,  pname, pimage1 "+
+						" from tbl_review R join tbl_product P"+
+						" on R.fk_pnum = P.pnum "+
+						" ) W "+
+						" on o.fk_userid = W.fk_userid "+
+						" where w.fk_userid = ? ";
+	           
            pstmt = conn.prepareStatement(sql);
            pstmt.setString(1, userid);
            

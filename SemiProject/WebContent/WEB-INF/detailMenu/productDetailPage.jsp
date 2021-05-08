@@ -51,14 +51,6 @@ li {
 	$( function() {
 	
 		 goloop(); 
-		 console.log("확인중0");
-/* 	$.each(${optionList}, function(index, item){	
-		console.log("ddd");
-	});	 */
-		
-	//	goloop();
-	//	console.log("${pvo.pnum}");
-	// console.log(${requestScope.pvo.fk_decode});	
 	
 	var spinner = $( "#spinner" ).spinner();
 	
@@ -74,6 +66,12 @@ li {
             }
          }
 	});
+	     
+
+	
+     
+     
+	
 	
 	}); // end of $(function(){});
 	
@@ -83,36 +81,18 @@ li {
 	// Function Declaration	
 	
 	function goCart() {
+		
+		
+		  //  alert($('#optocontents').find("option").val());
+		  
+		  // optocontent
+		
 		   // pnum 은 장바구니에 담을 제품번호 이다.
 		   // === 주문량에 대한 유효성 검사하기 === //
 		   var frm = document.pdtFrm;
 		   frm.method = "post";
 		   frm.action = "<%= request.getContextPath()%>/order/goCart.up";
 		   frm.submit();
-		   
-/* 		   
- 
- 		   var regExp = /^[0-9]+$/; // 숫자만 체크하는 정규표현식 
-		   var odAmount = frm.odAmount.value;
-		   var bool = regExp.test(odAmount);
-		   
-		   if(!bool) {
-			   // 숫자 이외의 값이 들어온 경우
-			   alert("주문갯수는 1개 이상이어야 합니다.");
-			   frm.odAmount.value = "1";
-			   frm.odAmount.focus();
-			   return; // 종료 
-		   }
-		   
-		   // 문자형태로 숫자로만 들어온 경우 
-		   odAmount = parseInt(odAmount);
-		   if(odAmount < 1) {
-			   alert("주문갯수는 1개 이상이어야 합니다.");
-			   frm.odAmount.value = "1";
-			   frm.odAmount.focus();
-			   return; // 종료 
-		   } 
-*/
    
 	   } // end of function goCart(pnum) {}------------------------------------	
 	   
@@ -127,14 +107,14 @@ li {
 		   
     } // end of function goOrder(){}
 
+    
+    
     function goloop() { 
         
-        console.log("확인중1");   
         var oname="";
         $("td.dd").each(function(index,item){
            var $this = $(this);
            oname = $(this).text();
-                console.log("td 는 ?? : " + $(this).text());   
               $.ajax({
                  url:"<%= request.getContextPath()%>/detailMenu/productDetailOption.up",
                  type:"get",
@@ -147,13 +127,12 @@ li {
                        
                         $.each(json, function(index, item){
                            
-                           html += "<option>"+item.ocontents+"</option>";
-                           console.log("확인중2" + item.ocontents);
+                           html += " <option value='"+item.optionNo+"'>"+item.ocontents+"</option>";
                         });
-
-                    
+                
                     $this.next().children().html(html);
-                    console.log("확인중3");
+                    
+                    
                     
                  },
                  error: function(request, status, error){
@@ -164,6 +143,20 @@ li {
         
       
       } // end of function goloop() {}  
+      
+      function option(item) {
+          
+	          var option = "";
+	          $("select.ff").each(function(index,item){
+		       	  if(option != ""){
+		           option += ",";
+		       	  }
+		           option += $(this).children("option:selected").val();       	 	 
+          		});
+          	console.log(option);
+       		$("input#optionNo").val(option);
+  }
+      
 	   
 </script>
 
@@ -215,11 +208,11 @@ li {
 						</td>
 					<tr>
 
-					<c:forEach var="option" items="${onameList}" >            
+					<c:forEach var="option" items="${onameList}" varStatus="status" >            
                   <tr>                              
                      <td class="dd">${option.oname}</td>
                      <td>
-                          <select id="optocontents" style="width: 150px;">                            
+                          <select class ="ff" name="optocontents" id="${status.index}" onchange="option(this);" style="width: 150px;">                                      
                            </select>
                        </td>
                   </tr>   
@@ -228,7 +221,10 @@ li {
 				</tbody>
 			</table>
 			<button type="button"  onclick="goCart();" style="background-color: black; color: white;  width: 350px; margin-top: 10px; height: 30px;">장바구니에 담기</button>
+			<div id="datasubmit">
 			<input type="hidden" name="pnum" value="${requestScope.pvo.pnum}" />
+			<input type="hidden" id="optionNo"  name="optionNo" value="" />
+			</div>
 			<br>
 			<button type="button"  onclick="goOrder();" style="background-color: black; color: white;  width: 350px; margin-top: 10px; height: 30px;">주문하러 가기</button>
 			</form>
