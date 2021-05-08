@@ -80,17 +80,19 @@ public class OrderDAO implements InterOrderDAO {
 				String[] pnumArr = (String[])paraMap.get("pnumArr");
 				String[] oqtyArr = (String[])paraMap.get("oqtyArr");
 				String[] totalPriceArr = (String[])paraMap.get("totalPriceArr");
+				String[] optionArr = (String[])paraMap.get("optionArr");
 				
 				for (int i=0; i<pnumArr.length; i++) {
 					
-					sql = "insert into tbl_order_details(odNo, fk_orderCode, fk_pnum, odAmount, odPrice, deliveryCon, deliveryDone) "
-							+ "values (seq_tbl_orderdetail.nextval, ?, to_number(?), to_number(?), to_number(?), '', '')";
+					sql = "insert into tbl_order_details(odNo, fk_orderCode, fk_pnum, odAmount, odPrice, optionContents, deliveryCon, deliveryDone) "
+							+ "values (seq_tbl_orderdetail.nextval, ?, to_number(?), to_number(?), to_number(?), ?, '', '')";
 
 					pstmt = conn.prepareStatement(sql);
 					pstmt.setString(1, (String) paraMap.get("ordercode"));
 					pstmt.setString(2, pnumArr[i]);
 					pstmt.setString(3, oqtyArr[i]);
 					pstmt.setString(4, totalPriceArr[i]);
+					pstmt.setString(5, optionArr[i]);
 
 					n2 += pstmt.executeUpdate();
 				}
@@ -201,8 +203,8 @@ public class OrderDAO implements InterOrderDAO {
 		
 		try {
 			conn = ds.getConnection();
-			String sql = "insert into tbl_delivery(fk_ordercode, recMobile, recPostcode, recAddress, recDetailAddress, recExtraAddress, dvMessage)" +
-						" values (?, ?, ?, ?, ?, ? ,?)";
+			String sql = "insert into tbl_delivery(fk_ordercode, recMobile, recPostcode, recAddress, recDetailAddress, recExtraAddress, dvMessage, recName)" +
+						" values (?, ?, ?, ?, ?, ? ,?, ?)";
 			
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, delivo.getFk_orderCode());
@@ -212,6 +214,7 @@ public class OrderDAO implements InterOrderDAO {
 			pstmt.setString(5, delivo.getRecDetailaddress());
 			pstmt.setString(6, delivo.getRecExtraaddress());
 			pstmt.setString(7, delivo.getDvMessage());
+			pstmt.setString(8, delivo.getRecName());
 			
 			n = pstmt.executeUpdate();
 			

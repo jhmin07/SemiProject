@@ -33,6 +33,7 @@ public class OrderAction extends AbstractController {
 //			return;
 //		}
 		
+		String option_es = "[색상]:red / [크기]: 100x150 (추가요금 +10000원),[조립유무]:무";
 		String pnum_es = request.getParameter("pnum_es");
 		String oqty_es = request.getParameter("oqty_es");
 		String cartno_es = request.getParameter("cartno_es");
@@ -45,6 +46,7 @@ public class OrderAction extends AbstractController {
 		String[] oqtyArr = oqty_es.split(",");
 		String[] cartnoArr = cartno_es.split(",");
 		String[] totalPriceArr = totalPrice_es.split(",");
+		String[] optionArr = option_es.split(",");
 		
 		InterOrderDAO odao = new OrderDAO();
 		
@@ -61,6 +63,7 @@ public class OrderAction extends AbstractController {
 			map.put("pnum", pnumArr[i]);
 			map.put("oqty", oqtyArr[i]);
 			map.put("cartno", cartnoArr[i]);
+			map.put("option", optionArr[i]);
 			
 			ProductVO pvo = odao.getProdInfo(userid, cartnoArr[i]);	// cartno 를 가지고 해당 제품의 정보 가져오기
 			map.put("pimage1", pvo.getPimage1());
@@ -80,6 +83,7 @@ public class OrderAction extends AbstractController {
 		request.setAttribute("pnum_es", pnum_es);
 		request.setAttribute("oqty_es", oqty_es);
 		request.setAttribute("cartno_es", cartno_es);
+		request.setAttribute("option_es", option_es);
 		request.setAttribute("totalPrice_es", totalPrice_es);
 		request.setAttribute("sumtotalPrice", sumtotalPrice);
 		request.setAttribute("sumtotalPoint", sumtotalPoint);
