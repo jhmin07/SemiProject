@@ -44,8 +44,8 @@ public class ProductDetailPageAction extends AbstractController {
 			
 			// request.setAttribute("imgList", imgList);// 해당 제품의 추가된 이미지 정보 // 추가 예정
 			
-			 System.out.println(optionList);
-			 System.out.println(pvo);
+			 //System.out.println(optionList);
+			 //System.out.println(pvo);
 			
 			super.setRedirect(false);
 			super.setViewPage("/WEB-INF/detailMenu/productDetailPage.jsp");
