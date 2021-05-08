@@ -14,6 +14,8 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
+import member.model.MemberVO;
+
 public class ProductDAO implements InterProductDAO {
 
 	private DataSource ds; // DataSource ds 는 아파치톰캣이 제공하는 DBCP(DB Connection Pool) 이다.
@@ -892,8 +894,106 @@ public class ProductDAO implements InterProductDAO {
 		return onameList;
 		
 	}
+
+	// 리뷰남기기 (insert)
+	@Override
+	public int addComent(ReviewVO reviewsvo) throws SQLException {
+		int n = 0;
+	      
+	      try {
+	         conn = ds.getConnection();
+	         
+	         String sql = " insert into tbl_review(reviewNo, fk_userid, fk_pnum, reviewSubject, review_like, reviewRegisterday) "
+	                  + " values(seq_tbl_review_reviewNo.nextval, ?, ?, ?, ?, default) ";
+	                  
+	         pstmt = conn.prepareStatement(sql);
+	         pstmt.setString(1, reviewsvo.getFk_userid());
+	         pstmt.setInt(2, reviewsvo.getFk_pnum());
+	         pstmt.setString(3, reviewsvo.getReviewSubject());
+	         pstmt.setInt(4, reviewsvo.getReview_like());
+	         
+	         n = pstmt.executeUpdate();
+	         
+	      } finally {
+	         close();
+	      }
+	      
+	      return n;
+	}
+
+	// 리뷰리스트 불러오기
+	@Override
+	public List<ReviewVO> commentList(String fk_pnum) throws SQLException {
+		List<ReviewVO> commentList = new ArrayList<>();
+        
+        try {
+           conn = ds.getConnection();
+           
+           String sql = " select reviewNo, fk_userid, name, fk_pnum, reviewSubject, to_char(reviewRegisterday, 'yyyy-mm-dd hh24:mi:ss') AS reviewRegisterday , review_like "+
+           		" from tbl_review R join tbl_member M "+
+           		" on R.fk_userid = M.userid  "+
+           		" where R.fk_pnum = ? "+
+           		" order by reviewNo desc ";
+           
+           pstmt = conn.prepareStatement(sql);
+           pstmt.setString(1, fk_pnum);
+           
+           rs = pstmt.executeQuery();
+           
+           while(rs.next()) {
+               String reviewSubject = rs.getString("reviewSubject");
+               String name = rs.getString("name");
+               String reviewRegisterday = rs.getString("reviewRegisterday");
+               String fk_userid = rs.getString("fk_userid");
+               int reviewNo = rs.getInt("reviewNo");
+               int review_like = rs.getInt("review_like");
+                                       
+               ReviewVO reviewvo = new ReviewVO();
+               reviewvo.setReviewSubject(reviewSubject);
+               
+               MemberVO mvo = new MemberVO();
+               mvo.setName(name);
+               
+               reviewvo.setMvo(mvo);
+               reviewvo.setReviewRegisterday(reviewRegisterday);
+               reviewvo.setFk_userid(fk_userid);
+               reviewvo.setReviewNo(reviewNo);
+               reviewvo.setReview_like(review_like);
+               
+               commentList.add(reviewvo);
+            }
+           
+        } finally {
+           close();
+        }
+        
+        return commentList;
+	}
 	
-	// 제품번호와 옵션분류명을 가지고서 해당 제품의 옵션정보를 조회해오기
+
+	// 특정제품의 상품 후기 삭제하기(delete)
+	@Override
+	public int reviewDel(String review_seq) throws SQLException {
+		int n = 0;
+	      
+	      try {
+	         conn = ds.getConnection();
+	         
+	         String sql = " delete from tbl_review "
+	                  + " where reviewNo = ? ";
+	                  
+	         pstmt = conn.prepareStatement(sql);
+	         pstmt.setString(1, review_seq);
+	         
+	         n = pstmt.executeUpdate();
+	         
+	      } finally {
+	         close();
+	      }
+	      
+	      return n;
+	}
+
 	@Override
 	public List<OptionVO> selectProductOption(String pnum, String oname) throws SQLException {
 		
@@ -932,5 +1032,5 @@ public class ProductDAO implements InterProductDAO {
 		return optionList;
 		
 	}
-	
+
 }
