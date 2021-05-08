@@ -253,6 +253,9 @@ $(document).ready(function(){
 					</td>
 					<td> <%-- 배송상태 --%>
 						<c:choose>
+							<c:when test="${ordervo.deliveryCon eq null}">
+								입금확인
+							</c:when>
 							<c:when test="${ordervo.deliveryCon eq '1'}">
 								배송준비중
 							</c:when>

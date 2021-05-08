@@ -340,7 +340,7 @@ nominvalue
 nocycle
 nocache;
 
-select*
+select *
 from tbl_option;
 
 -- 0번 => 색상
@@ -370,7 +370,7 @@ insert into tbl_order(orderCode, fk_userid, totalPrice, totalPoint, orderDate) v
 commit;
 
 select *
-from tbl_product;
+from tbl_order;
 
 select A.ordercode, A.fk_userid, A.totalprice, A.totalpoint, to_char(A.orderdate, 'yyyy-mm-dd') AS orderdate, B.fk_pnum, B.odAmount, B.deliveryCon, c.pname, c.pimage1, c.fk_decode
 from tbl_order A join tbl_order_details B
@@ -401,7 +401,7 @@ odNo            number          not null -- 주문상세일련번호
 ,fk_pnum        number(8)       not null -- 제품번호
 ,odAmount       number          not null -- 주문량
 ,odPrice        number          not null -- 주문가격
-,deliveryCon    varchar2(50)             -- 배송상태( 1 : 주문만 받음,  2 : 배송중,  3 : 배송완료)
+,deliveryCon    varchar2(50)             -- 배송상태(null : 입금확인, 1 : 배송준비중,  2 : 배송중,  3 : 배송완료)
 ,deliveryDone   DATE                     -- 배송완료일자
 ,constraint  PK_tbl_order_details_odNo primary key(odNo)
 ,constraint  FK_tbl_order_details_fk_odCode foreign key(fk_orderCode) references tbl_order(orderCode)
