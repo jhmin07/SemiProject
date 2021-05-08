@@ -135,12 +135,13 @@ public class OrderDAO implements InterOrderDAO {
 			
 			// 5. 사용자 포인트 증감(update)
 			if (n4 > 0) {
-				sql = " update tbl_member set point = point + ? " 
+				sql = " update tbl_member set point = point + ? - ?" 
 						+ " where userid = ? ";
 
 				pstmt = conn.prepareStatement(sql);
 				pstmt.setInt(1, Integer.parseInt((String) paraMap.get("sumtotalPoint")));
-				pstmt.setString(2, (String) paraMap.get("fk_userid"));
+				pstmt.setInt(2, Integer.parseInt((String) paraMap.get("usePoint")));
+				pstmt.setString(3, (String) paraMap.get("fk_userid"));
 
 				n5 = pstmt.executeUpdate();
 			}
