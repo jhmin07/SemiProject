@@ -131,9 +131,7 @@ table.odr_info td:nth-child(2) {
 	
 	<div id="odrSucesContent">
 		<h2 id="odrthankyou">THANK YOU</h2>
-		<p>${requestScope.ordercode} 주문내용<br>
-			[심플침대프레임]...외 2건 주문완료되었습니다
-		</p>
+		<p>${requestScope.odrmsg}</p>
 		
 		<button type="button" class="odrscBtn" onclick="goHome();">쇼핑계속하기</button>
 		<button type="button" class="odrscBtn" onclick="goOrderListCheck();" style="background-color: #80bfff;">주문내역확인하기</button>

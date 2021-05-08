@@ -397,14 +397,25 @@ table.odr_info input[type=text]{
 	}
 	
 	function submitOrderFrm(ordercode) {		
-		var frm = document.deliverInfoFrm;
-		$("input#ordercode").val(ordercode);
 		
-		var str_pinfo = "";
-		$("input.pinfo").each(function(index, item){
-			
+		// 주문메세지 보내기 
+		var odrmsg = "[주문번호] "+ordercode+"<br>";
+		var cnt = 0;
+		
+		$("input.pinfo").each(function(index, item, array){
+			if (index == 0) odrmsg += $("input.pinfo").val();		
+			else cnt++; 
 		});
 		
+		if (cnt > 0) {
+			odrmsg += " 외 "+cnt+"개 상품 결제가 완료되었습니다.";
+		}
+		
+		//console.log(odrmsg);
+		$("input[name=odrmsg]").val(odrmsg);
+		$("input#ordercode").val(ordercode);
+
+		var frm = document.deliverInfoFrm;
 		frm.action = "<%=request.getContextPath()%>/order/orderSuccess.up";
 		frm.method = "post";
 		frm.submit();
@@ -541,6 +552,7 @@ table.odr_info input[type=text]{
 				<tr>
 					<td>배송 정보</td>
 					<input type="hidden" name="ordercode" id="ordercode"/>
+					<input type="hidden" name="odrmsg" />
 					<td style="text-align: right; vertical-align: bottom;"><span class="star">*</span>필수입력사항</td>
 				</tr>
 			</thead>
