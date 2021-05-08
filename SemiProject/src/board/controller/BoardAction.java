@@ -23,7 +23,7 @@ public class BoardAction extends AbstractController {
 				if( loginuser!=null && "admin".equals(loginuser.getUserid()) ) {*/
 					InterNoticeDAO ndao = new NoticeDAO();
 					String currentShowPageNo = request.getParameter("currentShowPageNo");
-					String sizePerPage = "5";
+					String sizePerPage = "10";
 										
 					if(currentShowPageNo == null ) {	// 몇페이지 볼지 선택안한경우
 						currentShowPageNo = "1";

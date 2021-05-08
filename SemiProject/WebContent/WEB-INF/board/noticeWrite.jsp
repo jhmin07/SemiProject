@@ -102,7 +102,10 @@ $(document).ready(function(){
 		
 		  location.href = "<%=request.getContextPath()%>/board/contentOneDetail.up?ctNo="+ctNo+"&goBackURL=${requestScope.goBackURL}";
 	});
-	
+
+	$("input.Noticeinput").click(function(){
+		$(this).val("");
+	});
 });
 
 // Function Declaration
@@ -136,13 +139,13 @@ function goWrite(){
 		<table>
 			<tbody>
 				<tr>
-					<td><input class="noticeTitle" value="제목을 입력하세요"  type="text" name="noticeTitle"/></td>
+					<td><input class="noticeTitle Noticeinput" value="제목을 입력하세요"  type="text" name="noticeTitle"/></td>
 				</tr>
 				<tr>
 					<td><span>&nbsp;</span></td>
 				</tr>
 				<tr>
-					<td><input class="noticeContent" value="내용을 입력하세요"  type="text" name="noticeContent" /></td>
+					<td><input class="noticeContent Noticeinput" value="내용을 입력하세요"  type="text" name="noticeContent" /></td>
 				</tr>
 				<tr>
 					<td><span>&nbsp;</span></td>

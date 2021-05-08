@@ -79,7 +79,7 @@ table.odr_info td:nth-child(2) {
 <script type="text/javascript">
 
 	$(document).ready(function(){
-		orderSuccessSendMsg();
+		// orderSuccessSendMsg();
 		
 		
 	});
@@ -122,7 +122,7 @@ table.odr_info td:nth-child(2) {
 	
 	// == 주문내역확인하기 == //
 	function goOrderListCheck() {
-		location.href = "<%=request.getContextPath()%>/orderListCheck.up"; // 파일 미생성
+		location.href = "<%=request.getContextPath()%>/orderList.up"; 
 	}
 </script>
 
@@ -131,7 +131,7 @@ table.odr_info td:nth-child(2) {
 	
 	<div id="odrSucesContent">
 		<h2 id="odrthankyou">THANK YOU</h2>
-		<p>주문내용<br>
+		<p>${requestScope.ordercode} 주문내용<br>
 			[심플침대프레임]...외 2건 주문완료되었습니다
 		</p>
 		
@@ -165,19 +165,29 @@ table.odr_info td:nth-child(2) {
 		<tbody>
 			<tr>
 				<td>받으시는 분</td>
-				<td></td>
+				<td>${requestScope.delivo.recName}</td>
 			</tr>
 			<tr>
 				<td>주소</td>
-				<td></td>
+				<td>
+					(${requestScope.delivo.recPostcode})&nbsp;
+					${requestScope.delivo.recAddress}&nbsp;
+					${requestScope.delivo.recDetailaddress}&nbsp;
+					${requestScope.delivo.recExtraaddress}&nbsp;
+				</td>
 			</tr>
 			<tr>
 				<td>연락처</td>
-				<td></td>
+				<c:set var="hp" value="${requestScope.delivo.recMobile}"/>
+				<td>
+					${fn:substring(hp, 0, 3)} -
+					${fn:substring(hp, 3, 7)} - 
+					${fn:substring(hp, 7, 12)}
+				</td>
 			</tr>
 			<tr>
 				<td>배송메시지</td>
-				<td></td>
+				<td>${requestScope.delivo.dvMessage}</td>
 			</tr>
 		</tbody>
 	</table>

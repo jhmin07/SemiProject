@@ -72,6 +72,7 @@ div.personalInfo{
 	position: relative;
     left: 21%;
      background-color: #F1F3F4; 
+     margin-bottom: 150px;
     
 
 	
@@ -81,6 +82,46 @@ span.input{
 	font-weight: bold;
 }
 
+dfn {
+ /*  background: rgba(0,0,0,0.2); */
+  border-bottom: dashed 1px rgba(0,0,0,0.8);
+  padding: 0 0.4em;
+  /* cursor: help; */
+  position: relative;
+  
+}
+dfn::after {
+  content: attr(data-info);
+  display: inline;
+  position: absolute;
+  top: 22px; left: 0;
+  opacity: 0;
+  width: 230px;
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 1.5em;
+  padding: 0.5em 0.8em;
+  background: rgba(0,0,0,0.8);
+  color: #fff;
+  pointer-events: none; /* This prevents the box from apearing when hovered. */
+  transition: opacity 250ms, top 250ms;
+}
+dfn::before {
+  content: '';
+  display: block;
+  position: absolute;
+  top: 12px; left: 20px;
+  opacity: 0;
+  width: 0; height: 0;
+  border: solid transparent 5px;
+  border-bottom-color: rgba(0,0,0,0.8);
+  transition: opacity 250ms, top 250ms;
+}
+dfn:hover {z-index: 2;} /* Keeps the info boxes on top of other elements */
+dfn:hover::after,
+dfn:hover::before {opacity: 1;}
+dfn:hover::after {top: 30px;}
+dfn:hover::before {top: 20px;}
 
  
  </style>   
@@ -122,7 +163,7 @@ span.input{
 	     	<div><span class="input">${(sessionScope.loginuser).name}</span>님은 <span class="input" >[일반회원]</span>이십니다.</div>
 	     	<br>
 	     	<div>POINT :&nbsp;&nbsp;&nbsp;&nbsp;<span class="input" id="point"><fmt:formatNumber value="${(sessionScope.loginuser).point}" pattern="###,###" /></span></div>
-	     	<div>COUPON :&nbsp;<span class="input" id="point">${requestScope.coupon}</span></div>
+	     	<div>회원님의 &nbsp;<dfn data-info="지금바로 '장바구니'를 클릭하여  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 확인해보세요!"><a href="<%= ctxPath%>/order/cartController.up" style="color: black;">장바구니</a></dfn> 안에는&nbsp;<span class="input" id="point">${requestScope.cartCount}</span>&nbsp;개의 상품이 존재합니다.</div>
 	     </div> 
 		       
 		

@@ -318,5 +318,5 @@ li {
 	</div>
 </div>
 
-
+<jsp:include page="review.jsp" />
 <jsp:include page="/WEB-INF/footer.jsp" />

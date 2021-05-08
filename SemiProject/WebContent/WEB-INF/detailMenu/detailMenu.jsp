@@ -75,10 +75,15 @@ div#pagebar{
 	    <c:set var="i" value="${i+1}" />
 	  </c:forEach>
 	</table>
-		<div id="pagebar">${requestScope.pageBar}</div>
+		
 	 <c:if test="${empty requestScope.productList}"> 
     	제품진열 준비중입니다.
    	 </c:if> 
+   	  <c:if test="${not empty requestScope.productList}"> 
+    	<div id="pagebar">${requestScope.pageBar}</div>
+    	<br>
+   	 </c:if> 
+   	 
    </div>	
 </div> 	
 <%-- <c:forEach var="pvo" items="${requestScope.productList}" varStatus="status">

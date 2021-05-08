@@ -135,4 +135,52 @@ public class QACommentDAO implements InterQACommentDAO {
 	      return n;
 	}
 
+	@Override
+	public int delComment(String addno) throws SQLException {
+		int result = 0;
+	      
+	      try {
+	         conn = ds.getConnection();
+
+	         String sql = " delete from tbl_coment " + 
+	         			  "	where addno = ? ";
+	     
+	         pstmt = conn.prepareStatement(sql);
+	         
+	         pstmt.setString(1, addno);
+	        
+	            
+	         result = pstmt.executeUpdate();
+	         
+	      } finally {
+	         close();
+	      }
+	      
+	      return result;
+	}
+
+	@Override
+	public int commentUpdate(QACommentVO qacvo) throws SQLException {
+		int result = 0;
+	      
+	      try {
+	         conn = ds.getConnection();
+
+	         String sql = " update tbl_coment set addSubject = ? , addRegisterday = sysdate " + 
+	         			  "	where addno = ? ";
+
+	         pstmt = conn.prepareStatement(sql);
+	         
+	         pstmt.setString(1, qacvo.getAddSubject());
+	         pstmt.setInt(2, qacvo.getAddno());
+	        
+	            
+	         result = pstmt.executeUpdate();
+	         
+	      } finally {
+	         close();
+	      }
+	      
+	      return result;	}
+
 }

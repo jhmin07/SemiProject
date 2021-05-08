@@ -3,6 +3,7 @@ package notice.model;
 import java.sql.SQLException;
 import java.util.*;
 
+import QA.model.QAVO;
 import notice.model.NoticeVO;
 
 public interface InterNoticeDAO {
@@ -19,5 +20,10 @@ public interface InterNoticeDAO {
 	int noticeInsert(NoticeVO nvo) throws SQLException;
 
 	int contentHitUp(int hit, int ctNo) throws SQLException;
+
+	int delNotice(String ctNo) throws SQLException;
+
+	int noticeUpdate(NoticeVO nvo) throws SQLException;
+
 	
 }

@@ -28,7 +28,7 @@ h2#prodRegh2 {
 	color: #000;
 	font-size: 30px;
 	text-align: center;
-	font-family: Georgia;
+	font-family: 'Papyrus', Fantasy; 
 }
 
 p#prodRegP{

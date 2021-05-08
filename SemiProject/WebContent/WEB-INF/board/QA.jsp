@@ -59,6 +59,7 @@
 	}
 	td.page_hover:hover {
 		cursor: pointer;
+		text-decoration: underline;
 	}
 
 	table.writeSearchTable{
@@ -170,12 +171,12 @@
 						</select>
 						<input type="text" id="searchWord" name="searchWord" />
 						<input type="text" style="display: none;">
-						<button type="button" onclick="goSearch();" style="background-color: white; color: black; font-size: 17px; font-weight: bold; border-radius: 5%">검색</button>				
+						<button type="button" onclick="goSearch();" style="background-color: white; color: black; font-size: 15px; font-weight: bold; border-radius: 5%">검색</button>				
 					</form>
 			</td>
-			<c:if test="${requestScope.loginuser.userid != null}">
+			<c:if test="${sessionScope.loginuser.userid != null}">
 				<td id="write">
-						<button onClick="goWriteQA();" style="background-color: black; color: white; font-size: 17px; font-weight: bold; border-radius: 5%">글쓰기</button>
+						<button onClick="goWriteQA();" style="background-color: black; color: white; font-size: 15px; font-weight: bold; border-radius: 5%">글쓰기</button>
 				</td>
 			</c:if>
 		</tr>

@@ -18,6 +18,10 @@ public interface InterQADAO {
 
 	int qaHitUp(int hit, int qaNo) throws SQLException;
 
+	int delQA(String qaNo) throws SQLException;
+
+	int QAUpdate(QAVO qvo) throws SQLException;
+
 
 
 	

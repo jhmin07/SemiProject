@@ -1,6 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
 <% 
 	String ctxPath = request.getContextPath();
 %>
@@ -78,8 +81,25 @@ tr.odr_tr > td {
 </style>
 
 <script type="text/javascript">
-$(document).ready(function(){	
-			
+$(document).ready(function(){
+	
+	
+	var today = new Date();
+	var dd = today.getDate();
+	var mm = today.getMonth()+1; //January is 0!
+	var yyyy = today.getFullYear();
+
+	if(dd<10) {
+	    dd='0'+dd
+	} 
+
+	if(mm<10) {
+	    mm='0'+mm
+	} 
+
+	today = yyyy+'-'+mm+'-'+dd;
+	//console.log(today);
+	
 	// === 전체 datepicker 옵션 일괄 설정하기 ===  
     //     한번의 설정으로 $("input#fromDate"), $('input#toDate')의 옵션을 모두 설정할 수 있다.
 	$(function() {
@@ -105,13 +125,25 @@ $(document).ready(function(){
 
 		// input을 datepicker로 선언
 		$("input#fromDate").datepicker();                    
-		$("input#toDate").datepicker();
+		$("input#toDate").datepicker();		
 		
-		// From의 초기값을 3개월 전으로 설정
-		$('input#fromDate').datepicker('setDate', '-3M'); // (-1D:하루전, -1M:한달전, -1Y:일년전), (+1D:하루후, +1M:한달후, +1Y:일년후)
-		// To의 초기값을 오늘로 설정
-		$('input#toDate').datepicker('setDate', 'today'); // (-1D:하루전, -1M:한달전, -1Y:일년전), (+1D:하루후, +1M:한달후, +1Y:일년후)
+		if($('input#hiddendate').val() == today || $('input#hiddendate').val() == ""){
+			// From의 초기값을 3개월 전으로 설정
+			$('input#fromDate').datepicker('setDate', '-3M'); // (-1D:하루전, -1M:한달전, -1Y:일년전), (+1D:하루후, +1M:한달후, +1Y:일년후)
+			// To의 초기값을 오늘로 설정
+			$('input#toDate').datepicker('setDate', 'today'); // (-1D:하루전, -1M:한달전, -1Y:일년전), (+1D:하루후, +1M:한달후, +1Y:일년후)		
+			}
+		else{
+			// From의 초기값을 3개월 전으로 설정
+			$('input#fromDate').datepicker('setDate', $('input#hiddendate').val()); 
+			// To의 초기값을 오늘로 설정
+			$('input#toDate').datepicker('setDate', $('input#hiddendate2').val()); 
+		}
+		
 	});
+	
+
+	
 });
 	
 	// Function Declaration
@@ -140,54 +172,56 @@ $(document).ready(function(){
 		$("#toDate").datepicker( "option", "minDate", startDate );
 		
 		// 시작일은 종료일 이후 날짜 선택하지 못하도록 비활성화
-		$("#fromDate").datepicker( "option", "maxDate", endDate );
+		$("#fromDate").datepicker( "option", "maxDate", endDate );	
+		
+		
 	}
 
+	
+	// 날짜별, 배송상태별 주문조회하기
+	function showOrderListByDate(){
+		var frm = document.orderListFrm;
+		frm.action = "<%= ctxPath%>/order/orderList.up";
+		frm.method = "GET";
+		frm.submit();		
+
+	}
 </script>
 
 <div class="container">	
 	<h2 align="center">ORDER LIST</h2>
-	
 	<%-- 주문 내역조회 날짜 보여주기 --%>
 	<div class="stateSelect">
-		<select style="height: 30px;">
-			<option value="all">전체 주문처리상태</option>
-			<option value="shipped_before">입금전</option>
-			<option value="shippeed_standby">배송준비중</option>
-			<option value="shipped_begin">배송중</option>
-			<option value="shipped_complate">배송완료</option>
-			<option value="order_cancel">취소</option>
-			<option value="order_exchange">교환</option>
-			<option value="order_return">반품</option>
-		</select>
-		
-	<%-- 조회기간 --%>	
-		<br>
-		<span class="period">
-			<span class="chkbox">
-				<input type="radio" class="dateType" id="dateType1" onclick="setSearchDate('0d')"/>
-				<label for="dateType1">오늘</label>
+		<span style="font-weight: bold;">주문 내역 조회</span>
+		<%-- 조회기간 --%>
+		<form name="orderListFrm">			
+			<span class="period">
+				<span class="chkbox">
+					<input type="radio" class="dateType" id="dateType1" onclick="setSearchDate('0d')"/>
+					<label for="dateType1">오늘</label>
+				</span>
+				<span class="chkbox">
+					<input type="radio" class="dateType" id="dateType2" onclick="setSearchDate('1w')"/>
+					<label for="dateType2">1주일</label>
+				</span>
+				<span class="chkbox">
+					<input type="radio" class="dateType" id="dateType3" onclick="setSearchDate('1m')"/>
+					<label for="dateType3">1개월</label>
+				</span>
+				<span class="chkbox">
+					<input type="radio" class="dateType" id="dateType4" onclick="setSearchDate('3m')"/>
+					<label for="dateType4">3개월</label>
+				</span>
+				<span class="chkbox">
+					<input type="radio" class="dateType" id="dateType5" onclick="setSearchDate('6m')"/>
+					<label for="dateType5">6개월</label>
+				</span>
 			</span>
-			<span class="chkbox">
-				<input type="radio" class="dateType" id="dateType2" onclick="setSearchDate('1w')"/>
-				<label for="dateType2">1주일</label>
-			</span>
-			<span class="chkbox">
-				<input type="radio" class="dateType" id="dateType3" onclick="setSearchDate('1m')"/>
-				<label for="dateType3">1개월</label>
-			</span>
-			<span class="chkbox">
-				<input type="radio" class="dateType" id="dateType4" onclick="setSearchDate('3m')"/>
-				<label for="dateType4">3개월</label>
-			</span>
-			<span class="chkbox">
-				<input type="radio" class="dateType" id="dateType5" onclick="setSearchDate('6m')"/>
-				<label for="dateType5">6개월</label>
-			</span>
-		</span>
-	
-		<input type="text" class="datepicker" id="fromDate" autocomplete="off"> - <input type="text" class="datepicker" id="toDate" autocomplete="off">
-		<span id="showOrderList" onclick="gosearch()">조회</span>
+			<input type="hidden" value="${fromDate}" id="hiddendate"/>
+			<input type="hidden" value="${toDate}" id="hiddendate2"/>
+			<input type="text" class="datepicker" id="fromDate" name="fromDate" autocomplete="off" > - <input type="text" class="datepicker" id="toDate" name="toDate" autocomplete="off">
+			<span id="showOrderList" onclick="showOrderListByDate()">조회</span>
+		</form>
 	</div>
 	
 	<div style="margin: 5px 0;">
@@ -209,16 +243,66 @@ $(document).ready(function(){
 			</tr>
 		</thead>
 		
-		<tbody>
-			<tr class="odr_tr">				
-				<td>2021-05-04</td>
-				<td><img class="odr_img" src="<%=ctxPath%>/image/product/kitchen/furniture/furniture_01_01.jpg"></td>
-				<td></td>
-				<td>1개</td>
-				<td>10,000원</td>
-				<td>100</td>				
-				<td>배송준비중</td>
-			</tr>
+		<tbody>		
+			<c:if test="${empty requestScope.orderList}">
+				<tr>
+					<td colspan="7" align="center" class="ordertext">
+						주문한 상품이 없습니다.
+					</td>
+				</tr>
+			</c:if>
+			
+			<c:if test="${not empty requestScope.orderList}">
+			
+				<c:forEach var="ordervo" items="${requestScope.orderList}" varStatus="status">
+				<tr>
+					<td> <%-- 주문일자 --%>
+						
+						<span>${ordervo.ord.orderDate}</span>
+					</td>
+					<td> <%-- 이미지 --%>
+					<a href="<%= ctxPath%>/detailMenu/productDetailPage.up?pnum=${ordervo.fk_pnum}">
+						<img src="<%= ctxPath%>/image/product/${ordervo.prod.fk_decode}/${ordervo.prod.pimage1}" width="130px"/>
+					</a>	
+					</td>
+					<td> <%-- 상품정보 --%>
+						<span>${ordervo.prod.pname}</span>
+					</td>
+					<td> <%-- 수량 --%>
+						<span>${ordervo.odAmount}</span>개
+					</td>
+					<td> <%-- 상품구매금액 --%>
+						<span id="totalprice">
+							<fmt:formatNumber value="${ordervo.ord.totalPrice}" pattern="###,###" />
+							<input class="totalPrice" type="hidden" value="${ordervo.ord.totalPrice}" />
+						</span> 원
+					</td>
+					<td> <%-- 포인트 --%>
+						<span id="totalpoint">
+							<fmt:formatNumber value="${ordervo.ord.totalPoint}" pattern="###,###" /> 
+							</span> POINT
+						<input class="totalPoint" type="hidden" value="${ordervo.ord.totalPoint}" />
+					</td>
+					<td> <%-- 배송상태 --%>
+						<c:choose>
+							<c:when test="${ordervo.deliveryCon eq null}">
+								입금확인
+							</c:when>
+							<c:when test="${ordervo.deliveryCon eq '1'}">
+								배송준비중
+							</c:when>
+							<c:when test="${ordervo.deliveryCon eq '2'}">
+								배송중
+							</c:when>
+							<c:when test="${ordervo.deliveryCon eq '3'}">
+								배송완료
+							</c:when>						
+						</c:choose>
+					</td>
+				</tr>				
+				</c:forEach>
+							
+			</c:if>
 		</tbody>
 	</table>
 	

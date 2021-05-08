@@ -54,6 +54,7 @@
 	}
 	td.Title:hover {
 		cursor: pointer;
+		text-decoration: underline;
 	}
 	.page_click{
 		background-color: black;
@@ -135,12 +136,12 @@
 						</select>
 						<input type="text" id="searchWord" name="searchWord" />
 						<input type="text" style="display: none;">
-						<button type="button" onclick="goSearch();" style="background-color: white; color: black; font-size: 17px; font-weight: bold; border-radius: 5%">검색</button>				
+						<button type="button" onclick="goSearch();" style="background-color: white; color: black; font-size: 15px; font-weight: bold; border-radius: 5%">검색</button>				
 					</form>
 			</td>
 			<c:if test="${sessionScope.loginadmin.adId != null}">
 				<td id="write">
-					<button onClick="goWriteNotice();" style="background-color: black; color: white; font-size: 17px; font-weight: bold; border-radius: 5%">글쓰기</button>
+					<button onClick="goWriteNotice();" style="background-color: black; color: white; font-size: 15px; font-weight: bold; border-radius: 5%">글쓰기</button>
 				</td>
 			</c:if>
 		</tr>

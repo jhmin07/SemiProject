@@ -82,13 +82,14 @@
 <script type="text/javascript">
 $(document).ready(function(){	
 	
+	
 	if("${fn:trim(requestScope.searchWord)}" != ""){
 		$("select#searchType").val("${requestScope.searchType}");
 		$("input#searchWord").val("${requestScope.searchWord}");
 	}
 	
-	$(".GoodsQA").removeClass("page_click");
-	$(".Notice").addClass("page_click");
+	$(".Notice").removeClass("page_click");
+	$(".GoodsQA").addClass("page_click");
 	
 	$("td.GoodsQA").click(function(){
 		location.href="<%=request.getContextPath()%>/board/boardQA.up";
@@ -102,13 +103,16 @@ $(document).ready(function(){
 		
 		  location.href = "<%=request.getContextPath()%>/board/contentOneDetail.up?ctNo="+ctNo+"&goBackURL=${requestScope.goBackURL}";
 	});
-	
+
+	$("input.QAinput").click(function(){
+		$(this).val("");
+	});
 });
 
 // Function Declaration
 function goWrite(){
-	var frm = document.noticeWrite;
-	frm.action = "QAWriteSubmit.up"; // 자기자신한테 간다. 그냥 목록 갯수만 바꿔줄 뿐
+	var frm = document.QAWrite;
+	frm.action = "QAWriteSubmit.up?"; // 자기자신한테 간다. 그냥 목록 갯수만 바꿔줄 뿐
 	frm.method = "GET";	// 숨길필요 없이 빨리빨리 이동해야해서 get 사용
 	frm.submit();
 }
@@ -131,23 +135,23 @@ function goWrite(){
 	</table>
 
 	<form name="QAWrite">
-		<span id="QAWriter">작성자:${requestScope.loginuser.userid}</span>
+		<span id="QAWriter">작성자:${sessionScope.loginuser.userid}</span>
 		<br><br>
 		<table>
 			<tbody>
 				<tr>
-					<td><input class="QAPwd" value="글 비밀번호를 입력하세요"  type="text" name="QAPwd"/></td>
+					<td><input class="QAPwd QAinput" value="글 비밀번호를 입력하세요"  type="text" name="QAPwd"/></td>
 				</tr>
 				<tr>
 					<td><span>&nbsp;</span></td>
 				<tr>
-					<td><input class="QATitle" value="제목을 입력하세요"  type="text" name="QATitle"/></td>
+					<td><input class="QATitle QAinput" value="제목을 입력하세요"  type="text" name="QATitle"/></td>
 				</tr>
 				<tr>
 					<td><span>&nbsp;</span></td>
 				</tr>
 				<tr>
-					<td><input class="QAContent" value="내용을 입력하세요"  type="text" name="QAContent" /></td>
+					<td><input class="QAContent QAinput" value="내용을 입력하세요"  type="text" name="QAContent" /></td>
 				</tr>
 				<tr>
 					<td><span>&nbsp;</span></td>
