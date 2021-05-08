@@ -115,14 +115,28 @@ li {
 */
    
 	   } // end of function goCart(pnum) {}------------------------------------	
-	
+	   
+	   
+	   
+	function goOrder(){
+		   
+		   var frm = document.pdtFrm;
+		   frm.method = "post";
+		   frm.action = "<%= request.getContextPath()%>/order/goOrder.up";
+		   frm.submit();
+		   
+    } // end of function goOrder(){}
 
 	   
-	function goloop() { 
-		   
-		console.log("확인중1");
-		   var oname = $("td#optname").val();
-		   console.log("td 는 ?? : " + oname);
+    
+	function goloop(oname) { 
+		   var html = "";		
+		   // var oname = document.getElementById("optname").innerText;
+		   // var oname = $("input#oname").val();
+		   for(var i =0; i<3; i++){
+			   var oname = document.getElementById(i).innerText;
+		  	   console.log("td 는 ?? : " + oname);
+		   }
 		   
 			 $.ajax({
 				   url:"<%= request.getContextPath()%>/detailMenu/productDetailOption.up",
@@ -204,11 +218,13 @@ li {
 						</td>
 					<tr>
 
-					<c:forEach var="option" items="${onameList}" >				
+					<c:forEach var="option" items="${onameList}"  varStatus="status">
+					<%-- <input type="hidden" name="pnum" value="${requestScope.pvo.pnum}" />	
+					<input type="hidden" name="pnum" value="${requestScope.pvo.pnum}" />		 --%>			
 						<tr>										
-							<td id="optname">${option.oname}</td>
+							<td id="'${status.index}">${option.oname}</td>
 							<td>
-								  <select id="optocontents" style="width: 150px;">						       	
+								  <select id="optocontents" style="width: 150px;" >						       	
 							      </select>
 					        </td>
 						</tr>	
@@ -219,7 +235,7 @@ li {
 			<button type="button"  onclick="goCart();" style="background-color: black; color: white;  width: 350px; margin-top: 10px; height: 30px;">장바구니에 담기</button>
 			<input type="hidden" name="pnum" value="${requestScope.pvo.pnum}" />
 			<br>
-			<input type="submit" value="주문하러 가기" style="background-color: black; color: white;  width: 350px; margin-top: 5px; height: 30px;" />
+			<button type="button"  onclick="goOrder();" style="background-color: black; color: white;  width: 350px; margin-top: 10px; height: 30px;">주문하러 가기</button>
 			</form>
 			</div>
 
