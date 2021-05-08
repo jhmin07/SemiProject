@@ -15,6 +15,7 @@ import QA.model.QADAO;
 import QA.model.QAVO;
 import admin.model.AdminVO;
 import common.controller.AbstractController;
+import member.model.MemberVO;
 import notice.model.InterNoticeDAO;
 import notice.model.NoticeDAO;
 import notice.model.NoticeVO;
@@ -24,16 +25,18 @@ public class QAWriteSubmitAction extends AbstractController {
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		
-
+		HttpSession session = request.getSession();
+		
 		
             // 새로운 제품 등록시 form 태그에서 입력한 값들을 얻어오기 
             String QATitle = request.getParameter("QATitle");
             String QAContent = request.getParameter("QAContent");
-            String QAWriter = request.getParameter("QAWriter");
+            MemberVO loginuser =  (MemberVO) session.getAttribute("loginuser");
+            String QAWriter = loginuser.getUserid();
             String QAPwd = request.getParameter("QAPwd");
             
  
-            
+            System.out.println("asfsdf");
             
          // !!!! 크로스 사이트 스크립트 공격에 대응하는 안전한 코드(시큐어코드) 작성하기 !!!! // 
             // 아래처럼 하면 <>가 태그가 아니라 걍 부등호로 인식된다.
@@ -55,7 +58,7 @@ public class QAWriteSubmitAction extends AbstractController {
 
     		
     		QAVO qvo = new QAVO();
-    		
+    		System.out.println("QAWriter=> "+QAWriter);
     		qvo.setQaTitle(QATitle);
     		qvo.setQaContent(QAContent);
     		qvo.setFk_userid(QAWriter);

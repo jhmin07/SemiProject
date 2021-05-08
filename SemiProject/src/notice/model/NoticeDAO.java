@@ -79,7 +79,6 @@ public class NoticeDAO implements InterNoticeDAO {
 			//// == 검색어가 있는 경우 끝 == ////
 			
 			pstmt = conn.prepareStatement(sql);
-			System.out.println("paraMap.get(\"sizePerPage\")=> "+paraMap.get("sizePerPage"));
 			pstmt.setString(1, paraMap.get("sizePerPage"));
 			if( searchWord != null && !searchWord.trim().isEmpty() ) {
 				pstmt.setString(2, searchWord);
@@ -87,7 +86,6 @@ public class NoticeDAO implements InterNoticeDAO {
 			rs = pstmt.executeQuery();
 			
 			rs.next();
-			System.out.println("rs.getInt(1);=> "+rs.getInt(1));
 			totalPage = rs.getInt(1);
 			
 
@@ -121,7 +119,6 @@ public class NoticeDAO implements InterNoticeDAO {
 		//// == 검색어가 있는 경우 시작 == ////
 		String searchWord = paraMap.get("searchWord");
 		String colname = paraMap.get("searchType");
-		System.out.println("colname : "+colname);
 		if(colname!= null && colname.equals("name")) {
 			colname="fk_adId";
 		}
@@ -159,7 +156,6 @@ public class NoticeDAO implements InterNoticeDAO {
 			rs = pstmt.executeQuery();
 			
 			while(rs.next()) {
-				System.out.println("11111");
 				NoticeVO nvo = new NoticeVO();
 				 nvo.setCtNo(rs.getInt(1));
 				 nvo.setCtTitle(rs.getString(2));
@@ -260,6 +256,56 @@ public class NoticeDAO implements InterNoticeDAO {
 	      
 	      return result;
 		
+	}
+
+	@Override
+	public int delNotice(String ctNo) throws SQLException {
+		int result = 0;
+	      
+	      try {
+	         conn = ds.getConnection();
+
+	         String sql = " delete from tbl_noticeBoard " + 
+	         			  "	where ctNo = ? ";
+	     
+	         pstmt = conn.prepareStatement(sql);
+	         
+	         pstmt.setString(1, ctNo);
+	        
+	            
+	         result = pstmt.executeUpdate();
+	         
+	      } finally {
+	         close();
+	      }
+	      
+	      return result;
+	}
+
+	@Override
+	public int noticeUpdate(NoticeVO nvo) throws SQLException {
+		int result = 0;
+	      
+	      try {
+	         conn = ds.getConnection();
+
+	         String sql = " update tbl_noticeBoard set ctTitle = ? , ctContent = ? " + 
+	         			  "	where ctNo = ? ";
+
+	         pstmt = conn.prepareStatement(sql);
+	         
+	         pstmt.setString(1, nvo.getCtTitle());
+	         pstmt.setString(2, nvo.getCtContent());
+	         pstmt.setInt(3, nvo.getCtNo());
+	        
+	            
+	         result = pstmt.executeUpdate();
+	         
+	      } finally {
+	         close();
+	      }
+	      
+	      return result;
 	}
 	
 }	

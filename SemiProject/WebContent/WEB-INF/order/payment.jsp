@@ -31,6 +31,10 @@ table.payment_table th {
 	border: none !important;
 }
 
+table.payment_table tbody > tr:nth-child(1) {
+	font-size: 17px;
+} 
+
 tr.payment_thead > th {
 	text-align: center;
 	background-color: #f2f2f2;
@@ -80,11 +84,13 @@ ul.payment_last {
 ul.payment_last > li {
 	margin: 10px 10px;
 }
+
 </style>
 
 <script type="text/javascript">
 
 	$(document).ready(function(){
+		setAddPrice();
 		
 		<%-- 쇼핑몰 모두 동의 --%>
 		// == 쇼핑몰 동의 체크박스 전체선택/전체해제 == //
@@ -122,6 +128,7 @@ ul.payment_last > li {
 		
 	});
 
+	// == Function Declaration == //
 	function payAgreeCheck() {
 		var payCheckLen = $("input:checkbox[class=payAgreeAll]:checked").length
 		// console.log(payCheckLen);
@@ -131,6 +138,51 @@ ul.payment_last > li {
 		else 
 			return false;
 	}
+	
+	function usePoint() {
+		var url = "<%=request.getContextPath()%>/order/usingMyPoint.up";
+		window.open(url, "usingMyPoint", 
+					"left=100px, top=100px, width=555px, height=355px");
+	}
+	
+	function setPoint(pt) {
+		//$("td#point").next().val(pt);
+		console.log(pt);
+		
+		pt = Number(pt).toLocaleString('en');
+		$("span#point").html(pt);
+		
+		setAddPrice();
+	}
+	
+	function setAddPrice() {
+		var sum = 0;
+		var $addPrice = $("span.addPrice");
+		
+		// console.log($($addPrice[0]).html());
+		sum -= Number($($addPrice[0]).html().split(",").join(""));
+		sum -= Number($($addPrice[1]).html().split(",").join(""));
+		sum += Number($($addPrice[2]).html().split(",").join(""));
+		
+		sum = Number(sum).toLocaleString('en');
+		
+		$("span#addPriceResult").html(sum);
+		getSumtotalPriceLast();
+	}
+	
+	function getSumtotalPriceLast() {
+		var sumtotalPrice = ${requestScope.sumtotalPrice};
+		var addPrice = Number($("span#addPriceResult").html().split(",").join(""));
+		console.log(addPrice);
+		
+		var sumtotalPriceLast = sumtotalPrice + addPrice;
+		sumtotalPriceLast = Number(sumtotalPriceLast).toLocaleString('en');
+		
+		$("span.sumtotalPriceLast").html(sumtotalPriceLast);
+		
+		console.log(sumtotalPriceLast);
+	}
+	
 
 </script>
 
@@ -173,7 +225,9 @@ ul.payment_last > li {
 		<thead>
 			<tr class="payment_thead">
 				<th>총 주문 금액&nbsp;&nbsp;<button class="payment_button">내역보기</button></th>
+				<th></th>
 				<th>총 할인 + 부가결제 금액</th>
+				<th></th>
 				<th>총 결제예정 금액</th>
 			</tr>
 		</thead>
@@ -181,25 +235,28 @@ ul.payment_last > li {
 		<c:set var="addsale_price" value="-100"/>
 		<tbody>
 			<tr class="payment_thead_result">
-				<td><fmt:formatNumber value="${total_price + delivery_price}" pattern="#,###" />원</td>
-				<td><fmt:formatNumber value="${sale_price + addsale_price}" pattern="#,###" />원</td>
+				<td><fmt:formatNumber value="${sumtotalPrice}" pattern="#,###" />원</td>
+				<td style="text-align: left; width: 20px;"><span style="font-weight: bold; font-size: 20px;">+</span>
+				<td><span id="addPriceResult"></span>원</td>
 				
-				<c:set var="lastpay_price" value="${total_price + delivery_price + sale_price + addsale_price }"/>		
-				<td> = <fmt:formatNumber value="${lastpay_price}" pattern="#,###" />원</td>
+				<td style="text-align: left;"><span style="font-weight: bold; font-size: 20px;">=</span>		
+				<td><span class="sumtotalPriceLast"></span>원</td>
 			</tr>
 			<tr class="payment_tbody">
 				<td>총 할인금액</td>
-				<td><fmt:formatNumber value="${sale_price}" pattern="#,###" />원</td>
+				<td></td>
+				<td><span class="addPrice"><fmt:formatNumber value="${sumSalePrice}" pattern="#,###" /></span>원</td>
 			</tr>
 			<tr class="payment_tbody">
-				<td>추가할인금액</td>
-				<%-- 추가할인 금액 => 포인트 사용하는 걸로 변경해서 추가해볼 예정 --%>
-				<td><fmt:formatNumber value="${addsale_price}" pattern="#,###" />원</td>
-				<td style="text-align: left;"><button class="payment_button">내역보기</button></td>
+				<td>추가할인 금액</td>
+				<td></td>
+				<td><span class="addPrice" id="point">0</span>원</td>
+				<td style="text-align: left; width: 90px; padding: 0;"><button class="payment_button" onclick="usePoint();"">포인트 사용</button></td>
 			</tr>
 			<tr class="payment_tbody">
-				<td>총 부가결제금액</td>
-				<td><fmt:formatNumber value="${sale_price + addsale_price}" pattern="#,###" />원</td>
+				<td>배송비</td>
+				<td></td>
+				<td><span class="addPrice"><fmt:formatNumber value="${deliveryPrice}" pattern="#,###" /></span>원</td>
 			</tr>
 		</tbody>
 	</table>
@@ -207,12 +264,13 @@ ul.payment_last > li {
 	<%-- 최종 결제 예정 금액 --%>
 	<div align="right">
 		<ul class="payment_last">
-			<li>최종결제 금액</li>
-			<li><fmt:formatNumber value="${lastpay_price}" pattern="#,###" />원</li>
+			<li style="font-size: 15px;">최종결제 금액</li>
+			<li style="font-size: 22px; font-weight: bold;"><span class="sumtotalPriceLast" id="sumtotalPriceLast"></span>원</li>
 			<li>
 				<input type="checkbox" id="paymentagree"  class="payAgreeAll" />
 				<label for="paymentagree" >&nbsp;결제정보를 확인하였으며, 구매진행에 동의합니다.</label>
 			</li>
-			<li><button id="paymentGo" onclick="paymentGoFunc(${lastpay_price})">결제하기</button></li>
+			<li><button id="paymentGo" onclick="paymentGoFunc()">결제하기</button></li>
 		</ul>
 	</div>
+	

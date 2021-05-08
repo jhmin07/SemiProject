@@ -156,7 +156,6 @@ public class QADAO implements InterQADAO {
 			rs = pstmt.executeQuery();
 			
 			while(rs.next()) {
-				System.out.println("11111");
 				QAVO qvo = new QAVO();
 				 qvo.setQaNo(rs.getInt(1));
 				 qvo.setQaTitle(rs.getString(2));
@@ -250,6 +249,56 @@ public class QADAO implements InterQADAO {
 	         
 	         pstmt.setInt(1, hit+1);
 	         pstmt.setInt(2, qaNo);
+	        
+	            
+	         result = pstmt.executeUpdate();
+	         
+	      } finally {
+	         close();
+	      }
+	      
+	      return result;
+	}
+
+	@Override
+	public int delQA(String qaNo) throws SQLException {
+		int result = 0;
+	      
+	      try {
+	         conn = ds.getConnection();
+
+	         String sql = " delete from tbl_qaBoard " + 
+	         			  "	where qaNo = ? ";
+	     
+	         pstmt = conn.prepareStatement(sql);
+	         
+	         pstmt.setString(1, qaNo);
+	        
+	            
+	         result = pstmt.executeUpdate();
+	         
+	      } finally {
+	         close();
+	      }
+	      
+	      return result;
+	}
+
+	@Override
+	public int QAUpdate(QAVO qvo) throws SQLException {
+		int result = 0;
+	      
+	      try {
+	         conn = ds.getConnection();
+
+	         String sql = " update tbl_qaBoard set qaTitle = ? , qaContent = ? " + 
+	         			  "	where qaNo = ? ";
+
+	         pstmt = conn.prepareStatement(sql);
+	         
+	         pstmt.setString(1, qvo.getQaTitle());
+	         pstmt.setString(2, qvo.getQaContent());
+	         pstmt.setInt(3, qvo.getQaNo());
 	        
 	            
 	         result = pstmt.executeUpdate();

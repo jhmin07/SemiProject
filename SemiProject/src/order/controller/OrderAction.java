@@ -11,55 +11,86 @@ import javax.servlet.http.HttpSession;
 
 import common.controller.AbstractController;
 import member.model.MemberVO;
+import myshop.model.ProductVO;
+import order.model.InterOrderDAO;
+import order.model.OrderDAO;
 
 public class OrderAction extends AbstractController {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
-		// 회원으로 로그인 되어있는 경우만 접근 가능하도록
-//		if (checkLogin(request)) {
-			List<Map<String, String>> mapList = new ArrayList<>();
+		boolean isLogin = super.checkLogin(request);
 
-			// 임의로 값 설정한 부분. 장바구니 페이지에서 아래와 같은 형태로 값을 받아오면 되나싶음?
-			String image = "table0";
-			String prodname = "책상";
-			String prodprice = "10000";
-			String prodcnt = "1";
-			String prodpoint = String.valueOf(Integer.parseInt(prodprice) * 0.01);
-			String delivtype = "기본배송";
-			String delivprice = "[조건]";
-			String prodsum = String.valueOf(Integer.parseInt(prodprice) * Integer.parseInt(prodcnt));
-
-			for (int i = 1; i <= 2; i++) {
-				Map<String, String> map = new HashMap<>();
-
-				map.put("image", image + i);
-				map.put("prodname", prodname);
-				map.put("prodprice", prodprice);
-				map.put("prodcnt", prodcnt);
-				map.put("prodpoint", prodpoint);
-				map.put("delivtype", delivtype);
-				map.put("delivprice", delivprice);
-				map.put("prodsum", prodsum);
-
-				mapList.add(map);
-			}
-
-			request.setAttribute("mapList", mapList);
-			super.setRedirect(false);
-			super.setViewPage("/WEB-INF/order/order.jsp");
-
-//		} else { // 회원으로 로그인 안 한 경우
-//			String message = "로그인 후 이용하세요!";
-//			String loc = "/WEB-INF/member/login.jsp";
-//
-//			request.setAttribute("message", message);
-//			request.setAttribute("loc", loc);
+//		if (!isLogin) { // "바로주문하기가 있기 때문에"
+//			request.setAttribute("message", "주문하시려먼 먼저 로그인 부터 하세요!!");
+//			request.setAttribute("loc", "javascript:history.back()");
 //
 //			// super.setRedirect(false);
 //			super.setViewPage("/WEB-INF/msg.jsp");
+//			return;
 //		}
+		
+//		String pnum_es = request.getParameter("pnum_es");
+//		String oqty_es = request.getParameter("oqty_es");
+//		String cartno_es = request.getParameter("cartno_es");
+//		String totalPrice_es= request.getParameter("totalPrice_es");
+//		String sumtotalPrice = request.getParameter("sumtotalPrice");
+//		String sumtotalPoint = request.getParameter("sumtotalPoint");
+		
+		String pnum_es = "12,11,10";
+		String oqty_es = "1,1,1";
+		String cartno_es = "17,18,19";
+		String totalPrice_es= "40000,30000,30000";
+		String sumtotalPrice = "100000";
+		String sumtotalPoint = "100";
+		
+		String[] pnumArr = pnum_es.split(",");
+		String[] oqtyArr = oqty_es.split(",");
+		String[] cartnoArr = cartno_es.split(",");
+		String[] totalPriceArr = totalPrice_es.split(",");
+		
+		InterOrderDAO odao = new OrderDAO();
+		
+		List<Map<String, String>> mapList = new ArrayList<>();
+		int length = pnumArr.length;
+		
+		HttpSession session = request.getSession();
+		MemberVO loginuser = (MemberVO) session.getAttribute("loginuser");
+		String userid = loginuser.getUserid();
+//		String userid = "jeonyj";
+		
+		for (int i=0; i<length; i++) {
+			Map<String, String> map = new HashMap<>();
+			
+			map.put("pnum", pnumArr[i]);
+			map.put("oqty", oqtyArr[i]);
+			map.put("cartno", cartnoArr[i]);
+			
+			ProductVO pvo = odao.getProdInfo(userid, cartnoArr[i]);	// cartno 를 가지고 해당 제품의 정보 가져오기
+			map.put("pimage1", pvo.getPimage1());
+			map.put("pname", pvo.getPname());
+			map.put("price", String.valueOf(pvo.getPrice()));
+			map.put("saleprice", String.valueOf(pvo.getSaleprice()));
+			map.put("point", String.valueOf(pvo.getPoint()));
+			map.put("fk_decode", pvo.getFk_decode());
+			map.put("totalPrice", totalPriceArr[i]);
+			
+			mapList.add(map);
+		}
+		
+		request.setAttribute("mapList", mapList);
+		
+		// 장바구니에서 가져온 값들 다시 모두 전달
+		request.setAttribute("pnum_es", pnum_es);
+		request.setAttribute("oqty_es", oqty_es);
+		request.setAttribute("cartno_es", cartno_es);
+		request.setAttribute("totalPrice_es", totalPrice_es);
+		request.setAttribute("sumtotalPrice", sumtotalPrice);
+		request.setAttribute("sumtotalPoint", sumtotalPoint);
+		
+		super.setRedirect(false);
+		super.setViewPage("/WEB-INF/order/order.jsp");
 
 	}
 

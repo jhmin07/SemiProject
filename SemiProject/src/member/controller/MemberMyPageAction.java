@@ -2,11 +2,14 @@ package member.controller;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
+import javax.servlet.http.HttpSession;
 
 import common.controller.AbstractController;
 import member.model.InterMemberDAO;
 import member.model.MemberDAO;
+import member.model.MemberVO;
+import order.model.CartDAO;
+import order.model.InterCartDAO;
 
 
 public class MemberMyPageAction extends AbstractController {
@@ -25,7 +28,13 @@ public class MemberMyPageAction extends AbstractController {
 			
 			if(!(name==null)) {
 				request.setAttribute("name", name);
-
+				HttpSession session = request.getSession();
+		        MemberVO loginuser = (MemberVO) session.getAttribute("loginuser");
+				
+				InterCartDAO cdao = new CartDAO();
+				int cartCount = cdao.getCartCount(loginuser.getUserid());
+				request.setAttribute("cartCount", cartCount);// 장바구니에 담긴 물건갯수
+				
 				super.setViewPage("/WEB-INF/member/memberMyPage.jsp");
 			}
 			else {

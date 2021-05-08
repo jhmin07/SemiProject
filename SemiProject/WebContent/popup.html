@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="EUC-KR">
+<title>Insert title here</title>
+<script language="JavaScript">
+
+function setCookie( name, value, expiredays ) { var todayDate = new Date(); todayDate.setDate( todayDate.getDate() + expiredays ); document.cookie = name + "=" + escape( value ) + "; path=/; expires=" + todayDate.toGMTString() + ";" } function closeWin(){ setCookie("close20090524","close20090524",1); window.close(); }
+
+</script>
+</head>
+<body>
+	<img src="image/ad.png" width=390 height=370/>
+    <input type="checkbox" name="Notice" onClick="closeWin()"> <font style="font-size:8pt">오늘 하루 동안 열지 않음</font>
+
+</body>
+</html>

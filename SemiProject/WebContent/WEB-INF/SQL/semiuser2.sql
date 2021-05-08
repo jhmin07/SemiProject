@@ -378,6 +378,8 @@ on A.orderCode = B.fk_orderCode
 join tbl_product C
 on B.fk_pnum = C.pnum
 where fk_userid = 'kimys'
+and orderdate between '2020-12-01' and '2021-04-01'
+and B.deliveryCon = '1'
 order by orderdate desc;
 
 insert into tbl_order_details(odNo, fk_orderCode, fk_pnum, odAmount, odPrice, deliveryCon) values (1, '1', 16, 2, 139000, '2');

@@ -74,7 +74,7 @@ table.odr_info input[type=text]{
 	
 	$(document).ready(function(){
 		$("span.error").hide();
-	
+		autoOdrInfoInput();
 		
 		// == 라디오(주문자 정보와 동일, 새로운 배송지) 선택 사항 구현 == //
 		$("input:radio[name=reveiceRadio]").click(function() {
@@ -113,6 +113,24 @@ table.odr_info input[type=text]{
 
 	
 	// ======= Function Declaration ====== //
+	
+	function autoOdrInfoInput() {
+		$("input#name1").val("${sessionScope.loginuser.name}");
+		$("input#postcode1").val("${sessionScope.loginuser.postcode}");
+		$("input#address1").val("${sessionScope.loginuser.address}");
+		$("input#detailAddress1").val("${sessionScope.loginuser.detailaddress}");
+		$("input#extraAddress1").val("${sessionScope.loginuser.extraaddress}");
+		
+		var mobile = "${sessionScope.loginuser.mobile}";
+		$("input#hp1_1").val(mobile.substr(0,3));
+		$("input#hp1_2").val(mobile.substr(3,4));
+		$("input#hp1_3").val(mobile.substr(7,4));
+		
+		var email = "${sessionScope.loginuser.email}".split("@");
+		$("input#emailid").val(email[0]);
+		$("input#emaildotcom").val(email[1]);
+	}
+	
 	function postSearch1() {
 		// == 우편번호 찾기 == // 
 		new daum.Postcode({
@@ -319,12 +337,18 @@ table.odr_info input[type=text]{
 			return false;
 		}
 		$("input#hp2").val($("input#hp2_1").val() + $("input#hp2_2").val() + $("input#hp2_3").val());
+		console.log($("input#hp2"));
 	}
 	
 	
 	// == 결제하기 버튼 클릭 시 결제창 띄우기 == // 
-	function paymentGoFunc(lastpay_price) {
-<%--		
+	function paymentGoFunc() {
+		// paymentComplete();
+		// submitOrderFrm("20210507-31");
+		
+		var sumtotalPriceLast = Number($("span#sumtotalPriceLast").html().split(",").join(""));
+		console.log(sumtotalPriceLast);
+		
 		// 필수 입력 사항 모두 입력되었는지 검사
 		var requiredInfoFlag = requiredInfoCheck();
 		if (requiredInfoFlag == false) {
@@ -337,22 +361,43 @@ table.odr_info input[type=text]{
 			alert("이용약관에 동의해주세요.");
 			return ;
 		}
---%>			
-		var url = "<%=request.getContextPath()%>/order/goPayment.up?lastpay_price="+lastpay_price+"&name=kimys";
+		paymentComplete();
+		
+		var url = "<%=request.getContextPath()%>/order/goPayment.up?sumtotalPrice="+sumtotalPriceLast;
 		window.open(url, "goPayment", 
 					"left=350px, top=100px, width=820px, height=600px");
 		
-		$("input:text[name=totalPrice]").val(lastpay_price);
 	}
 	
-	function orderComplete() {
-		submitOrderFrm();
+	function paymentComplete() {
+		
+		var sumtotalPriceLast = Number($("span#sumtotalPriceLast").html().split(",").join(""));
+		
+		$.ajax({
+			url:"<%=request.getContextPath()%>/order/orderProcess.up",
+			type:"post",
+			data:{"pnum_es":"${requestScope.pnum_es}",
+				"oqty_es":"${requestScope.oqty_es}",
+				"cartno_es":"${requestScope.cartno_es}",
+				"totalPrice_es":"${requestScope.totalPrice_es}",
+				"sumtotalPrice":sumtotalPriceLast,
+				"sumtotalPoint":"${requestScope.sumtotalPoint}"},
+			dataType:"json",
+			success:function(json){
+				if (json.isSuccess == 1) {
+					alert("주문이 완료되었습니다.");
+					submitOrderFrm(json.ordercode); // 배송지 입력 정보 저장하러 가기
+				}
+			},
+		});
 		// console.log("결제 성공");
 	}
 	
-	function submitOrderFrm() {
-		var frm = document.orderFrm;
-		frm.action = "<%=request.getContextPath()%>/order/orderProcess.up";
+	function submitOrderFrm(ordercode) {		
+		var frm = document.deliverInfoFrm;
+		$("input#ordercode").val(ordercode);
+		
+		frm.action = "<%=request.getContextPath()%>/order/orderSuccess.up";
 		frm.method = "post";
 		frm.submit();
 	}
@@ -364,10 +409,12 @@ table.odr_info input[type=text]{
 <div class="container odr_container">
 	<h2 style="width: 80%; margin-bottom: 50px; color: gray;">- Order</h2>
 	
-	<c:set var="total_price" value="0" scope="request"/>
-	<c:set var="sale_price" value="0" scope="request"/>
-	<c:set var="delivery_price" value="3000" scope="request"/>
-	<c:set var="total_point" value="0" scope="request"/>
+	
+	<c:set var="sumtotalPrice" value="${requestScope.sumtotalPrice}" scope="request"/>
+	<c:set var="sumtotalPoint" value="${requestScope.sumtotalPoint}" scope="request"/>
+	<c:set var="sumSalePrice" value="0" scope="request"/>
+	<c:set var="deliveryPrice" value="3000" scope="request"/>
+	
 	
 	<table class="table odr_list">
 		<thead>
@@ -378,57 +425,45 @@ table.odr_info input[type=text]{
 				<th>판매가</th>
 				<th>수량</th>
 				<th>적립금</th>
-				<th>배송구분</th>
-				<th>배송비</th>
+				<!-- <th>배송구분</th>
+				<th>배송비</th> -->
 				<th>합계</th>
 			</tr>
 		</thead>
 		
 		<tbody>
-			<c:forEach var="prod" items="${mapList}" >
-				<%-- test value 값 --%>
-				<c:set var="product_price" value="${prod.prodprice}"/>
-				<c:set var="order_cnt" value="${prod.prodcnt}"/>
-				
+			<c:forEach var="map" items="${requestScope.mapList}" >
 				<tr class="odr_tr">
-					<%-- <td><input type="checkbox" name="product" id="product${var}"/></td> --%>
-					<td><img class="odr_img" src="<%=ctxPath%>/imagesContents2/${prod.image}.jpg" ></td>
-					<td>${prod.prodname}</td>
-					<td><fmt:formatNumber value="${prod.prodprice}" pattern="#,###" /> 원</td>
-					<td><fmt:formatNumber value="${prod.prodcnt}" pattern="#,###" /></td>
-					<td><fmt:formatNumber value="${prod.prodpoint}" pattern="#,###" /></td>
-					<td>${prod.delivtype}</td>
-					<td>${prod.delivprice}</td>
-					<td><fmt:formatNumber value="${prod.prodsum}" pattern="#,###" /> 원</td>
+					<td><img class="odr_img" src="<%=ctxPath%>/image/product/${map.fk_decode}/${map.pimage1}" alt="<%=ctxPath%>/image/product/${map.fk_decode}/${map.pimage1}" ></td>
+					<td>${map.pname}</td>
+					<td><fmt:formatNumber value="${map.price}" pattern="#,###" /> 원</td>
+					<td><fmt:formatNumber value="${map.oqty}" pattern="#,###" /></td>
+					<td><fmt:formatNumber value="${map.point}" pattern="#,###" /></td>
+					<%-- <td>${prod.delivtype}</td>
+					<td>${prod.delivprice}</td> --%>
+					<td><fmt:formatNumber value="${map.totalPrice}" pattern="#,###" /> 원</td>
 				</tr>
-				
-				<c:set var="total_price" value="${total_price + prod.prodprice * prod.prodcnt}" scope="request"/>
-				<c:set var="total_point" value="${total_point + prod.prodpoint}" scope="request"/>	
+
+				<c:set var="sumSalePrice" value="${sumSalePrice + (map.price - map.saleprice)*map.oqty}" scope="request"/>
 			</c:forEach>
 			
 			<tr class="odr_total_price">
 				<td colspan="9">
-					[기본배송] 상품구매금액 <span><fmt:formatNumber value="${total_price}" pattern="#,###" /></span>
-					<c:if test="${total_price >= 30000}"><c:set var="delivery_price" value="0"/></c:if>
-					+ 배송비 <span><fmt:formatNumber value="${delivery_price}" pattern="#,###" /></span>
-					- 상품할인금액 <span><fmt:formatNumber value="${sale_price}" pattern="#,###" /></span>
-					= 합계 : <span style="font-size: 15pt; font-weight: bold;"><fmt:formatNumber value="${total_price+delivery_price-sale_price}" pattern="#,###" /></span>원 
+					[기본배송] 상품구매금액 <span><fmt:formatNumber value="${requestScope.sumtotalPrice}" pattern="#,###" /></span>
+					<c:if test="${sumtotalPrice >= 30000}"><c:set var="deliveryPrice" value="0" scope="request"/></c:if>
+					
+					+ 배송비 <span><fmt:formatNumber value="${deliveryPrice}" pattern="#,###" /></span>
+					- 상품할인금액 <span><fmt:formatNumber value="${sumSalePrice}" pattern="#,###" /></span>
+					
+					<c:set var="sumtotalPriceLast" value="${sumtotalPrice + deliveryPrice - sumtotalSaleprice}" scope="request"/>
+					= 합계 : <span style="font-size: 15pt; font-weight: bold;"><fmt:formatNumber value="${sumtotalPriceLast}" pattern="#,###" /></span>원 
 				</td>
 			</tr>
 		</tbody>
 	</table>
 	
-	<form name="orderFrm" hidden>
-		<%-- <input name="orderCode"/> --%>  
-		<%-- ${sessionScope.loginuser.userid} --%>
-		<input name="fk_userid" value="kimys"/>
-		<input name="totalPrice" />
-		<input name="totalPoint" value="${total_point}" />
-	</form>
-	
-	
 	<%-- 주문자 정보 입력폼 --%>
-	<form action="">
+	<form name="deliverInfoFrm">
 		<table class="table odr_info">
 			<thead>
 				<tr>
@@ -496,6 +531,7 @@ table.odr_info input[type=text]{
 			<thead>
 				<tr>
 					<td>배송 정보</td>
+					<input type="hidden" name="ordercode" id="ordercode"/>
 					<td style="text-align: right; vertical-align: bottom;"><span class="star">*</span>필수입력사항</td>
 				</tr>
 			</thead>
@@ -520,13 +556,13 @@ table.odr_info input[type=text]{
 				<tr>
 					<td>주소&nbsp;<span class="star">*</span></td>
 					<td>
-						<input type="text" id="postcode2" name="postcode2" size="6" maxlength="5" />&nbsp;&nbsp;
+						<input type="text" id="postcode2" name="recPostcode" size="6" maxlength="5" />&nbsp;&nbsp;
 						<%-- 우편번호 찾기 --%> 
 						<img id="zipcodeSearch2" src="<%=ctxPath%>/image/우편번호찾기.png" onclick="postSearch2()" style="vertical-align: middle;" /><br />
 						<span class="error">우편번호 형식이 아닙니다.</span>
-						<input type="text" id="address2" name="address2" size="40" placeholder="주소" /><br /> 
-						<input type="text" id="detailAddress2" name="detailAddress2" size="40" placeholder="상세주소" />&nbsp;
-						<input type="text" id="extraAddress2" name="extraAddress2" size="40" placeholder="참고항목" /> 
+						<input type="text" id="address2" name="recAddress" size="40" placeholder="주소" /><br /> 
+						<input type="text" id="detailAddress2" name="recDetailAddress" size="40" placeholder="상세주소" />&nbsp;
+						<input type="text" id="extraAddress2" name="recExtraAddress" size="40" placeholder="참고항목" /> 
 						<span class="error">주소를 입력하세요</span>
 					</td>
 				</tr>
@@ -536,14 +572,14 @@ table.odr_info input[type=text]{
 						<input type="text" id="hp2_1" name="hp2_1" size="6" maxlength="3" value="010" readonly />&nbsp;-&nbsp;
 						<input type="text" id="hp2_2" name="hp2_2" size="6" maxlength="4" />&nbsp;-&nbsp;
 						<input type="text" id="hp2_3" name="hp2_3" size="6" maxlength="4" />
-						<input type="text" id="hp2" name="hp2" hidden />
+						<input type="hidden" id="hp2" name="recMobile"  />
 						<span class="error">휴대폰 형식이 아닙니다.</span>
 					</td>
 				</tr>
 				<tr>
 					<td>배송메시지</td>
 					<td>
-						<textarea rows="4" cols="100" name="deliveryMsg" placeholder="요청사항을 입력해주세요."></textarea>
+						<textarea rows="4" cols="100" name="dvMessage" placeholder="요청사항을 입력해주세요."></textarea>
 					</td>
 				</tr>
 			</tbody>

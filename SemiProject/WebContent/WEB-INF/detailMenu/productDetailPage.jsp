@@ -157,17 +157,20 @@ li {
 	 						<input id="spinner" name="odAmount" size="3pt" value="1" style="height: 20px;">
 						</td>
 					<tr>
-									
-						<c:forEach var="main" items="${optionList}" varStatus="sub">		
-								<tr>		
-									<td>${main.oname[status.index]}</td>
-									<td>
-										<select style="width: 150px;">
-											<option>${main.ocontents}</option>
-										</select>
-									</td>									
-								</tr>																
-						</c:forEach>					
+								
+					<tr>				
+						<c:forEach begin="1" end="1" var="option" items="${optionList}" >		
+								<td>${option.oname}</td>
+						</c:forEach>
+						
+						<td>
+							  <select style="width: 150px;">
+						           <c:forEach var="option" items="${optionList}" >		
+								       <option value="">${option.ocontents}</option>
+						           </c:forEach>			
+							  </select>
+						</td>
+					</tr>	
 					
 				</tbody>
 			</table>
