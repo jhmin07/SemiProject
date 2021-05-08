@@ -1027,7 +1027,10 @@ public class ProductDAO implements InterProductDAO {
 				
 			}
 
-		} finally {
+		} catch (Exception e) {
+			e.printStackTrace();
+		} 
+		finally {
 			close();
 		}
 		

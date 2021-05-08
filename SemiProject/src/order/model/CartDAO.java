@@ -14,7 +14,7 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
-
+import myshop.model.OptionVO;
 import myshop.model.ProductVO;
 
 
@@ -64,7 +64,7 @@ public class CartDAO implements InterCartDAO{
 	         conn = ds.getConnection();
 	         
 	         String sql = " select A.cartNo, A.fk_userid, A.fk_pnum, "+
-	                    "        B.pname, B.pimage1, B.price, B.saleprice, B.point, A.odAmount, B.fk_decode "+
+	                    "        B.pname, B.pimage1, B.price, B.saleprice, B.point, A.odAmount, B.fk_decode, A.optionNo_es "+
 	                    " from tbl_cart A join tbl_product B "+
 	                    " on A.fk_pnum = B.pnum "+
 	                    " where A.fk_userid = ? "+
@@ -93,6 +93,7 @@ public class CartDAO implements InterCartDAO{
 	            int point = rs.getInt(8);
 	            int odAmount = rs.getInt(9);  // 주문량 
 	            String fk_decode = rs.getString(10);
+	            String optionNo_es = rs.getString(11);
 	                        
 	            ProductVO prodvo = new ProductVO();
 	            prodvo.setPnum(fk_pnum);
@@ -113,6 +114,7 @@ public class CartDAO implements InterCartDAO{
 	            cvo.setFk_pnum(fk_pnum);
 	            cvo.setOdAmount(odAmount);
 	            cvo.setProd(prodvo);
+	            cvo.setOptionNo_es(optionNo_es);
 	            
 	            cartList.add(cvo);
 	         }// end of while---------------------------------
@@ -255,6 +257,41 @@ public class CartDAO implements InterCartDAO{
 	      }
 	      
 	      return n;
+	}
+
+	// 옵션내용알아오
+	@Override
+	public OptionVO getOptionInfo(String option) throws SQLException {
+		OptionVO ovo = null;
+	      
+	      try {
+	         conn = ds.getConnection();
+	         
+	         String sql = " select ocontents, ADDPRICE, ONAME "+
+					 	" from tbl_option " +
+					 	" where optionNo = ? ";
+	                  
+	         pstmt = conn.prepareStatement(sql);
+	         pstmt.setString(1, option);
+	         
+	         rs = pstmt.executeQuery();
+	         
+	         if(rs.next()) {
+	        	 
+	        	 ovo = new OptionVO();
+	        	 
+	        	 ovo.setAddprice(rs.getInt("ADDPRICE")); // 추가가격
+	        	 ovo.setOcontents(rs.getString("ocontents")); //내용
+	        	 ovo.setOname(rs.getString("ONAME")); //옵션이름
+	        	
+	         }
+	         
+	         
+	      } finally {
+	         close();
+	      }
+	      
+	      return ovo;
 	}
 
 }

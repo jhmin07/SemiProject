@@ -362,19 +362,22 @@ table.odr_info input[type=text]{
 			return ;
 		}
 		
-		submitOrderFrm("20210507-31");
-		<%--
-		paymentComplete();
 		
+		// 결제창으로 결제하는 부분 => 결제하고 싶으면 주석문 지우고 실행하면 됩니다.
+		paymentComplete(); // <- 결제창으로 결제한다면 이부분은 주석문 처리 해주세요!!!!!
+		<%-- 
 		var url = "<%=request.getContextPath()%>/order/goPayment.up?sumtotalPrice="+sumtotalPriceLast;
 		window.open(url, "goPayment", 
 					"left=350px, top=100px, width=820px, height=600px");
 		--%>
+		
+		
 	}
 	
 	function paymentComplete() {
 		
 		var sumtotalPriceLast = Number($("span#sumtotalPriceLast").html().split(",").join(""));
+		var usePoint = Number($("span#point").html().split(",").join(""));
 		
 		$.ajax({
 			url:"<%=request.getContextPath()%>/order/orderProcess.up",
@@ -382,29 +385,47 @@ table.odr_info input[type=text]{
 			data:{"pnum_es":"${requestScope.pnum_es}",
 				"oqty_es":"${requestScope.oqty_es}",
 				"cartno_es":"${requestScope.cartno_es}",
+				"option_es":"${requestScope.option_es}",
 				"totalPrice_es":"${requestScope.totalPrice_es}",
 				"sumtotalPrice":sumtotalPriceLast,
-				"sumtotalPoint":"${requestScope.sumtotalPoint}"},
+				"sumtotalPoint":"${requestScope.sumtotalPoint}",
+				"usePoint":usePoint},
 			dataType:"json",
 			success:function(json){
 				if (json.isSuccess == 1) {
 					alert("주문이 완료되었습니다.");
-					submitOrderFrm(json.ordercode); // 배송지 입력 정보 저장하러 가기
+					submitOrderFrm(json.ordercode); // 배송지 입력 정보 저장하러 가기 -> 원래는 ajax 로 한번에 보내야하는데 어쩌다보니 따로 처리하게 되었습니다..
 				}
 			},
+			error: function(request, status, error){
+               alert("code: "+request.status+"\n"+"message: "+request.responseText+"\n"+"error: "+error);
+            }
 		});
 		// console.log("결제 성공");
 	}
 	
 	function submitOrderFrm(ordercode) {		
-		var frm = document.deliverInfoFrm;
-		$("input#ordercode").val(ordercode);
+		var sumtotalPriceLast = $("span#sumtotalPriceLast").html();
 		
-		var str_pinfo = "";
-		$("input.pinfo").each(function(index, item){
-			
+		// 주문메세지 보내기 
+		var odrmsg = "";
+		var cnt = 0;
+		
+		$("input.pinfo").each(function(index, item, array){
+			if (index == 0) odrmsg += $("input.pinfo").val();		
+			else cnt++; 
 		});
 		
+		if (cnt > 0) {
+			odrmsg += " 외 "+cnt+"개 상품 결제가 완료되었습니다.";
+		}
+		
+		//console.log(odrmsg);
+		$("input[name=odrmsg]").val(odrmsg);
+		$("input[name=sumtotalPrice]").val(sumtotalPriceLast);
+		$("input#ordercode").val(ordercode);
+
+		var frm = document.deliverInfoFrm;
 		frm.action = "<%=request.getContextPath()%>/order/orderSuccess.up";
 		frm.method = "post";
 		frm.submit();
@@ -443,7 +464,7 @@ table.odr_info input[type=text]{
 			<c:forEach var="map" items="${requestScope.mapList}" >
 				<tr class="odr_tr">
 					<td><img class="odr_img" src="<%=ctxPath%>/image/product/${map.fk_decode}/${map.pimage1}" alt="<%=ctxPath%>/image/product/${map.fk_decode}/${map.pimage1}" ></td>
-					<td>${map.pname}</td>
+					<td>${map.pname}<br><span style="font-size: 10pt; color: #999;">${map.option}</span></td>
 					<input name="pinfo" class="pinfo" value="${map.pname}" hidden/>
 					<td><fmt:formatNumber value="${map.price}" pattern="#,###" /> 원</td>
 					<td><fmt:formatNumber value="${map.oqty}" pattern="#,###" /></td>
@@ -541,6 +562,8 @@ table.odr_info input[type=text]{
 				<tr>
 					<td>배송 정보</td>
 					<input type="hidden" name="ordercode" id="ordercode"/>
+					<input type="hidden" name="odrmsg" />
+					<input type="hidden" name="sumtotalPrice" />
 					<td style="text-align: right; vertical-align: bottom;"><span class="star">*</span>필수입력사항</td>
 				</tr>
 			</thead>

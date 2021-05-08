@@ -8,8 +8,11 @@ import java.util.*;
 import javax.naming.*;
 import javax.sql.DataSource;
 
+import myshop.model.ProductVO;
 import myshop.model.ReviewVO;
 import notice.model.NoticeVO;
+import order.model.OderDetailVO;
+import order.model.OrderVO;
 import util.security.AES256;
 import util.security.SecretMyKey;
 import util.security.Sha256;
@@ -472,22 +475,35 @@ public class MemberDAO implements InterMemberDAO {
         try {
            conn = ds.getConnection();
            
-           String sql = " select reviewNo, fk_pnum, reviewSubject, to_char(reviewRegisterday, 'yyyy-mm-dd hh24:mi:ss') AS reviewRegisterday , review_like "+
-           		" from tbl_review "+
-           		" where fk_userid = ? "+
-           		" order by reviewNo desc ";
-           
+			String sql = 
+						" select distinct  W.reviewNo, W.fk_decode, W.fk_pnum, W.reviewSubject, W.reviewRegisterday , W.review_like,  W.pname, W.pimage1, O.totalPrice, O.orderDate "+
+						" from tbl_order O join "+
+						" ( "+
+						" select reviewNo, fk_userid, fk_decode,  fk_pnum, reviewSubject, to_char(reviewRegisterday, 'yyyy-mm-dd hh24:mi:ss') AS reviewRegisterday , review_like,  pname, pimage1 "+
+						" from tbl_review R join tbl_product P"+
+						" on R.fk_pnum = P.pnum "+
+						" ) W "+
+						" on o.fk_userid = W.fk_userid "+
+						" where w.fk_userid = ? ";
+	           
            pstmt = conn.prepareStatement(sql);
            pstmt.setString(1, userid);
            
            rs = pstmt.executeQuery();
            
            while(rs.next()) {
+        	  
                String reviewSubject = rs.getString("reviewSubject");
                String reviewRegisterday = rs.getString("reviewRegisterday");
                int fk_pnum = rs.getInt("fk_pnum");
                int reviewNo = rs.getInt("reviewNo");
                int review_like = rs.getInt("review_like");
+               String pname = rs.getString("pname");
+               String pimage1 =  rs.getString("pimage1");
+               int totalPrice = rs.getInt("totalPrice");
+               String orderDate = rs.getString("orderDate");
+               String fk_decode = rs.getString("fk_decode");
+               
                                        
                ReviewVO reviewvo = new ReviewVO();
                reviewvo.setReviewSubject(reviewSubject);
@@ -495,6 +511,19 @@ public class MemberDAO implements InterMemberDAO {
                reviewvo.setFk_pnum(fk_pnum);
                reviewvo.setReviewNo(reviewNo);
                reviewvo.setReview_like(review_like);
+               
+               ProductVO pvo = new ProductVO();
+               pvo.setPname(pname);
+               pvo.setPimage1(pimage1);
+               pvo.setFk_decode(fk_decode);
+               
+               OrderVO ovo = new OrderVO();
+               ovo.setTotalPrice(totalPrice);
+               ovo.setOrderDate(orderDate);
+               
+               
+               reviewvo.setPvo(pvo);
+               reviewvo.setOvo(ovo);
                
                commentList.add(reviewvo);
             }

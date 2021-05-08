@@ -102,7 +102,7 @@ li {
 		   
 		   var frm = document.pdtFrm;
 		   frm.method = "post";
-		   frm.action = "<%= request.getContextPath()%>/order/goOrder.up";
+		   frm.action = "<%= request.getContextPath()%>/order/order.up";
 		   frm.submit();
 		   
     } // end of function goOrder(){}

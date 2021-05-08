@@ -29,7 +29,6 @@ public class CommentCntAction extends AbstractController {
 			
 	            String json = jsonObj.toString(); // 문자열로 변환
 	            request.setAttribute("json", json);
-	      System.out.println("json=> "+ json);
 	      super.setRedirect(false);
 	      super.setViewPage("/WEB-INF/jsonview.jsp");
 

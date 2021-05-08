@@ -1,6 +1,7 @@
 package myshop.model;
 
 import member.model.MemberVO;
+import order.model.OrderVO;
 
 public class ReviewVO {
 	
@@ -14,6 +15,7 @@ public class ReviewVO {
 	
 	private MemberVO mvo;
 	private ProductVO pvo;
+	private OrderVO ovo;
 
 	
 	public ReviewVO() { }
@@ -89,6 +91,14 @@ public class ReviewVO {
 
 	public void setPvo(ProductVO pvo) {
 		this.pvo = pvo;
+	}
+
+	public OrderVO getOvo() {
+		return ovo;
+	}
+
+	public void setOvo(OrderVO ovo) {
+		this.ovo = ovo;
 	}
 
 	
