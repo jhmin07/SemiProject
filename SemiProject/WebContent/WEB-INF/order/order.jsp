@@ -362,15 +362,16 @@ table.odr_info input[type=text]{
 			return ;
 		}
 		
-		paymentComplete();
-		<%--
 		
-		submitOrderFrm("20210507-31");
-		
+		// 결제창으로 결제하는 부분 => 결제하고 싶으면 주석문 지우고 실행하면 됩니다.
+		paymentComplete(); // <- 결제창으로 결제한다면 이부분은 주석문 처리 해주세요!!!!!
+		<%-- 
 		var url = "<%=request.getContextPath()%>/order/goPayment.up?sumtotalPrice="+sumtotalPriceLast;
 		window.open(url, "goPayment", 
 					"left=350px, top=100px, width=820px, height=600px");
 		--%>
+		
+		
 	}
 	
 	function paymentComplete() {
@@ -393,7 +394,7 @@ table.odr_info input[type=text]{
 			success:function(json){
 				if (json.isSuccess == 1) {
 					alert("주문이 완료되었습니다.");
-					submitOrderFrm(json.ordercode); // 배송지 입력 정보 저장하러 가기
+					submitOrderFrm(json.ordercode); // 배송지 입력 정보 저장하러 가기 -> 원래는 ajax 로 한번에 보내야하는데 어쩌다보니 따로 처리하게 되었습니다..
 				}
 			},
 			error: function(request, status, error){
