@@ -31,16 +31,18 @@ public class OrderAction extends AbstractController {
 //			return;
 //		}
 		
-//		String pnum_es = request.getParameter("pnum_es");
-//		String oqty_es = request.getParameter("oqty_es");
-//		String cartno_es = request.getParameter("cartno_es");
-//		String totalPrice_es= request.getParameter("totalPrice_es");
+//		String pnum_es = request.getParameter("pnum_s");
+//		String oqty_es = request.getParameter("oqty_s");
+//		String cartno_es = request.getParameter("cartno_s");
+//		String totalPrice_es= request.getParameter("totalPrice_s");
 //		String sumtotalPrice = request.getParameter("sumtotalPrice");
 //		String sumtotalPoint = request.getParameter("sumtotalPoint");
+//		
+//		System.out.println("pnum_es:"+pnum_es);
 		
 		String pnum_es = "12,11,10";
 		String oqty_es = "1,1,1";
-		String cartno_es = "17,18,19";
+		String cartno_es = "26,27,28";
 		String totalPrice_es= "40000,30000,30000";
 		String sumtotalPrice = "100000";
 		String sumtotalPoint = "100";

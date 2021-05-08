@@ -2,6 +2,7 @@ package order.model;
 
 public class DeliverInfoVO {
 	private String fk_orderCode; 		//주문코드
+	private String recName;
 	private String recMobile;			//연락처 (AES-256 암호화/복호화 대상) 
 	private String recPostcode;			//우편번호
 	private String recAddress;			//주소
@@ -10,6 +11,12 @@ public class DeliverInfoVO {
 	private String dvMessage;			//배송메세지
 	
 	
+	public String getRecName() {
+		return recName;
+	}
+	public void setRecName(String recName) {
+		this.recName = recName;
+	}
 	public String getFk_orderCode() {
 		return fk_orderCode;
 	}

@@ -60,8 +60,8 @@ $(document).ready(function() {
 		//	window.opener.goCoinUpdate('${idx}','${coinmoney}');
 		//  $(opener.location).attr("href", "javascript:goCoinUpdate('${idx}','${coinmoney}');");
 			
-		
-			opener.location.href = "javascript:paymentComplete();";
+			
+			opener.location.href = "javascript:paymentComplete('${rsp.pay_method}');";
 		
 		    self.close();
 			
