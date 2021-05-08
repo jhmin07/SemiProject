@@ -76,6 +76,7 @@ div#cart_side{
 	width: 300px; 
 	left: 67%;
 	position: fixed;
+	margin-bottom: 100px;
 	/* box-shadow: 0 4px 4px gray;
 	background-color: #f2f2f2;
 	padding: 15px; */
