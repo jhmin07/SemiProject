@@ -313,7 +313,7 @@ $(document).ready(function(){
      		  cartNoArr.push($("input.cartNo").eq(i).val() );
      		  totalPriceArr.push( $("input#totalPrice").eq(i).val() );
      		  totalPointArr.push( $("input#totalPoint").eq(i).val() );
-     		 totalBeforeArr.push ( $("input:text[name=price]").eq(i).val() * $("input.odAmount").eq(i).val() );
+     		  totalBeforeArr.push ( $("input:text[name=price]").eq(i).val() * $("input.odAmount").eq(i).val() );
 
      	  }
      	  
@@ -363,18 +363,15 @@ $(document).ready(function(){
 	
 	function goOrder(){
 		
-		var checkCnt = $("input:checkbox[name=pnum]:checked").length;
+		 var allCnt = $("input:checkbox[name=product]").length;
 	       
-	      if(checkCnt < 1) {
+	      if(allCnt < 1) {
 	          alert("주문하실 제품을 선택하세요!!");
 	          return; //종료
 	       }
 	      else{
-		
-		 var allCnt = $("input:checkbox[name=product]").length;
-		  
-         
-		 var pnumArr = new Array();
+	    	  
+		   var pnumArr = new Array();
 	       var odAmountArr = new Array();
 	       var cartNoArr = new Array();
 	       var totalPriceArr = new Array();
@@ -390,7 +387,7 @@ $(document).ready(function(){
 	     		  cartNoArr.push($("input.cartNo").eq(i).val() );
 	     		  totalPriceArr.push( $("input#totalPrice").eq(i).val() );
 	     		  totalPointArr.push( $("input#totalPoint").eq(i).val() );
-	     		 totalBeforeArr.push ( $("input:text[name=price]").eq(i).val() * $("input.odAmount").eq(i).val() );
+	     		  totalBeforeArr.push ( $("input:text[name=price]").eq(i).val() * $("input.odAmount").eq(i).val() );
 	     		  
 	     	  }
 	     	  
@@ -427,7 +424,7 @@ $(document).ready(function(){
 	       console.log("제품별포인트들의 총합계: "+sumtotalPoint); */
 		
 		 $.ajax({
-	     	 url:"<%=request.getContextPath()%>/order/orderAdd.up",
+	     	 url:"<%=request.getContextPath()%>/order/order.up",
 	     	 type:"post",
 	     	 data:{"pnum_s":str_pnum,
 	     		 "oqty_s":str_oqty,
