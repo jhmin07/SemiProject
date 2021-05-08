@@ -133,11 +133,13 @@ li {
 		   var html = "";		
 		   // var oname = document.getElementById("optname").innerText;
 		   // var oname = $("input#oname").val();
-		   for(var i =0; i<3; i++){
-			   var oname = document.getElementById(i).innerText;
+		  var oname = "";	
+		 	
+			   var oname = document.getElementById(0).innerText;
 		  	   console.log("td 는 ?? : " + oname);
-		   }
-		   
+		   	
+		   	
+		   	
 			 $.ajax({
 				   url:"<%= request.getContextPath()%>/detailMenu/productDetailOption.up",
 				   type:"get",
@@ -163,7 +165,7 @@ li {
 						alert("code: "+request.status+"\n"+"message: "+request.responseText+"\n"+"error: "+error);
 				   }
 			   }); 
-		   
+		   	
 	 } // end of function goloop() {}
 	   
 	   
@@ -222,7 +224,7 @@ li {
 					<%-- <input type="hidden" name="pnum" value="${requestScope.pvo.pnum}" />	
 					<input type="hidden" name="pnum" value="${requestScope.pvo.pnum}" />		 --%>			
 						<tr>										
-							<td id="'${status.index}">${option.oname}</td>
+							<td id="${status.index}">${option.oname}</td>
 							<td>
 								  <select id="optocontents" style="width: 150px;" >						       	
 							      </select>
