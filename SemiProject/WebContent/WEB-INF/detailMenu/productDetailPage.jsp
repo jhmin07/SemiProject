@@ -115,44 +115,55 @@ li {
 */
    
 	   } // end of function goCart(pnum) {}------------------------------------	
-	
+	   
+	   
+	   
+	function goOrder(){
+		   
+		   var frm = document.pdtFrm;
+		   frm.method = "post";
+		   frm.action = "<%= request.getContextPath()%>/order/goOrder.up";
+		   frm.submit();
+		   
+    } // end of function goOrder(){}
 
-	   
-	function goloop() { 
-		   
-		console.log("확인중1");
-		   var oname = $("td#optname").val();
-		   console.log("td 는 ?? : " + oname);
-		   
-			 $.ajax({
-				   url:"<%= request.getContextPath()%>/detailMenu/productDetailOption.up",
-				   type:"get",
-				   data:{"pnum":"${pvo.pnum}"
-					    ,"oname":oname}, 
-				   dataType:"json",
-				   success:function(json){
-					   
-					   var html = "";		
-						   
-							 $.each(json, function(index, item){
-								 
-								 html += "<option>"+item.ocontents+"</option>";
-								 console.log("확인중2" + item.ocontents);
-							 });
+    function goloop() { 
+        
+        console.log("확인중1");   
+        var oname="";
+        $("td.dd").each(function(index,item){
+           var $this = $(this);
+           oname = $(this).text();
+                console.log("td 는 ?? : " + $(this).text());   
+              $.ajax({
+                 url:"<%= request.getContextPath()%>/detailMenu/productDetailOption.up",
+                 type:"get",
+                 data:{"pnum":"${pvo.pnum}"
+                     ,"oname":oname}, 
+                 dataType:"json",
+                 success:function(json){
+                    
+                    var html = "";      
+                       
+                        $.each(json, function(index, item){
+                           
+                           html += "<option>"+item.ocontents+"</option>";
+                           console.log("확인중2" + item.ocontents);
+                        });
 
-					   
-					   $("select#optocontents").html(html);
-					   console.log("확인중3");
-					   
-				   },
-				   error: function(request, status, error){
-						alert("code: "+request.status+"\n"+"message: "+request.responseText+"\n"+"error: "+error);
-				   }
-			   }); 
-		   
-	 } // end of function goloop() {}
-	   
-	   
+                    
+                    $this.next().children().html(html);
+                    console.log("확인중3");
+                    
+                 },
+                 error: function(request, status, error){
+                    alert("code: "+request.status+"\n"+"message: "+request.responseText+"\n"+"error: "+error);
+                 }
+              }); 
+              });
+        
+      
+      } // end of function goloop() {}  
 	   
 </script>
 
@@ -204,22 +215,22 @@ li {
 						</td>
 					<tr>
 
-					<c:forEach var="option" items="${onameList}" >				
-						<tr>										
-							<td id="optname">${option.oname}</td>
-							<td>
-								  <select id="optocontents" style="width: 150px;">						       	
-							      </select>
-					        </td>
-						</tr>	
-					</c:forEach>										
+					<c:forEach var="option" items="${onameList}" >            
+                  <tr>                              
+                     <td class="dd">${option.oname}</td>
+                     <td>
+                          <select id="optocontents" style="width: 150px;">                            
+                           </select>
+                       </td>
+                  </tr>   
+               </c:forEach>   								
 					
 				</tbody>
 			</table>
 			<button type="button"  onclick="goCart();" style="background-color: black; color: white;  width: 350px; margin-top: 10px; height: 30px;">장바구니에 담기</button>
 			<input type="hidden" name="pnum" value="${requestScope.pvo.pnum}" />
 			<br>
-			<input type="submit" value="주문하러 가기" style="background-color: black; color: white;  width: 350px; margin-top: 5px; height: 30px;" />
+			<button type="button"  onclick="goOrder();" style="background-color: black; color: white;  width: 350px; margin-top: 10px; height: 30px;">주문하러 가기</button>
 			</form>
 			</div>
 
