@@ -1002,7 +1002,7 @@ public class ProductDAO implements InterProductDAO {
 		try {
 			conn = ds.getConnection();
 
-			String sql = " select ocontents "+
+			String sql = " select ocontents, optionNo "+
 							 " from tbl_option " +
 						 	 " where fk_pnum = ? and oname = ? ";
 
@@ -1018,8 +1018,10 @@ public class ProductDAO implements InterProductDAO {
 				OptionVO ovo = new OptionVO();
 				
 				String ocontents = rs.getString(1);
+				int optionNo = rs.getInt(2);
 				
 				ovo.setOcontents(ocontents);
+				ovo.setOptionNo(optionNo);
 				
 				optionList.add(ovo);
 				
