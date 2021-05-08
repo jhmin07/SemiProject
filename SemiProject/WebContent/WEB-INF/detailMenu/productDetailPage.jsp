@@ -50,10 +50,14 @@ li {
 <script type="text/javascript">
 	$( function() {
 		
-	//	console.log("${optionList}");
-	//	console.log("${pvo}");
-	// console.log(${requestScope.pvo.fk_decode});	
+		   $.each(${onameList}, function(index, item){
+			   console.log(${item.oname});		 
+			 )};	
 		
+	//	goloop();
+	//	console.log("${pvo.pnum}");
+	// console.log(${requestScope.pvo.fk_decode});	
+	
 	var spinner = $( "#spinner" ).spinner();
 	
 	$("input#spinner").spinner({
@@ -71,9 +75,13 @@ li {
 	
 	}); // end of $(function(){});
 	
+	
+	
+	
+	// Function Declaration	
+	
 	function goCart() {
 		   // pnum 은 장바구니에 담을 제품번호 이다.
-		   console.log("dd")
 		   // === 주문량에 대한 유효성 검사하기 === //
 		   var frm = document.pdtFrm;
 		   frm.method = "post";
@@ -103,11 +111,44 @@ li {
 			   return; // 종료 
 		   } 
 */
+   
+	   } // end of function goCart(pnum) {}------------------------------------	
+	
 
+	   
+	function goloop() { 
 		   
-	   }// end of function goCart(pnum) {}------------------------------------	
-	
-	
+			 <%-- $.ajax({
+				   url:"<%= request.getContextPath()%>/detailMenu/productDetailOption.up",
+				   type:"get",
+				   data:{"pnum":"${pvo.pnum}"
+					    ,"oname":"${requestScope.optionList.oname}"}, 
+				   dataType:"json",
+				   success:function(json){
+					   
+					   var html = "";
+					   
+					   if(json.length > 0) {
+						   
+							 $.each(json, function(index, item){
+								 
+								 html += "<option>"+item.ocontents+"</option>";
+								 
+							 }
+					 	}
+					   
+					   $("select#optocontents").html(html);
+					   
+				   },
+				   error: function(request, status, error){
+						alert("code: "+request.status+"\n"+"message: "+request.responseText+"\n"+"error: "+error);
+				   }
+			   }); --%>
+		   
+	 } // end of function goloop() {} --%>
+	   
+	   
+	   
 </script>
 
 <div id="detailcontainer" style="width:100%; margin-top: 100px; background-color: #f2f2f2; display: table; height: 500px;" align="center">
@@ -157,20 +198,16 @@ li {
 	 						<input id="spinner" name="odAmount" size="3pt" value="1" style="height: 20px;">
 						</td>
 					<tr>
-								
-					<tr>				
-						<c:forEach begin="1" end="1" var="option" items="${optionList}" >		
-								<td>${option.oname}</td>
-						</c:forEach>
-						
-						<td>
-							  <select style="width: 150px;">
-						           <c:forEach var="option" items="${optionList}" >		
-								       <option value="">${option.ocontents}</option>
-						           </c:forEach>			
-							  </select>
-						</td>
-					</tr>	
+					
+					<c:forEach var="option" items="${onameList}" >				
+						<tr>										
+							<td id="optname">${option.oname}</td>
+							<td>
+								  <select id="optocontents" style="width: 150px;">						       	
+							      </select>
+					        </td>
+						</tr>	
+					</c:forEach>										
 					
 				</tbody>
 			</table>
