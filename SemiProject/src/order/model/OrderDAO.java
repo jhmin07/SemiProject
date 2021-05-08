@@ -203,8 +203,8 @@ public class OrderDAO implements InterOrderDAO {
 		
 		try {
 			conn = ds.getConnection();
-			String sql = "insert into tbl_delivery(fk_ordercode, recMobile, recPostcode, recAddress, recDetailAddress, recExtraAddress, dvMessage)" +
-						" values (?, ?, ?, ?, ?, ? ,?)";
+			String sql = "insert into tbl_delivery(fk_ordercode, recMobile, recPostcode, recAddress, recDetailAddress, recExtraAddress, dvMessage, recName)" +
+						" values (?, ?, ?, ?, ?, ? ,?, ?)";
 			
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, delivo.getFk_orderCode());
@@ -214,6 +214,7 @@ public class OrderDAO implements InterOrderDAO {
 			pstmt.setString(5, delivo.getRecDetailaddress());
 			pstmt.setString(6, delivo.getRecExtraaddress());
 			pstmt.setString(7, delivo.getDvMessage());
+			pstmt.setString(8, delivo.getRecName());
 			
 			n = pstmt.executeUpdate();
 			

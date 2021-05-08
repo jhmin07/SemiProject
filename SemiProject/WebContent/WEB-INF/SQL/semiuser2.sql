@@ -414,9 +414,10 @@ select *
 from tbl_order_details;
 
 -- 배송지정보 테이블 생성
--- drop table tbl_delivery purge;
+--drop table tbl_delivery purge;
 create table tbl_delivery ( --receiver 을 rec 로 표현
 fk_orderCode        varchar2(50)    -- 주문코드
+,recName            varchar2(50)    -- 수취인
 ,recMobile          varchar2(200)   -- 연락처 (AES-256 암호화/복호화 대상) 
 ,recPostcode        varchar2(5)     -- 우편번호
 ,recAddress         varchar2(200)   -- 주소
