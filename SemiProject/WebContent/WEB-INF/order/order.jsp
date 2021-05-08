@@ -362,9 +362,10 @@ table.odr_info input[type=text]{
 			return ;
 		}
 		
-		submitOrderFrm("20210507-31");
-		<%--
 		paymentComplete();
+		<%--
+		
+		submitOrderFrm("20210507-31");
 		
 		var url = "<%=request.getContextPath()%>/order/goPayment.up?sumtotalPrice="+sumtotalPriceLast;
 		window.open(url, "goPayment", 
@@ -383,6 +384,7 @@ table.odr_info input[type=text]{
 			data:{"pnum_es":"${requestScope.pnum_es}",
 				"oqty_es":"${requestScope.oqty_es}",
 				"cartno_es":"${requestScope.cartno_es}",
+				"option_es":"${requestScope.option_es}",
 				"totalPrice_es":"${requestScope.totalPrice_es}",
 				"sumtotalPrice":sumtotalPriceLast,
 				"sumtotalPoint":"${requestScope.sumtotalPoint}",
@@ -461,7 +463,7 @@ table.odr_info input[type=text]{
 			<c:forEach var="map" items="${requestScope.mapList}" >
 				<tr class="odr_tr">
 					<td><img class="odr_img" src="<%=ctxPath%>/image/product/${map.fk_decode}/${map.pimage1}" alt="<%=ctxPath%>/image/product/${map.fk_decode}/${map.pimage1}" ></td>
-					<td>${map.pname}</td>
+					<td>${map.pname}<br><span style="font-size: 10pt; color: #999;">${map.option}</span></td>
 					<input name="pinfo" class="pinfo" value="${map.pname}" hidden/>
 					<td><fmt:formatNumber value="${map.price}" pattern="#,###" /> 원</td>
 					<td><fmt:formatNumber value="${map.oqty}" pattern="#,###" /></td>

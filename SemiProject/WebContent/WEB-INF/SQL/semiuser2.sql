@@ -394,13 +394,14 @@ select *
 from tbl_order_details;
 
 -- 주문상세 테이블 생성
--- drop table tbl_order_details purge;
+drop table tbl_order_details purge;
 create table tbl_order_details (
 odNo            number          not null -- 주문상세일련번호
 ,fk_orderCode   varchar2(50)    not null -- 주문코드
 ,fk_pnum        number(8)       not null -- 제품번호
 ,odAmount       number          not null -- 주문량
 ,odPrice        number          not null -- 주문가격
+,optionContents   varchar(1000)          -- 주문가격
 ,deliveryCon    varchar2(50)             -- 배송상태(null : 입금확인, 1 : 배송준비중,  2 : 배송중,  3 : 배송완료)
 ,deliveryDone   DATE                     -- 배송완료일자
 ,constraint  PK_tbl_order_details_odNo primary key(odNo)
