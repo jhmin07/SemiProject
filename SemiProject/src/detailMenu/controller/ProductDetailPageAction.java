@@ -21,7 +21,6 @@ public class ProductDetailPageAction extends AbstractController {
 		ProductVO pvo = pdao.productDetailPage(pnum);
 		List<OptionVO> optionList =  pdao.selectoption(pnum);
 		List<OptionVO> onameList =  pdao.selectoname(pnum);
-
 		
 		if(pvo == null) {
 			// GET 방식이므로 사용자가 웹브라우저 주소창에서 장난쳐서 존재하지 않는 제품번호를 입력한 경우
@@ -44,6 +43,9 @@ public class ProductDetailPageAction extends AbstractController {
 			request.setAttribute("onameList", onameList);
 			
 			// request.setAttribute("imgList", imgList);// 해당 제품의 추가된 이미지 정보 // 추가 예정
+			
+			 System.out.println(optionList);
+			 System.out.println(pvo);
 			
 			super.setRedirect(false);
 			super.setViewPage("/WEB-INF/detailMenu/productDetailPage.jsp");

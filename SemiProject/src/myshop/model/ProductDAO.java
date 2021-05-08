@@ -970,7 +970,7 @@ public class ProductDAO implements InterProductDAO {
         return commentList;
 	}
 	
-	
+
 	// 특정제품의 상품 후기 삭제하기(delete)
 	@Override
 	public int reviewDel(String review_seq) throws SQLException {
@@ -993,4 +993,44 @@ public class ProductDAO implements InterProductDAO {
 	      
 	      return n;
 	}
+
+	@Override
+	public List<OptionVO> selectProductOption(String pnum, String oname) throws SQLException {
+		
+		List<OptionVO> optionList = new ArrayList<>();
+		
+		try {
+			conn = ds.getConnection();
+
+			String sql = " select ocontents "+
+							 " from tbl_option " +
+						 	 " where fk_pnum = ? and oname = ? ";
+
+			pstmt = conn.prepareStatement(sql);
+
+			pstmt.setString(1, pnum);
+			pstmt.setString(2, oname);
+			
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				
+				OptionVO ovo = new OptionVO();
+				
+				String ocontents = rs.getString(1);
+				
+				ovo.setOcontents(ocontents);
+				
+				optionList.add(ovo);
+				
+			}
+
+		} finally {
+			close();
+		}
+		
+		return optionList;
+		
+	}
+
 }
