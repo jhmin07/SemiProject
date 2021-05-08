@@ -87,8 +87,8 @@ table.odr_info td:nth-child(2) {
 	// == 주문 성공 메세지 보내기 == //
 	function orderSuccessSendMsg() {
         var dataObj;
-        var mobile = "01085618498";
-        var smsContent = "[심플침대프레임]...외 2건 주문완료되었습니다";
+        var mobile = "${sessionScope.loginuser.mobile}";
+        var smsContent = "[RHOME] "+"${requestScope.odrmsg}";
         
         dataObj = {"mobile":mobile,
                   "smsContent":smsContent};
@@ -122,7 +122,7 @@ table.odr_info td:nth-child(2) {
 	
 	// == 주문내역확인하기 == //
 	function goOrderListCheck() {
-		location.href = "<%=request.getContextPath()%>/orderList.up"; 
+		location.href = "<%=request.getContextPath()%>/order/orderList.up"; 
 	}
 </script>
 
@@ -131,7 +131,7 @@ table.odr_info td:nth-child(2) {
 	
 	<div id="odrSucesContent">
 		<h2 id="odrthankyou">THANK YOU</h2>
-		<p>${requestScope.odrmsg}</p>
+		<p>[주문번호] ${requestScope.delivo.fk_orderCode}<br>${requestScope.odrmsg}</p>
 		
 		<button type="button" class="odrscBtn" onclick="goHome();">쇼핑계속하기</button>
 		<button type="button" class="odrscBtn" onclick="goOrderListCheck();" style="background-color: #80bfff;">주문내역확인하기</button>
@@ -145,12 +145,15 @@ table.odr_info td:nth-child(2) {
 		<tbody>
 			<tr>
 				<td>결제방법</td>
-				<td></td>
-				<td rowspan="2" style="width: 35%; background-color: #f2f2f2;">총결제금액</td>
+				<td>카드</td>
+				<td rowspan="2" style="width: 35%; background-color: #f2f2f2;">
+					<span style="font-weight: bold;">총결제금액</span><br><br>
+					<span style="font-size: 15pt; padding-left: 20px;">${requestScope.sumtotalPrice}</span>
+				</td>
 			</tr>
 			<tr>
 				<td>결제상태</td>
-				<td></td>
+				<td>결제완료</td>
 			</tr>
 		</tbody>
 	</table>
