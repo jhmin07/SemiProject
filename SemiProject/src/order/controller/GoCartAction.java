@@ -69,7 +69,7 @@ public class GoCartAction extends AbstractController {
 	    		  HttpSession session =  request.getSession();
 	    		  MemberVO loginuser = (MemberVO)session.getAttribute("loginuser");
 	    		  
-	    		  int n = pdao.addCart(loginuser.getUserid(), pnum, odAmount);
+	    		  int n = pdao.addCart(loginuser.getUserid(), pnum, odAmount, optionNo);
 	    		  
 	    		  if(n==1) {
 	    			  request.setAttribute("message", "장바구니 담기 성공!!");

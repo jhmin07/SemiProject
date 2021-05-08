@@ -674,15 +674,18 @@ public class ProductDAO implements InterProductDAO {
 		
 		// 장바구니에 담기
 		@Override
-		public int addCart(String userid, String pnum, String odAmount) throws SQLException {
+		public int addCart(String userid, String pnum, String odAmount, String optionNo) throws SQLException {
 			
 			int n = 0;
+			System.out.println("optionNo 확인" + optionNo);
+			System.out.println("odAmount 확인" + odAmount);
+			System.out.println("pnum 확인" + pnum);
 			
 			try {
 				
 				conn = ds.getConnection();
 				
-				String sql = " select cartno "
+				String sql = " select cartno, optionNo_es"
 						  	  + " from tbl_cart "
 						  	  + " where fk_userid = ? and fk_pnum = ? ";
 				
@@ -690,13 +693,19 @@ public class ProductDAO implements InterProductDAO {
 		        pstmt.setString(1, userid);
 		        pstmt.setString(2, pnum);
 		          
-		        rs = pstmt.executeQuery();
+		        rs = pstmt.executeQuery(); 
 		        
 		        if ( rs.next() ) {
-		        	// 어떤 제품을 추가로 장바구니에 넣고자 하는 경우
-		        	
-		        	int cartno = rs.getInt("cartno");
-		        	
+		        		        	
+			       int cartno = rs.getInt("cartno");
+			       String optionNo_es = rs.getString("optionNo_es");
+			       System.out.println("optionNo_es : "+optionNo_es);
+			       System.out.println("optionNo 2차확인 : "+optionNo);
+			        		        
+			        if( rs.next() && optionNo_es.equals(optionNo) ) {
+			        System.out.println("// 같은 제품이 존재하고 옵션도 같은 경우");
+		        	// 같은 제품이 존재하고 옵션도 같은 경우
+		        	        	
 		        	sql = " update tbl_cart set odAmount = odAmount + ? "
 		        		+	" where cartno = ? ";
 		        	 
@@ -706,17 +715,36 @@ public class ProductDAO implements InterProductDAO {
 		        	
 		        	n = pstmt.executeUpdate();
 		        	
-		        }
+			        }
+			        
+			        else if ( rs.next() && !optionNo_es.equals(optionNo) )  {
+			        	System.out.println("// 같은 제품이 존재하고 옵션이 같지 않은 경우");
+			        	// 같은 제품이 존재하고 옵션이 같지 않은 경우
+			        	
+			        	sql = " insert into tbl_cart(cartno, fk_userid, fk_pnum, odAmount, cartdate, optionNo_es) "
+			                 + " values(seq_tbl_cart_cartno.nextval, ?, ?, ?, default, ?) ";
+			        	
+			        	pstmt = conn.prepareStatement(sql);
+			        	pstmt.setString(1, userid);
+			        	pstmt.setInt(2, Integer.parseInt(pnum));
+			        	pstmt.setInt(3, Integer.parseInt(odAmount));
+			        	pstmt.setString(4, optionNo);
+			        	
+			        	n = pstmt.executeUpdate();		        	
+			        }
+			        
+		        }	        
 		        else {
 		        	// 장바구니에 존재하지 않는 새로운 제품을 넣고자 하는 경우
 		        	
-		        	sql = " insert into tbl_cart(cartno, fk_userid, fk_pnum, odAmount, cartdate) "
-		                    + " values(seq_tbl_cart_cartno.nextval, ?, ?, ?, default) ";
+		        	sql = " insert into tbl_cart(cartno, fk_userid, fk_pnum, odAmount, cartdate, optionNo_es) "
+		                 + " values(seq_tbl_cart_cartno.nextval, ?, ?, ?, default, ?) ";
 		        	
 		        	pstmt = conn.prepareStatement(sql);
 		        	pstmt.setString(1, userid);
 		        	pstmt.setInt(2, Integer.parseInt(pnum));
 		        	pstmt.setInt(3, Integer.parseInt(odAmount));
+		        	pstmt.setString(4, optionNo);
 		        	
 		        	n = pstmt.executeUpdate();
 		        	
