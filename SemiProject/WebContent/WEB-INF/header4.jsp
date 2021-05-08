@@ -16,15 +16,17 @@
 
 <link rel="preconnect" href="https://fonts.gstatic.com">
 <link href="https://fonts.googleapis.com/css2?family=Gothic+A1&family=Nanum+Gothic&family=Nanum+Gothic+Coding&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Lato:wght@300&display=swap" rel="stylesheet">
 
 <link rel="stylesheet" type="text/css" href="<%= ctxPath%>/jquery-ui-1.11.4.custom/jquery-ui.css" />
 <script type="text/javascript" src="<%= ctxPath%>/jquery-ui-1.11.4.custom/jquery-ui.min.js"></script>
 
 <style>
-body {
-  /* font-family: "Lato", sans-serif ,  'Nanum Gothic Coding', monospace, 'Gothic A1', sans-serif; */
-  font-family: 'Nanum Gothic', sans-serif;
-}
+ body {font-family:'Lato' ,'Nanum Gothic', 'sans-serif';}
+/* 
+-------------------------------------------------------------------- */
+
 .sidenav {
   height: 100%;
   width: 0;
@@ -137,6 +139,9 @@ function goCart() {
 	
 	
 }
+function goOrderList(){	
+	location.href= "<%= ctxPath%>/order/orderList.up";
+}
 	
 
 </script>
@@ -165,7 +170,7 @@ function goCart() {
 	  	<c:if test="${not empty sessionScope.loginuser || not empty sessionScope.loginadmin}">
 		 	<span class="submenubtn" onclick="LogOut()" >로그아웃</span>|
 		 </c:if>			 
-		 <span class="submenubtn" >주문내역</span>|
+		 <span class="submenubtn" onclick="goOrderList()">주문내역</span>|
 		 <span class="submenubtn" id="Notice" onClick="goBoard();" >고객센터</span>
 	  </div>
 	</div>
@@ -177,16 +182,16 @@ function goCart() {
  
   	<c:if test="${empty sessionScope.loginuser && empty sessionScope.loginadmin}">
   	  <span class="hsub1" style="margin-left: 200px;" onclick="LogIn()"><img class="headerlogo"  src="<%= ctxPath%>/image/ProjectImg/login.png" style="width:28px; height:23px; cursor: pointer;" align="middle" />로그인</span>
-  	  <span class="hsub1"><img class="headerlogo"  src="<%= ctxPath%>/image/ProjectImg/shoppingbag.png" style="width:28px; height:23px; cursor: pointer;" align="middle" />장바구니</span>
+  	  <span class="hsub1" onclick="goCart()"><img class="headerlogo"  src="<%= ctxPath%>/image/ProjectImg/shoppingbag.png" style="width:28px; height:23px; cursor: pointer;" align="middle" />장바구니</span>
     </c:if>
     <c:if test="${not empty sessionScope.loginuser || not empty sessionScope.loginadmin}">
     	 <c:if test="${not empty sessionScope.loginuser && empty sessionScope.loginadmin}">
-    	 	<span class="hsub1" style="margin-left: 80px;" onclick="myPage()"><img class="headerlogo"  src="<%= ctxPath%>/image/ProjectImg/login.png" style="width:28px; height:23px; cursor: pointer;" align="middle" />마이페이지</span>
+    	 	<span class="hsub1" style="margin-left: 70px;" onclick="myPage()"><img class="headerlogo"  src="<%= ctxPath%>/image/ProjectImg/login.png" style="width:28px; height:23px; cursor: pointer;" align="middle" />마이페이지</span>
   	  		<span class="hsub1" onclick="LogOut()"><img class="headerlogo"  src="<%= ctxPath%>/image/logout.png" style="width:28px; height:23px; cursor: pointer;" align="middle" />로그아웃</span>
   	  		<span class="hsub1" onclick="goCart()"><img class="headerlogo"  src="<%= ctxPath%>/image/ProjectImg/shoppingbag.png" style="width:28px; height:23px; cursor: pointer;" align="middle" />장바구니</span>
     	 </c:if>
     	 <c:if test="${empty sessionScope.loginuser && not empty sessionScope.loginadmin}">
-    	 	<span class="hsub1" style="margin-left: 100px;" onclick="myPage_admin()"><img class="headerlogo"  src="<%= ctxPath%>/image/ProjectImg/login.png" style="width:28px; height:23px; cursor: pointer;" align="middle" />관리자페이지</span>
+    	 	<span class="hsub1" style="margin-left: 90px;" onclick="myPage_admin()"><img class="headerlogo"  src="<%= ctxPath%>/image/ProjectImg/login.png" style="width:28px; height:23px; cursor: pointer;" align="middle" />관리자페이지</span>
   	  		<span class="hsub1" onclick="LogOut_admin()"><img class="headerlogo"  src="<%= ctxPath%>/image/logout.png" style="width:28px; height:23px; cursor: pointer;" align="middle" />로그아웃</span>
     	 </c:if>
     </c:if>  

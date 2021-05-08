@@ -197,7 +197,7 @@ function getCookie( cookieName ) { var search = cookieName + "="; var cookie = d
 <div id="contents2" class="contents23 subcontainer">
 
    
-   <div id="newItem"><br>HIT ITEM</div>
+   <div id="newItem"><br>Hit Item</div>
    <br><br>
    <table id="content2MidBox" class="contentHoverGray">
 
@@ -277,7 +277,7 @@ function getCookie( cookieName ) { var search = cookieName + "="; var cookie = d
 
    <br><br>
 <div id="contents3" class="contents23 subcontainer">
-   <div id="newItem"><br><br>NEW ITEM</div>
+   <div id="newItem"><br><br>New Item</div>
    <br><br>
    <table class="contentHoverGray content3MidBox">
 

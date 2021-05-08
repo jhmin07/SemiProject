@@ -24,7 +24,7 @@
 		text-align: center;		
 		font-size: 30pt; 
 		font-family: 'Papyrus', Fantasy; 
-		font-weight: bold;
+
 	}	
 	
 	td {

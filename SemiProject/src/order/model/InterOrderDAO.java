@@ -1,6 +1,7 @@
 package order.model;
 
 import java.sql.SQLException;
+import java.util.List;
 import java.util.Map;
 
 import myshop.model.ProductVO;
@@ -22,7 +23,9 @@ public interface InterOrderDAO {
 	// 주문하기 페이지에서 보여줄 상품의 정보 가져오기 (select)
 	public ProductVO getProdInfo(String userid, String cartno) throws SQLException;
 
-	
+	// 주문 내역 조회(select) 하는 함수
+	public List<OrderDetailVO> selectOrderList(Map<String, String> paraMap, String userid) throws SQLException;
+
 	
 	
 }

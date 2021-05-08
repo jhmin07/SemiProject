@@ -81,6 +81,7 @@ div#pagebar{
    	 </c:if> 
    	  <c:if test="${not empty requestScope.productList}"> 
     	<div id="pagebar">${requestScope.pageBar}</div>
+    	<br>
    	 </c:if> 
    	 
    </div>	

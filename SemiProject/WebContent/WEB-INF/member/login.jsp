@@ -48,33 +48,34 @@ p{
 .login{
 	width: 450px;
     margin: -20px auto 0 auto;
-    padding: 75px 0 85px 0;
+    padding: 50px 0 85px 0;
     border-top: 1px solid #dedede;
     border-bottom: 1px solid #dedede;
     text-align: center;  
 }
 fieldset{
 	border: 0;
+	
 }
 label {
     position: absolute;
     overflow: hidden;
     visibility: hidden;
 }
-.login input[type=text] {
+.login input {
     display: block;
     width: 450px;
     height: 45px;
     margin: 0 auto 10px auto;
     line-height: 43px;
 }
-.login input[type=password] {
+/* .login input[type=password] {
     display: block;
     width: 450px;
     height: 45px;
     margin: 0 auto 10px auto;
     line-height: 43px;
-}
+} */
 a{ 
 	text-decoration:none
 }
