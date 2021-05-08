@@ -385,7 +385,7 @@ table.odr_info input[type=text]{
 				"cartno_es":"${requestScope.cartno_es}",
 				"totalPrice_es":"${requestScope.totalPrice_es}",
 				"sumtotalPrice":sumtotalPriceLast,
-				"sumtotalPoint":"${requestScope.sumtotalPoint}"},
+				"sumtotalPoint":"${requestScope.sumtotalPoint}",
 				"usePoint":usePoint},
 			dataType:"json",
 			success:function(json){
@@ -394,6 +394,9 @@ table.odr_info input[type=text]{
 					submitOrderFrm(json.ordercode); // 배송지 입력 정보 저장하러 가기
 				}
 			},
+			error: function(request, status, error){
+               alert("code: "+request.status+"\n"+"message: "+request.responseText+"\n"+"error: "+error);
+            }
 		});
 		// console.log("결제 성공");
 	}
