@@ -375,6 +375,7 @@ table.odr_info input[type=text]{
 	function paymentComplete() {
 		
 		var sumtotalPriceLast = Number($("span#sumtotalPriceLast").html().split(",").join(""));
+		var usePoint = Number($("span#point").html().split(",").join(""));
 		
 		$.ajax({
 			url:"<%=request.getContextPath()%>/order/orderProcess.up",
@@ -385,6 +386,7 @@ table.odr_info input[type=text]{
 				"totalPrice_es":"${requestScope.totalPrice_es}",
 				"sumtotalPrice":sumtotalPriceLast,
 				"sumtotalPoint":"${requestScope.sumtotalPoint}"},
+				"usePoint":usePoint},
 			dataType:"json",
 			success:function(json){
 				if (json.isSuccess == 1) {
@@ -397,14 +399,27 @@ table.odr_info input[type=text]{
 	}
 	
 	function submitOrderFrm(ordercode) {		
-		var frm = document.deliverInfoFrm;
-		$("input#ordercode").val(ordercode);
+		var sumtotalPriceLast = $("span#sumtotalPriceLast").html();
 		
-		var str_pinfo = "";
-		$("input.pinfo").each(function(index, item){
-			
+		// 주문메세지 보내기 
+		var odrmsg = "";
+		var cnt = 0;
+		
+		$("input.pinfo").each(function(index, item, array){
+			if (index == 0) odrmsg += $("input.pinfo").val();		
+			else cnt++; 
 		});
 		
+		if (cnt > 0) {
+			odrmsg += " 외 "+cnt+"개 상품 결제가 완료되었습니다.";
+		}
+		
+		//console.log(odrmsg);
+		$("input[name=odrmsg]").val(odrmsg);
+		$("input[name=sumtotalPrice]").val(sumtotalPriceLast);
+		$("input#ordercode").val(ordercode);
+
+		var frm = document.deliverInfoFrm;
 		frm.action = "<%=request.getContextPath()%>/order/orderSuccess.up";
 		frm.method = "post";
 		frm.submit();
@@ -541,6 +556,8 @@ table.odr_info input[type=text]{
 				<tr>
 					<td>배송 정보</td>
 					<input type="hidden" name="ordercode" id="ordercode"/>
+					<input type="hidden" name="odrmsg" />
+					<input type="hidden" name="sumtotalPrice" />
 					<td style="text-align: right; vertical-align: bottom;"><span class="star">*</span>필수입력사항</td>
 				</tr>
 			</thead>
