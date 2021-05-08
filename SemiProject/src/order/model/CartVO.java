@@ -12,14 +12,17 @@ public class CartVO {
 	 
 	 private ProductVO prod;  //  제품정보객체 (오라클로 말하면 부모테이블)
 	 
+	 private String optionNo_es; // 옵션번호들
+	 
 	 public CartVO() { }
 	   
-	 public CartVO(int cartNo, String fk_userid, int fk_pnum, int odAmount, ProductVO prod) {
+	 public CartVO(int cartNo, String fk_userid, int fk_pnum, int odAmount, ProductVO prod, String optionNo_es) {
 	      this.cartNo = cartNo;
 	      this.fk_userid = fk_userid;
 	      this.fk_pnum = fk_pnum;
 	      this.odAmount = odAmount;
 	      this.prod = prod;
+	      this.optionNo_es = optionNo_es;
 	   }
 	 
 	public int getCartNo() {
@@ -59,6 +62,14 @@ public class CartVO {
 
 	public void setProd(ProductVO prod) {
 		this.prod = prod;
+	}
+
+	public String getOptionNo_es() {
+		return optionNo_es;
+	}
+
+	public void setOptionNo_es(String optionNo_es) {
+		this.optionNo_es = optionNo_es;
 	}
 
 

@@ -237,7 +237,7 @@ ul.payment_last > li {
 			<tr class="payment_thead_result">
 				<td><fmt:formatNumber value="${sumtotalPrice}" pattern="#,###" />원</td>
 				<td style="text-align: left; width: 20px;"><span style="font-weight: bold; font-size: 20px;">+</span>
-				<td><span id="addPriceResult"></span>원</td>
+				<td><span id="addPriceResult">0</span>원</td>
 				
 				<td style="text-align: left;"><span style="font-weight: bold; font-size: 20px;">=</span>		
 				<td><span class="sumtotalPriceLast"></span>원</td>

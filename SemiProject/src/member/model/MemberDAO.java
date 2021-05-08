@@ -8,6 +8,7 @@ import java.util.*;
 import javax.naming.*;
 import javax.sql.DataSource;
 
+import myshop.model.ReviewVO;
 import notice.model.NoticeVO;
 import util.security.AES256;
 import util.security.SecretMyKey;
@@ -461,6 +462,48 @@ public class MemberDAO implements InterMemberDAO {
 		}
 		
 		return name;		
+	}
+
+	// 내가쓴 리뷰들 불러오기
+	@Override
+	public List<ReviewVO> getMyReviewList(String userid) throws SQLException {
+		List<ReviewVO> commentList = new ArrayList<>();
+        
+        try {
+           conn = ds.getConnection();
+           
+           String sql = " select reviewNo, fk_pnum, reviewSubject, to_char(reviewRegisterday, 'yyyy-mm-dd hh24:mi:ss') AS reviewRegisterday , review_like "+
+           		" from tbl_review "+
+           		" where fk_userid = ? "+
+           		" order by reviewNo desc ";
+           
+           pstmt = conn.prepareStatement(sql);
+           pstmt.setString(1, userid);
+           
+           rs = pstmt.executeQuery();
+           
+           while(rs.next()) {
+               String reviewSubject = rs.getString("reviewSubject");
+               String reviewRegisterday = rs.getString("reviewRegisterday");
+               int fk_pnum = rs.getInt("fk_pnum");
+               int reviewNo = rs.getInt("reviewNo");
+               int review_like = rs.getInt("review_like");
+                                       
+               ReviewVO reviewvo = new ReviewVO();
+               reviewvo.setReviewSubject(reviewSubject);
+               reviewvo.setReviewRegisterday(reviewRegisterday);
+               reviewvo.setFk_pnum(fk_pnum);
+               reviewvo.setReviewNo(reviewNo);
+               reviewvo.setReview_like(review_like);
+               
+               commentList.add(reviewvo);
+            }
+           
+        } finally {
+           close();
+        }
+        
+        return commentList;
 	}
 	
 	

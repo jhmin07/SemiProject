@@ -135,7 +135,7 @@ dfn:hover::before {top: 20px;}
 		 location.href= "<%= ctxPath%>/member/memberEdit.up?userid=${sessionScope.loginuser.userid}";
 	 });
 	 $("div#coupon").bind("click", function(){
-		 location.href= "<%= ctxPath%>/product/";
+		 location.href= "<%= ctxPath%>/member/showMyReview.up";
 	 });
 	 
  });
@@ -156,14 +156,14 @@ dfn:hover::before {top: 20px;}
 	     	MY INFO
 	     </div>
 	     <div class="button_base b01" id="coupon">
-	     	COUPON
+	     	REVIEW LIST
 	     </div>
 	     
 	     <div class="personalInfo">
 	     	<div><span class="input">${(sessionScope.loginuser).name}</span>님은 <span class="input" >[일반회원]</span>이십니다.</div>
 	     	<br>
 	     	<div>POINT :&nbsp;&nbsp;&nbsp;&nbsp;<span class="input" id="point"><fmt:formatNumber value="${(sessionScope.loginuser).point}" pattern="###,###" /></span></div>
-	     	<div>회원님의 &nbsp;<dfn data-info="지금바로 '장바구니'를 클릭하여  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 확인해보세요!"><a href="<%= ctxPath%>/order/cartController.up" style="color: black;">장바구니</a></dfn> 안에는&nbsp;<span class="input" id="point">${requestScope.cartCount}</span>&nbsp;개의 상품이 존재합니다.</div>
+	     	<div>회원님의 &nbsp;<dfn data-info="지금바로 '장바구니'를 클릭하여  확인해보세요!"><a href="<%= ctxPath%>/order/cartController.up" style="color: black;">장바구니</a></dfn> 안에는&nbsp;<span class="input" id="point">${requestScope.cartCount}</span>&nbsp;개의 상품이 존재합니다.</div>
 	     </div> 
 		       
 		

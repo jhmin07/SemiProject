@@ -4,6 +4,8 @@ import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
 
+import myshop.model.OptionVO;
+
 public interface InterCartDAO {
 
 	// 로그인한 사용자가 가지고 있는 장바구니 리스트를 가져오는 메소드
@@ -23,6 +25,9 @@ public interface InterCartDAO {
 
 	// 장바구니에 담긴 물건 갯수알아오기 select
 	int getCartCount(String userid) throws SQLException ;
+
+	// 옵션내용알아오기
+	OptionVO getOptionInfo(String option)throws SQLException ;
 
 
 	
