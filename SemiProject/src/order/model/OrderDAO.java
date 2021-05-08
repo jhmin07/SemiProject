@@ -124,9 +124,10 @@ public class OrderDAO implements InterOrderDAO {
 				}
 			}
 //			System.out.println("~~~~~~ n3 : " + n3);
+			boolean cartFlag = !"".equals(paraMap.get("cartno_es")); // 카트번호 ""일 때
 			
-			// 4. 장바구니 테이블에서 주문상품된 상품 delete
-			if (paraMap.get("cartno_es") != null && n3 == 1) { // 장바구니에서 넘어와 결제가 진행되는 것이라면
+			// 4. 장바구니 테이블에서 주문상품된 상품 delete 
+			if (cartFlag && n3 == 1) { // 장바구니에서 넘어와 결제가 진행되는 것이라면
 				sql = "delete from tbl_cart "
 					+ "where cartno in ("+ (String)paraMap.get("cartno_es") + ")";
 				
