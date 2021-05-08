@@ -78,6 +78,49 @@ tr.odr_tr > td {
 }
 
 
+dfn {
+ /*  background: rgba(0,0,0,0.2); */
+  border-bottom: dashed 1px rgba(0,0,0,0.8);
+  padding: 0 0.4em;
+  /* cursor: help; */
+  position: relative;
+  
+}
+dfn::after {
+  content: attr(data-info);
+  display: inline;
+  position: absolute;
+  top: 22px; left: 0;
+  opacity: 0;
+  width: 230px;
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 1.5em;
+  padding: 0.5em 0.8em;
+  background: rgba(0,0,0,0.8);
+  color: #fff;
+  pointer-events: none; /* This prevents the box from apearing when hovered. */
+  transition: opacity 250ms, top 250ms;
+}
+dfn::before {
+  content: '';
+  display: block;
+  position: absolute;
+  top: 12px; left: 20px;
+  opacity: 0;
+  width: 0; height: 0;
+  border: solid transparent 5px;
+  border-bottom-color: rgba(0,0,0,0.8);
+  transition: opacity 250ms, top 250ms;
+}
+dfn:hover {z-index: 2;} /* Keeps the info boxes on top of other elements */
+dfn:hover::after,
+dfn:hover::before {opacity: 1;}
+dfn:hover::after {top: 30px;}
+dfn:hover::before {top: 20px;}
+
+
+
 </style>
 
 <script type="text/javascript">
@@ -92,7 +135,7 @@ $(document).ready(function(){
 	// Function Declaration
 	
 //특정 제품의 제품후기를 삭제하는 함수
- function delMyReview(review_seq){
+ function goReviewDel(review_seq){
 	   var bool = confirm("정말로 삭제하시겠습니까?");
 	   if(bool){
 		   $.ajax({
@@ -138,15 +181,15 @@ $(document).ready(function(){
 		</thead>
 		
 		<tbody>		
-			<c:if test="${empty requestScope.orderList}">
+			<c:if test="${empty requestScope.review}">
 				<tr>
 					<td colspan="7" align="center" class="ordertext">
-						주문한 상품이 없습니다.
+						회원님께서 작성하신 리뷰가 없습니다.
 					</td>
 				</tr>
 			</c:if>
 			
-			<c:if test="${not empty requestScope.orderList}">
+			<c:if test="${not empty requestScope.review}">
 			
 				<c:forEach var="review" items="${requestScope.review}" varStatus="status">
 				<tr>
@@ -156,20 +199,34 @@ $(document).ready(function(){
 					<td> <%-- 상품정보 --%>
 					<a href="<%= ctxPath%>/detailMenu/productDetailPage.up?pnum=${review.fk_pnum}">
 						<img src="<%= ctxPath%>/image/product/${review.pvo.fk_decode}/${review.pvo.pimage1}" width="130px"/>
-					</a>
-					<span>${review.pvo.pname}</span>	
+					</a><br>
+					<dfn data-info="상품 이미지를 클릭하시면 해당상품페이지로 넘어갑니다.">	<span>${review.pvo.pname}</span></dfn>
 					</td>
 					<td> <%-- 상품구매금액 --%>
 						<span id="totalprice">
 							<fmt:formatNumber value="${review.ovo.totalPrice}" pattern="###,###" />
-							
 						</span> 원
 					</td>
 					<td> <%-- 리뷰작성날짜 --%>
 						<span>${review.reviewRegisterday}</span>
 					</td>
 					<td> <%-- 별점 --%>
-						<span>${review.review_like}</span>
+						
+						<c:if test="${review.review_like == 1}"> 
+							<div> <span style="color:red;">★</span><span style="color:gray;">★★★★</span> </div>
+						</c:if>
+						<c:if test="${review.review_like == 2}"> 
+							<div> <span style="color:red;">★★</span><span style="color:gray;">★★★</span> </div>
+						</c:if>
+						<c:if test="${review.review_like == 3}"> 
+							<div> <span style="color:red;">★★★</span><span style="color:gray;">★★</span> </div>
+						</c:if>
+						<c:if test="${review.review_like == 4}"> 
+							<div> <span style="color:red;">★★★★</span><span style="color:gray;">★</span> </div>
+						</c:if>
+						<c:if test="${review.review_like == 5}"> 
+							<div> <span style="color:red;">★★★★★</span></div>
+						</c:if>
 					</td>
 					<td> <%-- 리뷰내용 --%>
 						<span>${review.reviewSubject}</span>
