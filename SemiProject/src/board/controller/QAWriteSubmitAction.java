@@ -64,14 +64,16 @@ public class QAWriteSubmitAction extends AbstractController {
     		qvo.setFk_userid(QAWriter);
     		qvo.setQaPwd(QAPwd);
     		// tbl_qaboard 테이블에 Q&A insert 하기
-            int n = qdao.QAInsert(qvo);
+    		int qaNo = qdao.getQAno(qvo);
+ 	        
+    		int n = qdao.QAInsert(qvo, qaNo);
 
 	        String message = "";
 	        String loc = "";
             
             if(n==1) {
                message = "Q&A등록 성공!!";
-               loc = request.getContextPath()+"/board/boardQA.up";
+               loc = request.getContextPath()+"/board/qaOneDetail.up?qaNo="+qaNo;
             }
             else {
                message = "Q&A등록 실패!!";

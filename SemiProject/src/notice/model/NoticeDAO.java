@@ -204,30 +204,60 @@ public class NoticeDAO implements InterNoticeDAO {
 		
 		return nvo;
 	}
+	
+	@Override
+	public int getCtno(NoticeVO nvo) throws SQLException {
+		int ctno = 0;
+	      try {
+	    	  conn = ds.getConnection();
+	 		  String sql = " select seq_tbl_noticeBoard_ctNo.nextval " + 
+	 					" from dual ";
+	       
 
+		       pstmt = conn.prepareStatement(sql);
+		       
+		       rs = pstmt.executeQuery();
+		       
+		       
+		       
+		       if(rs.next()) {
+		      	 ctno = Integer.parseInt(rs.getString(1));
+		       }
+		} finally {
+	         close();
+	      }
+	         
+	      return ctno;
+	}
 	// tbl_product 테이블에 공지사항 insert 하기
 	@Override
-	public int noticeInsert(NoticeVO nvo) throws SQLException {
+	public int noticeInsert(NoticeVO nvo, int ctno) throws SQLException {
 		int result = 0;
 	      
 	      try {
 	         conn = ds.getConnection();
 
+	        
+	         
 	         String sql = " insert into tbl_noticeBoard(ctNo, ctTitle,ctContent, fk_adId, ctRegisterday, ctViewcount) " +  
-	                    " values(seq_tbl_noticeBoard_ctNo.nextval,?,?,?,sysdate,0)";
+	                    " values(?,?,?,?,sysdate,0)";
 	     
 	         pstmt = conn.prepareStatement(sql);
-	         
-	         pstmt.setString(1, nvo.getCtContent());
+
+	         pstmt.setInt(1, ctno);
 	         pstmt.setString(2, nvo.getCtContent());
-	         pstmt.setString(3, nvo.getFk_adId());    
+	         pstmt.setString(3, nvo.getCtContent());
+	         pstmt.setString(4, nvo.getFk_adId());    
 	        
 	            
 	         result = pstmt.executeUpdate();
 	         
+	         
+	     
+	         
 	      } finally {
-	         close();
-	      }
+		         close();
+		  }
 	      
 	      return result;
 	}
@@ -307,6 +337,8 @@ public class NoticeDAO implements InterNoticeDAO {
 	      
 	      return result;
 	}
+
+
 	
 }	
 

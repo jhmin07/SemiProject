@@ -14,13 +14,15 @@ public interface InterQADAO {
 	QAVO qaOneDetail(String qaNo) throws SQLException;
 
 	// tbl_qaboard 테이블에 Q&A insert 하기
-	int QAInsert(QAVO qvo) throws SQLException;
-
 	int qaHitUp(int hit, int qaNo) throws SQLException;
 
 	int delQA(String qaNo) throws SQLException;
 
 	int QAUpdate(QAVO qvo) throws SQLException;
+
+	int getQAno(QAVO qvo) throws SQLException;
+
+	int QAInsert(QAVO qvo, int qaNo) throws SQLException;
 
 
 
