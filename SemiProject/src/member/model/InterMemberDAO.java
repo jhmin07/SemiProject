@@ -41,5 +41,8 @@ public interface InterMemberDAO {
 
 	// 내가쓴 리뷰들 불러오기
 	List<ReviewVO> getMyReviewList(String userid)throws SQLException;
+
+	// 상품을 샀는지 알아보는 메소드
+	boolean isBuy(String userid, String fk_pnum)throws SQLException;
 }
 
