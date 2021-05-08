@@ -40,6 +40,8 @@ public class OrderListAction extends AbstractController {
 			String fromDate = request.getParameter("fromDate");
 			String toDate = request.getParameter("toDate");
 			
+			request.setAttribute("fromDate", fromDate);
+			request.setAttribute("toDate", toDate);
 			// 오늘 날짜
 			Date now = new Date();
 			SimpleDateFormat smdatefm = new SimpleDateFormat("yyyy-MM-dd");						

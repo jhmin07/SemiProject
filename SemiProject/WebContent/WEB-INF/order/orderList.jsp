@@ -83,6 +83,23 @@ tr.odr_tr > td {
 <script type="text/javascript">
 $(document).ready(function(){
 	
+	
+	var today = new Date();
+	var dd = today.getDate();
+	var mm = today.getMonth()+1; //January is 0!
+	var yyyy = today.getFullYear();
+
+	if(dd<10) {
+	    dd='0'+dd
+	} 
+
+	if(mm<10) {
+	    mm='0'+mm
+	} 
+
+	today = yyyy+'-'+mm+'-'+dd;
+	//console.log(today);
+	
 	// === 전체 datepicker 옵션 일괄 설정하기 ===  
     //     한번의 설정으로 $("input#fromDate"), $('input#toDate')의 옵션을 모두 설정할 수 있다.
 	$(function() {
@@ -108,13 +125,24 @@ $(document).ready(function(){
 
 		// input을 datepicker로 선언
 		$("input#fromDate").datepicker();                    
-		$("input#toDate").datepicker();
+		$("input#toDate").datepicker();		
 		
-		// From의 초기값을 3개월 전으로 설정
-		$('input#fromDate').datepicker('setDate', '-3M'); // (-1D:하루전, -1M:한달전, -1Y:일년전), (+1D:하루후, +1M:한달후, +1Y:일년후)
-		// To의 초기값을 오늘로 설정
-		$('input#toDate').datepicker('setDate', 'today'); // (-1D:하루전, -1M:한달전, -1Y:일년전), (+1D:하루후, +1M:한달후, +1Y:일년후)
+		if($('input#hiddendate').val() == today || $('input#hiddendate').val() == ""){
+			// From의 초기값을 3개월 전으로 설정
+			$('input#fromDate').datepicker('setDate', '-3M'); // (-1D:하루전, -1M:한달전, -1Y:일년전), (+1D:하루후, +1M:한달후, +1Y:일년후)
+			// To의 초기값을 오늘로 설정
+			$('input#toDate').datepicker('setDate', 'today'); // (-1D:하루전, -1M:한달전, -1Y:일년전), (+1D:하루후, +1M:한달후, +1Y:일년후)		
+			}
+		else{
+			// From의 초기값을 3개월 전으로 설정
+			$('input#fromDate').datepicker('setDate', $('input#hiddendate').val()); 
+			// To의 초기값을 오늘로 설정
+			$('input#toDate').datepicker('setDate', $('input#hiddendate2').val()); 
+		}
+		
 	});
+	
+
 	
 });
 	
@@ -144,7 +172,9 @@ $(document).ready(function(){
 		$("#toDate").datepicker( "option", "minDate", startDate );
 		
 		// 시작일은 종료일 이후 날짜 선택하지 못하도록 비활성화
-		$("#fromDate").datepicker( "option", "maxDate", endDate );		
+		$("#fromDate").datepicker( "option", "maxDate", endDate );	
+		
+		
 	}
 
 	
@@ -153,13 +183,13 @@ $(document).ready(function(){
 		var frm = document.orderListFrm;
 		frm.action = "<%= ctxPath%>/order/orderList.up";
 		frm.method = "GET";
-		frm.submit();
+		frm.submit();		
+
 	}
 </script>
 
 <div class="container">	
 	<h2 align="center">ORDER LIST</h2>
-	
 	<%-- 주문 내역조회 날짜 보여주기 --%>
 	<div class="stateSelect">
 		<span style="font-weight: bold;">주문 내역 조회</span>
@@ -187,8 +217,9 @@ $(document).ready(function(){
 					<label for="dateType5">6개월</label>
 				</span>
 			</span>
-		
-			<input type="text" class="datepicker" id="fromDate" name="fromDate" autocomplete="off"> - <input type="text" class="datepicker" id="toDate" name="toDate" autocomplete="off">
+			<input type="hidden" value="${fromDate}" id="hiddendate"/>
+			<input type="hidden" value="${toDate}" id="hiddendate2"/>
+			<input type="text" class="datepicker" id="fromDate" name="fromDate" autocomplete="off" > - <input type="text" class="datepicker" id="toDate" name="toDate" autocomplete="off">
 			<span id="showOrderList" onclick="showOrderListByDate()">조회</span>
 		</form>
 	</div>
@@ -215,7 +246,7 @@ $(document).ready(function(){
 		<tbody>		
 			<c:if test="${empty requestScope.orderList}">
 				<tr>
-					<td colspan="7" align="center">
+					<td colspan="7" align="center" class="ordertext">
 						주문한 상품이 없습니다.
 					</td>
 				</tr>
@@ -226,6 +257,7 @@ $(document).ready(function(){
 				<c:forEach var="ordervo" items="${requestScope.orderList}" varStatus="status">
 				<tr>
 					<td> <%-- 주문일자 --%>
+						
 						<span>${ordervo.ord.orderDate}</span>
 					</td>
 					<td> <%-- 이미지 --%>
