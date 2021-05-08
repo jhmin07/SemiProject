@@ -16,6 +16,7 @@ public class OrderSuccessAction extends AbstractController {
 		InterOrderDAO odao = new OrderDAO();
 		
 		// == 배송지정보 테이블에 {주문코드,우편번호,주소,상세주소,주소참고항목,수취인,수취인연락처,배송메세지} 삽입하기(insert) == //
+		String recName = request.getParameter("recName");
 		String recMobile = request.getParameter("recMobile");
 		String recPostcode = request.getParameter("recPostcode");
 		String recAddress = request.getParameter("recAddress");
@@ -24,9 +25,10 @@ public class OrderSuccessAction extends AbstractController {
 		String dvMessage = request.getParameter("dvMessage");
 		String ordercode = request.getParameter("ordercode");
 		
-		System.out.println("ordercode: "+ordercode +"recMobile"+recMobile);
+//		System.out.println("ordercode: "+ordercode +"recMobile"+recMobile);
 		
 		DeliverInfoVO delivo = new DeliverInfoVO();
+		delivo.setRecName(recName);
 		delivo.setFk_orderCode(ordercode);
 		delivo.setRecMobile(recMobile);
 		delivo.setRecPostcode(recPostcode);
@@ -37,13 +39,20 @@ public class OrderSuccessAction extends AbstractController {
 		
 		int n = odao.deliverInfoInsert(delivo);
 		
+		// 주문 상세 내역 정보 받아오고 넘기기
+		String msg = "";
+		
+		
+		
 		if (n == 1) {
+			request.setAttribute("delivo", delivo);
+			
 			super.setRedirect(false);
 			super.setViewPage("/WEB-INF/order/orderSuccess.jsp");
 		}
 		else {
 			System.out.println("error");
-			request.setAttribute("message", "장바구니 담기 실패!!");
+			request.setAttribute("message", "주문 실패!!");
 			request.setAttribute("loc", "javascript:history.back()");
 			
 			super.setViewPage("/WEB-INF/msg.jsp");

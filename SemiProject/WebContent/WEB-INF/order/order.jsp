@@ -344,7 +344,7 @@ table.odr_info input[type=text]{
 	// == 결제하기 버튼 클릭 시 결제창 띄우기 == // 
 	function paymentGoFunc() {
 		// paymentComplete();
-		// submitOrderFrm("20210507-31");
+		
 		
 		var sumtotalPriceLast = Number($("span#sumtotalPriceLast").html().split(",").join(""));
 		console.log(sumtotalPriceLast);
@@ -361,12 +361,15 @@ table.odr_info input[type=text]{
 			alert("이용약관에 동의해주세요.");
 			return ;
 		}
+		
+		submitOrderFrm("20210507-31");
+		<%--
 		paymentComplete();
 		
 		var url = "<%=request.getContextPath()%>/order/goPayment.up?sumtotalPrice="+sumtotalPriceLast;
 		window.open(url, "goPayment", 
 					"left=350px, top=100px, width=820px, height=600px");
-		
+		--%>
 	}
 	
 	function paymentComplete() {
@@ -396,6 +399,11 @@ table.odr_info input[type=text]{
 	function submitOrderFrm(ordercode) {		
 		var frm = document.deliverInfoFrm;
 		$("input#ordercode").val(ordercode);
+		
+		var str_pinfo = "";
+		$("input.pinfo").each(function(index, item){
+			
+		});
 		
 		frm.action = "<%=request.getContextPath()%>/order/orderSuccess.up";
 		frm.method = "post";
@@ -436,6 +444,7 @@ table.odr_info input[type=text]{
 				<tr class="odr_tr">
 					<td><img class="odr_img" src="<%=ctxPath%>/image/product/${map.fk_decode}/${map.pimage1}" alt="<%=ctxPath%>/image/product/${map.fk_decode}/${map.pimage1}" ></td>
 					<td>${map.pname}</td>
+					<input name="pinfo" class="pinfo" value="${map.pname}" hidden/>
 					<td><fmt:formatNumber value="${map.price}" pattern="#,###" /> 원</td>
 					<td><fmt:formatNumber value="${map.oqty}" pattern="#,###" /></td>
 					<td><fmt:formatNumber value="${map.point}" pattern="#,###" /></td>
@@ -549,7 +558,7 @@ table.odr_info input[type=text]{
 				<tr>
 					<td>받으시는 분&nbsp;<span class="star">*</span></td>
 					<td>
-						<input type="text" name="name2" id="name2" class="requiredInfo" /> 
+						<input type="text" name="recName" id="name2" class="requiredInfo" /> 
 						<span class="error">성명은 필수입력 사항입니다.</span>
 					</td>
 				</tr>

@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.json.JSONObject;
+
 import common.controller.AbstractController;
 import member.model.MemberVO;
 import myshop.model.ProductVO;
@@ -31,19 +33,13 @@ public class OrderAction extends AbstractController {
 //			return;
 //		}
 		
-//		String pnum_es = request.getParameter("pnum_es");
-//		String oqty_es = request.getParameter("oqty_es");
-//		String cartno_es = request.getParameter("cartno_es");
-//		String totalPrice_es= request.getParameter("totalPrice_es");
-//		String sumtotalPrice = request.getParameter("sumtotalPrice");
-//		String sumtotalPoint = request.getParameter("sumtotalPoint");
-		
-		String pnum_es = "12,11,10";
-		String oqty_es = "1,1,1";
-		String cartno_es = "17,18,19";
-		String totalPrice_es= "40000,30000,30000";
-		String sumtotalPrice = "100000";
-		String sumtotalPoint = "100";
+		String pnum_es = request.getParameter("pnum_es");
+		String oqty_es = request.getParameter("oqty_es");
+		String cartno_es = request.getParameter("cartno_es");
+		String totalPrice_es= request.getParameter("totalPrice_es");
+		String sumtotalPrice = request.getParameter("sumtotalPrice");
+		String sumtotalPoint = request.getParameter("sumtotalPoint");
+//		System.out.println("pnum_es:"+pnum_es);
 		
 		String[] pnumArr = pnum_es.split(",");
 		String[] oqtyArr = oqty_es.split(",");
@@ -58,7 +54,6 @@ public class OrderAction extends AbstractController {
 		HttpSession session = request.getSession();
 		MemberVO loginuser = (MemberVO) session.getAttribute("loginuser");
 		String userid = loginuser.getUserid();
-//		String userid = "jeonyj";
 		
 		for (int i=0; i<length; i++) {
 			Map<String, String> map = new HashMap<>();
@@ -91,7 +86,6 @@ public class OrderAction extends AbstractController {
 		
 		super.setRedirect(false);
 		super.setViewPage("/WEB-INF/order/order.jsp");
-
 	}
 
 }
