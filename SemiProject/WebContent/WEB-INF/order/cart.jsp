@@ -363,13 +363,15 @@ $(document).ready(function(){
 	
 	function goOrder(){
 		
-		 var allCnt = $("input:checkbox[name=product]").length;
+		var checkCnt = $("input:checkbox[name=product]:checked").length;
 	       
-	      if(allCnt < 1) {
+	      if(checkCnt < 1) {
 	          alert("주문하실 제품을 선택하세요!!");
 	          return; //종료
 	       }
 	      else{
+	    	
+	    	  var allCnt = $("input:checkbox[name=product]").length;	  
 	    	  
 		   var pnumArr = new Array();
 	       var odAmountArr = new Array();

@@ -3,6 +3,7 @@ package member.model;
 import java.sql.SQLException;
 import java.util.*;
 
+import myshop.model.ReviewVO;
 import notice.model.NoticeVO;
 
 public interface InterMemberDAO {
@@ -37,5 +38,8 @@ public interface InterMemberDAO {
 
 	//이름알아오기
 	String getUserName(String userid)throws SQLException;
+
+	// 내가쓴 리뷰들 불러오기
+	List<ReviewVO> getMyReviewList(String userid)throws SQLException;
 }
 

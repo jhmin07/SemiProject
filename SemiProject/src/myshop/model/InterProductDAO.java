@@ -71,5 +71,17 @@ public interface InterProductDAO {
 	
 	// 제품번호를 가지고서 해당 제품의 옵션정보를 조회해오기
 	List<OptionVO> selectoname(String pnum) throws SQLException;
+
+	// 리뷰남기기 (insert)
+	int addComent(ReviewVO reviewsvo) throws SQLException;
+
+	// 리뷰리스트 불러오기(select)
+	List<ReviewVO> commentList(String fk_pnum) throws SQLException;
+
+	// 리뷰지우기
+	int reviewDel(String review_seq)throws SQLException;
+	
+	// 제품번호와 옵션분류명을 가지고서 해당 제품의 옵션정보를 조회해오기
+	List<OptionVO> selectProductOption(String pnum, String oname) throws SQLException;
 	
 }

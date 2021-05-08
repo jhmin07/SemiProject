@@ -49,11 +49,17 @@ li {
 
 <script type="text/javascript">
 	$( function() {
+	
+		 goloop(); 
+		 console.log("확인중0");
+/* 	$.each(${optionList}, function(index, item){	
+		console.log("ddd");
+	});	 */
 		
-	//	console.log("${optionList}");
-	//	console.log("${pvo}");
+	//	goloop();
+	//	console.log("${pvo.pnum}");
 	// console.log(${requestScope.pvo.fk_decode});	
-		
+	
 	var spinner = $( "#spinner" ).spinner();
 	
 	$("input#spinner").spinner({
@@ -71,9 +77,13 @@ li {
 	
 	}); // end of $(function(){});
 	
+	
+	
+	
+	// Function Declaration	
+	
 	function goCart() {
 		   // pnum 은 장바구니에 담을 제품번호 이다.
-		   console.log("dd")
 		   // === 주문량에 대한 유효성 검사하기 === //
 		   var frm = document.pdtFrm;
 		   frm.method = "post";
@@ -103,11 +113,47 @@ li {
 			   return; // 종료 
 		   } 
 */
+   
+	   } // end of function goCart(pnum) {}------------------------------------	
+	
 
+	   
+	function goloop() { 
 		   
-	   }// end of function goCart(pnum) {}------------------------------------	
-	
-	
+		console.log("확인중1");
+		   var oname = $("td#optname").val();
+		   console.log("td 는 ?? : " + oname);
+		   
+			 $.ajax({
+				   url:"<%= request.getContextPath()%>/detailMenu/productDetailOption.up",
+				   type:"get",
+				   data:{"pnum":"${pvo.pnum}"
+					    ,"oname":oname}, 
+				   dataType:"json",
+				   success:function(json){
+					   
+					   var html = "";		
+						   
+							 $.each(json, function(index, item){
+								 
+								 html += "<option>"+item.ocontents+"</option>";
+								 console.log("확인중2" + item.ocontents);
+							 });
+
+					   
+					   $("select#optocontents").html(html);
+					   console.log("확인중3");
+					   
+				   },
+				   error: function(request, status, error){
+						alert("code: "+request.status+"\n"+"message: "+request.responseText+"\n"+"error: "+error);
+				   }
+			   }); 
+		   
+	 } // end of function goloop() {}
+	   
+	   
+	   
 </script>
 
 <div id="detailcontainer" style="width:100%; margin-top: 100px; background-color: #f2f2f2; display: table; height: 500px;" align="center">
@@ -144,7 +190,7 @@ li {
 					<tr>
 					<tr>
 						<td class="pdt_main">PRICE</td>
-						<td class="pdt_sub">\ <fmt:formatNumber value="${requestScope.pvo.saleprice}" pattern="###,###" /></td>
+						<td class="pdt_sub"><fmt:formatNumber value="${requestScope.pvo.saleprice}" pattern="###,###" />&nbsp;원</td>
 					<tr>
 					<tr>
 						<td class="pdt_main">POINT</td>
@@ -157,20 +203,16 @@ li {
 	 						<input id="spinner" name="odAmount" size="3pt" value="1" style="height: 20px;">
 						</td>
 					<tr>
-								
-					<tr>				
-						<c:forEach begin="1" end="1" var="option" items="${optionList}" >		
-								<td>${option.oname}</td>
-						</c:forEach>
-						
-						<td>
-							  <select style="width: 150px;">
-						           <c:forEach var="option" items="${optionList}" >		
-								       <option value="">${option.ocontents}</option>
-						           </c:forEach>			
-							  </select>
-						</td>
-					</tr>	
+
+					<c:forEach var="option" items="${onameList}" >				
+						<tr>										
+							<td id="optname">${option.oname}</td>
+							<td>
+								  <select id="optocontents" style="width: 150px;">						       	
+							      </select>
+					        </td>
+						</tr>	
+					</c:forEach>										
 					
 				</tbody>
 			</table>
@@ -260,5 +302,5 @@ li {
 	</div>
 </div>
 
-
+<jsp:include page="review.jsp" />
 <jsp:include page="/WEB-INF/footer.jsp" />
