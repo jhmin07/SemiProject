@@ -117,7 +117,7 @@ li {
 	   } // end of function goCart(pnum) {}------------------------------------	
 	   
 	   
-	   
+	// === 주문 바로가기 === //   
 	function goOrder(){
 		var oqty = $("input[name=odAmount]").val();
 		var totalPrice = Number(oqty) * ${requestScope.pvo.saleprice};

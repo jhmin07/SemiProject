@@ -49,8 +49,6 @@ public class OrderAction extends AbstractController {
 		
 		// ===== 장바구니에서 넘어왔을 때 ====== //
 		if (cartno_es != null) {
-//			System.out.println("cart pass");
-			
 			String[] pnumArr = pnum_es.split(",");
 			String[] oqtyArr = oqty_es.split(",");
 			String[] cartnoArr = cartno_es.split(",");
@@ -87,7 +85,6 @@ public class OrderAction extends AbstractController {
 			
 		}
 		else { // ===== 바로 주문하기에서 넘어왔을 때 ====== //
-//			System.out.println("direct order");
 			Map<String, String> map = new HashMap<>();
 			
 			map.put("pnum", pnum_es);
