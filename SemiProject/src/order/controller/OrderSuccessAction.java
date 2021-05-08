@@ -39,10 +39,12 @@ public class OrderSuccessAction extends AbstractController {
 		
 		int n = odao.deliverInfoInsert(delivo);
 		
-		// 주문 상세 내역 정보 받아오고 넘기기
-		String msg = "";
+		// 주문메세지 받아오고 넘기기
+		String odrmsg = request.getParameter("odrmsg");
+		request.setAttribute("odrmsg", odrmsg);
 		
-		
+		// 주문 결제 금액 넘기기
+		request.setAttribute("sumtotalPrice", request.getParameter("sumtotalPrice"));
 		
 		if (n == 1) {
 			request.setAttribute("delivo", delivo);
