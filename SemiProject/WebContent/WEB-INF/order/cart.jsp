@@ -422,30 +422,49 @@ $(document).ready(function(){
 	       console.log("제품별금액들: "+str_totalPrice);
 	       console.log("제품별금액들의 총합계: "+sumtotalPrice);
 	       console.log("제품별포인트들의 총합계: "+sumtotalPoint); */
-		
-		 $.ajax({
-	     	 url:"<%=request.getContextPath()%>/order/order.up",
+			
+	       // order.up 에서 페이지 이동을 해야하므로 form 으로 데이터 전송 
+	       $("input[name=pnum_es]").val(str_pnum);
+	       $("input[name=oqty_es]").val(str_oqty);
+	       $("input[name=cartno_es]").val(str_cartno);
+	       $("input[name=totalPrice_es]").val(str_totalPrice);
+	       $("input[name=sumtotalPrice]").val(sumtotalPrice);
+	       $("input[name=sumtotalPoint]").val(sumtotalPoint);
+	       
+	       submitOdrTransInfoFrm();
+	       
+		<%--  $.ajax({
+	     	 url:"<%=request.getContextPath()%>/WEB-INF/order/order.up",
 	     	 type:"post",
-	     	 data:{"pnum_s":str_pnum,
-	     		 "oqty_s":str_oqty,
-	     		 "cartno_s":str_cartno,
-	     		 "totalPrice_s":str_totalPrice,
+	     	 data:{"pnum_es":str_pnum,
+	     		 "oqty_es":str_oqty,
+	     		 "cartno_es":str_cartno,
+	     		 "totalPrice_es":str_totalPrice,
 	     		 "sumtotalPrice":sumtotalPrice,
 	     		 "sumtotalPoint":sumtotalPoint},
 	     	dataType:"json",
 	     	success:function(json){
-	     		if(json.isSuccess==1){
-	     			location.href = "<%= request.getContextPath()%>/order/order.up";
-	     		}
-	     	},
+	     		alert("성공");
+	     		location.href = "<%= request.getContextPath()%>/order/order.up";
+	     	}, 
 	     	error: function(request, status, error){
 	             alert("code: "+request.status+"\n"+"message: "+request.responseText+"\n"+"error: "+error);
 	          } 
 	     	 
-	       }); 
+	       }); --%> 
 	      }
 		
 	}
+	
+	// === order.up 으로 데이터 전송 하기 === // 
+	function submitOdrTransInfoFrm() {
+		var frm = document.odrTransInfoFrm;
+		
+		frm.method = "post";
+		frm.action = "<%=request.getContextPath()%>/order/order.up";
+		frm.submit();
+	}
+	
 
 	 // === 장바구니 수량 수정하기 === //
    function goOqtyEdit(obj) {
@@ -686,6 +705,16 @@ $(document).ready(function(){
 	</div>
 </div>
  </form> 
+ 
+ <%-- order.up 으로 데이터 전송하기  --%>
+ <form name="odrTransInfoFrm">
+ 	<input type="hidden" name="pnum_es" />
+ 	<input type="hidden" name="oqty_es" />
+ 	<input type="hidden" name="cartno_es" />
+ 	<input type="hidden" name="totalPrice_es" />
+ 	<input type="hidden" name="sumtotalPrice" />
+ 	<input type="hidden" name="sumtotalPoint" />
+ </form>
 </div>
 
 
