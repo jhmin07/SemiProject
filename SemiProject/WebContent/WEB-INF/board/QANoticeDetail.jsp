@@ -26,7 +26,7 @@
    }
    div.NoticeDetailDiv{
    		margin-top: 200px;
-   		margin-bottom: 200px;
+   		margin-bottom: 100px;
    }
     table.NoticeDetail{
     	width: 100%;
