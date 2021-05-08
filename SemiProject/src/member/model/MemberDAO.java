@@ -11,7 +11,7 @@ import javax.sql.DataSource;
 import myshop.model.ProductVO;
 import myshop.model.ReviewVO;
 import notice.model.NoticeVO;
-import order.model.OderDetailVO;
+
 import order.model.OrderVO;
 import util.security.AES256;
 import util.security.SecretMyKey;
@@ -533,6 +533,51 @@ public class MemberDAO implements InterMemberDAO {
         }
         
         return commentList;
+	}
+
+	// 상품을 샀는지 알아보는 메소드
+	@Override
+	public boolean isBuy(String userid, String fk_pnum) throws SQLException {
+
+		boolean bool = false;
+		
+		try {
+			conn = ds.getConnection();
+			 
+			
+			String sql = " select fk_orderCode "+
+						 " from tbl_order_details D join "+
+						 " ( "+
+						 " select orderCode "+
+						 " from tbl_order O join tbl_member M "+
+						 " on O.fk_userid = M.userid "+
+						 " where M.userid = ? "+
+						 " ) W "+
+						 " on D.fk_orderCode = W.orderCode "+
+						 " where D.fk_pnum = ? ";
+				 
+			 pstmt = conn.prepareStatement(sql);
+			 pstmt.setString(1, userid);
+			 pstmt.setString(2, fk_pnum);
+			 
+			 rs = pstmt.executeQuery();
+			 
+			 if(rs.next()) {
+				
+				 if( rs.getString(1) != null ) {
+					 bool = true;
+				 }
+				 else {
+					 bool =false;
+				 }
+			 }
+			 //System.out.println("memberdao-> bool 값"+bool);
+		
+		} finally {
+			close();
+		}
+		
+		return bool;		
 	}
 	
 	

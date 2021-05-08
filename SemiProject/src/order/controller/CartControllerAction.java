@@ -51,6 +51,8 @@ public class CartControllerAction extends AbstractController {
 	         
 	         String optionNo_es = cvo.getOptionNo_es();
 	         
+	         System.out.println(optionNo_es);
+	         
 	         String optionNoArr [] = optionNo_es.split(",");
 	         
 	         String optionstr = "";
