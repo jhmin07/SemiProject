@@ -49,10 +49,12 @@ li {
 
 <script type="text/javascript">
 	$( function() {
-		
-		   $.each(${onameList}, function(index, item){
-			   console.log(${item.oname});		 
-			 )};	
+	
+		 goloop(); 
+		 console.log("확인중0");
+/* 	$.each(${optionList}, function(index, item){	
+		console.log("ddd");
+	});	 */
 		
 	//	goloop();
 	//	console.log("${pvo.pnum}");
@@ -118,34 +120,37 @@ li {
 	   
 	function goloop() { 
 		   
-			 <%-- $.ajax({
+		console.log("확인중1");
+		   var oname = $("td#optname").val();
+		   console.log("td 는 ?? : " + oname);
+		   
+			 $.ajax({
 				   url:"<%= request.getContextPath()%>/detailMenu/productDetailOption.up",
 				   type:"get",
 				   data:{"pnum":"${pvo.pnum}"
-					    ,"oname":"${requestScope.optionList.oname}"}, 
+					    ,"oname":oname}, 
 				   dataType:"json",
 				   success:function(json){
 					   
-					   var html = "";
-					   
-					   if(json.length > 0) {
+					   var html = "";		
 						   
 							 $.each(json, function(index, item){
 								 
 								 html += "<option>"+item.ocontents+"</option>";
-								 
-							 }
-					 	}
+								 console.log("확인중2" + item.ocontents);
+							 });
+
 					   
 					   $("select#optocontents").html(html);
+					   console.log("확인중3");
 					   
 				   },
 				   error: function(request, status, error){
 						alert("code: "+request.status+"\n"+"message: "+request.responseText+"\n"+"error: "+error);
 				   }
-			   }); --%>
+			   }); 
 		   
-	 } // end of function goloop() {} --%>
+	 } // end of function goloop() {}
 	   
 	   
 	   
@@ -185,7 +190,7 @@ li {
 					<tr>
 					<tr>
 						<td class="pdt_main">PRICE</td>
-						<td class="pdt_sub">\ <fmt:formatNumber value="${requestScope.pvo.saleprice}" pattern="###,###" /></td>
+						<td class="pdt_sub"><fmt:formatNumber value="${requestScope.pvo.saleprice}" pattern="###,###" />&nbsp;원</td>
 					<tr>
 					<tr>
 						<td class="pdt_main">POINT</td>
@@ -198,7 +203,7 @@ li {
 	 						<input id="spinner" name="odAmount" size="3pt" value="1" style="height: 20px;">
 						</td>
 					<tr>
-					
+
 					<c:forEach var="option" items="${onameList}" >				
 						<tr>										
 							<td id="optname">${option.oname}</td>
