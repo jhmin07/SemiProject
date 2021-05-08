@@ -46,7 +46,8 @@ public class OrderProcessAction extends AbstractController {
 		String cartno_es = request.getParameter("cartno_es");
 		String totalPrice_es= request.getParameter("totalPrice_es");
 		String sumtotalPrice = request.getParameter("sumtotalPrice");
-		String sumtotalPoint = request.getParameter("sumtotalPoint");		
+		String sumtotalPoint = request.getParameter("sumtotalPoint");	
+		String usePoint = request.getParameter("usePoint");
 //		System.out.println("~~~~ 확인용 pnum: " + pnum_es + ", oqty: " + oqty_es + ", sumtotalPrice: " + sumtotalPrice);
 		
 		JSONObject jsonObj = new JSONObject();
@@ -72,6 +73,7 @@ public class OrderProcessAction extends AbstractController {
 			paraMap.put("sumtotalPrice", sumtotalPrice);
 			paraMap.put("sumtotalPoint", sumtotalPoint);
 			
+			paraMap.put("usePoint", usePoint);
 
 			// == 주문상세내역 테이블에 {주문코드,제품번호,주문량,주문가격,배송상태,배송일자,옵션} insert 할 것들 == //
 			String[] pnumArr = pnum_es.split(",");
