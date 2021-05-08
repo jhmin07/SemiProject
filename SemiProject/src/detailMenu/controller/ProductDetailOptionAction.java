@@ -34,6 +34,7 @@ public class ProductDetailOptionAction extends AbstractController {
 				JSONObject jsonObj = new JSONObject(); // {}
 				
 				jsonObj.put("ocontents", optionvo.getOcontents());
+				jsonObj.put("optionNo", optionvo.getOptionNo());
 				
 				jsArr.put(jsonObj);				
 				

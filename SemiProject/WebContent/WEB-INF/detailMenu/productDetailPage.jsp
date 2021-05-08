@@ -127,10 +127,12 @@ li {
                        
                         $.each(json, function(index, item){
                            
-                           html += "<option value='"+item.optionNo+"'>"+item.ocontents+"</option>";
+                           html += " <option value='"+item.optionNo+"'>"+item.ocontents+"</option>";
                         });
                 
                     $this.next().children().html(html);
+                    
+                    
                     
                  },
                  error: function(request, status, error){
@@ -142,15 +144,18 @@ li {
       
       } // end of function goloop() {}  
       
-	function option(item) {
-			
-	     	var val = $(item).text();
-	     	console.log(val);
-			alert(val);
-			
-			html = "";
-		
-	}
+      function option(item) {
+          
+	          var option = "";
+	          $("select.ff").each(function(index,item){
+		       	  if(option != ""){
+		           option += ",";
+		       	  }
+		           option += $(this).children("option:selected").val();       	 	 
+          		});
+          	console.log(option);
+       		$("input#optionNo").val(option);
+  }
       
 	   
 </script>
@@ -207,7 +212,7 @@ li {
                   <tr>                              
                      <td class="dd">${option.oname}</td>
                      <td>
-                          <select name="optocontents" id="optocontents" onchange="option(this);" style="width: 150px;">               
+                          <select class ="ff" name="optocontents" id="${status.index}" onchange="option(this);" style="width: 150px;">                                      
                            </select>
                        </td>
                   </tr>   
@@ -218,8 +223,7 @@ li {
 			<button type="button"  onclick="goCart();" style="background-color: black; color: white;  width: 350px; margin-top: 10px; height: 30px;">장바구니에 담기</button>
 			<div id="datasubmit">
 			<input type="hidden" name="pnum" value="${requestScope.pvo.pnum}" />
-			<input type="hidden" name="optionNo" value="" />
-			<input type="hidden" name="ocontents" value="" />
+			<input type="hidden" id="optionNo"  name="optionNo" value="" />
 			</div>
 			<br>
 			<button type="button"  onclick="goOrder();" style="background-color: black; color: white;  width: 350px; margin-top: 10px; height: 30px;">주문하러 가기</button>
