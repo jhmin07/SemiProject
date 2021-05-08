@@ -16,7 +16,7 @@ public class GoCartAction extends AbstractController {
 		
 		String method = request.getMethod();
 	      
-		 System.out.println("ddas");
+		 
 		
 	      if(!"POST".equalsIgnoreCase(method)) {
 	         // GET 방식이라면
@@ -51,6 +51,10 @@ public class GoCartAction extends AbstractController {
 
 	    	  }
 	    	  else {
+					/*
+					 * String optionNo = request.getParameter("optionNo");
+					 * System.out.println(optionNo);
+					 */
 	    		  
 	    		  String pnum = request.getParameter("pnum"); // 제품번호
 	    		  String odAmount = request.getParameter("odAmount");		// 수량
