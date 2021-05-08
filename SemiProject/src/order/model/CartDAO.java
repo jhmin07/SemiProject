@@ -64,7 +64,7 @@ public class CartDAO implements InterCartDAO{
 	         conn = ds.getConnection();
 	         
 	         String sql = " select A.cartNo, A.fk_userid, A.fk_pnum, "+
-	                    "        B.pname, B.pimage1, B.price, B.saleprice, B.point, A.odAmount, B.fk_decode A.optionNo_es "+
+	                    "        B.pname, B.pimage1, B.price, B.saleprice, B.point, A.odAmount, B.fk_decode, A.optionNo_es "+
 	                    " from tbl_cart A join tbl_product B "+
 	                    " on A.fk_pnum = B.pnum "+
 	                    " where A.fk_userid = ? "+
