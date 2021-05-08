@@ -224,7 +224,7 @@ ul.payment_last > li {
 	<table class="table payment_table">
 		<thead>
 			<tr class="payment_thead">
-				<th>총 주문 금액&nbsp;&nbsp;<button class="payment_button">내역보기</button></th>
+				<th>총 주문 금액</th>
 				<th></th>
 				<th>총 할인 + 부가결제 금액</th>
 				<th></th>

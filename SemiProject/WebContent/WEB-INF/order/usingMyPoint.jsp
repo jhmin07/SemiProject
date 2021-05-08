@@ -70,9 +70,9 @@ span.p {
 		$("input:text[name=usingPoint]").blur(function(){
 			var inputVal = $("input:text[name=usingPoint]").val();
 			
-/* 			if (userPoint < inputVal) {
+			if (userPoint < inputVal) {
 				alert("사용가능한 포인트를 확인해주세요.");
-			} */
+			}
 		});
 		
 		$("button.ok").click(function(){

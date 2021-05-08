@@ -50,69 +50,61 @@ public class OrderProcessAction extends AbstractController {
 		String sumtotalPoint = request.getParameter("sumtotalPoint");	
 		String usePoint = request.getParameter("usePoint");
 //		System.out.println("~~~~ 확인용 pnum: " + pnum_es + ", oqty: " + oqty_es + ", sumtotalPrice: " + sumtotalPrice);
-		
+//		System.out.println("cartno_es => "+ cartno_es);
 		
 		JSONObject jsonObj = new JSONObject();
 		String json = "";
 		
-		// ***** 장바구니에서 주문하기로 넘어왔을 때 ***** // 
-		if (pnum_es != null && oqty_es != null && cartno_es != null 
-				&& totalPrice_es != null && sumtotalPrice != null && sumtotalPoint != null) {
-			
-			Map<String, Object> paraMap = new HashMap<>();
-			
-			/* autoCommit(false); 로 진행되어야 함. */
-			
-			// == 주문내역 테이블에 insert 할 것들 == //
-			HttpSession session = request.getSession();
-			MemberVO loginuser = (MemberVO)session.getAttribute("loginuser");
-			paraMap.put("fk_userid", loginuser.getUserid());
+		Map<String, Object> paraMap = new HashMap<>();
+		
+		/* autoCommit(false); 로 진행되어야 함. */
+		
+		// == 주문내역 테이블에 insert 할 것들 == //
+		HttpSession session = request.getSession();
+		MemberVO loginuser = (MemberVO)session.getAttribute("loginuser");
+		paraMap.put("fk_userid", loginuser.getUserid());
 //			paraMap.put("fk_userid", "jeonyj");
-			
-			String ordercode = getOrdercode();
-			paraMap.put("ordercode", ordercode);
-			
-			paraMap.put("sumtotalPrice", sumtotalPrice);
-			paraMap.put("sumtotalPoint", sumtotalPoint);
-			
-			paraMap.put("usePoint", usePoint);
+		
+		String ordercode = getOrdercode();
+		paraMap.put("ordercode", ordercode);
+		
+		paraMap.put("sumtotalPrice", sumtotalPrice);
+		paraMap.put("sumtotalPoint", sumtotalPoint);
+		
+		paraMap.put("usePoint", usePoint);
 
-			// == 주문상세내역 테이블에 {주문코드,제품번호,주문량,주문가격,배송상태,배송일자,옵션} insert 할 것들 == //
-			String[] pnumArr = pnum_es.split(",");
-			String[] oqtyArr = oqty_es.split(",");
-			String[] totalPriceArr = totalPrice_es.split(",");
-			String[] optionArr = option_es.split(",");
-			
-			paraMap.put("pnumArr", pnumArr);
-			paraMap.put("oqtyArr", oqtyArr);
-			paraMap.put("totalPriceArr", totalPriceArr);
-			paraMap.put("optionArr", optionArr);
-			
-			// == 장바구니 테이블에 주문한 상품들 delete 할 것들 == //
-			paraMap.put("cartno_es", cartno_es);
-			
-			
-			int isSuccess = odao.orderInsertProcess(paraMap);
-			
-			jsonObj.put("isSuccess", isSuccess);
-			jsonObj.put("ordercode", ordercode);
-			
-			json = jsonObj.toString();
+		// == 주문상세내역 테이블에 {주문코드,제품번호,주문량,주문가격,배송상태,배송일자,옵션} insert 할 것들 == //
+		String[] pnumArr = pnum_es.split(",");
+		String[] oqtyArr = oqty_es.split(",");
+		String[] totalPriceArr = totalPrice_es.split(",");
+		String[] optionArr = option_es.split(",");
+		
+		paraMap.put("pnumArr", pnumArr);
+		paraMap.put("oqtyArr", oqtyArr);
+		paraMap.put("totalPriceArr", totalPriceArr);
+		paraMap.put("optionArr", optionArr);
+		
+		// == 장바구니 테이블에 주문한 상품들 delete 할 것들 == //
+		paraMap.put("cartno_es", cartno_es);
+		
+		
+		int isSuccess = odao.orderInsertProcess(paraMap);
+		
+		jsonObj.put("isSuccess", isSuccess);
+		jsonObj.put("ordercode", ordercode);
+		
+		json = jsonObj.toString();
 
-			if (isSuccess == 1) {
-				
-				// 주문자 정보(포인트 증가/감소) 업데이트하기
-				loginuser.setPoint(loginuser.getPoint() + Integer.parseInt(sumtotalPoint) - Integer.parseInt(usePoint));
-			}
-			else {
-				System.out.println("실패!!");
-			}
+		if (isSuccess == 1) {
 			
+			// 주문자 정보(포인트 증가/감소) 업데이트하기
+			loginuser.setPoint(loginuser.getPoint() + Integer.parseInt(sumtotalPoint) - Integer.parseInt(usePoint));
 		}
-		else if (pnum_es != null && oqty_es != null && cartno_es == null 
-				&& totalPrice_es != null && sumtotalPrice != null && sumtotalPoint != null) {
+		else {
+			System.out.println("실패!!");
+		}
 			
-		}
+		
 		
 		json = jsonObj.toString();
 		request.setAttribute("json", json);
