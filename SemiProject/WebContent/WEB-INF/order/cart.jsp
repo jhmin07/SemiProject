@@ -379,7 +379,7 @@ $(document).ready(function(){
 	       var totalPriceArr = new Array();
 	       var totalPointArr = new Array();
 	       var totalBeforeArr = new Array();
-	      
+	       var optionstrArr = new Array();
 	       
 	       for(var i=0; i<allCnt; i++){
 	     	  
@@ -390,7 +390,7 @@ $(document).ready(function(){
 	     		  totalPriceArr.push( $("input#totalPrice").eq(i).val() );
 	     		  totalPointArr.push( $("input#totalPoint").eq(i).val() );
 	     		  totalBeforeArr.push ( $("input:text[name=price]").eq(i).val() * $("input.odAmount").eq(i).val() );
-	     		  
+	     		  optionstrArr.push( $("input#optionstrArr").eq(i).val() );
 	     	  }
 	     	  
 	       }// end of for-----------------------------
@@ -413,6 +413,7 @@ $(document).ready(function(){
 	 	   var str_cartno= cartNoArr.join();
 	       var str_totalPrice= totalPriceArr.join();
 	       var sumtotalPoint = 0;
+	       var str_optionstr= optionstrArr.join();
 	       
 	      for(var i=0; i<totalPointArr.length; i++){            	                	
 	       	sumtotalPoint+=parseInt(totalPointArr[i]);           	  
@@ -432,6 +433,7 @@ $(document).ready(function(){
 	       $("input[name=totalPrice_es]").val(str_totalPrice);
 	       $("input[name=sumtotalPrice]").val(sumtotalPrice);
 	       $("input[name=sumtotalPoint]").val(sumtotalPoint);
+	       $("input[name=optionstr]").val(str_optionstr);
 	       
 	       submitOdrTransInfoFrm();
 	       
@@ -624,13 +626,17 @@ $(document).ready(function(){
  	
 	                    </a> 
                     </td>
-					<td style="width:220px; text-align: left;" ><span class="cart_pname">${cartvo.prod.pname}</span><br><span id="cart_productOption"style="font-size: 11px;">옵션</span></td>
+					<td style="width:220px; text-align: left;" >
+						<span class="cart_pname">${cartvo.prod.pname}</span><br>
+						<span id="cart_productOption"style="font-size: 11px;">${requestScope.optionstr}</span>
+						<input type="hidden" id="optionstr"  value="${requestScope.optionstr}" />
+					</td>
 						
 				   <td align="right" style="width:100px; text-align: left;"> <%-- 실제판매단가 및 포인트 --%> 
 				      
 				       <input  type="text" style="color: red; font-size: 13px; text-decoration: line-through; width:60px; border:none;border-right:0px; border-top:0px; boder-left:0px; boder-bottom:0px;" name="price"  value="${cartvo.prod.price}" />
-	                   <fmt:formatNumber value="${cartvo.prod.saleprice}" pattern="###,###" /> 원
-	                   <input type="hidden" name="saleprice"  value="${cartvo.prod.saleprice}" />
+	                   <fmt:formatNumber value="${cartvo.prod.saleprice + requestScope.SumAddprice}" pattern="###,###" /> 원
+	                   <input type="hidden" name="saleprice"  value="${cartvo.prod.saleprice + requestScope.SumAddprice}" /> <!-- SumAddprice -->
 	                   <br/><span style="color: green; font-weight: bold; font-size: 11px;;"><fmt:formatNumber value="${cartvo.prod.point}" pattern="###,###" /> POINT</span>
                	   </td>
                	   
@@ -683,10 +689,6 @@ $(document).ready(function(){
          </tr>
          <!-- <tr class="side_cart" id="discount_price_in_cart" ></tr> -->
   
-         <tr class="side_cart" id="side_hr">
-         	<td> + 배송비 : </td>
-         	<td><fmt:formatNumber value="2500" pattern="#,###" />원</td>
-         </tr>
 
          <tr class="side_cart" id="side_cart_totalPrice">
             <td>합계 : </td>
