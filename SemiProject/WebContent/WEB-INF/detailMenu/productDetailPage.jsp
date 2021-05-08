@@ -127,46 +127,43 @@ li {
 		   
     } // end of function goOrder(){}
 
-	   
-    
-	function goloop() { 
-		   var html = "";		
-		   // var oname = document.getElementById("optname").innerText;
-		   // var oname = $("input#oname").val();
-		 		
-		  	for(var i=0; i<2; i++ ){
-			   var oname = document.getElementsByClassName(i).text();
-		  	   console.log("td 는 ?? : " + oname);		  	
-		   	
-			 $.ajax({
-				   url:"<%= request.getContextPath()%>/detailMenu/productDetailOption.up",
-				   type:"get",
-				   data:{"pnum":"${pvo.pnum}"
-					    ,"oname":oname}, 
-				   dataType:"json",
-				   success:function(json){
-					   
-					   var html = "";		
-						   
-							 $.each(json, function(index, item){
-								 
-								 html += "<option>"+item.ocontents+"</option>";
-								 console.log("확인중2" + item.ocontents);
-							 });
+    function goloop() { 
+        
+        console.log("확인중1");   
+        var oname="";
+        $("td.dd").each(function(index,item){
+           var $this = $(this);
+           oname = $(this).text();
+                console.log("td 는 ?? : " + $(this).text());   
+              $.ajax({
+                 url:"<%= request.getContextPath()%>/detailMenu/productDetailOption.up",
+                 type:"get",
+                 data:{"pnum":"${pvo.pnum}"
+                     ,"oname":oname}, 
+                 dataType:"json",
+                 success:function(json){
+                    
+                    var html = "";      
+                       
+                        $.each(json, function(index, item){
+                           
+                           html += "<option>"+item.ocontents+"</option>";
+                           console.log("확인중2" + item.ocontents);
+                        });
 
-					   
-					   $("select#optocontents").html(html);
-					   console.log("확인중3");
-					   
-				   },
-				   error: function(request, status, error){
-						alert("code: "+request.status+"\n"+"message: "+request.responseText+"\n"+"error: "+error);
-				   }
-			   }); 
-		  	}
-	 } // end of function goloop() {}
-	   
-	   
+                    
+                    $this.next().children().html(html);
+                    console.log("확인중3");
+                    
+                 },
+                 error: function(request, status, error){
+                    alert("code: "+request.status+"\n"+"message: "+request.responseText+"\n"+"error: "+error);
+                 }
+              }); 
+              });
+        
+      
+      } // end of function goloop() {}  
 	   
 </script>
 
@@ -218,17 +215,15 @@ li {
 						</td>
 					<tr>
 
-					<c:forEach var="option" items="${onameList}"  varStatus="status">
-					<%-- <input type="hidden" name="pnum" value="${requestScope.pvo.pnum}" />	
-					<input type="hidden" name="pnum" value="${requestScope.pvo.pnum}" />		 --%>			
-						<tr>										
-							<td class="${status.index}">${option.oname}</td>
-							<td>
-								  <select id="optocontents" style="width: 150px;" >						       	
-							      </select>
-					        </td>
-						</tr>	
-					</c:forEach>										
+					<c:forEach var="option" items="${onameList}" >            
+                  <tr>                              
+                     <td class="dd">${option.oname}</td>
+                     <td>
+                          <select id="optocontents" style="width: 150px;">                            
+                           </select>
+                       </td>
+                  </tr>   
+               </c:forEach>   								
 					
 				</tbody>
 			</table>
