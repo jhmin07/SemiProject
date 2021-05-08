@@ -1,7 +1,5 @@
 package order.model;
 
-import myshop.model.ProductVO;
-
 public class OrderVO {
 	
 	private String orderCode;	// 주문코드
@@ -9,9 +7,7 @@ public class OrderVO {
 	private int totalPrice;		// 주문총액
 	private int totalPoint;		// 주문총포인트
 	private String orderDate;	// 주문일자
-	
-	private ProductVO prod;		// 제품정보객체(오라클로 말하면 부모테이블)
-	
+		
 	public OrderVO() { }
 	
 	public String getOrderCode() {
@@ -54,13 +50,6 @@ public class OrderVO {
 		this.orderDate = orderDate;
 	}
 
-	public ProductVO getProd() {
-		return prod;
-	}
 
-	public void setProd(ProductVO prod) {
-		this.prod = prod;
-	}
-	
 
 }
