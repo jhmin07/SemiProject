@@ -135,6 +135,9 @@ function goCart() {
 	var userid = "${sessionScope.loginuser.userid}";
 	location.href="<%= request.getContextPath()%>/order/cartController.up?userid="+userid;
 }
+function goOrderList(){	
+	location.href= "<%= ctxPath%>/order/orderList.up";
+}
 	
 
 </script>
@@ -161,7 +164,7 @@ function goCart() {
 	  	<c:if test="${not empty sessionScope.loginuser || not empty sessionScope.loginadmin}">
 		 	<span class="submenubtn" onclick="LogOut()" >로그아웃</span>|
 		 </c:if>			 
-		 <span class="submenubtn" >주문내역</span>|
+		 <span class="submenubtn" onclick="goOrderList()">주문내역</span>|
 		 <span class="submenubtn" id="Notice" onClick="goBoard();" >고객센터</span>
 	  </div>
 	</div>
