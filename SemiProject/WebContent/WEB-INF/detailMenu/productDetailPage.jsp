@@ -26,7 +26,7 @@ td.pdt_main {
 }
 
 a {
-	background-color: black;
+	/* background-color: black; */
 	color: white;
 	font-weight: bold;
 }
