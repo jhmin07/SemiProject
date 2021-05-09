@@ -26,7 +26,7 @@
    }
    div.NoticeDetailDiv{
    		margin-top: 200px;
-   		margin-bottom: 200px;
+   		margin-bottom: 100px;
    }
     table.NoticeDetail{
     	width: 100%;
@@ -164,7 +164,11 @@
 									   '<td class="addno">'+addno+'</td>';
 									   console.log(addno+ "," +addno1);
 									   if(addno == addno1){
-										   html+='<td class="addSubject"><form name="modiFrm"><input style="height: 100px; width:250px;" value="'+addSubject+'" name="modiContent"/><input name="addno" type="hidden" value="'+addno1+'" />&nbsp;<button onClick="commentModiSubmit()">수정완료</button></form></td>';
+										 html+='<td class="addSubject">'+
+										   		 '<form name="modiFrm">'+
+										   		  '<input style="height: 100px; width:250px;" value="'+addSubject+'" name="modiContent"/>'+
+										   		 	'<input name="addno" type="hidden" value="'+addno1+'" />&nbsp;'+
+										   		 	  '<button onClick="commentModiSubmit()">수정완료</button></form></td>';
 									   }
 									   else{
 										   html+='<td class="addSubject">'+addSubject+'</td>';

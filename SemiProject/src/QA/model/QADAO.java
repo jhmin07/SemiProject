@@ -210,17 +210,17 @@ public class QADAO implements InterQADAO {
 
 	// tbl_qaboard 테이블에 Q&A insert 하기
 	@Override
-	public int QAInsert(QAVO qvo) throws SQLException {
+	public int QAInsert(QAVO qvo, int qano) throws SQLException {
 	      int result = 0;
 	      try {
 	         conn = ds.getConnection();
 
 	         String sql = " insert into tbl_qaBoard(qaNo, qaTitle, qaContent, qaPwd, fk_userid, qaRegisterday, qaViewcount) " +  
-	                    " values(seq_tbl_qaBoard_qaNo.nextval, ? , ? , ? , ? , sysdate,0)";
+	                    " values(?, ? , ? , ? , ? , sysdate,0)";
 	     
 	         pstmt = conn.prepareStatement(sql);
 	         
-	         pstmt.setString(1, qvo.getQaTitle());
+	         pstmt.setInt(1, qano);
 	         pstmt.setString(2, qvo.getQaContent());
 	         pstmt.setString(3, qvo.getQaPwd()); 
 	         pstmt.setString(4, qvo.getFk_userid());     
@@ -308,6 +308,31 @@ public class QADAO implements InterQADAO {
 	      }
 	      
 	      return result;
+	}
+
+	@Override
+	public int getQAno(QAVO qvo) throws SQLException {
+		int qano = 0;
+	      try {
+	    	  conn = ds.getConnection();
+	 		  String sql = " select seq_tbl_qaBoard_qaNo.nextval " + 
+	 					" from dual ";
+	       
+
+		       pstmt = conn.prepareStatement(sql);
+		       
+		       rs = pstmt.executeQuery();
+		       
+		       
+		       
+		       if(rs.next()) {
+		      	 qano = Integer.parseInt(rs.getString(1));
+		       }
+		} finally {
+	         close();
+	      }
+	         
+	      return qano;
 	}
 
 	

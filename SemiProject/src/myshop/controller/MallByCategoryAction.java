@@ -11,6 +11,8 @@ public class MallByCategoryAction extends AbstractController {
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		// TODO Auto-generated method stub
 		
+		super.goBackURL(request);
+		
 	}
 
 }

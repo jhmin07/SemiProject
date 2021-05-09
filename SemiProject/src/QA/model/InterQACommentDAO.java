@@ -15,4 +15,6 @@ public interface InterQACommentDAO {
 
 	int commentUpdate(QACommentVO qacvo) throws SQLException;
 
+	int getQAno(String addno) throws SQLException;
+
 }

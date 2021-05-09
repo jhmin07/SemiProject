@@ -183,4 +183,31 @@ public class QACommentDAO implements InterQACommentDAO {
 	      
 	      return result;	}
 
+	@Override
+	public int getQAno(String addno) throws SQLException {
+		int n =0;
+	      try {
+	         conn = ds.getConnection();
+
+	         String sql = " select fk_qano " +  
+	                      " from tbl_coment " +
+	                      " where addno = ? ";
+	     
+	         pstmt = conn.prepareStatement(sql);
+	         
+	         pstmt.setString(1, addno);  
+	        
+	         rs = pstmt.executeQuery();
+	         if(rs.next()) {
+		         n = rs.getInt(1);
+		        }
+	      } catch (SQLException e) {
+			e.printStackTrace();
+		 } finally {
+	         close();
+	      }
+	      
+	      return n;
+	}
+
 }

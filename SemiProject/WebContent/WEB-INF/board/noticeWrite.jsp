@@ -58,6 +58,7 @@
 	
 	div#noticeWrite{
 		margin-top: 100px;
+		margin-bottom: 100px;
 	}
 	input.noticeTitle{
 		font-size: 10pt;
@@ -77,6 +78,15 @@
 		font-size: 15pt;
 		padding-left: 30px;
 	}
+	button#NoticeWriteButton{
+		width: 150px; 
+	   	height: 40px; 
+		color: white; 
+		background-color: #bfbfbf;
+	   	font-size: 22px; 
+	   	font-weight: bold; 
+	   	border: none;
+   	}
 </style>
 
 <script type="text/javascript">
@@ -156,7 +166,7 @@ function goWrite(){
 			</tbody>
 		</table>
 		<br><br>
-		<button onClick="goWrite();" style="background-color: #196666; color: white; height: 50px; width: 150px; font-size: 25px; font-weight: bold;">작성완료</button>
+		<button id="NoticeWriteButton" onClick="goWrite();">작성완료</button>
 	</form>
 
 </div>

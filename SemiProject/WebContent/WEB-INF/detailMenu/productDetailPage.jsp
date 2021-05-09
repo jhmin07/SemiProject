@@ -26,7 +26,7 @@ td.pdt_main {
 }
 
 a {
-	background-color: black;
+	/* background-color: black; */
 	color: white;
 	font-weight: bold;
 }
@@ -51,14 +51,6 @@ li {
 	$( function() {
 	
 		 goloop(); 
-		 console.log("확인중0");
-/* 	$.each(${optionList}, function(index, item){	
-		console.log("ddd");
-	});	 */
-		
-	//	goloop();
-	//	console.log("${pvo.pnum}");
-	// console.log(${requestScope.pvo.fk_decode});	
 	
 	var spinner = $( "#spinner" ).spinner();
 	
@@ -73,50 +65,70 @@ li {
                return false;
             }
          }
-	});
+	});	     
 	
 	}); // end of $(function(){});
 	
-	
-	
-	
 	// Function Declaration	
 	
-	function goCart() {
-		   // pnum 은 장바구니에 담을 제품번호 이다.
-		   // === 주문량에 대한 유효성 검사하기 === //
-		   var frm = document.pdtFrm;
-		   frm.method = "post";
-		   frm.action = "<%= request.getContextPath()%>/order/goCart.up";
-		   frm.submit();
-		   
-/* 		   
- 
- 		   var regExp = /^[0-9]+$/; // 숫자만 체크하는 정규표현식 
-		   var odAmount = frm.odAmount.value;
-		   var bool = regExp.test(odAmount);
-		   
-		   if(!bool) {
-			   // 숫자 이외의 값이 들어온 경우
-			   alert("주문갯수는 1개 이상이어야 합니다.");
-			   frm.odAmount.value = "1";
-			   frm.odAmount.focus();
-			   return; // 종료 
-		   }
-		   
-		   // 문자형태로 숫자로만 들어온 경우 
-		   odAmount = parseInt(odAmount);
-		   if(odAmount < 1) {
-			   alert("주문갯수는 1개 이상이어야 합니다.");
-			   frm.odAmount.value = "1";
-			   frm.odAmount.focus();
-			   return; // 종료 
-		   } 
-*/
+	function goCart() {	
+		
+			if ( $("select.listoname").val() != null ) {	
+				
+				if ( $("input#optionNo0").val() != "00" && $("input#optionNo1").val() != "00" ) {
+					
+					if ( $("input#optionNo0").val() != "" && $("input#optionNo1").val() != "" ) {
+						
+						var frm = document.pdtFrm;
+						frm.method = "post";
+						frm.action = "<%= request.getContextPath()%>/order/goCart.up";
+						frm.submit();
+						
+					}
+					else if ( $("input#optionNo0").val() == "" && $("input#optionNo1").val() != "" ) {
+						
+						alert("옵션 선택은 필수입니다.");
+						return false;
+						
+					}
+					else if ( $("input#optionNo0").val() != "" && $("input#optionNo1").val() == "" ) {
+						
+						alert("옵션 선택은 필수입니다.");
+						return false;
+						
+					}
+					else if ( $("input#optionNo0").val() == "" && $("input#optionNo1").val() == "" ) {
+						
+						alert("옵션 선택은 필수입니다.");
+						return false;
+						
+					}
+					
+				}					
+				else if ( $("input#optionNo0").val() != "00" && $("input#optionNo1").val() == "00" ) {
+					alert("옵션 선택은 필수입니다.");
+					return false;
+				}
+				else if ( $("input#optionNo0").val() == "00" && $("input#optionNo1").val() != "00" ) {
+					alert("옵션 선택은 필수입니다.");
+					return false;
+				}
+				else if ( $("input#optionNo0").val() != "00" && $("input#optionNo1").val() != "00" ) {
+					alert("옵션 선택은 필수입니다.");
+					return false;
+				}
+			
+			}
+			else {
+				var frm = document.pdtFrm;
+				frm.method = "post";
+				frm.action = "<%= request.getContextPath()%>/order/goCart.up";
+				frm.submit();
+			}
    
 	   } // end of function goCart(pnum) {}------------------------------------	
 	   
-	   
+   
 	// === 주문 바로가기 === //   
 	function goOrder(){
 		var oqty = $("input[name=odAmount]").val();
@@ -132,41 +144,93 @@ li {
 		$("input[name=sumtotalPrice]").val(totalPrice);
 		$("input[name=sumtotalPoint]").val(totalPoint);
 		
-		var frm = document.goOrderFrm;
-		frm.method = "post";
-		frm.action = "<%= request.getContextPath()%>/order/order.up";
-		frm.submit();
-		   
+		if ( $("select.listoname").val() != null ) {	
+		
+			if ( $("select.listoname").val() == "" ) {
+				var frm = document.goOrderFrm;
+				frm.method = "post";
+				frm.action = "<%= request.getContextPath()%>/order/order.up";
+				frm.submit();
+			}
+			if ( $("input#optionNo0").val() != "00" && $("input#optionNo1").val() != "00" ) {
+				
+				if ( $("input#optionNo0").val() != "" && $("input#optionNo1").val() != "" ) {
+					
+					var frm = document.goOrderFrm;
+					frm.method = "post";
+					frm.action = "<%= request.getContextPath()%>/order/order.up";
+					frm.submit();
+					
+				}
+				else if ( $("input#optionNo0").val() == "" && $("input#optionNo1").val() != "" ) {
+					
+					alert("옵션 선택은 필수입니다.");
+					return false;
+					
+				}
+				else if ( $("input#optionNo0").val() != "" && $("input#optionNo1").val() == "" ) {
+					
+					alert("옵션 선택은 필수입니다.");
+					return false;
+					
+				}
+				else if ( $("input#optionNo0").val() == "" && $("input#optionNo1").val() == "" ) {
+					
+					alert("옵션 선택은 필수입니다.");
+					return false;
+					
+				}
+				
+				}					
+				else if ( $("input#optionNo0").val() != "00" && $("input#optionNo1").val() == "00" ) {
+					alert("옵션 선택은 필수입니다.");
+					return false;
+				}
+				else if ( $("input#optionNo0").val() == "00" && $("input#optionNo1").val() != "00" ) {
+					alert("옵션 선택은 필수입니다.");
+					return false;
+				}
+				else if ( $("input#optionNo0").val() != "00" && $("input#optionNo1").val() != "00" ) {
+					alert("옵션 선택은 필수입니다.");
+					return false;
+				}		
+			
+		}
+		else {
+			var frm = document.goOrderFrm;
+			frm.method = "post";
+			frm.action = "<%= request.getContextPath()%>/order/order.up";
+			frm.submit();
+		}   
     } // end of function goOrder(){}
-
+    
     function goloop() { 
         
-        console.log("확인중1");   
         var oname="";
-        $("td.dd").each(function(index,item){
+        
+        $("td.listoname").each(function(index,item){
+        	
            var $this = $(this);
            oname = $(this).text();
-                console.log("td 는 ?? : " + $(this).text());   
+           
               $.ajax({
                  url:"<%= request.getContextPath()%>/detailMenu/productDetailOption.up",
                  type:"get",
                  data:{"pnum":"${pvo.pnum}"
-                     ,"oname":oname}, 
+                        ,"oname":oname}, 
                  dataType:"json",
                  success:function(json){
                     
-                    var html = "";      
+                    var html = "<option value='00'>옵션을 선택해주세요</option>";      
                        
                         $.each(json, function(index, item){
+						                    
+                           html += " <option value='"+item.optionNo+"'>"+item.ocontents+"</option>";
                            
-                           html += "<option>"+item.ocontents+"</option>";
-                           console.log("확인중2" + item.ocontents);
                         });
-
-                    
+                
                     $this.next().children().html(html);
-                    console.log("확인중3");
-                    
+                  
                  },
                  error: function(request, status, error){
                     alert("code: "+request.status+"\n"+"message: "+request.responseText+"\n"+"error: "+error);
@@ -176,6 +240,26 @@ li {
         
       
       } // end of function goloop() {}  
+      
+      function option(item) {     
+	          
+	          for(var i=0; i<2; i++){
+	        	  
+		        	  var option = "";
+		        	  
+				          $("select."+i+"").each(function(index,item){
+			
+					       		option += $(this).children("option:selected").val(); 
+					       		
+				          });  // end of  $("select."+i+"").each(function(index,item){})
+			          
+		          	 console.log(option);
+		       		$("input#optionNo"+i+"").val(option);
+	          
+	          } // end of for
+       		
+  	  } // end of  function option(item) {
+      
 	   
 </script>
 
@@ -208,6 +292,8 @@ li {
 			<input hidden name="totalPrice_es" />
 			<input hidden name="sumtotalPrice" />
 			<input hidden name="sumtotalPoint" />
+			<input type="hidden" id="optionNo0"  name="optionNo0"/>
+			<input type="hidden" id="optionNo1"  name="optionNo1"/>
 		</form>
 		
 		<form name="pdtFrm">
@@ -216,7 +302,7 @@ li {
 					<tr>
 						<td class="pdt_main">NAME</td>
 						<td class="pdt_sub" >
-							<span > ${requestScope.pvo.pname}</span>
+							<span> ${requestScope.pvo.pname}</span>
 						</td>
 					<tr>
 					<tr>
@@ -231,15 +317,15 @@ li {
 						<td class="pdt_main">QUANTITY</td>
 						<td class="pdt_sub" >
 							<label for="spinner"></label>
-	 						<input id="spinner" name="odAmount" size="3pt" value="1" style="height: 20px;">
+	 						<input id="spinner" name="odAmount" size="3pt" value="1" style="height: 20px;">						
 						</td>
 					<tr>
 
-					<c:forEach var="option" items="${onameList}" >            
+					<c:forEach var="option" items="${onameList}" varStatus="status" >            
                   <tr>                              
-                     <td class="dd">${option.oname}</td>
+                     <td class="listoname pdt_main">${option.oname}</td>
                      <td>
-                          <select id="optocontents" style="width: 150px;">                            
+                          <select class ="listocontents ${status.index}" name="optocontents" id="${status.index}" onchange="option(this);" style="width: 150px;">                                                           
                            </select>
                        </td>
                   </tr>   
@@ -248,7 +334,11 @@ li {
 				</tbody>
 			</table>
 			<button type="button"  onclick="goCart();" style="background-color: black; color: white;  width: 350px; margin-top: 10px; height: 30px;">장바구니에 담기</button>
+			<div id="datasubmit">
 			<input type="hidden" name="pnum" value="${requestScope.pvo.pnum}" />
+			<input type="hidden" id="optionNo0"  name="optionNo0"/>
+			<input type="hidden" id="optionNo1"  name="optionNo1"/>
+			</div>
 			<br>
 			<button type="button"  onclick="goOrder();" style="background-color: black; color: white;  width: 350px; margin-top: 10px; height: 30px;">주문하러 가기</button>
 			</form>
@@ -275,7 +365,7 @@ li {
 	<c:if test="${requestScope.pvo.fk_decode eq 40003}"><img src="<%= ctxPath %>/image/product/40003/${requestScope.pvo.pimage2}" style="width:450px; height:400px; cursor: pointer; "></c:if>
 <br>
 <h2 style="text-align: center; margin :50px 0 20px 0;" align="center">DESCRIPTION</h2>
-<span> ${requestScope.pvo.pcontent} </span>
+<span style="line-height: 2.0em"> ${requestScope.pvo.pcontent} </span>
 </div>
 
 <div id="deliveryreturn_content">

@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import common.controller.AbstractController;
 import myshop.model.DetailCategoryVO;
@@ -15,7 +16,12 @@ public class NewhithomeAction extends AbstractController {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws Exception {		
-				
+		
+		super.goBackURL(request);
+		
+		HttpSession session = request.getSession();
+		
+		
 		//카테고리 목록을 조회해오기
 		super.getCategoryList(request);
 		

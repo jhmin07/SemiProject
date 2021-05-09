@@ -78,156 +78,93 @@ tr.odr_tr > td {
 }
 
 
+dfn {
+ /*  background: rgba(0,0,0,0.2); */
+  border-bottom: dashed 1px rgba(0,0,0,0.8);
+  padding: 0 0.4em;
+  /* cursor: help; */
+  position: relative;
+  
+}
+dfn::after {
+  content: attr(data-info);
+  display: inline;
+  position: absolute;
+  top: 22px; left: 0;
+  opacity: 0;
+  width: 230px;
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 1.5em;
+  padding: 0.5em 0.8em;
+  background: rgba(0,0,0,0.8);
+  color: #fff;
+  pointer-events: none; /* This prevents the box from apearing when hovered. */
+  transition: opacity 250ms, top 250ms;
+}
+dfn::before {
+  content: '';
+  display: block;
+  position: absolute;
+  top: 12px; left: 20px;
+  opacity: 0;
+  width: 0; height: 0;
+  border: solid transparent 5px;
+  border-bottom-color: rgba(0,0,0,0.8);
+  transition: opacity 250ms, top 250ms;
+}
+dfn:hover {z-index: 2;} /* Keeps the info boxes on top of other elements */
+dfn:hover::after,
+dfn:hover::before {opacity: 1;}
+dfn:hover::after {top: 30px;}
+dfn:hover::before {top: 20px;}
+
+
+
 </style>
 
 <script type="text/javascript">
 $(document).ready(function(){
 	
 	
-	var today = new Date();
-	var dd = today.getDate();
-	var mm = today.getMonth()+1; //January is 0!
-	var yyyy = today.getFullYear();
-
-	if(dd<10) {
-	    dd='0'+dd
-	} 
-
-	if(mm<10) {
-	    mm='0'+mm
-	} 
-
-	today = yyyy+'-'+mm+'-'+dd;
-	//console.log(today);
-	
-	// === 전체 datepicker 옵션 일괄 설정하기 ===  
-    //     한번의 설정으로 $("input#fromDate"), $('input#toDate')의 옵션을 모두 설정할 수 있다.
-	$(function() {
-		// 모든 datepicker에 대한 공통 옵션 설정
-		$.datepicker.setDefaults({
-			dateFormat: 'yy-mm-dd'		// Input Display Format 변경
-			,showOtherMonths: true		// 빈 공간에 현재월의 앞뒤월의 날짜를 표시
-			,showMonthAfterYear:true	// 년도 먼저 나오고, 뒤에 월 표시
-			,changeYear: true			// 콤보박스에서 년 선택 가능
-			,changeMonth: true			// 콤보박스에서 월 선택 가능                
-			,showOn: "both"				// button:버튼을 표시하고,버튼을 눌러야만 달력 표시 ^ both:버튼을 표시하고,버튼을 누르거나 input을 클릭하면 달력 표시  
-			,buttonImage: "http://jqueryui.com/resources/demos/datepicker/images/calendar.gif" // 버튼 이미지 경로
-			,buttonImageOnly: true		// 기본 버튼의 회색 부분을 없애고, 이미지만 보이게 함
-		//	,buttonText: "선택"			// 버튼에 마우스 갖다 댔을 때 표시되는 텍스트                
-			,yearSuffix: "년"			// 달력의 년도 부분 뒤에 붙는 텍스트
-			,monthNamesShort: ['1','2','3','4','5','6','7','8','9','10','11','12'] // 달력의 월 부분 텍스트
-			,monthNames: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'] // 달력의 월 부분 Tooltip 텍스트
-			,dayNamesMin: ['일','월','화','수','목','금','토'] // 달력의 요일 부분 텍스트
-			,dayNames: ['일요일','월요일','화요일','수요일','목요일','금요일','토요일'] // 달력의 요일 부분 Tooltip 텍스트
-		//	,minDate: "-1M"				// 최소 선택일자(-1D:하루전, -1M:한달전, -1Y:일년전)
-		//	,maxDate: "+1M"				// 최대 선택일자(+1D:하루후, -1M:한달후, -1Y:일년후)                    
-		});
-
-		// input을 datepicker로 선언
-		$("input#fromDate").datepicker();                    
-		$("input#toDate").datepicker();		
-		
-		if($('input#hiddendate').val() == today || $('input#hiddendate').val() == ""){
-			// From의 초기값을 3개월 전으로 설정
-			$('input#fromDate').datepicker('setDate', '-3M'); // (-1D:하루전, -1M:한달전, -1Y:일년전), (+1D:하루후, +1M:한달후, +1Y:일년후)
-			// To의 초기값을 오늘로 설정
-			$('input#toDate').datepicker('setDate', 'today'); // (-1D:하루전, -1M:한달전, -1Y:일년전), (+1D:하루후, +1M:한달후, +1Y:일년후)		
-			}
-		else{
-			// From의 초기값을 3개월 전으로 설정
-			$('input#fromDate').datepicker('setDate', $('input#hiddendate').val()); 
-			// To의 초기값을 오늘로 설정
-			$('input#toDate').datepicker('setDate', $('input#hiddendate2').val()); 
-		}
-		
-	});
 	
 
 	
 });
 	
 	// Function Declaration
-	function setSearchDate(start){
-		var num = start.substring(0,1);
-		var str = start.substring(1,2);
-
-		var today = new Date();
-
-		var endDate = $.datepicker.formatDate('yy-mm-dd', today);
-		$('#toDate').val(endDate);
-		
-		if(str == 'd'){
-			today.setDate(today.getDate() - num);
-		} else if (str == 'w'){
-			today.setDate(today.getDate() - (num*7));
-		} else if (str == 'm'){
-			today.setMonth(today.getMonth() - num);
-			today.setDate(today.getDate() + 1);
-		}
-		
-		var startDate = $.datepicker.formatDate('yy-mm-dd', today);
-		$('#fromDate').val(startDate);
-		
-		// 종료일은 시작일 이전 날짜 선택하지 못하도록 비활성화
-		$("#toDate").datepicker( "option", "minDate", startDate );
-		
-		// 시작일은 종료일 이후 날짜 선택하지 못하도록 비활성화
-		$("#fromDate").datepicker( "option", "maxDate", endDate );	
-		
-		
-	}
-
 	
-	// 날짜별, 배송상태별 주문조회하기
-	function showOrderListByDate(){
-		var frm = document.orderListFrm;
-		frm.action = "<%= ctxPath%>/order/orderList.up";
-		frm.method = "GET";
-		frm.submit();		
-
-	}
+//특정 제품의 제품후기를 삭제하는 함수
+ function goReviewDel(review_seq){
+	   var bool = confirm("정말로 삭제하시겠습니까?");
+	   if(bool){
+		   $.ajax({
+			   url:"<%= request.getContextPath()%>/shop/reviewDel.up",
+	         type:"post",
+	         data:{"review_seq":review_seq},
+	         dataType:"json",
+	         success:function(json){
+	         	if(json.n == 1){
+	         		alert("제품후기 삭제가 성공되었습니다.");
+	         		location.href="showMyReview.up";
+	         	}
+	         	else{
+	         		alert("제품후기 삭제가 실패했습니다.");
+	         	}
+	         },
+	         error: function(request, status, error){
+	            alert("code: "+request.status+"\n"+"message: "+request.responseText+"\n"+"error: "+error);
+	         }
+		   });
+	   }
+	   
+}  
+	
 </script>
 
 <div class="container">	
 	<h2 align="center">My Review List</h2>
-	<%-- 주문 내역조회 날짜 보여주기 --%>
-	<div class="stateSelect">
-		<span style="font-weight: bold;">내가 작성한 리뷰 조회</span>
-		<%-- 조회기간 --%>
-		<form name="orderListFrm">			
-			<span class="period">
-				<span class="chkbox">
-					<input type="radio" class="dateType" id="dateType1" onclick="setSearchDate('0d')"/>
-					<label for="dateType1">오늘</label>
-				</span>
-				<span class="chkbox">
-					<input type="radio" class="dateType" id="dateType2" onclick="setSearchDate('1w')"/>
-					<label for="dateType2">1주일</label>
-				</span>
-				<span class="chkbox">
-					<input type="radio" class="dateType" id="dateType3" onclick="setSearchDate('1m')"/>
-					<label for="dateType3">1개월</label>
-				</span>
-				<span class="chkbox">
-					<input type="radio" class="dateType" id="dateType4" onclick="setSearchDate('3m')"/>
-					<label for="dateType4">3개월</label>
-				</span>
-				<span class="chkbox">
-					<input type="radio" class="dateType" id="dateType5" onclick="setSearchDate('6m')"/>
-					<label for="dateType5">6개월</label>
-				</span>
-			</span>
-			<input type="hidden" value="${fromDate}" id="hiddendate"/>
-			<input type="hidden" value="${toDate}" id="hiddendate2"/>
-			<input type="text" class="datepicker" id="fromDate" name="fromDate" autocomplete="off" > - <input type="text" class="datepicker" id="toDate" name="toDate" autocomplete="off">
-			<span id="showOrderList" onclick="showOrderListByDate()">조회</span>
-		</form>
-	</div>
 	
-	<div style="margin: 5px 0;">
-	&nbsp;&nbsp;· 기본적으로 최근 3개월간의 자료가 조회되며, 기간 검색시 지난 리뷰들을 조회하실 수 있습니다.<br>
-	&nbsp;&nbsp;· 작성하신 리뷰를 클릭하시면 해당 상품에 대한 상세페이지를 확인하실 수 있습니다.
-	</div>
 	
 	<%-- 주문 내역 보여주기 --%>
 	<table class="table odr_list">
@@ -244,45 +181,58 @@ $(document).ready(function(){
 		</thead>
 		
 		<tbody>		
-			<c:if test="${empty requestScope.orderList}">
+			<c:if test="${empty requestScope.review}">
 				<tr>
 					<td colspan="7" align="center" class="ordertext">
-						주문한 상품이 없습니다.
+						회원님께서 작성하신 리뷰가 없습니다.
 					</td>
 				</tr>
 			</c:if>
 			
-			<c:if test="${not empty requestScope.orderList}">
+			<c:if test="${not empty requestScope.review}">
 			
-				<c:forEach var="ordervo" items="${requestScope.orderList}" varStatus="status">
+				<c:forEach var="review" items="${requestScope.review}" varStatus="status">
 				<tr>
 					<td> <%-- 구매날짜 --%>
-						
-						<span>${ordervo.ord.orderDate}</span>
+						<span>${review.ovo.orderDate}</span>
 					</td>
 					<td> <%-- 상품정보 --%>
-					<a href="<%= ctxPath%>/detailMenu/productDetailPage.up?pnum=${ordervo.fk_pnum}">
-						<img src="<%= ctxPath%>/image/product/${ordervo.prod.fk_decode}/${ordervo.prod.pimage1}" width="130px"/>
-					</a>
-					<span>${ordervo.prod.pname}</span>	
+					<a href="<%= ctxPath%>/detailMenu/productDetailPage.up?pnum=${review.fk_pnum}">
+						<img src="<%= ctxPath%>/image/product/${review.pvo.fk_decode}/${review.pvo.pimage1}" width="130px"/>
+					</a><br>
+					<dfn data-info="상품 이미지를 클릭하시면 해당상품페이지로 넘어갑니다.">	<span>${review.pvo.pname}</span></dfn>
 					</td>
 					<td> <%-- 상품구매금액 --%>
 						<span id="totalprice">
-							<fmt:formatNumber value="${ordervo.ord.totalPrice}" pattern="###,###" />
-							<input class="totalPrice" type="hidden" value="${ordervo.ord.totalPrice}" />
+							<fmt:formatNumber value="${review.ovo.totalPrice}" pattern="###,###" />
 						</span> 원
 					</td>
 					<td> <%-- 리뷰작성날짜 --%>
 						<span>${review.reviewRegisterday}</span>
 					</td>
 					<td> <%-- 별점 --%>
-						<span>${review.review_like}</span>
+						
+						<c:if test="${review.review_like == 1}"> 
+							<div> <span style="color:red;">★</span><span style="color:gray;">★★★★</span> </div>
+						</c:if>
+						<c:if test="${review.review_like == 2}"> 
+							<div> <span style="color:red;">★★</span><span style="color:gray;">★★★</span> </div>
+						</c:if>
+						<c:if test="${review.review_like == 3}"> 
+							<div> <span style="color:red;">★★★</span><span style="color:gray;">★★</span> </div>
+						</c:if>
+						<c:if test="${review.review_like == 4}"> 
+							<div> <span style="color:red;">★★★★</span><span style="color:gray;">★</span> </div>
+						</c:if>
+						<c:if test="${review.review_like == 5}"> 
+							<div> <span style="color:red;">★★★★★</span></div>
+						</c:if>
 					</td>
 					<td> <%-- 리뷰내용 --%>
 						<span>${review.reviewSubject}</span>
 					</td>
 					<td> <%-- 리뷰삭제 --%>
-						
+						<span class="del" style="cursor: pointer;" onClick="goReviewDel('${review.reviewNo}');"><img id="delete_cart" src="../image/cart/delete.png" style="width: 11px; height: 11px;"/></span>
 					</td>
 				</tr>				
 				</c:forEach>

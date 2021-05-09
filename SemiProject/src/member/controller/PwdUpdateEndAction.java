@@ -36,7 +36,7 @@ public class PwdUpdateEndAction extends AbstractController {
 		request.setAttribute("userid", userid);
 		
 		//super.setRedirect(false);
-		super.setViewPage("/WEB-INF/login/pwdUpdateEnd.jsp");
+		super.setViewPage("/WEB-INF/member/pwdUpdateEnd.jsp");
 		
 	}
 

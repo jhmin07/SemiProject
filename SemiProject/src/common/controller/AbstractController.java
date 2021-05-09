@@ -9,6 +9,7 @@ import javax.servlet.http.HttpSession;
 
 import admin.model.AdminVO;
 import member.model.MemberVO;
+import my.util.Util;
 import myshop.model.DetailCategoryVO;
 import myshop.model.InterProductDAO;
 import myshop.model.ProductDAO;
@@ -105,6 +106,12 @@ public abstract class AbstractController implements InterCommand {
 		
 		request.setAttribute("categoryList", categoryList);
 		request.setAttribute("detailCategoryList", detailCategoryList);
+	}
+	
+	// 로그인 또는 로그아웃을 하면 시작페이지로 가는 것이 아니라 방금 보았던 그 페이지로 그대로 가기 위한 것임.
+	public void goBackURL(HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		session.setAttribute("goBackURL", Util.getCurrentURL(request));
 	}
 	
 }

@@ -16,7 +16,7 @@ public class GoCartAction extends AbstractController {
 		
 		String method = request.getMethod();
 	      
-		 System.out.println("ddas");
+		 
 		
 	      if(!"POST".equalsIgnoreCase(method)) {
 	         // GET 방식이라면
@@ -51,16 +51,25 @@ public class GoCartAction extends AbstractController {
 
 	    	  }
 	    	  else {
-	    		  
+
+	    		  String optionNo0 = request.getParameter("optionNo0");	 
+	    		  String optionNo1 = request.getParameter("optionNo1");	
+	    		  String optionNo = optionNo0+","+optionNo1;
 	    		  String pnum = request.getParameter("pnum"); // 제품번호
 	    		  String odAmount = request.getParameter("odAmount");		// 수량
-	    		  System.out.println(odAmount);
+	    		  // System.out.println("optionNo0 : " + optionNo0);
+	    		  // System.out.println("optionNo1 : " + optionNo1);
+	    		  // System.out.println("optionNo : " + optionNo);
+	    		  // System.out.println(optionNo);
+	    		  // System.out.println("시작3");
+	    		  // System.out.println(pnum);
+	    		  
 	    		  InterProductDAO pdao = new ProductDAO();
 	    		  
 	    		  HttpSession session =  request.getSession();
 	    		  MemberVO loginuser = (MemberVO)session.getAttribute("loginuser");
 	    		  
-	    		  int n = pdao.addCart(loginuser.getUserid(), pnum, odAmount);
+	    		  int n = pdao.addCart(loginuser.getUserid(), pnum, odAmount, optionNo);
 	    		  
 	    		  if(n==1) {
 	    			  request.setAttribute("message", "장바구니 담기 성공!!");

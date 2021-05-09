@@ -9,6 +9,7 @@ public class OrderDetailVO {
 	private int fk_pnum;			// 제품번호
 	private int odAmount;			// 주문량
 	private int odPrice;			// 주문가격
+	private String optionContents;	// 옵션내역
 	private String deliveryCon;		// 배송상태
 	private String deliveryDone;	// 배송완료일자
 	
@@ -55,6 +56,14 @@ public class OrderDetailVO {
 		this.odPrice = odPrice;
 	}
 	
+	public String getOptionContents() {
+		return optionContents;
+	}
+
+	public void setOptionContents(String optionContents) {
+		this.optionContents = optionContents;
+	}
+
 	public String getDeliveryCon() {
 		return deliveryCon;
 	}

@@ -69,6 +69,9 @@
 	table.writeSearchTable td#write{
 		width: 85px;
 	}
+	div#pageBar{
+		margin-bottom: 100px;
+	}
 </style>
 <script type="text/javascript">
 	$(document).ready(function(){		
@@ -213,7 +216,7 @@
 	
 </div>
 
-<div align="center">
+<div id="pageBar" align="center">
 
 	${requestScope.pageBar }
 

@@ -153,57 +153,60 @@ $(function() {
 
 	
 	
-    // **** 제품후기 쓰기(로그인만 하면 누구나 작성할 수 있는 것) ****// 
+    // **** 제품후기 쓰기 (로그인/ 상품을 산 사람만 후기작성가능)****// 
     $("button.btnCommentOK").click(function(){
 	  
 	   if(${empty sessionScope.loginuser}){
-		   alert("제품사용후기를 작성하시려면 먼저 로그인 하셔야 합니다!!");
+		   alert("상품후기를 작성하시려면 먼저 로그인 하셔야 합니다!!");
 		   return;
 	   }
 	   
 	   var commentContents = $("textarea#commentContents").val().trim();
 	   
 	   if(commentContents == ""){
-		   alert("제품후기 내용을 입력하세요!!");
+		   alert("상품후기 내용을 입력하세요!!");
 		   return;
 	   }
-	   
+	 
 	   /* var queryString = {"fk_userid":"${sessionScope.loginuser.userid}",
-			   			  "fk_pnum":"${requestScope.pvo.pnum}",
-			   			  "contents":$("textarea#commentContents").val()}; */
-		 // 보내야할 데이터를 선정하는 두번째 방법
-       // jQuery에서 사용하는 것으로써,
-       // form태그의 선택자.serialize(); 을 해주면 form 태그내의 모든 값들을 name값을 키값으로 만들어서 보내준다. 
-		 var queryString = $("form[name=commentFrm]").serialize();
-	   //console.log(queryString);
+		  "fk_pnum":"${requestScope.pvo.pnum}",
+		  "contents":$("textarea#commentContents").val()}; */
+		// 보내야할 데이터를 선정하는 두번째 방법
+		// jQuery에서 사용하는 것으로써,
+		// form태그의 선택자.serialize(); 을 해주면 form 태그내의 모든 값들을 name값을 키값으로 만들어서 보내준다. 
+		var queryString = $("form[name=commentFrm]").serialize();
+		//console.log(queryString);
+		
+		$.ajax({
+		url:"<%= request.getContextPath()%>/shop/reviewRegister.up",
+		type:"post",
+		data: queryString,
+		dataType:"json",
+		success:function(json){
+		if(json.n == 1) {
+		   // 제품후기 등록(insert)이 성공했으므로 제품후기글을 새로이 보여줘야(select) 한다.
+		   goCommentListView(); // 제품후기글을 보여주는 함수 호출하기 
+		}
+		else if(json.n == -1)  {
+		 // 동일한 제품에 대하여 동일한 회원이 제품후기를 2번 쓰려고 경우 unique 제약에 위배됨 
+		// alert("이미 후기를 작성하셨습니다.\n작성하시려면 기존의 제품후기를\n삭제하시고 다시 쓰세요.");
+		 swal("이미 후기를 작성하셨습니다.\n작성하시려면 기존의 제품후기를\n삭제하시고 다시 쓰세요.");
+			}
+		else  {
+		   // 제품후기 등록(insert)이 실패한 경우 
+		   alert("제품후기 글쓰기가 실패했습니다.");
+		}
+		
+		$("textarea#commentContents").val("").focus();
+		},
+		error: function(request, status, error){
+		 alert("상품을 구매하신고객님께서만 후기작성이 가능합니다!!");
+		}
+		
+		}); 
+				
+	  
 	   
-	    $.ajax({
-	         url:"<%= request.getContextPath()%>/shop/reviewRegister.up",
-	      	 type:"post",
-	         data: queryString,
-	         dataType:"json",
-	         success:function(json){
-      	 	if(json.n == 1) {
-                  // 제품후기 등록(insert)이 성공했으므로 제품후기글을 새로이 보여줘야(select) 한다.
-                  goCommentListView(); // 제품후기글을 보여주는 함수 호출하기 
-               }
-               else if(json.n == -1)  {
-                // 동일한 제품에 대하여 동일한 회원이 제품후기를 2번 쓰려고 경우 unique 제약에 위배됨 
-             // alert("이미 후기를 작성하셨습니다.\n작성하시려면 기존의 제품후기를\n삭제하시고 다시 쓰세요.");
-                swal("이미 후기를 작성하셨습니다.\n작성하시려면 기존의 제품후기를\n삭제하시고 다시 쓰세요.");
-				}
-               else  {
-                  // 제품후기 등록(insert)이 실패한 경우 
-                  alert("제품후기 글쓰기가 실패했습니다.");
-               }
-      	 	
-      	 	$("textarea#commentContents").val("").focus();
-	         },
-	         error: function(request, status, error){
-	            alert("code: "+request.status+"\n"+"message: "+request.responseText+"\n"+"error: "+error);
-	         }
-	         
-	      }); 
 	   
 	   
  });// end of $("button.btnCommentOK").click(function(){}-----------------------------
@@ -366,17 +369,11 @@ $(function() {
 <span  >[별점주기]</span>
 
 <p class="star_rating">
-    
     <input type="hidden" name="star" id="star_val" value="" />
-
     <a href="#" onclick="star_1(1)">★</a>
-
     <a href="#" onclick="star_2(2)">★</a>
-
     <a href="#" onclick="star_3(3)">★</a>
-
     <a href="#" onclick="star_4(4)">★</a>
-
     <a href="#" onclick="star_5(5)">★</a>
 </p>
 

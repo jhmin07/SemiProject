@@ -52,7 +52,6 @@ a.category{
 
 <div id= "headMenu" class="container">
 	
-	<%-- <%@ include file="/WEB-INF/detailMenu/categoryList.jsp" %> --%>
 	<table id=detailCategory text-align: center;>
 		<thead>
 		<tr>			

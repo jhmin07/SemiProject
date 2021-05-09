@@ -27,12 +27,11 @@ public class CommentModiSubmitAction extends AbstractController {
 		
 
 		HttpSession session = request.getSession();
-		 System.out.println("12123");
+
 		AdminVO adId = (AdminVO) session.getAttribute("loginadmin");
-		 System.out.println("asdgasdg");
+
 		if(adId.getAdId() !=null ) {
 
-			 System.out.println("54654");
             // 새로운 제품 등록시 form 태그에서 입력한 값들을 얻어오기 
             String contents = request.getParameter("modiContent");
             String addno = request.getParameter("addno");
@@ -56,14 +55,16 @@ public class CommentModiSubmitAction extends AbstractController {
     		qacvo.setAddno(Integer.parseInt(addno));
     		qacvo.setAddSubject(contents);
     		// tbl_product 테이블에 공지사항 insert 하기
-            int n = qacdao.commentUpdate(qacvo);
+    		InterQACommentDAO qadao = new QACommentDAO();
+    		int QAno = qadao.getQAno(addno);
+			int n = qacdao.commentUpdate(qacvo);
 
 	        String message = "";
 	        String loc = "";
             
             if(n==1) {
                message = "댓글 수정 성공!!";
-               loc = request.getContextPath()+"/board/boardQA.up";
+               loc = request.getContextPath()+"/qaOneDetail.up?qaNo="+QAno;
             }
             else {
                message = "댓글 수정 실패!!";
