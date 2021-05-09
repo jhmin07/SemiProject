@@ -71,10 +71,8 @@ public class MenuAction extends AbstractController {
 	      pageNo = ( ( Integer.parseInt(currentShowPageNo) - 1)/blockSize ) * blockSize + 1; 
 	      int currentN = Integer.parseInt(currentShowPageNo);
 	      
-	      // **** [맨처음][이전] 만들기 **** //
+	      // **** [이전] 만들기 **** //
 	      pageBar += "&nbsp;<a class='pagebar' href='menu.up?cnum="+cnum+"&decode="+decode+"&currentShowPageNo=1'>&laquo;</a>&nbsp;"; 
-	      //pageBar += "&nbsp;<a class='pagebar' href='menu.up?cnum="+cnum+"&decode="+decode+"&currentShowPageNo="+(currentN-1)+"'>&laquo;</a>&nbsp;";
-
 
 	      while( !(loop-0.9 > (double)((double)totalPage/8))) {
 	         
@@ -85,18 +83,15 @@ public class MenuAction extends AbstractController {
 	            pageBar += "&nbsp;<a class='pagebar' href='menu.up?cnum="+cnum+"&decode="+decode+"&currentShowPageNo="+pageNo+"'>"+pageNo+"</a>&nbsp;";    
 	         }
 	         
-	         loop++;    // 1 2 3 4 5 6 7 8 9 10 
+	         loop++;    
 	         
-	         pageNo++;  //  1  2  3  4  5  6  7  8  9 10
-	                    // 11 12 13 14 15 16 17 18 19 20
-	                    // 21 
+	         pageNo++;  
+	         
 	      }// end of while----------------------------------------------
 	      
-	      // **** [다음][마지막] 만들기 **** //	     
-          //pageBar += "&nbsp;<a class='pagebar' href='menu.up?cnum="+cnum+"&decode="+decode+"&currentShowPageNo="+(currentN+1)+"'>&raquo;</a>&nbsp;"; 
+	      // **** [다음] 만들기 **** //	      
           pageBar += "&nbsp;<a class='pagebar' href='menu.up?cnum="+cnum+"&decode="+decode+"&currentShowPageNo="+(pageNo-1)+"'>&raquo;</a>&nbsp;";
-	      
-	      
+	      	      
 	      
 	      request.setAttribute("pageBar", pageBar);
 	      

@@ -28,12 +28,12 @@ public class CommentDelAction extends AbstractController {
 			
 			
 			InterQACommentDAO qadao = new QACommentDAO();
-    		
+    		int QAno = qadao.getQAno(addno);
 			int n = qadao.delComment(addno);
 			
 		if(n==1) {
            message = "댓글 삭제 성공!!";
-           loc = request.getContextPath()+"/board/boardQA.up";
+           loc = request.getContextPath()+"/qaOneDetail.up?qaNo="+QAno;
         }
         else {
            message = "댓글 삭제 실패!!";

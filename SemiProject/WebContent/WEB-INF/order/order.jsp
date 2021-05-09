@@ -365,7 +365,7 @@ table.odr_info input[type=text]{
 		
 		// 결제창으로 결제하는 부분 => 결제하고 싶으면 주석문 지우고 실행하면 됩니다.
 		paymentComplete(); // <- 결제창으로 결제한다면 이부분은 주석문 처리 해주세요!!!!!
-		<%-- 
+		<%--
 		var url = "<%=request.getContextPath()%>/order/goPayment.up?sumtotalPrice="+sumtotalPriceLast;
 		window.open(url, "goPayment", 
 					"left=350px, top=100px, width=820px, height=600px");

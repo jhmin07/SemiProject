@@ -26,7 +26,7 @@ td.pdt_main {
 }
 
 a {
-	background-color: black;
+	/* background-color: black; */
 	color: white;
 	font-weight: bold;
 }
@@ -83,11 +83,23 @@ li {
 	   } // end of function goCart(pnum) {}------------------------------------	
 	   
 	function goOrder(){
-		   
-		   var frm = document.pdtFrm;
-		   frm.method = "post";
-		   frm.action = "<%= request.getContextPath()%>/order/order.up";
-		   frm.submit();
+		var oqty = $("input[name=odAmount]").val();
+		var totalPrice = Number(oqty) * ${requestScope.pvo.saleprice};
+		var totalPoint = Number(oqty) * ${requestScope.pvo.point};
+		
+		//console.log(totalPrice);
+		//console.log(typeof(totalPrice));
+		
+		$("input[name=pnum_es]").val("${requestScope.pvo.pnum}");
+		$("input[name=oqty_es]").val(oqty);
+		$("input[name=totalPrice_es]").val(totalPrice);
+		$("input[name=sumtotalPrice]").val(totalPrice);
+		$("input[name=sumtotalPoint]").val(totalPoint);
+		
+		var frm = document.goOrderFrm;
+		frm.method = "post";
+		frm.action = "<%= request.getContextPath()%>/order/order.up";
+		frm.submit();
 		   
     } // end of function goOrder(){}
     
@@ -167,6 +179,14 @@ li {
 
 		<h3 style="font-weight: bold;">${requestScope.pvo.pname}</h3>
 		<br>
+		<form name="goOrderFrm">
+			<input hidden name="pnum_es" />
+			<input hidden name="oqty_es" />
+			<input hidden name="totalPrice_es" />
+			<input hidden name="sumtotalPrice" />
+			<input hidden name="sumtotalPoint" />
+		</form>
+		
 		<form name="pdtFrm">
 		<table style="vertical-align: middle;">
 				<tbody>

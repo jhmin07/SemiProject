@@ -64,11 +64,11 @@ public class NoticeModifySubmitAction extends AbstractController {
             
             if(n==1) {
                message = "공지사항 수정 성공!!";
-               loc = request.getContextPath()+"/board/boardQA.up";
+               loc = request.getContextPath()+"/board/contentOneDetail.up?ctno="+ctNo;
             }
             else {
                message = "공지사항 수정 실패!!";
-               loc = request.getContextPath()+"/board/boardQA.up";
+               loc = request.getContextPath()+"/board/contentOneDetail.up?ctno="+ctNo;
             }
             
             request.setAttribute("message", message);

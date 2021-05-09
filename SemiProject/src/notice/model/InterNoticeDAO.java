@@ -17,11 +17,14 @@ public interface InterNoticeDAO {
 	NoticeVO contentOneDetail(String ctNo) throws SQLException;
 
 	// tbl_product 테이블에 공지사항 insert 하기
-	int noticeInsert(NoticeVO nvo) throws SQLException;
 
 	int contentHitUp(int hit, int ctNo) throws SQLException;
 
 	int delNotice(String ctNo) throws SQLException;
+
+	int getCtno(NoticeVO nvo) throws SQLException;
+
+	int noticeInsert(NoticeVO nvo, int ctno) throws SQLException;
 
 	int noticeUpdate(NoticeVO nvo) throws SQLException;
 

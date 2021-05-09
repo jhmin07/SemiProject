@@ -57,14 +57,17 @@ public class NoticeWriteSubmitAction extends AbstractController {
     		nvo.setCtContent(noticeContent);
     		nvo.setFk_adId(adminId);
     		// tbl_product 테이블에 공지사항 insert 하기
-            int n = ndao.noticeInsert(nvo);
+            
+	        int ctno = ndao.getCtno(nvo);
+	        
+            int n = ndao.noticeInsert(nvo, ctno);
 
 	        String message = "";
 	        String loc = "";
-            
+	        
             if(n==1) {
                message = "공지사항등록 성공!!";
-               loc = request.getContextPath()+"/board/board.up";
+               loc = request.getContextPath()+"/board/contentOneDetail.up?ctno="+ctno;
             }
             else {
                message = "제품등록 실패!!";
