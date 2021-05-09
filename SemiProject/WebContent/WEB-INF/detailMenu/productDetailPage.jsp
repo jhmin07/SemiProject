@@ -339,7 +339,7 @@ li {
 							<span style="text-decoration:line-through; text-decoration-color: red;"><fmt:formatNumber value="${pvo.saleprice}" pattern="#,###" /> 원&nbsp;&nbsp;</span>
 							<span><fmt:formatNumber value="${pvo.saleprice*0.75}" pattern="#,###" /> 원</span>
 							</c:if>
-							<c:if test="${pvo.spvo.snum == 1 || pvo.spvo.snum == 3}">
+							<c:if test="${pvo.spvo.snum == 1 || pvo.spvo.snum == 3 || pvo.spvo.snum == 4}">
 							<span><fmt:formatNumber value="${pvo.saleprice}" pattern="#,###" /> 원</span>
 							</c:if>
 						</td>
