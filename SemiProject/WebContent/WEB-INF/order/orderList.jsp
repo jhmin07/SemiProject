@@ -173,7 +173,7 @@ $(document).ready(function(){
 		
 		// 시작일은 종료일 이후 날짜 선택하지 못하도록 비활성화
 		$("#fromDate").datepicker( "option", "maxDate", endDate );	
-		
+	
 		
 	}
 

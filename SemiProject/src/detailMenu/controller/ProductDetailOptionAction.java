@@ -18,6 +18,8 @@ public class ProductDetailOptionAction extends AbstractController {
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		
+		super.goBackURL(request);
+		
 		String pnum = request.getParameter("pnum");
 		String oname = request.getParameter("oname");
 		
