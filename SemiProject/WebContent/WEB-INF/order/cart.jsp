@@ -76,11 +76,14 @@ div#cart_side{
 	width: 300px; 
 	left: 67%;
 	position: fixed;
-	margin-bottom: 100px;
+	
 	/* box-shadow: 0 4px 4px gray;
 	background-color: #f2f2f2;
 	padding: 15px; */
 	/* border: solid 1px red; */
+}
+div.cart{
+	margin-bottom:200px;
 }
 
 
@@ -155,8 +158,6 @@ div#cart_side{
  	font-weight: bold;
  	font-size: 12pt;
  }
-
-/*   ------checkbox 디자인 변경-------- */
 
 
 
@@ -566,7 +567,7 @@ $(document).ready(function(){
 </script>
 
 
-<div class="container">
+<div class="container cart">
 
  <h2 style="width: 80%; margin-top: 100px; margin-bottom: 50px; color: gray;">- Cart</h2>
 <form name="orderFrm">

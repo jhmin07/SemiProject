@@ -369,17 +369,11 @@ $(function() {
 <span  >[별점주기]</span>
 
 <p class="star_rating">
-    
     <input type="hidden" name="star" id="star_val" value="" />
-
     <a href="#" onclick="star_1(1)">★</a>
-
     <a href="#" onclick="star_2(2)">★</a>
-
     <a href="#" onclick="star_3(3)">★</a>
-
     <a href="#" onclick="star_4(4)">★</a>
-
     <a href="#" onclick="star_5(5)">★</a>
 </p>
 
