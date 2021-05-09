@@ -93,9 +93,9 @@ div#specNamecss{
 				<a href="<%=ctxPath%>/detailMenu/productDetailPage.up?pnum=${pvo.pnum}">	
 				<span>${pvo.pname}</span><br>
 				<c:if test="${fk_snum == 2}">
-					<span style="text-decoration:line-through; text-decoration-color: red;"><fmt:formatNumber value="${pvo.saleprice}" pattern="#,###" /> 원&nbsp;&nbsp;</span>
+					<span style="text-decoration:line-through; text-decoration-color: red;"><fmt:formatNumber value="${pvo.price}" pattern="#,###" /> 원&nbsp;&nbsp;</span>
 					<br>
-					<span><fmt:formatNumber value="${pvo.saleprice*0.75}" pattern="#,###" /> 원</span>
+					<span><fmt:formatNumber value="${pvo.saleprice}" pattern="#,###" /> 원</span>
 				</c:if>	
 				<c:if test="${fk_snum == 1}">			
 					<span><fmt:formatNumber value="${pvo.saleprice}" pattern="#,###" /> 원</span>
