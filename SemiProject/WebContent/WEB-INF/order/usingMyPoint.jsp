@@ -59,15 +59,15 @@ span.p {
 		
 		var userPoint = ${sessionScope.loginuser.point};
 		
-		$("button.useallbtn").click(function() {
+		$("button.useallbtn").click(function() { // 전액 사용
 			$("input:text[name=usingPoint]").val(userPoint);
 		});
 		
-		$("button.cancel").click(function(){
+		$("button.cancel").click(function(){ // 취소버튼
 			self.close();
 		});
 		
-		$("input:text[name=usingPoint]").blur(function(){
+		$("input:text[name=usingPoint]").blur(function(){ // 입력한 포인트 점검
 			var inputVal = $("input:text[name=usingPoint]").val();
 			
 			if (userPoint < inputVal) {
@@ -75,13 +75,9 @@ span.p {
 			}
 		});
 		
-		$("button.ok").click(function(){
+		$("button.ok").click(function(){ // 사용할 point 값 전달
 			var inputVal = $("input:text[name=usingPoint]").val();
 			opener.location.href = "javascript:setPoint("+ inputVal +");";
-			
-			<%-- var frm = document.usingPointFrm;
-			frm.action = "<%= ctxPath%>/order/order.up";
-			frm.submit(); --%>
 			
 			self.close();
 		});

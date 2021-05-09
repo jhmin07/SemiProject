@@ -146,9 +146,6 @@ ul.payment_last > li {
 	}
 	
 	function setPoint(pt) {
-		//$("td#point").next().val(pt);
-		console.log(pt);
-		
 		pt = Number(pt).toLocaleString('en');
 		$("span#point").html(pt);
 		
@@ -159,7 +156,6 @@ ul.payment_last > li {
 		var sum = 0;
 		var $addPrice = $("span.addPrice");
 		
-		// console.log($($addPrice[0]).html());
 		sum -= Number($($addPrice[0]).html().split(",").join(""));
 		sum -= Number($($addPrice[1]).html().split(",").join(""));
 		sum += Number($($addPrice[2]).html().split(",").join(""));

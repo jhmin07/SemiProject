@@ -72,9 +72,23 @@ table.odr_info input[type=text]{
 <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script type="text/javascript">
 	
+	var prodmsg = "";
+	
 	$(document).ready(function(){
 		$("span.error").hide();
 		autoOdrInfoInput();
+		
+		// 주문 결제창에 제품 정보 넘기기 위해 
+		var cnt = 0;
+		$("input.pinfo").each(function(index, item, array){
+			if (index == 0) prodmsg += $("input.pinfo").val();		
+			else cnt++; 
+		});
+		
+		if (cnt > 0) {
+			prodmsg += " 외 "+cnt+"개";
+		}
+		console.log(prodmsg);
 		
 		// == 라디오(주문자 정보와 동일, 새로운 배송지) 선택 사항 구현 == //
 		$("input:radio[name=reveiceRadio]").click(function() {
@@ -363,13 +377,14 @@ table.odr_info input[type=text]{
 		}
 		
 		
+		
 		// 결제창으로 결제하는 부분 => 결제하고 싶으면 주석문 지우고 실행하면 됩니다.
-		paymentComplete(); // <- 결제창으로 결제한다면 이부분은 주석문 처리 해주세요!!!!!
-		<%--
-		var url = "<%=request.getContextPath()%>/order/goPayment.up?sumtotalPrice="+sumtotalPriceLast;
+		// paymentComplete(); // <- 결제창으로 결제한다면 이부분은 주석문 처리 해주세요!!!!!
+		// sumtotalPrice="+sumtotalPriceLast
+		var url = "<%=request.getContextPath()%>/order/goPayment.up?name="+prodmsg+"&sumtotalPrice="+sumtotalPriceLast;
 		window.open(url, "goPayment", 
 					"left=350px, top=100px, width=820px, height=600px");
-		--%>
+		
 		
 		
 	}
