@@ -73,13 +73,90 @@ li {
 	
 	function goCart() {	
 		
+			if ( $("select.listoname").val() != null ) {	
+				
+				if ( $("input#optionNo0").val() != "00" && $("input#optionNo1").val() != "00" ) {
+					
+					if ( $("input#optionNo0").val() != "" && $("input#optionNo1").val() != "" ) {
+						
+						var frm = document.pdtFrm;
+						frm.method = "post";
+						frm.action = "<%= request.getContextPath()%>/order/goCart.up";
+						frm.submit();
+						
+					}
+					else if ( $("input#optionNo0").val() == "" && $("input#optionNo1").val() != "" ) {
+						
+						alert("옵션 선택은 필수입니다.");
+						return false;
+						
+					}
+					else if ( $("input#optionNo0").val() != "" && $("input#optionNo1").val() == "" ) {
+						
+						alert("옵션 선택은 필수입니다.");
+						return false;
+						
+					}
+					else if ( $("input#optionNo0").val() == "" && $("input#optionNo1").val() == "" ) {
+						
+						alert("옵션 선택은 필수입니다.");
+						return false;
+						
+					}
+					
+				}					
+				else if ( $("input#optionNo0").val() != "00" && $("input#optionNo1").val() == "00" ) {
+					alert("옵션 선택은 필수입니다.");
+					return false;
+				}
+				else if ( $("input#optionNo0").val() == "00" && $("input#optionNo1").val() != "00" ) {
+					alert("옵션 선택은 필수입니다.");
+					return false;
+				}
+				else if ( $("input#optionNo0").val() != "00" && $("input#optionNo1").val() != "00" ) {
+					alert("옵션 선택은 필수입니다.");
+					return false;
+				}
+			
+			}
+			else {
+				var frm = document.pdtFrm;
+				frm.method = "post";
+				frm.action = "<%= request.getContextPath()%>/order/goCart.up";
+				frm.submit();
+			}
+   
+	   } // end of function goCart(pnum) {}------------------------------------	
+	   
+	function goOrder(){
+		var oqty = $("input[name=odAmount]").val();
+		var totalPrice = Number(oqty) * ${requestScope.pvo.saleprice};
+		var totalPoint = Number(oqty) * ${requestScope.pvo.point};
+		
+		//console.log(totalPrice);
+		//console.log(typeof(totalPrice));
+		
+		$("input[name=pnum_es]").val("${requestScope.pvo.pnum}");
+		$("input[name=oqty_es]").val(oqty);
+		$("input[name=totalPrice_es]").val(totalPrice);
+		$("input[name=sumtotalPrice]").val(totalPrice);
+		$("input[name=sumtotalPoint]").val(totalPoint);
+		
+		if ( $("select.listoname").val() != null ) {	
+		
+			if ( $("select.listoname").val() == "" ) {
+				var frm = document.goOrderFrm;
+				frm.method = "post";
+				frm.action = "<%= request.getContextPath()%>/order/order.up";
+				frm.submit();
+			}
 			if ( $("input#optionNo0").val() != "00" && $("input#optionNo1").val() != "00" ) {
 				
 				if ( $("input#optionNo0").val() != "" && $("input#optionNo1").val() != "" ) {
 					
-					var frm = document.pdtFrm;
+					var frm = document.goOrderFrm;
 					frm.method = "post";
-					frm.action = "<%= request.getContextPath()%>/order/goCart.up";
+					frm.action = "<%= request.getContextPath()%>/order/order.up";
 					frm.submit();
 					
 				}
@@ -102,80 +179,27 @@ li {
 					
 				}
 				
-			}					
-			else if ( $("input#optionNo0").val() != "00" && $("input#optionNo1").val() == "00" ) {
-				alert("옵션 선택은 필수입니다.");
-				return false;
-			}
-			else if ( $("input#optionNo0").val() == "00" && $("input#optionNo1").val() != "00" ) {
-				alert("옵션 선택은 필수입니다.");
-				return false;
-			}
-			else if ( $("input#optionNo0").val() != "00" && $("input#optionNo1").val() != "00" ) {
-				alert("옵션 선택은 필수입니다.");
-				return false;
-			}
-   
-	   } // end of function goCart(pnum) {}------------------------------------	
-	   
-	function goOrder(){
-		var oqty = $("input[name=odAmount]").val();
-		var totalPrice = Number(oqty) * ${requestScope.pvo.saleprice};
-		var totalPoint = Number(oqty) * ${requestScope.pvo.point};
-		
-		//console.log(totalPrice);
-		//console.log(typeof(totalPrice));
-		
-		$("input[name=pnum_es]").val("${requestScope.pvo.pnum}");
-		$("input[name=oqty_es]").val(oqty);
-		$("input[name=totalPrice_es]").val(totalPrice);
-		$("input[name=sumtotalPrice]").val(totalPrice);
-		$("input[name=sumtotalPoint]").val(totalPoint);
-		
-		
-		if ( $("input#optionNo0").val() != "00" && $("input#optionNo1").val() != "00" ) {
+				}					
+				else if ( $("input#optionNo0").val() != "00" && $("input#optionNo1").val() == "00" ) {
+					alert("옵션 선택은 필수입니다.");
+					return false;
+				}
+				else if ( $("input#optionNo0").val() == "00" && $("input#optionNo1").val() != "00" ) {
+					alert("옵션 선택은 필수입니다.");
+					return false;
+				}
+				else if ( $("input#optionNo0").val() != "00" && $("input#optionNo1").val() != "00" ) {
+					alert("옵션 선택은 필수입니다.");
+					return false;
+				}		
 			
-			if ( $("input#optionNo0").val() != "" && $("input#optionNo1").val() != "" ) {
-				
-				var frm = document.goOrderFrm;
-				frm.method = "post";
-				frm.action = "<%= request.getContextPath()%>/order/order.up";
-				frm.submit();
-				
-			}
-			else if ( $("input#optionNo0").val() == "" && $("input#optionNo1").val() != "" ) {
-				
-				alert("옵션 선택은 필수입니다.");
-				return false;
-				
-			}
-			else if ( $("input#optionNo0").val() != "" && $("input#optionNo1").val() == "" ) {
-				
-				alert("옵션 선택은 필수입니다.");
-				return false;
-				
-			}
-			else if ( $("input#optionNo0").val() == "" && $("input#optionNo1").val() == "" ) {
-				
-				alert("옵션 선택은 필수입니다.");
-				return false;
-				
-			}
-			
-		}					
-		else if ( $("input#optionNo0").val() != "00" && $("input#optionNo1").val() == "00" ) {
-			alert("옵션 선택은 필수입니다.");
-			return false;
 		}
-		else if ( $("input#optionNo0").val() == "00" && $("input#optionNo1").val() != "00" ) {
-			alert("옵션 선택은 필수입니다.");
-			return false;
-		}
-		else if ( $("input#optionNo0").val() != "00" && $("input#optionNo1").val() != "00" ) {
-			alert("옵션 선택은 필수입니다.");
-			return false;
-		}			
-		   
+		else {
+			var frm = document.goOrderFrm;
+			frm.method = "post";
+			frm.action = "<%= request.getContextPath()%>/order/order.up";
+			frm.submit();
+		}   
     } // end of function goOrder(){}
     
     function goloop() { 
