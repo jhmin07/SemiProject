@@ -22,7 +22,7 @@ public class SmsSendAction extends AbstractController {
 		String api_key = ""; 
 		
 		// String api_secret = "발급받은 본인의 API Secret";  // 발급받은 본인 API Secret
-		String api_secret = ""; 
+		String api_secret = "0JIO4QUI4FTFJJLD3FSNJTPOEQITYNPI"; 
 		
 		Message coolsms = new Message(api_key, api_secret);
 		

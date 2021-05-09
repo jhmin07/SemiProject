@@ -193,7 +193,14 @@
 			</tr>  
 			<tr>
 				<td class="td1">연락처</td>
-				<td class="td2">${fn:substring(mobile, 0, 3)}-${fn:substring(mobile, 3, 7)}-${fn:substring(mobile, 7, 11)}</td>
+				<td class="td2">
+					<c:choose>
+						<c:when test="${empty fn:substring(mobile, 0, 3)}"></c:when>
+						<c:otherwise>						
+							${fn:substring(mobile, 0, 3)}-${fn:substring(mobile, 3, 7)}-${fn:substring(mobile, 7, 11)}
+						</c:otherwise>
+					</c:choose>
+				</td>				
 			</tr>  
 			<tr>
 				<td class="td1">우편번호</td>
@@ -209,11 +216,25 @@
 			</tr>  
 			<tr>
 				<td class="td1">생년월일</td>
-				<td class="td2"> ${fn:substring(birthday, 0, 4)}-${fn:substring(birthday, 4, 6)}-${fn:substring(birthday, 6, 8)}</td>
+				<td class="td2">
+					<c:choose>
+						<c:when test="${fn:substring(birthday, 0, 2) eq '--'}"></c:when>
+						<c:otherwise>						
+							${fn:substring(birthday, 0, 4)}-${fn:substring(birthday, 4, 6)}-${fn:substring(birthday, 6, 8)}
+						</c:otherwise>
+					</c:choose>
+				</td>
 			</tr>  
 			<tr>
 				<td class="td1">나이</td>
-				<td class="td2">${requestScope.mvo.age}세</td>
+				<td class="td2">
+					<c:choose>
+						<c:when test="${fn:substring(birthday, 0, 2) eq '--'}"></c:when>
+						<c:otherwise>						
+							${requestScope.mvo.age}세
+						</c:otherwise>
+					</c:choose>
+				</td>				
 			</tr>  
 			<tr>
 				<td class="td1">포인트</td>
