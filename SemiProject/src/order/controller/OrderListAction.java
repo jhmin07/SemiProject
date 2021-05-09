@@ -72,8 +72,7 @@ public class OrderListAction extends AbstractController {
 			// 주문조회
 			List<OrderDetailVO> orderList = odao.selectOrderList(paraMap, loginuser.getUserid());
 			request.setAttribute("orderList", orderList);
-			
-			System.out.println();
+						
 			
 		//	super.setRedirect(false);
 			super.setViewPage("/WEB-INF/order/orderList.jsp");
