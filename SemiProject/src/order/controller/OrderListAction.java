@@ -16,6 +16,8 @@ public class OrderListAction extends AbstractController {
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		
+		super.goBackURL(request);
+		
 		// == 로그인을 했을 때만 조회가 가능하도록 한다.		
 		boolean isLogin = super.checkLogin(request);
 		

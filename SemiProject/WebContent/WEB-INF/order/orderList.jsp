@@ -9,6 +9,8 @@
 %>
 <jsp:include page="../header4.jsp"/>
 
+<link rel="stylesheet" type="text/css" href="<%= ctxPath%>/css/datepicker.css" />
+
 <style type="text/css">
 div.container {
 	margin: 80px auto;
@@ -30,9 +32,9 @@ span.period {
 }
 
 span#showOrderList{
-	border: solid 1px #336699;
-	background-color: #336699;
-	color: white;
+	border: solid 1px #e0ebeb;
+	background-color: #e0ebeb;
+	color: black;
 	padding: 2px;
 	margin-left: 5px;
 	cursor: pointer;
@@ -72,12 +74,6 @@ img.odr_img {
 	width: 100px;
 	height: 100px;
 }
-
-tr.odr_tr > td {
-	vertical-align: middle !important;
-}
-
-
 </style>
 
 <script type="text/javascript">
@@ -178,7 +174,7 @@ $(document).ready(function(){
 	}
 
 	
-	// 날짜별, 배송상태별 주문조회하기
+	// 날짜별 주문조회하기
 	function showOrderListByDate(){
 		var frm = document.orderListFrm;
 		frm.action = "<%= ctxPath%>/order/orderList.up";
@@ -238,6 +234,7 @@ $(document).ready(function(){
 				<th>상품정보</th>
 				<th>수량</th>
 				<th>상품구매금액</th>
+				<th>총상품구매금액</th>
 				<th>포인트</th>
 				<th>배송상태</th>				
 			</tr>
@@ -246,7 +243,7 @@ $(document).ready(function(){
 		<tbody>		
 			<c:if test="${empty requestScope.orderList}">
 				<tr>
-					<td colspan="7" align="center" class="ordertext">
+					<td colspan="8" align="center" class="ordertext">
 						주문한 상품이 없습니다.
 					</td>
 				</tr>
@@ -262,23 +259,28 @@ $(document).ready(function(){
 					</td>
 					<td> <%-- 이미지 --%>
 					<a href="<%= ctxPath%>/detailMenu/productDetailPage.up?pnum=${ordervo.fk_pnum}">
-						<img src="<%= ctxPath%>/image/product/${ordervo.prod.fk_decode}/${ordervo.prod.pimage1}" width="130px"/>
+						<img src="<%= ctxPath%>/image/product/${ordervo.prod.fk_decode}/${ordervo.prod.pimage1}" width="130px" title="상품 이미지를 클릭하시면 해당상품페이지로 넘어갑니다."/>
 					</a>	
 					</td>
 					<td> <%-- 상품정보 --%>
-						<span>${ordervo.prod.pname}</span>
+						<span style="font-weight: bold;">${ordervo.prod.pname}</span><br><br>
+						<span>${ordervo.optionContents}</span>
 					</td>
 					<td> <%-- 수량 --%>
 						<span>${ordervo.odAmount}</span>개
 					</td>
 					<td> <%-- 상품구매금액 --%>
-						<span id="totalprice">
-							<fmt:formatNumber value="${ordervo.ord.totalPrice}" pattern="###,###" />
-							<input class="totalPrice" type="hidden" value="${ordervo.ord.totalPrice}" />
+						<fmt:formatNumber value="${ordervo.ord.totalPrice}" pattern="###,###" /> 원
+						<input class="totalPrice" type="hidden" value="${ordervo.ord.totalPrice}" />					
+					</td>
+					<td> <%-- 총 상품구매금액 --%>	
+						<span>
+							<fmt:formatNumber value="${ordervo.odPrice}" pattern="###,###" />
+							<input class="totalPrice" type="hidden" value="${ordervo.odPrice}" />
 						</span> 원
 					</td>
 					<td> <%-- 포인트 --%>
-						<span id="totalpoint">
+						<span>
 							<fmt:formatNumber value="${ordervo.ord.totalPoint}" pattern="###,###" /> 
 							</span> POINT
 						<input class="totalPoint" type="hidden" value="${ordervo.ord.totalPoint}" />
