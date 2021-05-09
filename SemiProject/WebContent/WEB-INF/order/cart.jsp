@@ -644,7 +644,7 @@ $(document).ready(function(){
 	                     <input id="beforeSale" type="hidden" style="font-size: 13px;width:60px; border:none;border-right:0px; border-top:0px; boder-left:0px; boder-bottom:0px;" name="price"  value="${cartvo.prod.price+ cartvo.sumAddprice}" />
 	                   </c:if>
 	                   
-	                   <fmt:formatNumber value="${cartvo.prod.saleprice + cartvo.sumAddprice}" pattern="###,###" /> 원
+	                   <fmt:formatNumber value="${cartvo.prod.saleprice}" pattern="###,###" /> 원
 	                   <input type="hidden" name="saleprice"  value="${cartvo.prod.saleprice + cartvo.sumAddprice}" /> <!-- SumAddprice -->
 	                   <br/><span style="color: green; font-weight: bold; font-size: 11px;;"><fmt:formatNumber value="${cartvo.prod.point}" pattern="###,###" /> POINT</span>
                	   </td>
