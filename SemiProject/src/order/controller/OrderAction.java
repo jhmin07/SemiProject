@@ -45,6 +45,16 @@ public class OrderAction extends AbstractController {
 		String totalPrice_es= request.getParameter("totalPrice_es");
 		String sumtotalPrice = request.getParameter("sumtotalPrice");
 		String sumtotalPoint = request.getParameter("sumtotalPoint");
+
+		String optionNo0 = request.getParameter("optionNo0");	 
+		String optionNo1 = request.getParameter("optionNo1");	
+		String optionNo = optionNo0+","+optionNo1;		
+		
+		System.out.println("optionNo0 : " + optionNo0);
+		System.out.println("optionNo1 : " + optionNo1);
+		System.out.println("optionNo : " + optionNo);
+		System.out.println(optionNo);		
+		
 //		System.out.println("cartno_es:"+cartno_es);
 		
 		List<Map<String, String>> mapList = new ArrayList<>();
