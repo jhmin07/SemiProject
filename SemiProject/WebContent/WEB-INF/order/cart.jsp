@@ -637,10 +637,10 @@ $(document).ready(function(){
 					</td>
 						
 				   <td align="right" style="width:100px; text-align: left;"> <%-- 실제판매단가 및 포인트 --%> 
-				      <c:if test="${cartvo.prod.price+ cartvo.sumAddprice > cartvo.prod.saleprice + cartvo.sumAddprice }">
+				      <c:if test="${cartvo.prod.price > cartvo.prod.saleprice }">
 				         <input id="beforeSale" type="text" style="color: red; font-size: 13px; text-decoration: line-through; width:60px; border:none;border-right:0px; border-top:0px; boder-left:0px; boder-bottom:0px;" name="price"  value="${cartvo.prod.price+ cartvo.sumAddprice}" />
 	                   </c:if>
-	                   <c:if test="${cartvo.prod.price+ cartvo.sumAddprice == cartvo.prod.saleprice + cartvo.sumAddprice }">
+	                   <c:if test="${cartvo.prod.price == cartvo.prod.saleprice }">
 	                     <input id="beforeSale" type="hidden" style="font-size: 13px;width:60px; border:none;border-right:0px; border-top:0px; boder-left:0px; boder-bottom:0px;" name="price"  value="${cartvo.prod.price+ cartvo.sumAddprice}" />
 	                   </c:if>
 	                   
