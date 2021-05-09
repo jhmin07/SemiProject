@@ -315,7 +315,7 @@ $(document).ready(function(){
      		  cartNoArr.push($("input.cartNo").eq(i).val() );
      		  totalPriceArr.push( $("input#totalPrice").eq(i).val() );
      		  totalPointArr.push( $("input#totalPoint").eq(i).val() );
-     		  totalBeforeArr.push ( $("input:text[name=price]").eq(i).val() * $("input.odAmount").eq(i).val() );
+     		  totalBeforeArr.push ( $("input#beforeSale").eq(i).val() * $("input.odAmount").eq(i).val() );
 
      	  }
      	  
@@ -391,7 +391,7 @@ $(document).ready(function(){
 	     		  cartNoArr.push($("input.cartNo").eq(i).val() );
 	     		  totalPriceArr.push( $("input#totalPrice").eq(i).val() );
 	     		  totalPointArr.push( $("input#totalPoint").eq(i).val() );
-	     		  totalBeforeArr.push ( $("input:text[name=price]").eq(i).val() * $("input.odAmount").eq(i).val() );
+	     		  totalBeforeArr.push ( $("input#beforeSale").eq(i).val() * $("input.odAmount").eq(i).val() );
 	     		  optionstrArr.push( $("input#optionstr").eq(i).val() );
 	     	  }
 	     	  
@@ -417,7 +417,7 @@ $(document).ready(function(){
 	       var sumtotalPoint = 0;
 	       var str_optionstr= optionstrArr.join();
 	       
-	       console.log(str_optionstr);
+	       //console.log(str_optionstr);
 	       
 	      for(var i=0; i<totalPointArr.length; i++){            	                	
 	       	sumtotalPoint+=parseInt(totalPointArr[i]);           	  
@@ -637,8 +637,13 @@ $(document).ready(function(){
 					</td>
 						
 				   <td align="right" style="width:100px; text-align: left;"> <%-- 실제판매단가 및 포인트 --%> 
-				      
-				       <input  type="text" style="color: red; font-size: 13px; text-decoration: line-through; width:60px; border:none;border-right:0px; border-top:0px; boder-left:0px; boder-bottom:0px;" name="price"  value="${cartvo.prod.price}" />
+				      <c:if test="${cartvo.prod.price+ cartvo.sumAddprice > cartvo.prod.saleprice + cartvo.sumAddprice }">
+				         <input id="beforeSale" type="text" style="color: red; font-size: 13px; text-decoration: line-through; width:60px; border:none;border-right:0px; border-top:0px; boder-left:0px; boder-bottom:0px;" name="price"  value="${cartvo.prod.price+ cartvo.sumAddprice}" />
+	                   </c:if>
+	                   <c:if test="${cartvo.prod.price+ cartvo.sumAddprice == cartvo.prod.saleprice + cartvo.sumAddprice }">
+	                     <input id="beforeSale" type="hidden" style="font-size: 13px;width:60px; border:none;border-right:0px; border-top:0px; boder-left:0px; boder-bottom:0px;" name="price"  value="${cartvo.prod.price+ cartvo.sumAddprice}" />
+	                   </c:if>
+	                   
 	                   <fmt:formatNumber value="${cartvo.prod.saleprice + cartvo.sumAddprice}" pattern="###,###" /> 원
 	                   <input type="hidden" name="saleprice"  value="${cartvo.prod.saleprice + cartvo.sumAddprice}" /> <!-- SumAddprice -->
 	                   <br/><span style="color: green; font-weight: bold; font-size: 11px;;"><fmt:formatNumber value="${cartvo.prod.point}" pattern="###,###" /> POINT</span>
@@ -652,7 +657,7 @@ $(document).ready(function(){
 				   </td>
 					
                	   <td>
-               	   	<fmt:formatNumber value="${(cartvo.prod.saleprice + cartvo.sumAddprice) * cartvo.odAmount}" pattern="###,###" /> 원
+               	   	<fmt:formatNumber value="${(cartvo.prod.saleprice + cartvo.sumAddprice) * cartvo.odAmount}" pattern="###,###" /> 원 <!-- 총금액 -->
                	   	<input type="hidden" id="totalPrice"  value="${(cartvo.prod.saleprice + cartvo.sumAddprice) * cartvo.odAmount}">
                	   	<input type="hidden" id="totalPoint"  value="${cartvo.prod.point * cartvo.odAmount}">
                	   </td>
@@ -685,7 +690,6 @@ $(document).ready(function(){
 		<tr class="side_cart" id="total_price_in_cart">
             <td>총 제품 : </td>
             <td><span id="totalPrice_1" ></span> 원 <!-- style="text-decoration: line-through;" -->
-           <input  class="totalPrice" type="hidden" value="${cartvo.prod.totalPrice}" /></td>
          </tr>
          <tr class="side_cart" id="discount_price_in_cart" style="font-size:15px;">
          	<td > - 상품할인금액 : </td>
