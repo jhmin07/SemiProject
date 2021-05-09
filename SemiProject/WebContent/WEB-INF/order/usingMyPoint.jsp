@@ -72,6 +72,7 @@ span.p {
 			
 			if (userPoint < inputVal) {
 				alert("사용가능한 포인트를 확인해주세요.");
+				$(this).focus().val(0);
 			}
 		});
 		
