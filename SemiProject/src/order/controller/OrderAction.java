@@ -66,8 +66,12 @@ public class OrderAction extends AbstractController {
 			
 			// 상품에 대한 옵션 정보의 문자열
 			String optionstr = request.getParameter("optionstr");
+//			String optionstr = " , , ";
 			String[] optionstrArr = optionstr.split(",");
 			
+			System.out.println("optionstr => "+optionstr);
+			System.out.println("optionstrArr.length => "+ optionstrArr.length);
+		
 			InterOrderDAO odao = new OrderDAO();
 			
 			int length = pnumArr.length;

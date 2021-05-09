@@ -51,7 +51,7 @@ public class CartControllerAction extends AbstractController {
 	         
 	         HashMap<String, String> sumMap = cdao.selectCartSumPricePoint(loginuser.getUserid());
 	         
-	       
+//	         System.out.println("optionstr => "+cartList.get(0).getOptionstr());
 	         request.setAttribute("cartList", cartList);
 	         request.setAttribute("sumMap", sumMap);
 	         
