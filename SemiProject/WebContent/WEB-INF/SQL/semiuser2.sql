@@ -241,7 +241,6 @@ COMMIT;
 -- normal
 ---------------------------------------------------------------------------------------------------
 
-
 ---- *** 제품 테이블 : tbl_product *** ----
 -- drop table tbl_product purge; 
 create table tbl_product
@@ -277,9 +276,147 @@ nominvalue
 nocycle
 nocache;
 
+insert into tbl_product(pnum, pname, fk_decode, pcompany, pimage1, pimage2, pqty, price, saleprice, fk_snum, pcontent, point)
+values(seq_tbl_product_pnum.nextval, '800폭 테이블', '30001', '일룸', 'furniture_01_01.jpg', 'furniture_01_02.jpg', 10, 300000, 300000, 1, '심플하면서도 따뜻한 감성을 가진 로 테이블', 3000);
+insert into tbl_product(pnum, pname, fk_decode, pcompany, pimage1, pimage2, pqty, price, saleprice, fk_snum, pcontent, point)
+values(seq_tbl_product_pnum.nextval, 'DT GRAND 다이닝 테이블', '30001', '챕터원', 'furniture_02_01.jpg', 'furniture_02_02.jpg', 10, 2900000, 2800000, 3, '초승달 모양에서 영감을 받은 다리와 튼튼한 구조가 어우러진 기능성과 미학적으로 훌륭한 조화를 이루어낸 테이블입니다.', 28000);
+insert into tbl_product(pnum, pname, fk_decode, pcompany, pimage1, pimage2, pqty, price, saleprice, fk_snum, pcontent, point)
+values(seq_tbl_product_pnum.nextval, '데센토 스페인 세라믹 테이블', '30001', '벤스', 'furniture_03_01.jpg', 'furniture_03_02.jpg', 10, 1199000, 1159000, 3, '수천년 전통을 자랑하는 최고급 스페인산 세라믹 다이닝 테이블', 11500);
+insert into tbl_product(pnum, pname, fk_decode, pcompany, pimage1, pimage2, pqty, price, saleprice, fk_snum, pcontent, point)
+values(seq_tbl_product_pnum.nextval, '델릭식탁', '30001', '델릭', 'furniture_04_01.jpg', 'furniture_04_02.jpg', 20, 769000, 769000, 1, 'Delicious(맛있는)에서 영감을 얻은 델릭(Delic) 시리즈입니다.', 7600);
+insert into tbl_product(pnum, pname, fk_decode, pcompany, pimage1, pimage2, pqty, price, saleprice, fk_snum, pcontent, point)
+values(seq_tbl_product_pnum.nextval, 'DOPPIO 다이닝 테이블', '30001', '챕터원', 'furniture_05_01.jpg', 'furniture_05_02.jpg', 10, 165000, 165000, 4, '부드러운 곡선 형태의 메탈 다리를 사용하여 복고적이고 모던한 테이블입니다.', 1600);
+insert into tbl_product(pnum, pname, fk_decode, pcompany, pimage1, pimage2, pqty, price, saleprice, fk_snum, pcontent, point)
+values(seq_tbl_product_pnum.nextval, '뉴 디오 체어', '30001', '벤스', 'furniture_06_01.jpg', 'furniture_06_02.jpg', 40, 118000, 118000, 1, '좌방석 절개라인의 스티치 디자인이 돋보이는 의자입니다.', 1100);
+insert into tbl_product(pnum, pname, fk_decode, pcompany, pimage1, pimage2, pqty, price, saleprice, fk_snum, pcontent, point)
+values(seq_tbl_product_pnum.nextval, '카티프 1인용 라탄의자', '30001', '피카소가구', 'furniture_07_01.jpg', 'furniture_07_02.jpg', 10, 59000, 50150, 4, '천연라탄이 가진 자연의 아름다움을 살린 카디프암체어입니다.', 500);
+insert into tbl_product(pnum, pname, fk_decode, pcompany, pimage1, pimage2, pqty, price, saleprice, fk_snum, pcontent, point)
+values(seq_tbl_product_pnum.nextval, '리네 패브릭 체어', '30001', '벤스', 'furniture_08_01.jpg', 'furniture_08_02.jpg', 10, 109000, 109000, 4, '패브릭만이 줄 수 있는 아늑하고 포근한 감성으로 안락한 분위기를 연출하는 리네 체어', 1000);
+insert into tbl_product(pnum, pname, fk_decode, pcompany, pimage1, pimage2, pqty, price, saleprice, fk_snum, pcontent, point)
+values(seq_tbl_product_pnum.nextval, '모리니 테이블', '30001', '일룸', 'furniture_09_01.jpg', 'furniture_09_02.jpg', 30, 799000, 799000, 3, '독특한 모양의 원목다리가 세련되고 감각적인 분위기를 선사합니다.', 7900);
+insert into tbl_product(pnum, pname, fk_decode, pcompany, pimage1, pimage2, pqty, price, saleprice, fk_snum, pcontent, point)
+values(seq_tbl_product_pnum.nextval, '밀란 8인 식탁', '30001', '벤스', 'furniture_10_01.jpg', 'furniture_10_02.jpg', 100, 769000, 769000, 4, '8인이 사용 가능한 모던한 테이블', 7600);
+insert into tbl_product(pnum, pname, fk_decode, pcompany, pimage1, pimage2, pqty, price, saleprice, fk_snum, pcontent, point)
+values(seq_tbl_product_pnum.nextval, '벤치 의자', '30001', '일룸', 'furniture_11_01.jpg', 'furniture_11_02.jpg', 40, 290000, 290000, 3, '라운드형 디자인이 특징인 벤치', 2900);
+insert into tbl_product(pnum, pname, fk_decode, pcompany, pimage1, pimage2, pqty, price, saleprice, fk_snum, pcontent, point)
+values(seq_tbl_product_pnum.nextval, '1400폭 테이블', '30001', '일룸', 'furniture_12_01.jpg', 'furniture_12_02.jpg', 50, 429000, 429000, 4, '이탈리아 디자이너 클라우디오 벨리니가 디자인한 모던하고 미니멀한 스타일의 테이블', 4200);
+insert into tbl_product(pnum, pname, fk_decode, pcompany, pimage1, pimage2, pqty, price, saleprice, fk_snum, pcontent, point)
+values(seq_tbl_product_pnum.nextval, '데센토 스페인 세라믹 테이블(고정형)', '30001', '벤스', 'furniture_13_01.jpg', 'furniture_13_02.jpg', 50, 895000, 895000, 4, '세련되고 모던한 다이닝 공간을 연출하는 고급스러운 테이블', 8900);
+insert into tbl_product(pnum, pname, fk_decode, pcompany, pimage1, pimage2, pqty, price, saleprice, fk_snum, pcontent, point)
+values(seq_tbl_product_pnum.nextval, '아르카 체어', '30001', '벤스', 'furniture_14_01.jpg', 'furniture_14_02.jpg', 30, 174000, 174000, 4, '사용 용도에 따라 다양하게 연출할 수 있는 다용도 체어', 1700);
+insert into tbl_product(pnum, pname, fk_decode, pcompany, pimage1, pimage2, pqty, price, saleprice, fk_snum, pcontent, point)
+values(seq_tbl_product_pnum.nextval, 'DT03 아울 X 테이블', '30001', '챕터원', 'furniture_15_01.jpg', 'furniture_15_02.jpg', 40, 1790000, 1790000, 4, '은은한 올리브그린색의 글락 상판과 월넛 다리의 조화가 멋스러운 테이블', 17900);
+insert into tbl_product(pnum, pname, fk_decode, pcompany, pimage1, pimage2, pqty, price, saleprice, fk_snum, pcontent, point)
+values(seq_tbl_product_pnum.nextval, '엘리어스 대리석 6인 식탁', '30001', '벤스', 'furniture_16_01.jpg', 'furniture_16_02.jpg', 50, 578000, 578000, 4, '깔끔한 화이트색과 독특한 다리 모양의 조화가 멋스러운 고급 테이블', 000);
+insert into tbl_product(pnum, pname, fk_decode, pcompany, pimage1, pimage2, pqty, price, saleprice, fk_snum, pcontent, point)
+values(seq_tbl_product_pnum.nextval, '올리비아 4인 식탁', '30001', '벤스', 'furniture_17_01.jpg', 'furniture_17_02.jpg', 10, 332000, 332000, 4, '4인이 사용가능한 모던한 식탁', 3300);
+insert into tbl_product(pnum, pname, fk_decode, pcompany, pimage1, pimage2, pqty, price, saleprice, fk_snum, pcontent, point)
+values(seq_tbl_product_pnum.nextval, '원형테이블 1000폭', '30001', '일룸', 'furniture_18_01.jpg', 'furniture_18_02.jpg', 10, 459000, 459000, 4, '거실이나 주방, 서재 등 사용 용도에 따라 다양하게 연출할 수 있는 다용도 테이블', 000);
+insert into tbl_product(pnum, pname, fk_decode, pcompany, pimage1, pimage2, pqty, price, saleprice, fk_snum, pcontent, point)
+values(seq_tbl_product_pnum.nextval, 'WAVE BENCH', '30001', '챕터원', 'furniture_19_01.jpg', 'furniture_19_02.jpg', 10, 1000000, 1000000, 4, '유기적인 곡선으로 공간에 활력을 줄 벤치입니다.', 1000);
+insert into tbl_product(pnum, pname, fk_decode, pcompany, pimage1, pimage2, pqty, price, saleprice, fk_snum, pcontent, point)
+values(seq_tbl_product_pnum.nextval, '타이디 수납형 식탁', '30001', '일룸', 'furniture_20_01.jpg', 'furniture_20_02.jpg', 50, 420000, 420000, 4, '넓은 상판과 실용적인 하부 수납이 돋보이는 아일랜드형 식탁입니다.', 4200);
+insert into tbl_product(pnum, pname, fk_decode, pcompany, pimage1, pimage2, pqty, price, saleprice, fk_snum, pcontent, point)
+values(seq_tbl_product_pnum.nextval, '펠리체 원형 테이블', '30001', '벤스', 'furniture_21_01.jpg', 'furniture_21_02.jpg', 10, 620000, 350000, 4, '오랜 시간 첫느낌 그대로 집에서 만나는 기분 좋은 공간을 연출해주는 테이블입니다.', 000);
+insert into tbl_product(pnum, pname, fk_decode, pcompany, pimage1, pimage2, pqty, price, saleprice, fk_snum, pcontent, point)
+values(seq_tbl_product_pnum.nextval, '홈바세트', '30001', '일룸', 'furniture_22_01.jpg', 'furniture_22_02.jpg', 10, 490000, 490000, 1, '슬림한 디자인이 돋보이는 바테이블과 바스툴 세트입니다.', 4900);
+
+insert into tbl_product(pnum, pname, fk_decode, pcompany, pimage1, pimage2, pqty, price, saleprice, fk_snum, pcontent, point)
+values(seq_tbl_product_pnum.nextval, '라탄 해머드 글라스 트롤리', '30002', '자라홈', 'storage_01_01.jpg', 'storage_01_02.jpg', 10, 599000, 599000, 3, '바퀴가 달린 트롤리 또는 카트. 두꺼운 우븐 마감 천연 라탄 소재로 제조한 수공예 디자인', 5900);
+insert into tbl_product(pnum, pname, fk_decode, pcompany, pimage1, pimage2, pqty, price, saleprice, fk_snum, pcontent, point)
+values(seq_tbl_product_pnum.nextval, '메탈 우든 수납 가구', '30002', '자라홈', 'storage_02_01.jpg', 'storage_02_02.jpg', 10, 179000, 179000, 4, '아카시아 목재 선반과 무광 마감 아이언 프레임으로 구성된 디자인', 1700);
+insert into tbl_product(pnum, pname, fk_decode, pcompany, pimage1, pimage2, pqty, price, saleprice, fk_snum, pcontent, point)
+values(seq_tbl_product_pnum.nextval, 'RAVAROR', '30002', '이케아', 'storage_03_01.jpg', 'storage_03_02.jpg', 10, 399000, 399000, 1, '튼튼하고 유행을 타지 않는 미니주방', 3900);
+insert into tbl_product(pnum, pname, fk_decode, pcompany, pimage1, pimage2, pqty, price, saleprice, fk_snum, pcontent, point)
+values(seq_tbl_product_pnum.nextval, '스토리지 가구 우드', '30002', '자라홈', 'storage_04_01.jpg', 'storage_04_02.jpg', 10, 69000, 69000, 3, '베이지 컬러 메탈 바스켓 프레임과 서랍이 매치된 스토리지 유닛', 4900);
+insert into tbl_product(pnum, pname, fk_decode, pcompany, pimage1, pimage2, pqty, price, saleprice, fk_snum, pcontent, point)
+values(seq_tbl_product_pnum.nextval, '스토리지 우드', '30002', '자라홈', 'storage_05_01.jpg', 'storage_05_02.jpg', 10, 199000, 199000, 4, '블랙 컬러 메탈 메쉬 구조에 목재 선반이 매치된 수납 가구', 1900);
+insert into tbl_product(pnum, pname, fk_decode, pcompany, pimage1, pimage2, pqty, price, saleprice, fk_snum, pcontent, point)
+values(seq_tbl_product_pnum.nextval, '가드니아', '30002', '리바트', 'storage_06_01.jpg', 'storage_06_02.jpg', 10, 1059000, 1059000, 4, '세련된 그린색이 풍기는 친화적인 분위기의 주방', 10500);
+insert into tbl_product(pnum, pname, fk_decode, pcompany, pimage1, pimage2, pqty, price, saleprice, fk_snum, pcontent, point)
+values(seq_tbl_product_pnum.nextval, '내츄럴본키친 상부장 벽걸이 주방수납장', '30002', '포홈', 'storage_07_01.jpg', 'storage_07_02.jpg', 10, 198000, 178000, 1, '브라질 소나무 원목과 무독성 수용성 페인트를 사용한 건강한 수납장', 1700);
+insert into tbl_product(pnum, pname, fk_decode, pcompany, pimage1, pimage2, pqty, price, saleprice, fk_snum, pcontent, point)
+values(seq_tbl_product_pnum.nextval, '데이아 다기능 주방수납장', '30002', '필웰', 'storage_08_01.jpg', 'storage_08_02.jpg', 10, 179000, 159000, 1, '빛의 움직임을 그대로 표현한 고광택 하이그로시 소재의 수납장', 1500);
+insert into tbl_product(pnum, pname, fk_decode, pcompany, pimage1, pimage2, pqty, price, saleprice, fk_snum, pcontent, point)
+values(seq_tbl_product_pnum.nextval, '델릭스', '30002', '리바트', 'storage_09_01.jpg', 'storage_09_02.jpg', 10, 1045000, 1045000, 4, '모던하고 젊은 감성으로 나만의 감각적인 스타일에 맞춘 즐거움의 공간', 10400);
+insert into tbl_product(pnum, pname, fk_decode, pcompany, pimage1, pimage2, pqty, price, saleprice, fk_snum, pcontent, point)
+values(seq_tbl_product_pnum.nextval, '클로이 원목 유리도어 수납장', '30002', '포홈', 'storage_10_01.jpg', 'storage_10_02.jpg', 10, 299000, 279000, 4, '', 2700);
+insert into tbl_product(pnum, pname, fk_decode, pcompany, pimage1, pimage2, pqty, price, saleprice, fk_snum, pcontent, point)
+values(seq_tbl_product_pnum.nextval, 'VEDDINGE', '30002', '이케아', 'storage_11_01.jpg', 'storage_11_02.jpg', 10, 40000, 40000, 3, '주방에 밝고 모던한 감각을 더해주는 부드러운 느낌', 400);
+insert into tbl_product(pnum, pname, fk_decode, pcompany, pimage1, pimage2, pqty, price, saleprice, fk_snum, pcontent, point)
+values(seq_tbl_product_pnum.nextval, 'BODBYN', '30002', '이케아', 'storage_12_01.jpg', 'storage_12_02.jpg', 10, 80000, 80000, 4, '프레임과 비스듬한 음각 처리로 입체감을 살린 패널로 독특하고 고전적인 느낌이 돋보입니다.', 800);
+insert into tbl_product(pnum, pname, fk_decode, pcompany, pimage1, pimage2, pqty, price, saleprice, fk_snum, pcontent, point)
+values(seq_tbl_product_pnum.nextval, 'JUTIS', '30002', '이케아', 'storage_13_01.jpg', 'storage_13_02.jpg', 10, 60000, 60000, 3, '25년 품질보증된 믿을만한 제품', 600);
+insert into tbl_product(pnum, pname, fk_decode, pcompany, pimage1, pimage2, pqty, price, saleprice, fk_snum, pcontent, point)
+values(seq_tbl_product_pnum.nextval, '1000폭 주방수납장(도어형)', '30002', '레마', 'storage_14_01.jpg', 'storage_14_02.jpg', 10, 248000, 248000, 1, '내추럴한 컬러와 감성적인 디자인으로 공간에 따뜻한 느낌을 불어넣어주는 수납장입니다.', 2400);
+insert into tbl_product(pnum, pname, fk_decode, pcompany, pimage1, pimage2, pqty, price, saleprice, fk_snum, pcontent, point)
+values(seq_tbl_product_pnum.nextval, 'onion 진저 주방 유리 수납장', '30002', '까사미아', 'storage_15_01.jpg', 'storage_15_02.jpg', 10, 2023000, 182300, 4, '실용성과 디자인을 겸비한 주방가구', 1800);
+
+insert into tbl_product(pnum, pname, fk_decode, pcompany, pimage1, pimage2, pqty, price, saleprice, fk_snum, pcontent, point)
+values(seq_tbl_product_pnum.nextval, '2단 트레이', '30003', '자라홈', 'tool_01_01.jpg', 'tool_01_02.jpg', 20, 99000, 99000, 3, '목재 손잡이가 달린 래커 마감 아이언 베이지 컬러 다용도 2단 트레이', 900);
+insert into tbl_product(pnum, pname, fk_decode, pcompany, pimage1, pimage2, pqty, price, saleprice, fk_snum, pcontent, point)
+values(seq_tbl_product_pnum.nextval, 'GLASS CUP', '30003', '챕터원', 'tool_02_01.jpg', 'tool_02_02.jpg', 20, 40000, 40000, 1, '고급스러운 손잡이와 내추럴한 컬러가 조화를 이루는 컵', 400);
+insert into tbl_product(pnum, pname, fk_decode, pcompany, pimage1, pimage2, pqty, price, saleprice, fk_snum, pcontent, point)
+values(seq_tbl_product_pnum.nextval, '스틸 키친 가위', '30003', '자라홈', 'tool_03_01.jpg', 'tool_03_02.jpg', 20, 55000, 55000, 4, '단조 스테일리스 스틸 주방용 가위', 500);
+insert into tbl_product(pnum, pname, fk_decode, pcompany, pimage1, pimage2, pqty, price, saleprice, fk_snum, pcontent, point)
+values(seq_tbl_product_pnum.nextval, '계량 스푼', '30003', '자라홈', 'tool_04_01.jpg', 'tool_04_02.jpg', 20, 55000, 55000, 1, '레이저 컷 측정의 목재 계량 스푼 3개 세트', 500);
+insert into tbl_product(pnum, pname, fk_decode, pcompany, pimage1, pimage2, pqty, price, saleprice, fk_snum, pcontent, point)
+values(seq_tbl_product_pnum.nextval, '골드 톤 메탈 직사각 트레이', '30003', '자라홈', 'tool_05_01.jpg', 'tool_05_02.jpg', 20, 99000, 99000, 4, '서빙용으로 이상적인 골드 톤 메탈릭 가장자리와 직사각형 베이스 디자인의 거울 트레이', 900);
+insert into tbl_product(pnum, pname, fk_decode, pcompany, pimage1, pimage2, pqty, price, saleprice, fk_snum, pcontent, point)
+values(seq_tbl_product_pnum.nextval, '교쿠로 세트', '30003', '챕터원', 'tool_06_01.jpg', 'tool_06_02.jpg', 20, 220000, 220000, 4, '귀여운 크기와 형태가 특징인 1인용 다기세트', 2200);
+insert into tbl_product(pnum, pname, fk_decode, pcompany, pimage1, pimage2, pqty, price, saleprice, fk_snum, pcontent, point)
+values(seq_tbl_product_pnum.nextval, '스테인리스 스틸 나이프 & 커팅 보드', '30003', '자라홈', 'tool_07_01.jpg', 'tool_07_02.jpg', 20, 99000, 99000, 4, '아카시아 목재와 스테인리스 스틸 소재의 커팅 보드와 나이프', 900);
+insert into tbl_product(pnum, pname, fk_decode, pcompany, pimage1, pimage2, pqty, price, saleprice, fk_snum, pcontent, point)
+values(seq_tbl_product_pnum.nextval, '내추럴 티컵', '30003', '챕터원', 'tool_08_01.jpg', 'tool_08_02.jpg', 20, 26000, 26000, 4, '구겨진듯한 느낌으로 손맛이 느껴지는 디자인의 티컵', 200);
+insert into tbl_product(pnum, pname, fk_decode, pcompany, pimage1, pimage2, pqty, price, saleprice, fk_snum, pcontent, point)
+values(seq_tbl_product_pnum.nextval, 'BOWL S - YELLOW', '30003', '챕터원', 'tool_09_01.jpg', 'tool_09_02.jpg', 20, 32000, 32000, 4, '핀치(손가락) 자국이 특징인 보울', 300);
+insert into tbl_product(pnum, pname, fk_decode, pcompany, pimage1, pimage2, pqty, price, saleprice, fk_snum, pcontent, point)
+values(seq_tbl_product_pnum.nextval, '노르웨이 커트러리, 샐러드 세트', '30003', '챕터원', 'tool_10_01.jpg', 'tool_10_02.jpg', 20, 122000, 122000, 1, '스테인리스 스틸과 우드 손잡이가 결합되어 스테인리스의 묵직한 두께감과 핸들의 둥글고 긴 디자인이 특징입니다.', 1200);
+insert into tbl_product(pnum, pname, fk_decode, pcompany, pimage1, pimage2, pqty, price, saleprice, fk_snum, pcontent, point)
+values(seq_tbl_product_pnum.nextval, '노르웨이 커트러리, 4PCS 선물세트', '30003', '챕터원', 'tool_11_01.jpg', 'tool_11_02.jpg', 20, 155000, 155000, 3, '스테인리스 스틸과 플라스틱이 결합되어 스테인리스의 묵직한 두께감과 핸들의 둥글고 긴 디자인이 특징입니다.', 1500);
+insert into tbl_product(pnum, pname, fk_decode, pcompany, pimage1, pimage2, pqty, price, saleprice, fk_snum, pcontent, point)
+values(seq_tbl_product_pnum.nextval, '컬러 브레이드 라운드 대나무 트레이', '30003', '자라홈', 'tool_12_01.jpg', 'tool_12_02.jpg', 20, 45000, 45000, 1, '서빙용으로 인상적인 원형 베이스의 브레이드 마감 대나무 트레이', 400);
+insert into tbl_product(pnum, pname, fk_decode, pcompany, pimage1, pimage2, pqty, price, saleprice, fk_snum, pcontent, point)
+values(seq_tbl_product_pnum.nextval, 'MUG CUP - NATURAL', '30003', '챕터원', 'tool_13_01.jpg', 'tool_13_02.jpg', 20, 33000, 33000, 4, '자연스러운 곡선의 손잡이는 그립감이 좋아 실용성과 아름다움을 모두 갖추었습니다.', 300);
+insert into tbl_product(pnum, pname, fk_decode, pcompany, pimage1, pimage2, pqty, price, saleprice, fk_snum, pcontent, point)
+values(seq_tbl_product_pnum.nextval, '핸들 디테일 메탈 트레이', '30003', '자라홈', 'tool_14_01.jpg', 'tool_14_02.jpg', 20, 32000, 32000, 4, '아카시아 나무 손잡이가 달린 이중 래커 마감 금속 트레이', 300);
+insert into tbl_product(pnum, pname, fk_decode, pcompany, pimage1, pimage2, pqty, price, saleprice, fk_snum, pcontent, point)
+values(seq_tbl_product_pnum.nextval, '스태커블 믹싱볼', '30003', '자라홈', 'tool_15_01.jpg', 'tool_15_02.jpg', 20, 19000, 19000, 3, '스테인리스 스틸 믹싱볼', 100);
+insert into tbl_product(pnum, pname, fk_decode, pcompany, pimage1, pimage2, pqty, price, saleprice, fk_snum, pcontent, point)
+values(seq_tbl_product_pnum.nextval, '밥그릇 IVORY', '30003', '챕터원', 'tool_16_01.jpg', 'tool_16_02.jpg', 20, 28000, 28000, 4, '흙이 가진 유기적인 미를 표현한 그릇의 전 부분과 자연스러움을 강조한 유약의 느낌이 도드라진 밥그릇', 00);
+insert into tbl_product(pnum, pname, fk_decode, pcompany, pimage1, pimage2, pqty, price, saleprice, fk_snum, pcontent, point)
+values(seq_tbl_product_pnum.nextval, '하사미 보울 내추럴', '30003', '챕터원', 'tool_17_01.jpg', 'tool_17_02.jpg', 20, 38000, 38000, 4, '천연의 자기재질과 점토를 일정비율 섞어서 만든 반자기 형태의 제품', 300);
+insert into tbl_product(pnum, pname, fk_decode, pcompany, pimage1, pimage2, pqty, price, saleprice, fk_snum, pcontent, point)
+values(seq_tbl_product_pnum.nextval, 'W CUP SAUCER SET', '30003', '챕터원', 'tool_18_01.jpg', 'tool_18_02.jpg', 20, 75000, 75000, 4, '잔잔한 호수에 생기는 파동의 이미지 형상화한 컵', 700);
+insert into tbl_product(pnum, pname, fk_decode, pcompany, pimage1, pimage2, pqty, price, saleprice, fk_snum, pcontent, point)
+values(seq_tbl_product_pnum.nextval, 'VISION GLASS', '30003', '챕터원', 'tool_19_01.jpg', 'tool_19_02.jpg', 20, 15000, 15000, 1, '100% 유리소재의 친환경적이면서도 뛰어난 선명도를 가진 심플하고 투명한 컵', 100);
+insert into tbl_product(pnum, pname, fk_decode, pcompany, pimage1, pimage2, pqty, price, saleprice, fk_snum, pcontent, point)
+values(seq_tbl_product_pnum.nextval, '오얏꽃 조각잔 세트', '30003', '챕터원', 'tool_20_01.jpg', 'tool_20_02.jpg', 20, 58000, 58000, 3, '순박하고 순수한 오얏꽃(자두꽃)말을 담은 테이블 웨어', 500);
+insert into tbl_product(pnum, pname, fk_decode, pcompany, pimage1, pimage2, pqty, price, saleprice, fk_snum, pcontent, point)
+values(seq_tbl_product_pnum.nextval, '플로랄 포슬린 스푼 받침', '30003', '자라홈', 'tool_21_01.jpg', 'tool_21_02.jpg', 20, 19000, 19000, 4, '배색된 림과 플로랄 디테일이 매치된 스푼 받침', 100);
+insert into tbl_product(pnum, pname, fk_decode, pcompany, pimage1, pimage2, pqty, price, saleprice, fk_snum, pcontent, point)
+values(seq_tbl_product_pnum.nextval, '아카시아 우드 주방 도마', '30003', '자라홈', 'tool_22_01.jpg', 'tool_22_02.jpg', 20, 45000, 45000, 4, '식물성 보호 마감 처리된 아카시아 도마', 400);
+insert into tbl_product(pnum, pname, fk_decode, pcompany, pimage1, pimage2, pqty, price, saleprice, fk_snum, pcontent, point)
+values(seq_tbl_product_pnum.nextval, '주물 법랑 전골 냄비', '30003', '챕터원', 'tool_23_01.jpg', 'tool_23_02.jpg', 20, 40000, 40000, 4, '전골 뿐만 아니라 조림이나 찜, 찌개 등 다양한 용도로 사용할 수 있습니다.', 400);
+insert into tbl_product(pnum, pname, fk_decode, pcompany, pimage1, pimage2, pqty, price, saleprice, fk_snum, pcontent, point)
+values(seq_tbl_product_pnum.nextval, 'STIIK 젓가락', '30003', '챕터원', 'tool_24_01.jpg', 'tool_24_02.jpg', 20, 48000, 48000, 3, '현대적인 세련된 라인과 컬러감이 만난 정교한 젓가락', 400);
+insert into tbl_product(pnum, pname, fk_decode, pcompany, pimage1, pimage2, pqty, price, saleprice, fk_snum, pcontent, point)
+values(seq_tbl_product_pnum.nextval, 'CLEAR B PLATE', '30003', '챕터원', 'tool_25_01.jpg', 'tool_25_02.jpg', 20, 45000, 45000, 3, '간단한 디저트, 과일 등을 올리기에 용이한 단정하고 깔끔한 플레이트', 400);
+insert into tbl_product(pnum, pname, fk_decode, pcompany, pimage1, pimage2, pqty, price, saleprice, fk_snum, pcontent, point)
+values(seq_tbl_product_pnum.nextval, '흑유 사각 찬기', '30003', '챕터원', 'tool_26_01.jpg', 'tool_26_02.jpg', 20, 30000, 30000, 4, '직사각형태 안에 낮은 깊이와 굽을 통해 단정함을 더한 그릇', 300);
+insert into tbl_product(pnum, pname, fk_decode, pcompany, pimage1, pimage2, pqty, price, saleprice, fk_snum, pcontent, point)
+values(seq_tbl_product_pnum.nextval, 'PORTOFINO 플레이트', '30003', '챕터원', 'tool_27_01.jpg', 'tool_27_02.jpg', 20, 28000, 28000, 4, '이탈리아 아름다운 항구 도시 포르토피노에서 영감을 얻어 제작한 낭만적인 그릇', 200);
+insert into tbl_product(pnum, pname, fk_decode, pcompany, pimage1, pimage2, pqty, price, saleprice, fk_snum, pcontent, point)
+values(seq_tbl_product_pnum.nextval, '한지 밥,국공기', '30003', '챕터원', 'tool_28_01.jpg', 'tool_28_02.jpg', 20, 30000, 30000, 1, '한지가 가지고 있는 아름닫고 고급스러운 질감과 흙이 가지고 있는 휘는 특징을 이용해 만든 밥, 국그릇입니다.', 300);
+
+commit;
 
 select *
-from tbl_product;
+from user_sequences;
+
+select *
+from tbl_product
+where pname like '라탄%';
 
 -- 제품추가이미지 테이블 생성
 -- drop table tbl_addImage purge;
@@ -318,8 +455,8 @@ nocache;
 --equence SEQ_TBL_REVIEW_REVIEWNO이(가) 생성되었습니다.
 
 
-
 --------------------------------옵션 ----------------------------------
+drop table tbl_option purge;
 create table tbl_option
 (optionNo       number(8) not null  -- 옵션번호(Primary Key)
 ,onum           number(8) not null  -- 옵션분류번호
@@ -331,7 +468,7 @@ create table tbl_option
 ,constraint  FK_tbl_option_fk_pnum foreign key(fk_pnum) references tbl_product(pnum)
 );
 
---drop sequence seq_tbl_option_optionNo;
+drop sequence seq_tbl_option_optionNo;
 create sequence seq_tbl_option_optionNo
 start with 1
 increment by 1
