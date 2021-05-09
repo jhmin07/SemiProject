@@ -51,17 +51,14 @@ public class GoCartAction extends AbstractController {
 
 	    	  }
 	    	  else {
-					/*
-					 * String optionNo = request.getParameter("optionNo");
-					 * System.out.println(optionNo);
-					 */
+
 	    		  String optionNo = request.getParameter("optionNo");	    		  
 	    		  String pnum = request.getParameter("pnum"); // 제품번호
 	    		  String odAmount = request.getParameter("odAmount");		// 수량
 	    		  // System.out.println(odAmount);
-	    		  System.out.println("시작2");
-	    		  System.out.println(optionNo);
-	    		  System.out.println("시작3");
+	    		  // System.out.println("시작2");
+	    		  // System.out.println(optionNo);
+	    		  // System.out.println("시작3");
 	    		  // System.out.println(pnum);
 	    		  
 	    		  InterProductDAO pdao = new ProductDAO();

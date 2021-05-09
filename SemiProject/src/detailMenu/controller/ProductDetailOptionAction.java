@@ -43,7 +43,7 @@ public class ProductDetailOptionAction extends AbstractController {
 		} // end of if(optionList != null && optionList.size() > 0 ) {}
 		
 		String json = jsArr.toString(); // 문자열 형태로 변환해줌
-		System.out.println(json);
+		// System.out.println(json);
 		// "[{"contents":"제품후기내용물", "name":"작성자이름","writeDate":"작성일자", "userid":"작성자아이디", "review_seq":"제품후기글번호"}]"
 		
 		request.setAttribute("json", json);

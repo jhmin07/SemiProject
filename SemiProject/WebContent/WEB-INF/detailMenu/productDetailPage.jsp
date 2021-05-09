@@ -65,27 +65,13 @@ li {
                return false;
             }
          }
-	});
-	     
-
-	
-     
-     
-	
+	});	     
 	
 	}); // end of $(function(){});
-	
-	
-	
 	
 	// Function Declaration	
 	
 	function goCart() {
-		
-		
-		  //  alert($('#optocontents').find("option").val());
-		  
-		  // optocontent
 		
 		   // pnum 은 장바구니에 담을 제품번호 이다.
 		   // === 주문량에 대한 유효성 검사하기 === //
@@ -96,8 +82,6 @@ li {
    
 	   } // end of function goCart(pnum) {}------------------------------------	
 	   
-	   
-	   
 	function goOrder(){
 		   
 		   var frm = document.pdtFrm;
@@ -106,13 +90,11 @@ li {
 		   frm.submit();
 		   
     } // end of function goOrder(){}
-
-    
     
     function goloop() { 
         
         var oname="";
-        $("td.dd").each(function(index,item){
+        $("td.listoname").each(function(index,item){
            var $this = $(this);
            oname = $(this).text();
               $.ajax({
@@ -126,14 +108,16 @@ li {
                     var html = "";      
                        
                         $.each(json, function(index, item){
-                           
+                           if(index == 1){
+                           html += " <option value='"+item.optionNo+"' selected>"+item.ocontents+"</option>";
+                           }
+                           else{
                            html += " <option value='"+item.optionNo+"'>"+item.ocontents+"</option>";
+                           }
                         });
                 
                     $this.next().children().html(html);
-                    
-                    
-                    
+                  
                  },
                  error: function(request, status, error){
                     alert("code: "+request.status+"\n"+"message: "+request.responseText+"\n"+"error: "+error);
@@ -147,7 +131,7 @@ li {
       function option(item) {
           
 	          var option = "";
-	          $("select.ff").each(function(index,item){
+	          $("select.listocontents").each(function(index,item){
 		       	  if(option != ""){
 		           option += ",";
 		       	  }
@@ -204,15 +188,15 @@ li {
 						<td class="pdt_main">QUANTITY</td>
 						<td class="pdt_sub" >
 							<label for="spinner"></label>
-	 						<input id="spinner" name="odAmount" size="3pt" value="1" style="height: 20px;">
+	 						<input id="spinner" name="odAmount" size="3pt" value="1" style="height: 20px;">						
 						</td>
 					<tr>
 
 					<c:forEach var="option" items="${onameList}" varStatus="status" >            
                   <tr>                              
-                     <td class="dd">${option.oname}</td>
+                     <td class="listoname pdt_main">${option.oname}</td>
                      <td>
-                          <select class ="ff" name="optocontents" id="${status.index}" onchange="option(this);" style="width: 150px;">                                      
+                          <select class ="listocontents" name="optocontents" id="${status.index}" onchange="option(this);" style="width: 150px;">                                                           
                            </select>
                        </td>
                   </tr>   
@@ -251,7 +235,7 @@ li {
 	<c:if test="${requestScope.pvo.fk_decode eq 40003}"><img src="<%= ctxPath %>/image/product/40003/${requestScope.pvo.pimage2}" style="width:450px; height:400px; cursor: pointer; "></c:if>
 <br>
 <h2 style="text-align: center; margin :50px 0 20px 0;" align="center">DESCRIPTION</h2>
-<span> ${requestScope.pvo.pcontent} </span>
+<span style="line-height: 2.0em"> ${requestScope.pvo.pcontent} </span>
 </div>
 
 <div id="deliveryreturn_content">

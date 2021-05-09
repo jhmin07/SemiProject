@@ -677,9 +677,9 @@ public class ProductDAO implements InterProductDAO {
 		public int addCart(String userid, String pnum, String odAmount, String optionNo) throws SQLException {
 			
 			int n = 0;
-			System.out.println("optionNo 확인" + optionNo);
-			System.out.println("odAmount 확인" + odAmount);
-			System.out.println("pnum 확인" + pnum);
+			// System.out.println("optionNo 확인" + optionNo);
+			// System.out.println("odAmount 확인" + odAmount);
+			// System.out.println("pnum 확인" + pnum);
 			
 			try {
 				
@@ -696,29 +696,34 @@ public class ProductDAO implements InterProductDAO {
 		        rs = pstmt.executeQuery(); 
 		        
 		        if ( rs.next() ) {
-		        		        	
+		        // 제품이 존재하는 경우
+		        	
 			       int cartno = rs.getInt("cartno");
 			       String optionNo_es = rs.getString("optionNo_es");
-			       System.out.println("optionNo_es : "+optionNo_es);
-			       System.out.println("optionNo 2차확인 : "+optionNo);
+			       // System.out.println("optionNo_es : "+optionNo_es);
+			       // System.out.println("optionNo 2차확인 : "+optionNo);
 			        		        
-			        if( rs.next() && optionNo_es.equals(optionNo) ) {
-			        System.out.println("// 같은 제품이 존재하고 옵션도 같은 경우");
+			        if( optionNo_es.equals(optionNo) ) {
+			        // System.out.println("// 같은 제품이 존재하고 옵션도 같은 경우");
 		        	// 같은 제품이 존재하고 옵션도 같은 경우
 		        	        	
 		        	sql = " update tbl_cart set odAmount = odAmount + ? "
-		        		+	" where cartno = ? ";
+		        		+	" where cartno = ? and optionNo_es = ? ";
 		        	 
 		        	pstmt = conn.prepareStatement(sql);
 		        	pstmt.setInt(1, Integer.parseInt(odAmount));
 		        	pstmt.setInt(2, cartno);
+		        	pstmt.setString(3, optionNo);
 		        	
 		        	n = pstmt.executeUpdate();
 		        	
 			        }
 			        
-			        else if ( rs.next() && !optionNo_es.equals(optionNo) )  {
-			        	System.out.println("// 같은 제품이 존재하고 옵션이 같지 않은 경우");
+			        else if ( !optionNo_es.equals(optionNo) )  {
+			        	
+			        	 optionNo_es = "";
+			        	
+			        	// System.out.println("// 같은 제품이 존재하고 옵션이 같지 않은 경우");
 			        	// 같은 제품이 존재하고 옵션이 같지 않은 경우
 			        	
 			        	sql = " insert into tbl_cart(cartno, fk_userid, fk_pnum, odAmount, cartdate, optionNo_es) "
