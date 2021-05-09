@@ -97,8 +97,8 @@ public class CartDAO implements InterCartDAO{
 	            
 	            
 	   		    String optionNoArr [] = optionNo_es.split(",");
-
 	   		    String optionstr = "";
+
 
 	        	ProductVO prodvo = new ProductVO();
 	            prodvo.setPnum(fk_pnum);
@@ -154,17 +154,19 @@ public class CartDAO implements InterCartDAO{
 	   		        	 String ocontents = ovo.getOcontents();
 	   		        	 String oname = ovo.getOname();
 	   		        	 
+	   		        	 
 	   		        	 optionstr  += oname + "-" + ocontents + "+["+addprice+"원] ";
 	   		        	 SumAddprice += addprice;
 	   		        	 // 색상-레드[0원] 조립유무-유[5000원] 
-	   		         }// end of for--------
+	   		        	 
+	   		        	 
+	   		         	}// end of for--------
 		   		         
 		   		      
 			            cvo.setOptionstr(optionstr);
 			            cvo.setSumAddprice(SumAddprice);
 			            
-			            
-	   		         }// end of if(optionNoArr.length != 0)--------------
+	   		       }// end of if(optionNoArr.length != 0)--------------
 	   		            
 	   		         
 	   		            cartList.add(cvo);
