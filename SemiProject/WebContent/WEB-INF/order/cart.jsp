@@ -689,7 +689,7 @@ $(document).ready(function(){
          </tr>
          <tr class="side_cart" id="discount_price_in_cart" style="font-size:15px;">
          	<td > - 상품할인금액 : </td>
-         	<td>- <span id="discount"></span>원</td>
+         	<td> <span id="discount"></span>원</td>
          </tr>
          <!-- <tr class="side_cart" id="discount_price_in_cart" ></tr> -->
   

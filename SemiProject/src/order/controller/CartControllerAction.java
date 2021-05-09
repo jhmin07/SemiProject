@@ -45,8 +45,6 @@ public class CartControllerAction extends AbstractController {
 	         
 	         InterCartDAO cdao = new CartDAO();
 	         
-	         
-	         
 	         List<CartVO> cartList = cdao.getCartList(loginuser.getUserid());
 	         
 	         HashMap<String, String> sumMap = cdao.selectCartSumPricePoint(loginuser.getUserid());
