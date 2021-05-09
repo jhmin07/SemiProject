@@ -571,12 +571,9 @@ public class MemberDAO implements InterMemberDAO {
 					 bool =false;
 				 }
 			 }
-			 //System.out.println("memberdao-> bool 값"+bool);
-		
 		} finally {
 			close();
 		}
-		
 		return bool;		
 	}
 	
