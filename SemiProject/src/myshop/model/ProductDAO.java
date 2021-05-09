@@ -572,13 +572,13 @@ public class ProductDAO implements InterProductDAO {
 			try {
 				conn=ds.getConnection();
 				
-				String sql = " select dename, sname, pnum, pname, pcompany, pimage1, pimage2, pqty, price, saleprice, pcontent, point, pinputdate, fk_decode "+
+				String sql = " select dename, sname, pnum, pname, pcompany, pimage1, pimage2, pqty, price, saleprice, pcontent, point, pinputdate, fk_decode, fk_snum "+
 								" from "+
 								" ( "+
-								"    select rownum AS RNO, dename, sname, pnum, pname, pcompany, pimage1, pimage2, pqty, price, saleprice, pcontent, point, pinputdate, fk_decode "+
+								"    select rownum AS RNO, dename, sname, pnum, pname, pcompany, pimage1, pimage2, pqty, price, saleprice, pcontent, point, pinputdate, fk_decode, fk_snum "+
 								"    from "+
 								"    ( "+
-								"        select C.dename, S.sname, pnum, pname, pcompany, pimage1, pimage2, pqty, price, saleprice, pcontent, point, pinputdate,  fk_decode "+
+								"        select C.dename, S.sname, pnum, pname, pcompany, pimage1, pimage2, pqty, price, saleprice, pcontent, point, pinputdate, fk_decode, fk_snum "+
 								"        from "+
 								"        ( "+
 								"            select pnum, pname, pcompany, pimage1, pimage2, pqty, price, saleprice, pcontent, point, to_char(pinputdate, 'yyyy-mm-dd') as pinputdate, fk_decode, fk_snum "+
@@ -626,8 +626,8 @@ public class ProductDAO implements InterProductDAO {
 		             pvo.setSaleprice(rs.getInt("saleprice"));  // 제품 판매가(할인해서 팔 것이므로)
 		               
 		             SpecVO spvo = new SpecVO(); 
-		             spvo.setSname(rs.getString("sname")); // 스펙이름 
-		             
+		             spvo.setSnum(rs.getInt("fk_snum")); 
+		             spvo.setSname(rs.getString("sname"));
 		             pvo.setSpvo(spvo); // 스펙 
 		               
 		             pvo.setPcontent(rs.getString("pcontent"));       // 제품설명 
