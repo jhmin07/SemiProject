@@ -132,10 +132,49 @@ li {
 		$("input[name=sumtotalPrice]").val(totalPrice);
 		$("input[name=sumtotalPoint]").val(totalPoint);
 		
-		var frm = document.goOrderFrm;
-		frm.method = "post";
-		frm.action = "<%= request.getContextPath()%>/order/order.up";
-		frm.submit();
+		
+		if ( $("input#optionNo0").val() != "00" && $("input#optionNo1").val() != "00" ) {
+			
+			if ( $("input#optionNo0").val() != "" && $("input#optionNo1").val() != "" ) {
+				
+				var frm = document.goOrderFrm;
+				frm.method = "post";
+				frm.action = "<%= request.getContextPath()%>/order/order.up";
+				frm.submit();
+				
+			}
+			else if ( $("input#optionNo0").val() == "" && $("input#optionNo1").val() != "" ) {
+				
+				alert("옵션 선택은 필수입니다.");
+				return false;
+				
+			}
+			else if ( $("input#optionNo0").val() != "" && $("input#optionNo1").val() == "" ) {
+				
+				alert("옵션 선택은 필수입니다.");
+				return false;
+				
+			}
+			else if ( $("input#optionNo0").val() == "" && $("input#optionNo1").val() == "" ) {
+				
+				alert("옵션 선택은 필수입니다.");
+				return false;
+				
+			}
+			
+		}					
+		else if ( $("input#optionNo0").val() != "00" && $("input#optionNo1").val() == "00" ) {
+			alert("옵션 선택은 필수입니다.");
+			return false;
+		}
+		else if ( $("input#optionNo0").val() == "00" && $("input#optionNo1").val() != "00" ) {
+			alert("옵션 선택은 필수입니다.");
+			return false;
+		}
+		else if ( $("input#optionNo0").val() != "00" && $("input#optionNo1").val() != "00" ) {
+			alert("옵션 선택은 필수입니다.");
+			return false;
+		}			
 		   
     } // end of function goOrder(){}
     
@@ -227,6 +266,8 @@ li {
 			<input hidden name="totalPrice_es" />
 			<input hidden name="sumtotalPrice" />
 			<input hidden name="sumtotalPoint" />
+			<input type="hidden" id="optionNo0"  name="optionNo0"/>
+			<input type="hidden" id="optionNo1"  name="optionNo1"/>
 		</form>
 		
 		<form name="pdtFrm">
