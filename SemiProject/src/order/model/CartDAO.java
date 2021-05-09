@@ -119,8 +119,7 @@ public class CartDAO implements InterCartDAO{
 	            cvo.setFk_pnum(fk_pnum);
 	            cvo.setOdAmount(odAmount);
 	            cvo.setProd(prodvo);
-	            cvo.setOptionstr(" ");
-	            cvo.setSumAddprice(0);
+	            
 	   		           
    		         if(optionNoArr.length != 0) {
     		        	
@@ -167,7 +166,10 @@ public class CartDAO implements InterCartDAO{
 			            cvo.setSumAddprice(SumAddprice);
 			            
 	   		       }// end of if(optionNoArr.length != 0)--------------
-	   		            
+   		         else {
+   		        	cvo.setOptionstr(" ");
+   		            cvo.setSumAddprice(0);
+   		         }
 	   		         
 	   		            cartList.add(cvo);
 	   		         
