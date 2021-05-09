@@ -180,7 +180,7 @@ li {
 				} // end of if ( $("select.0").val() != null ){}		
 				else if ( $("select.0").val() != null && $("select.1").val() != null && !($("select.2").val() != null) ){
 					if ( $("input#optionNo0").val() != "00" && $("input#optionNo1").val() != "00" ) {
-						if ( $("input#optionNo0").val() != "" && $("input#optionNo1").val() != "" ) {
+						if ( $("input#optionNo0").val() != "" && $("input#optionNo1").val() != ""  ) {						
 							var frm = document.goOrderFrm;
 							frm.method = "post";
 							frm.action = "<%= request.getContextPath()%>/order/order.up";
@@ -195,7 +195,7 @@ li {
 					else {
 						alert("옵션 선택은 필수입니다.");
 						return false;
-					}		
+					}			 	
 				} // end of if ( $("select.2").val() != null ){}
 				else if ( $("select.0").val() != null && $("select.1").val() != null && $("select.2").val() != null ){
 					if ( $("input#optionNo0").val() != "00" && $("input#optionNo1").val() != "00" && $("input#optionNo2").val() != "00") {
@@ -238,7 +238,7 @@ li {
            
               $.ajax({
                  url:"<%= request.getContextPath()%>/detailMenu/productDetailOption.up",
-                 type:"get",
+                 type:"post",
                  data:{"pnum":"${pvo.pnum}"
                         ,"oname":oname}, 
                  dataType:"json",
@@ -279,8 +279,9 @@ li {
 				          });  // end of  $("select."+i+"").each(function(index,item){})
 			          
 		          	 console.log(option);
-		       		$("input#optionNo"+i+"").val(option);
-	          
+		          	if ( $("select."+i+"").val() != "" ) {
+		       			$("input#optionNo"+i+"").val(option);
+		          	}
 	          } // end of for
        		
   	  } // end of  function option(item) {
@@ -319,7 +320,7 @@ li {
 			<input hidden name="sumtotalPoint" />
 			<input type="hidden" id="optionNo0"  name="optionNo0"/>
 			<input type="hidden" id="optionNo1"  name="optionNo1"/>
-			<input type="hidden" id="optionNo1"  name="optionNo2"/>
+			<input type="hidden" id="optionNo2"  name="optionNo2"/>
 		</form>
 		
 		<form name="pdtFrm">
@@ -372,7 +373,7 @@ li {
 			<input type="hidden" name="pnum" value="${requestScope.pvo.pnum}" />
 			<input type="hidden" id="optionNo0"  name="optionNo0"/>
 			<input type="hidden" id="optionNo1"  name="optionNo1"/>
-			<input type="hidden" id="optionNo1"  name="optionNo2"/>
+			<input type="hidden" id="optionNo2"  name="optionNo2"/>
 			</div>
 			<br>
 			<button type="button"  onclick="goOrder();" style="background-color: black; color: white;  width: 350px; margin-top: 10px; height: 30px;">주문하러 가기</button>

@@ -54,11 +54,13 @@ public class GoCartAction extends AbstractController {
 
 	    		  String optionNo0 = request.getParameter("optionNo0");	 
 	    		  String optionNo1 = request.getParameter("optionNo1");	
-	    		  String optionNo = optionNo0+","+optionNo1;
+	    		  String optionNo2 = request.getParameter("optionNo2");	
+	    		  String optionNo = optionNo0+","+optionNo1+","+optionNo2;
 	    		  String pnum = request.getParameter("pnum"); // 제품번호
 	    		  String odAmount = request.getParameter("odAmount");		// 수량
 	    		  // System.out.println("optionNo0 : " + optionNo0);
 	    		  // System.out.println("optionNo1 : " + optionNo1);
+	    		  // System.out.println("optionNo2 : " + optionNo2);
 	    		  // System.out.println("optionNo : " + optionNo);
 	    		  // System.out.println(optionNo);
 	    		  // System.out.println("시작3");
