@@ -45,40 +45,12 @@ public class CartControllerAction extends AbstractController {
 	         
 	         InterCartDAO cdao = new CartDAO();
 	         
+	         
+	         
 	         List<CartVO> cartList = cdao.getCartList(loginuser.getUserid());
 	         
 	         HashMap<String, String> sumMap = cdao.selectCartSumPricePoint(loginuser.getUserid());
 	         
-	         CartVO cvo = new CartVO();
-	         
-	         String optionNo_es = cvo.getOptionNo_es();
-	         
-	         if(optionNo_es != null) {
-	        	 
-		         String optionNoArr [] = optionNo_es.split(",");
-		         
-		         String optionstr = "";
-		         
-		         int SumAddprice = 0;
-		         
-		         for(int i=0; i<optionNoArr.length; i++) {
-		        	 String option = optionNoArr[i];
-		        	 
-		        	 cdao = new CartDAO();
-		        	 OptionVO ovo = cdao.getOptionInfo(option);
-		        	 
-		        	 int addprice = ovo.getAddprice();
-		        	 String ocontents = ovo.getOcontents();
-		        	 String oname = ovo.getOname();
-		        	 
-		        	 optionstr  += oname + "-" + ocontents + "+["+addprice+"원] ";
-		        	 SumAddprice += addprice;
-		        	 // 색상-레드[0원] 조립유무-유[5000원] 
-		         }
-		         
-		         request.setAttribute("optionstr", optionstr);
-		         request.setAttribute("SumAddprice", SumAddprice);
-	         }
 	       
 	         request.setAttribute("cartList", cartList);
 	         request.setAttribute("sumMap", sumMap);

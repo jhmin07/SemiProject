@@ -14,6 +14,10 @@ public class CartVO {
 	 
 	 private String optionNo_es; // 옵션번호들
 	 
+	 
+	 private String optionstr;
+	 private int SumAddprice;
+	 
 	 public CartVO() { }
 	   
 	 public CartVO(int cartNo, String fk_userid, int fk_pnum, int odAmount, ProductVO prod, String optionNo_es) {
@@ -70,6 +74,22 @@ public class CartVO {
 
 	public void setOptionNo_es(String optionNo_es) {
 		this.optionNo_es = optionNo_es;
+	}
+
+	public String getOptionstr() {
+		return optionstr;
+	}
+
+	public void setOptionstr(String optionstr) {
+		this.optionstr = optionstr;
+	}
+
+	public int getSumAddprice() {
+		return SumAddprice;
+	}
+
+	public void setSumAddprice(int sumAddprice) {
+		SumAddprice = sumAddprice;
 	}
 
 

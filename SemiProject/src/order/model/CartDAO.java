@@ -94,29 +94,111 @@ public class CartDAO implements InterCartDAO{
 	            int odAmount = rs.getInt(9);  // 주문량 
 	            String fk_decode = rs.getString(10);
 	            String optionNo_es = rs.getString(11);
+	            
+	            
+	            if(optionNo_es !=null) {
+
+	            	
+	   		         String optionNoArr [] = optionNo_es.split(",");
+	   		         
+	   		         if(optionNoArr.length != 0) {
+	   		        	String optionstr = "";
+		   		         int SumAddprice = 0;
+		   		         
+		   		         for(int i=0; i<optionNoArr.length; i++) {
+
+		   		        	 String option = optionNoArr[i];
+		   		        	 
+		   		        	 	   		        	 
+		   		        	 sql = " select ocontents, ADDPRICE, ONAME "+
+		   						 	" from tbl_option " +
+		   						 	" where optionNo = ? ";
+		   		                  
+			   		         pstmt = conn.prepareStatement(sql);
+			   		         pstmt.setString(1, option);
+			   		         
+			   		         rs = pstmt.executeQuery();
+			   		         
+			   		         OptionVO ovo = new OptionVO();
+			   		         
+			   		         if(rs.next()) {
+			   	
+			   		        	 ovo.setAddprice(rs.getInt("ADDPRICE")); // 추가가격
+			   		        	 ovo.setOcontents(rs.getString("ocontents")); //내용
+			   		        	 ovo.setOname(rs.getString("ONAME")); //옵션이름
+			   		         }
+			   		         
+		   		        	 
+		   		        	 int addprice = ovo.getAddprice();
+		   		        	 String ocontents = ovo.getOcontents();
+		   		        	 String oname = ovo.getOname();
+		   		        	 
+		   		        	 optionstr  += oname + "-" + ocontents + "+["+addprice+"원] ";
+		   		        	 SumAddprice += addprice;
+		   		        	 // 색상-레드[0원] 조립유무-유[5000원] 
+		   		         }// end of for--------
+		   		         
+		   		       ProductVO prodvo = new ProductVO();
+			            prodvo.setPnum(fk_pnum);
+			            prodvo.setPname(pname);
+			            prodvo.setPimage1(pimage1);
+			            prodvo.setPrice(price);
+			            prodvo.setSaleprice(saleprice);
+			            prodvo.setPoint(point);
+			            prodvo.setFk_decode(fk_decode);
+			            
+			            // **** !!!! 중요함 !!!! **** //
+			            prodvo.setTotalPriceTotalPoint(odAmount);
+			            // **** !!!! 중요함 !!!! **** //
+			            
+			            CartVO cvo = new CartVO();
+			            cvo.setCartNo(cartno);
+			            cvo.setFk_userid(fk_userid);
+			            cvo.setFk_pnum(fk_pnum);
+			            cvo.setOdAmount(odAmount);
+			            cvo.setProd(prodvo);
+			            cvo.setOptionNo_es(optionNo_es);
+			            cvo.setOptionstr(optionstr);
+			            cvo.setSumAddprice(SumAddprice);
+			            
+			            
+			            cartList.add(cvo);
+	   		         }
+	   		         else {
+	   		        	ProductVO prodvo = new ProductVO();
+	   		            prodvo.setPnum(fk_pnum);
+	   		            prodvo.setPname(pname);
+	   		            prodvo.setPimage1(pimage1);
+	   		            prodvo.setPrice(price);
+	   		            prodvo.setSaleprice(saleprice);
+	   		            prodvo.setPoint(point);
+	   		            prodvo.setFk_decode(fk_decode);
+	   		            
+	   		            // **** !!!! 중요함 !!!! **** //
+	   		            prodvo.setTotalPriceTotalPoint(odAmount);
+	   		            // **** !!!! 중요함 !!!! **** //
+	   		            
+	   		            CartVO cvo = new CartVO();
+	   		            cvo.setCartNo(cartno);
+	   		            cvo.setFk_userid(fk_userid);
+	   		            cvo.setFk_pnum(fk_pnum);
+	   		            cvo.setOdAmount(odAmount);
+	   		            cvo.setProd(prodvo);
+	   		            cvo.setOptionNo_es(optionNo_es);
+	   		            cvo.setOptionstr(" ");
+	   		           
+	   		         
+	   		            cartList.add(cvo);
+	   		         }
+	   		         
+	   		         
+	            	
+	            }// end of if------
+	            
+	            
+	            
 	                        
-	            ProductVO prodvo = new ProductVO();
-	            prodvo.setPnum(fk_pnum);
-	            prodvo.setPname(pname);
-	            prodvo.setPimage1(pimage1);
-	            prodvo.setPrice(price);
-	            prodvo.setSaleprice(saleprice);
-	            prodvo.setPoint(point);
-	            prodvo.setFk_decode(fk_decode);
 	            
-	            // **** !!!! 중요함 !!!! **** //
-	            prodvo.setTotalPriceTotalPoint(odAmount);
-	            // **** !!!! 중요함 !!!! **** //
-	            
-	            CartVO cvo = new CartVO();
-	            cvo.setCartNo(cartno);
-	            cvo.setFk_userid(fk_userid);
-	            cvo.setFk_pnum(fk_pnum);
-	            cvo.setOdAmount(odAmount);
-	            cvo.setProd(prodvo);
-	            cvo.setOptionNo_es(optionNo_es);
-	            
-	            cartList.add(cvo);
 	         }// end of while---------------------------------
 	                  
 	      } finally {

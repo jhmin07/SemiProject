@@ -630,15 +630,15 @@ $(document).ready(function(){
                     </td>
 					<td style="width:220px; text-align: left;" >
 						<span class="cart_pname">${cartvo.prod.pname}</span><br>
-						<span id="cart_productOption"style="font-size: 11px;">${requestScope.optionstr}</span>
-						<input type="hidden" id="optionstr"  value="${requestScope.optionstr}" />
+						<span id="cart_productOption"style="font-size: 11px;">${cartvo.optionstr}</span>
+						<input type="hidden" id="optionstr"  value="${cartvo.optionstr}" />
 					</td>
 						
 				   <td align="right" style="width:100px; text-align: left;"> <%-- 실제판매단가 및 포인트 --%> 
 				      
 				       <input  type="text" style="color: red; font-size: 13px; text-decoration: line-through; width:60px; border:none;border-right:0px; border-top:0px; boder-left:0px; boder-bottom:0px;" name="price"  value="${cartvo.prod.price}" />
-	                   <fmt:formatNumber value="${cartvo.prod.saleprice + requestScope.SumAddprice}" pattern="###,###" /> 원
-	                   <input type="hidden" name="saleprice"  value="${cartvo.prod.saleprice + requestScope.SumAddprice}" /> <!-- SumAddprice -->
+	                   <fmt:formatNumber value="${cartvo.prod.saleprice + cartvo.sumAddprice}" pattern="###,###" /> 원
+	                   <input type="hidden" name="saleprice"  value="${cartvo.prod.saleprice + cartvo.sumAddprice}" /> <!-- SumAddprice -->
 	                   <br/><span style="color: green; font-weight: bold; font-size: 11px;;"><fmt:formatNumber value="${cartvo.prod.point}" pattern="###,###" /> POINT</span>
                	   </td>
                	   
@@ -650,8 +650,8 @@ $(document).ready(function(){
 				   </td>
 					
                	   <td>
-               	   	<fmt:formatNumber value="${cartvo.prod.saleprice * cartvo.odAmount}" pattern="###,###" /> 원
-               	   	<input type="hidden" id="totalPrice"  value="${cartvo.prod.saleprice * cartvo.odAmount}">
+               	   	<fmt:formatNumber value="${(cartvo.prod.saleprice + cartvo.sumAddprice) * cartvo.odAmount}" pattern="###,###" /> 원
+               	   	<input type="hidden" id="totalPrice"  value="${(cartvo.prod.saleprice + cartvo.sumAddprice) * cartvo.odAmount}">
                	   	<input type="hidden" id="totalPoint"  value="${cartvo.prod.point * cartvo.odAmount}">
                	   </td>
                	   
