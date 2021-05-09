@@ -392,7 +392,7 @@ $(document).ready(function(){
 	     		  totalPriceArr.push( $("input#totalPrice").eq(i).val() );
 	     		  totalPointArr.push( $("input#totalPoint").eq(i).val() );
 	     		  totalBeforeArr.push ( $("input:text[name=price]").eq(i).val() * $("input.odAmount").eq(i).val() );
-	     		  optionstrArr.push( $("input#optionstrArr").eq(i).val() );
+	     		  optionstrArr.push( $("input#optionstr").eq(i).val() );
 	     	  }
 	     	  
 	       }// end of for-----------------------------
@@ -416,6 +416,8 @@ $(document).ready(function(){
 	       var str_totalPrice= totalPriceArr.join();
 	       var sumtotalPoint = 0;
 	       var str_optionstr= optionstrArr.join();
+	       
+	       console.log(str_optionstr);
 	       
 	      for(var i=0; i<totalPointArr.length; i++){            	                	
 	       	sumtotalPoint+=parseInt(totalPointArr[i]);           	  
