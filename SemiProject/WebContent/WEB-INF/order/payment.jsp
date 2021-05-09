@@ -167,7 +167,7 @@ ul.payment_last > li {
 	}
 	
 	function getSumtotalPriceLast() {
-		var sumtotalPrice = ${requestScope.sumtotalPrice};
+		var sumtotalPrice = ${requestScope.sumtotalPrice + sumSalePrice};
 		var addPrice = Number($("span#addPriceResult").html().split(",").join(""));
 		console.log(addPrice);
 		
@@ -231,7 +231,7 @@ ul.payment_last > li {
 		<c:set var="addsale_price" value="-100"/>
 		<tbody>
 			<tr class="payment_thead_result">
-				<td><fmt:formatNumber value="${sumtotalPrice}" pattern="#,###" />원</td>
+				<td><fmt:formatNumber value="${sumtotalPrice + sumSalePrice}" pattern="#,###" />원</td>
 				<td style="text-align: left; width: 20px;"><span style="font-weight: bold; font-size: 20px;">+</span>
 				<td><span id="addPriceResult">0</span>원</td>
 				

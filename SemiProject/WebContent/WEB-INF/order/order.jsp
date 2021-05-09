@@ -432,8 +432,9 @@ table.odr_info input[type=text]{
 		});
 		
 		if (cnt > 0) {
-			odrmsg += " 외 "+cnt+"개 상품 결제가 완료되었습니다.";
+			odrmsg += " 외 "+cnt+"개 ";
 		}
+		odrmsg += "상품 결제가 완료되었습니다.";
 		
 		//console.log(odrmsg);
 		$("input[name=odrmsg]").val(odrmsg);
@@ -481,7 +482,15 @@ table.odr_info input[type=text]{
 					<td><img class="odr_img" src="<%=ctxPath%>/image/product/${map.fk_decode}/${map.pimage1}" alt="<%=ctxPath%>/image/product/${map.fk_decode}/${map.pimage1}" ></td>
 					<td>${map.pname}<br><span style="font-size: 10pt; color: #999;">${map.option}</span></td>
 					<input name="pinfo" class="pinfo" value="${map.pname}" hidden/>
-					<td><fmt:formatNumber value="${map.price}" pattern="#,###" /> 원</td>
+					<td>
+						<c:if test="${map.price != map.saleprice}">
+							<span style="text-decoration: line-through; text-decoration-color: red;"><fmt:formatNumber value="${map.price}" pattern="#,###" /></span> 원<br>
+							<span><fmt:formatNumber value="${map.saleprice}" pattern="#,###" /></span> 원
+						</c:if>
+						<c:if test="${map.price == map.saleprice}">
+							<span><fmt:formatNumber value="${map.saleprice}" pattern="#,###" /></span> 원
+						</c:if>
+					</td>
 					<td><fmt:formatNumber value="${map.oqty}" pattern="#,###" /></td>
 					<td><fmt:formatNumber value="${map.point}" pattern="#,###" /></td>
 					<%-- <td>${prod.delivtype}</td>
@@ -494,13 +503,13 @@ table.odr_info input[type=text]{
 			
 			<tr class="odr_total_price">
 				<td colspan="9">
-					[기본배송] 상품구매금액 <span><fmt:formatNumber value="${requestScope.sumtotalPrice}" pattern="#,###" /></span>
+					[기본배송] 상품구매금액 <span><fmt:formatNumber value="${requestScope.sumtotalPrice + sumSalePrice}" pattern="#,###" /></span>
 					<c:if test="${sumtotalPrice >= 30000}"><c:set var="deliveryPrice" value="0" scope="request"/></c:if>
 					
-					+ 배송비 <span><fmt:formatNumber value="${deliveryPrice}" pattern="#,###" /></span>
-					- 상품할인금액 <span><fmt:formatNumber value="${sumSalePrice}" pattern="#,###" /></span>
+					+ 배송비 <span><fmt:formatNumber value="${deliveryPrice}" pattern="#,###" /></span>&nbsp;
+					- 상품할인금액 <span><fmt:formatNumber value="${sumSalePrice}" pattern="#,###" /></span>&nbsp;
 					
-					<c:set var="sumtotalPriceLast" value="${sumtotalPrice + deliveryPrice - sumtotalSaleprice}" scope="request"/>
+					<c:set var="sumtotalPriceLast" value="${sumtotalPrice + deliveryPrice}" scope="request"/>
 					= 합계 : <span style="font-size: 15pt; font-weight: bold;"><fmt:formatNumber value="${sumtotalPriceLast}" pattern="#,###" /></span>원 
 				</td>
 			</tr>

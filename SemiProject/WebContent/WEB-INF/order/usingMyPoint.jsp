@@ -72,6 +72,7 @@ span.p {
 			
 			if (userPoint < inputVal) {
 				alert("사용가능한 포인트를 확인해주세요.");
+				$(this).focus().val(0);
 			}
 		});
 		
@@ -94,7 +95,7 @@ span.p {
 			</thead>
 			<tbody>
 				<tr>
-					<td style="text-align: right; width: 60%;"><input type="text" name="usingPoint" placeholder="0" style="text-align: right; padding: 3px;"/></td>
+					<td style="text-align: right; width: 60%;"><input type="text" name="usingPoint" value="0" style="text-align: right; padding: 3px;"/></td>
 					<td style="text-align: left; width: 40%;"><button type="button" class="btn btn-default useallbtn">전액사용</button></td>
 				</tr>
 				<tr>

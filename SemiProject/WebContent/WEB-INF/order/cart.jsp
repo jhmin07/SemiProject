@@ -720,6 +720,7 @@ $(document).ready(function(){
  	<input type="hidden" name="totalPrice_es" />
  	<input type="hidden" name="sumtotalPrice" />
  	<input type="hidden" name="sumtotalPoint" />
+ 	<input type="hidden" name="optionstr" />
  </form>
 </div>
 
