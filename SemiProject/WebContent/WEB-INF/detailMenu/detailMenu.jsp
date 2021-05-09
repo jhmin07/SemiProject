@@ -62,9 +62,20 @@ div#pagebar{
 			<a href="<%=ctxPath%>/detailMenu/productDetailPage.up?pnum=${pvo.pnum}">
 				<img src="<%=ctxPath%>/image/product/${pvo.fk_decode}/${pvo.pimage1}" class="prodImg" "/>
 				<div id="name">
-				<a href="<%=ctxPath%>/detailMenu/productDetailPage.up?pnum=${pvo.pnum}">	
+				<a href="<%=ctxPath%>/detailMenu/productDetailPage.up?pnum=${pvo.pnum}">
+				<c:if test="${pvo.spvo.snum == 2}">
+					<span style="color: red; font-size: 8px;">${pvo.spvo.sname}&nbsp;</span>
+				</c:if>	
 				<span>${pvo.pname}</span><br>	
-				<span><fmt:formatNumber value="${pvo.saleprice}" pattern="#,###" /> 원</span>
+				<c:if test="${pvo.spvo.snum == 2}">
+					<span style="text-decoration:line-through; text-decoration-color: red;"><fmt:formatNumber value="${pvo.saleprice}" pattern="#,###" /> 원&nbsp;&nbsp;</span>
+					
+					<span><fmt:formatNumber value="${pvo.saleprice*0.75}" pattern="#,###" /> 원</span>
+				</c:if>	
+				<c:if test="${pvo.spvo.snum == 1 || pvo.spvo.snum == 3}">			
+					<span><fmt:formatNumber value="${pvo.saleprice}" pattern="#,###" /> 원</span>
+					<br>
+				</c:if>
 				</a>
 				</div>
 			</a>			

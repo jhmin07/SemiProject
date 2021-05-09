@@ -17,7 +17,7 @@ public class MemberMyPageAction extends AbstractController {
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		
-		
+		super.goBackURL(request);
 		
 		if(super.checkLogin(request)) {//로그인을 한 경우
 			
@@ -51,6 +51,15 @@ public class MemberMyPageAction extends AbstractController {
 			
 		}
 		
+		else {
+			// 로그인을 안했을 경우
+			request.setAttribute("message", "마이페이지를 보려면 먼저 로그인하세요!!");
+			request.setAttribute("loc", "/SemiProject/member/login.up");
+			
+		//	super.setRedirect(false);
+			super.setViewPage("/WEB-INF/msg.jsp");
+			return;
+		}
 		
 		
 			

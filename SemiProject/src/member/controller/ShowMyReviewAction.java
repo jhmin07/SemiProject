@@ -27,13 +27,15 @@ public class ShowMyReviewAction extends AbstractController {
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 	
+		super.goBackURL(request);
+		
 		// == 로그인을 했을 때만 조회가 가능하도록 한다.		
 				boolean isLogin = super.checkLogin(request);
 				
 				if(!isLogin) {
 					// 로그인을 안했을 경우
 					request.setAttribute("message", "리뷰리스트를 보려면 먼저 로그인하세요!!");
-					request.setAttribute("loc", "javascript:history.back()");
+					request.setAttribute("loc", "/SemiProject/member/login.up");
 					
 				//	super.setRedirect(false);
 					super.setViewPage("/WEB-INF/msg.jsp");

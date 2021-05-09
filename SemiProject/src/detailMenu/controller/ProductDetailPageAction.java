@@ -13,6 +13,8 @@ public class ProductDetailPageAction extends AbstractController {
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		
+		super.goBackURL(request);
+		
 		String pnum = request.getParameter("pnum");
 		
 		InterProductDAO pdao = new ProductDAO();
