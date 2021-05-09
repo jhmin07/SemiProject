@@ -336,11 +336,11 @@ li {
 						<td class="pdt_main">PRICE</td>
 						<td class="pdt_sub">
  							<c:if test="${pvo.spvo.snum == 2}">
-							<span style="text-decoration:line-through; text-decoration-color: red;"><fmt:formatNumber value="${pvo.saleprice}" pattern="#,###" /> 원&nbsp;&nbsp;</span>
-							<span><fmt:formatNumber value="${pvo.saleprice*0.75}" pattern="#,###" /> 원</span>
+							<span style="text-decoration:line-through; text-decoration-color: red;"><fmt:formatNumber value="${pvo.price}" pattern="#,###" /> 원&nbsp;&nbsp;</span>
+							<span><fmt:formatNumber value="${pvo.saleprice}" pattern="#,###" /> 원</span>
 							</c:if>
 							<c:if test="${pvo.spvo.snum == 1 || pvo.spvo.snum == 3 || pvo.spvo.snum == 4}">
-							<span><fmt:formatNumber value="${pvo.saleprice}" pattern="#,###" /> 원</span>
+							<span><fmt:formatNumber value="${pvo.price}" pattern="#,###" /> 원</span>
 							</c:if>
 						</td>
 					<tr>
