@@ -481,7 +481,15 @@ table.odr_info input[type=text]{
 					<td><img class="odr_img" src="<%=ctxPath%>/image/product/${map.fk_decode}/${map.pimage1}" alt="<%=ctxPath%>/image/product/${map.fk_decode}/${map.pimage1}" ></td>
 					<td>${map.pname}<br><span style="font-size: 10pt; color: #999;">${map.option}</span></td>
 					<input name="pinfo" class="pinfo" value="${map.pname}" hidden/>
-					<td><fmt:formatNumber value="${map.price}" pattern="#,###" /> 원</td>
+					<td>
+						<c:if test="${map.price != map.saleprice}">
+							<span style="text-decoration: line-through;"><fmt:formatNumber value="${map.price}" pattern="#,###" /></span> 원<br>
+							<span><fmt:formatNumber value="${map.saleprice}" pattern="#,###" /></span> 원
+						</c:if>
+						<c:if test="${map.price == map.saleprice}">
+							<span><fmt:formatNumber value="${map.saleprice}" pattern="#,###" /></span> 원
+						</c:if>
+					</td>
 					<td><fmt:formatNumber value="${map.oqty}" pattern="#,###" /></td>
 					<td><fmt:formatNumber value="${map.point}" pattern="#,###" /></td>
 					<%-- <td>${prod.delivtype}</td>
