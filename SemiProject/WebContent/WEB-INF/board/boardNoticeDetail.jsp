@@ -93,7 +93,7 @@
 	
 	// Function Declaration
 	function goNoticeList(){
-		location.href = "/SemiProject/"+goBackURL;
+		location.href = "<%=request.getContextPath()%>/board/board.up";
 	}
 	function goNoticeDel(){
 		location.href = "<%=request.getContextPath()%>/board/NoticeDel.up?ctNo="+${requestScope.nvo.ctNo};

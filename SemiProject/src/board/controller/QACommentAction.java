@@ -53,11 +53,11 @@ public class QACommentAction extends AbstractController {
 			
 		if(n==1) {
            message = "Q&A 댓글 등록 성공!!";
-           loc = request.getContextPath()+"/board/boardQA.up";
+           loc = request.getContextPath()+"/board/qaOneDetail.up?qaNo="+qaNo;
         }
         else {
-           message = "Q&A 댓글등 록 실패!!";
-           loc = request.getContextPath()+"/board/boardQA.up";
+           message = "Q&A 댓글등록 실패!!";
+           loc = request.getContextPath()+"/board/qaOneDetail.up?qaNo="+qaNo;
         }
         
         request.setAttribute("message", message);

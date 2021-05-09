@@ -13,7 +13,6 @@
 <style type="text/css">	
 	div.QADiv{
    		margin-top: 100px;
-   		margin-bottom: 200px;
 	}
 	img#boardImg {
 		width: 90%;		

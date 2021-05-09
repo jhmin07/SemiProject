@@ -67,7 +67,7 @@ public class NoticeWriteSubmitAction extends AbstractController {
 	        
             if(n==1) {
                message = "공지사항등록 성공!!";
-               loc = request.getContextPath()+"/board/contentOneDetail.up?ctno="+ctno;
+               loc = request.getContextPath()+"/board/contentOneDetail.up?ctNo="+ctno;
             }
             else {
                message = "제품등록 실패!!";

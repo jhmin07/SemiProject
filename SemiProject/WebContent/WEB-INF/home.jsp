@@ -32,14 +32,14 @@
    table#content2MidBox{
       display: inline-block;
       overflow:hidden;
-      height: 600px;
+      height: 700px;
       width: 100%;
       text-align: center;
      /* border: solid 1px green; */
    }
    table.content3MidBox{
       display: inline-block;
-      height: 600px;
+      height: 700px;
       width: 100%;
       text-align: center;
    /*  border: solid 1px green; */
@@ -52,22 +52,22 @@
       display: inline-block;
       text-align: center;
       width: 506px;
-      height: 600px;
+      height: 700px;
       overflow: hidden;
    }
     img.content2Img{
       width: 506px;
-      height: 600px;
+      height: 700px;
       /* border: solid 1px red;  */
     }
     img.content3Img{
       width: 506px;
-      height: 600px;
+      height: 700px;
       /* border: solid 1px red; */
     }
     div.subcarouselDiv{ 
       width: 506px;
-      height: 600px;
+      height: 700px;
      /*  border: solid 1px blue; */
     }
     .contentHover{
@@ -135,6 +135,9 @@ function getCookie( cookieName ) { var search = cookieName + "="; var cookie = d
    function HITNEWclick(pnum){
 	   location.href="<%=request.getContextPath()%>/detailMenu/productDetailPage.up?pnum="+pnum;
    }
+   function BigCarclick(decode){
+	   location.href="<%=request.getContextPath()%>/detailMenu/menu.up?cnum=1&decode="+decode;
+   }
 </script>
 
 
@@ -150,15 +153,15 @@ function getCookie( cookieName ) { var search = cookieName + "="; var cookie = d
     <!-- Wrapper for slides -->
     <div class="carousel-inner">
       <div class="item active">
-        <img src="image/banner1.jpg" alt="banner1" style="width:100%;">
+        <img onClick="BigCarclick(10001);" src="image/banner1.jpg" alt="banner1" style="width:100%;">
       </div>
 
       <div class="item">
-        <img src="image/banner2.jpg" alt="banner2" style="width:100%;">
+        <img onClick="BigCarclick(10002);" src="image/banner2.jpg" alt="banner2" style="width:100%;">
       </div>
     
       <div class="item">
-        <img src="image/banner3.jpg" alt="banner3" style="width:100%;">
+        <img onClick="BigCarclick(10003);" src="image/banner3.jpg" alt="banner3" style="width:100%;">
       </div>
     </div>
 
@@ -193,10 +196,10 @@ function getCookie( cookieName ) { var search = cookieName + "="; var cookie = d
    			<!-- Wrapper for slides -->
              <div class="carousel-inner">
                <div class="item active">
-                 <img onClick="HITNEWclick(16);" src="image/product/10004/FloralCurtain.jpg" alt="툴1_1" style="width:100%;">
+                 <img onClick="HITNEWclick(16);" src="image/product/10004/FloralCurtain_text.jpg" alt="툴1_1" style="width:100%;">
                </div>
                <div class="item">
-                 <img onClick="HITNEWclick(16);" src="image/product/10004/FloralCurtain_detail01.jpg" alt="툴1_2" style="width:100%;">
+                 <img onClick="HITNEWclick(16);" src="image/product/10004/FloralCurtain.jpg" alt="툴1_2" style="width:100%;">
                </div>
                <div class="item">
                  <img onClick="HITNEWclick(16);" src="image/product/10004/FloralCurtain_detail01.jpg" alt="툴1_1" style="width:100%;">
@@ -208,20 +211,20 @@ function getCookie( cookieName ) { var search = cookieName + "="; var cookie = d
          
         
       <td class="content2SQ contentSQ">
-         <img class="imgPre" onClick="HITNEWclick(14);" src="image/product/10004/CottonCurtain.jpg" alt="툴1_1" style="width:100%;">
+         <img class="imgPre" onClick="HITNEWclick(13);" src="image/product/10004/CheckCurtain.jpg" alt="툴1_1" style="width:100%;">
             <div class="subcarouselDiv">
           <div id="myCarousel2" class="subcarousel carousel slide" data-ride="carousel">
                <div class="carousel-inner">
                   <div class="item active">
-                    <img onClick="HITNEWclick(14);" src="image/product/10004/CottonCurtain.jpg" alt="저장2_1" style="width:100%;">
+                    <img onClick="HITNEWclick(13);" src="image/product/10004/CheckCurtain_text.jpg" alt="저장2_1" style="width:100%;">
                   </div>
       
                   <div class="item">
-                    <img onClick="HITNEWclick(14);" src="image/product/10004/CottonCurtain_detail01.jpg" alt="저장2_2" style="width:100%;">
+                    <img onClick="HITNEWclick(13);" src="image/product/10004/CheckCurtain.jpg" alt="저장2_2" style="width:100%;">
                   </div>
                 
                   <div class="item">
-                    <img onClick="HITNEWclick(14);" src="image/product/10004/CottonCurtain_detail01.jpg" alt="저장2_3" style="width:100%;">
+                    <img onClick="HITNEWclick(13);" src="image/product/10004/CheckCurtain_detail01.jpg" alt="저장2_3" style="width:100%;">
                   </div>
                 </div>
             </div>
@@ -238,11 +241,11 @@ function getCookie( cookieName ) { var search = cookieName + "="; var cookie = d
            <div id="myCarousel3" class="subcarousel carousel slide" data-ride="carousel">
                <div class="carousel-inner">
                   <div class="item active">
-                    <img onClick="HITNEWclick(11);" src="image/product/10001/BlackCover.jpg" alt="옷장2" style="width:100%;">
+                    <img onClick="HITNEWclick(11);" src="image/product/10001/BlackCover_text.jpg" alt="옷장2" style="width:100%;">
                   </div>
       
                   <div class="item">
-                    <img onClick="HITNEWclick(11);" src="image/product/10001/BlackCover_detail.jpg" alt="옷장1" style="width:100%;">
+                    <img onClick="HITNEWclick(11);" src="image/product/10001/BlackCover.jpg" alt="옷장1" style="width:100%;">
                   </div>
                 
                   <div class="item">
@@ -266,19 +269,19 @@ function getCookie( cookieName ) { var search = cookieName + "="; var cookie = d
 
 	<tr>
 	<td class="content3SQ contentSQ">
-			<img class="imgPre" onClick="HITNEWclick(20);" src="image/product/40001/hanger2_1.png" alt="툴1_1" style="width:100%;">
+			<img class="imgPre" onClick="HITNEWclick(1);" src="image/product/10001/BlueCover.jpg" alt="툴1_1" style="width:100%;">
            <div class="subcarouselDiv">
              <div id="myCarousel4" class="subcarousel carousel slide" data-ride="carousel">
 
              <div class="carousel-inner">
                <div class="item active">
-                 <img onClick="HITNEWclick(20);" src="image/product/40001/hanger2_1.png" alt="소파1" style="width:100%;">
+                 <img onClick="HITNEWclick(1);" src="image/product/10001/BlueCover_text.jpg" alt="소파1" style="width:100%;">
                </div>
                <div class="item">
-                 <img onClick="HITNEWclick(20);" src="image/product/40001/hanger2_2.png" alt="소파2" style="width:100%;">
+                 <img onClick="HITNEWclick(1);" src="image/product/10001/BlueCover.jpg" alt="소파2" style="width:100%;">
                </div>
                <div class="item">
-                 <img onClick="HITNEWclick(20);" src="image/product/40001/hanger2_3.png" alt="소파3" style="width:100%;">
+                 <img onClick="HITNEWclick(1);" src="image/product/10001/BlueCover_detail.jpg" alt="소파3" style="width:100%;">
                </div>
              </div>
            </div>
@@ -290,7 +293,7 @@ function getCookie( cookieName ) { var search = cookieName + "="; var cookie = d
            <div id="myCarousel5" class="subcarousel carousel slide" data-ride="carousel">
                <div class="carousel-inner">
                   <div class="item active">
-                    <img onClick="HITNEWclick(15);" src="image/product/10004/EmbroideredCurtain.jpg" alt="테이블2" style="width:100%;">
+                    <img onClick="HITNEWclick(15);" src="image/product/10004/EmbroideredCurtain_text.jpg" alt="테이블2" style="width:100%;">
                   </div>
       
                   <div class="item">
@@ -315,7 +318,7 @@ function getCookie( cookieName ) { var search = cookieName + "="; var cookie = d
            <div id="myCarousel6" class="subcarousel carousel slide" data-ride="carousel">
                <div class="carousel-inner">
                   <div class="item active">
-                    <img onClick="HITNEWclick(9);" src="image/product/10001/CheckCover.jpg" alt="옷장2" style="width:100%;">
+                    <img onClick="HITNEWclick(9);" src="image/product/10001/CheckCover_text.jpg" alt="옷장2" style="width:100%;">
                   </div>
       
                   <div class="item">

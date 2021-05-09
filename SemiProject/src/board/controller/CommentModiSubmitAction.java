@@ -64,11 +64,11 @@ public class CommentModiSubmitAction extends AbstractController {
             
             if(n==1) {
                message = "댓글 수정 성공!!";
-               loc = request.getContextPath()+"/qaOneDetail.up?qaNo="+QAno;
+               loc = request.getContextPath()+"/board/qaOneDetail.up?qaNo="+QAno;
             }
             else {
                message = "댓글 수정 실패!!";
-               loc = request.getContextPath()+"/board/boardQA.up";
+               loc = request.getContextPath()+"/board/qaOneDetail.up?qaNo="+QAno;
             }
             
             request.setAttribute("message", message);

@@ -57,7 +57,7 @@
 	background-color: white;
    	border: solid 2px #bfbfbf;
    }
-    button#noticeList{
+    button#QAList{
    	width: 150px; 
    	height: 40px; 
 	color: white; 
@@ -124,7 +124,7 @@
 	
 	// Function Declaration
 	function goQAList(){
-		location.href = "/SemiProject/"+goBackURL;
+		location.href = "<%=request.getContextPath()%>/board/boardQA.up";
 	}
 	function goQAComment(){
 		var frm = document.QACommentFrm;
@@ -330,7 +330,7 @@
 		</c:if>    
 		
 		<div>
-			<button id="noticeList" style="margin-top: 50px;" type="button" onclick="goQAList()">Q&A목록</button>
+			<button id="QAList" style="margin-top: 50px;" type="button" onclick="goQAList()">Q&A목록</button>
 		   &nbsp;&nbsp;
 		</div>
 	  

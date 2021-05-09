@@ -68,11 +68,11 @@ public class QAModifySubmitAction extends AbstractController {
             
             if(n==1) {
                message = "Q&A 수정 성공!!";
-               loc = request.getContextPath()+"/board/board.up";
+               loc = request.getContextPath()+"/board/qaOneDetail.up?qaNo="+qaNo;
             }
             else {
                message = "Q&A 수정 실패!!";
-               loc = request.getContextPath()+"/board/board.up";
+               loc = request.getContextPath()+"/board/qaOneDetail.up?qaNo="+qaNo;
             }
             
             request.setAttribute("message", message);

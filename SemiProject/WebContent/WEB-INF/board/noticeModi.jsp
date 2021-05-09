@@ -58,6 +58,7 @@
 	
 	div#noticeWrite{
 		margin-top: 100px;
+		margin-bottom: 100px;
 	}
 	input.noticeTitle{
 		font-size: 10pt;

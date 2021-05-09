@@ -221,11 +221,11 @@ public class QADAO implements InterQADAO {
 	         pstmt = conn.prepareStatement(sql);
 	         
 	         pstmt.setInt(1, qano);
-	         pstmt.setString(2, qvo.getQaContent());
-	         pstmt.setString(3, qvo.getQaPwd()); 
-	         pstmt.setString(4, qvo.getFk_userid());     
-	        
-	            
+	         pstmt.setString(2, qvo.getQaTitle());
+	         pstmt.setString(3, qvo.getQaContent());
+	         pstmt.setString(4, qvo.getQaPwd()); 
+	         pstmt.setString(5, qvo.getFk_userid());     
+
 	         result = pstmt.executeUpdate();
 	         
 	      } finally {

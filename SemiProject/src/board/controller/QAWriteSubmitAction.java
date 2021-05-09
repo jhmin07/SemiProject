@@ -36,7 +36,6 @@ public class QAWriteSubmitAction extends AbstractController {
             String QAPwd = request.getParameter("QAPwd");
             
  
-            System.out.println("asfsdf");
             
          // !!!! 크로스 사이트 스크립트 공격에 대응하는 안전한 코드(시큐어코드) 작성하기 !!!! // 
             // 아래처럼 하면 <>가 태그가 아니라 걍 부등호로 인식된다.
@@ -59,6 +58,8 @@ public class QAWriteSubmitAction extends AbstractController {
     		
     		QAVO qvo = new QAVO();
     		System.out.println("QAWriter=> "+QAWriter);
+    		System.out.println("QATitle=> "+QATitle);
+    		System.out.println("QAContent=> "+QAContent);
     		qvo.setQaTitle(QATitle);
     		qvo.setQaContent(QAContent);
     		qvo.setFk_userid(QAWriter);

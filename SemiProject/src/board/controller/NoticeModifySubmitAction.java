@@ -40,7 +40,7 @@ public class NoticeModifySubmitAction extends AbstractController {
             noticeTitle = noticeTitle.replaceAll("<", "&lt;");
             noticeTitle = noticeTitle.replaceAll(">", "&gt;");
             noticeContent = noticeContent.replaceAll("<", "&lt;");
-            noticeContent = noticeTitle.replaceAll(">", "&gt;");
+            noticeContent = noticeContent.replaceAll(">", "&gt;");
 
             
             noticeTitle = noticeTitle.replaceAll("\r\n", "<br>");
@@ -64,11 +64,11 @@ public class NoticeModifySubmitAction extends AbstractController {
             
             if(n==1) {
                message = "공지사항 수정 성공!!";
-               loc = request.getContextPath()+"/board/contentOneDetail.up?ctno="+ctNo;
+               loc = request.getContextPath()+"/board/contentOneDetail.up?ctNo="+ctNo;
             }
             else {
                message = "공지사항 수정 실패!!";
-               loc = request.getContextPath()+"/board/contentOneDetail.up?ctno="+ctNo;
+               loc = request.getContextPath()+"/board/contentOneDetail.up?ctNo="+ctNo;
             }
             
             request.setAttribute("message", message);

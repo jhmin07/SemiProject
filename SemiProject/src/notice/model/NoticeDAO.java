@@ -327,7 +327,6 @@ public class NoticeDAO implements InterNoticeDAO {
 	         pstmt.setString(1, nvo.getCtTitle());
 	         pstmt.setString(2, nvo.getCtContent());
 	         pstmt.setInt(3, nvo.getCtNo());
-	        
 	            
 	         result = pstmt.executeUpdate();
 	         

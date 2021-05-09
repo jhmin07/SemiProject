@@ -129,7 +129,7 @@ function goWrite(){
 </script>
 
 
-<div class="container" id="noticeWrite" align="center">
+<div class="container" id="QAWrite" align="center">
 	<img id="boardImg" src="../image/board.png"/>
 	<table class="table page_tab" style="margin: 25px 0;">
 		<tbody>
