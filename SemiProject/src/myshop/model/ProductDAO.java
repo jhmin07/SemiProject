@@ -468,7 +468,7 @@ public class ProductDAO implements InterProductDAO {
 	      try {
 	          conn = ds.getConnection(); 
 	          
-	          String sql = " select S.sname, pnum, pname, pcompany, price, saleprice, point, pqty, pcontent, pimage1, pimage2, fk_decode "+
+	          String sql = " select S.sname, pnum, pname, pcompany, price, saleprice, point, pqty, pcontent, pimage1, pimage2, fk_decode, fk_snum "+
 	                     " from "+
 	                     " ( "+
 	                     "  select fk_snum, pnum, pname, pcompany, price, saleprice, point, pqty, pcontent, pimage1, pimage2, fk_decode "+
@@ -496,11 +496,13 @@ public class ProductDAO implements InterProductDAO {
 	             String pimage1 = rs.getString(10);  // 제품이미지1
 	             String pimage2 = rs.getString(11);  // 제품이미지2
 	             String fk_decode = rs.getString(12); // 제품카테고리
+	             int fk_snum = rs.getInt(13);
 	             
 	             pvo = new ProductVO(); 
 	             
 	             SpecVO spvo = new SpecVO();
 	             spvo.setSname(sname);
+	             spvo.setSnum(fk_snum);
 	             
 	             pvo.setSpvo(spvo);
 	             pvo.setPnum(npnum);

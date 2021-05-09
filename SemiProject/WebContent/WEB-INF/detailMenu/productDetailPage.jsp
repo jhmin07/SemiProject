@@ -331,9 +331,17 @@ li {
 							<span> ${requestScope.pvo.pname}</span>
 						</td>
 					<tr>
-					<tr>
+					<tr><%-- <fmt:formatNumber value="${requestScope.pvo.price}" pattern="###,###" /><fmt:formatNumber value="${requestScope.pvo.saleprice}" pattern="###,###" />&nbsp;원 --%>
 						<td class="pdt_main">PRICE</td>
-						<td class="pdt_sub"><fmt:formatNumber value="${requestScope.pvo.saleprice}" pattern="###,###" />&nbsp;원</td>
+						<td class="pdt_sub">
+ 							<c:if test="${pvo.spvo.snum == 2}">
+							<span style="text-decoration:line-through; text-decoration-color: red;"><fmt:formatNumber value="${pvo.saleprice}" pattern="#,###" /> 원&nbsp;&nbsp;</span>
+							<span><fmt:formatNumber value="${pvo.saleprice*0.75}" pattern="#,###" /> 원</span>
+							</c:if>
+							<c:if test="${pvo.spvo.snum == 1 || pvo.spvo.snum == 3}">
+							<span><fmt:formatNumber value="${pvo.saleprice}" pattern="#,###" /> 원</span>
+							</c:if>
+						</td>
 					<tr>
 					<tr>
 						<td class="pdt_main">POINT</td>
