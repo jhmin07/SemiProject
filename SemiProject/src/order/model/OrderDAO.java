@@ -276,7 +276,9 @@ public class OrderDAO implements InterOrderDAO {
 		try {
 			conn = ds.getConnection();
 			
-			String sql = " select A.ordercode, A.fk_userid, A.totalPrice, A.totalpoint, to_char(A.orderdate, 'yyyy-mm-dd') AS orderdate, B.fk_pnum, B.odPrice, B.odAmount, B.deliveryCon, B.optionContents, c.pname, c.pimage1, c.fk_decode "
+			String sql = " select A.ordercode, A.fk_userid, A.totalPrice, A.totalpoint, to_char(A.orderdate, 'yyyy-mm-dd') AS orderdate, "
+					   + " B.fk_pnum, B.odPrice, B.odAmount, B.deliveryCon, B.optionContents, "
+					   + " c.pname, c.pimage1, c.fk_decode "
 					   + " from tbl_order A join tbl_order_details B "
 					   + " on A.orderCode = B.fk_orderCode "
 					   + " join tbl_product C "

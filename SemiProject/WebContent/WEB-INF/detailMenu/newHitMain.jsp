@@ -91,8 +91,15 @@ div#specNamecss{
 				<img src="<%=ctxPath%>/image/product/${pvo.fk_decode}/${pvo.pimage1}" class="prodImg" "/>
 				<div id="name">
 				<a href="<%=ctxPath%>/detailMenu/productDetailPage.up?pnum=${pvo.pnum}">	
-				<span>${pvo.pname}</span><br>	
-				<span><fmt:formatNumber value="${pvo.saleprice}" pattern="#,###" /> 원</span>
+				<span>${pvo.pname}</span><br>
+				<c:if test="${fk_snum == 2}">
+					<span style="text-decoration:line-through; text-decoration-color: red;"><fmt:formatNumber value="${pvo.saleprice}" pattern="#,###" /> 원&nbsp;&nbsp;</span>
+					<br>
+					<span><fmt:formatNumber value="${pvo.saleprice*0.75}" pattern="#,###" /> 원</span>
+				</c:if>	
+				<c:if test="${fk_snum == 1}">			
+					<span><fmt:formatNumber value="${pvo.saleprice}" pattern="#,###" /> 원</span>
+				</c:if>
 				</a>
 				</div>
 			</a>			

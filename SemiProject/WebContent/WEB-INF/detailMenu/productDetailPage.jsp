@@ -65,7 +65,7 @@ li {
                return false;
             }
          }
-	});	     
+	});
 	
 	}); // end of $(function(){});
 	
@@ -73,59 +73,72 @@ li {
 	
 	function goCart() {	
 		
-			if ( $("select.listoname").val() != null ) {	
-				
-				if ( $("input#optionNo0").val() != "00" && $("input#optionNo1").val() != "00" ) {
-					
-					if ( $("input#optionNo0").val() != "" && $("input#optionNo1").val() != "" ) {
-						
+		 if ( $("select.listocontents").val() != null ) {
+		
+			if ( $("select.0").val() != null && !($("select.1").val() != null) && !($("select.2").val() != null) ){
+				if ( $("input#optionNo0").val() != "00" ){
+					if ( $("input#optionNo0").val() != "" )  { 
 						var frm = document.pdtFrm;
 						frm.method = "post";
 						frm.action = "<%= request.getContextPath()%>/order/goCart.up";
 						frm.submit();
-						
+						return false;	
 					}
-					else if ( $("input#optionNo0").val() == "" && $("input#optionNo1").val() != "" ) {
-						
+					else {
 						alert("옵션 선택은 필수입니다.");
-						return false;
-						
+						return false;	
 					}
-					else if ( $("input#optionNo0").val() != "" && $("input#optionNo1").val() == "" ) {
-						
+				}
+				else {
+					alert("옵션 선택은 필수입니다.");
+					return false;	
+				}
+			} // end of if ( $("select.0").val() != null ){}		
+			else if ( $("select.0").val() != null && $("select.1").val() != null && !($("select.2").val() != null) ){
+				if ( $("input#optionNo0").val() != "00" && $("input#optionNo1").val() != "00" ) {
+					if ( $("input#optionNo0").val() != "" && $("input#optionNo1").val() != "" ) {
+						var frm = document.pdtFrm;
+						frm.method = "post";
+						frm.action = "<%= request.getContextPath()%>/order/goCart.up";
+						frm.submit();
+						return false;
+					}	
+					else {				
 						alert("옵션 선택은 필수입니다.");
-						return false;
-						
+						return false;						
 					}
-					else if ( $("input#optionNo0").val() == "" && $("input#optionNo1").val() == "" ) {
-						
-						alert("옵션 선택은 필수입니다.");
-						return false;
-						
-					}
-					
-				}					
-				else if ( $("input#optionNo0").val() != "00" && $("input#optionNo1").val() == "00" ) {
+				}
+				else {
 					alert("옵션 선택은 필수입니다.");
 					return false;
+				}		
+			} // end of if ( $("select.2").val() != null ){}
+			else if ( $("select.0").val() != null && $("select.1").val() != null && $("select.2").val() != null ){
+				if ( $("input#optionNo0").val() != "00" && $("input#optionNo1").val() != "00" && $("input#optionNo2").val() != "00") {
+					if ( $("input#optionNo0").val() != "" && $("input#optionNo1").val() != "" && $("input#optionNo2").val() != "" ) {
+						var frm = document.pdtFrm;
+						frm.method = "post";
+						frm.action = "<%= request.getContextPath()%>/order/goCart.up";
+						frm.submit();
+					}	
+					else {				
+						alert("옵션 선택은 필수입니다.");
+						return false;						
+					}
 				}
-				else if ( $("input#optionNo0").val() == "00" && $("input#optionNo1").val() != "00" ) {
+				else {				
 					alert("옵션 선택은 필수입니다.");
-					return false;
-				}
-				else if ( $("input#optionNo0").val() != "00" && $("input#optionNo1").val() != "00" ) {
-					alert("옵션 선택은 필수입니다.");
-					return false;
-				}
-			
-			}
-			else {
-				var frm = document.pdtFrm;
-				frm.method = "post";
-				frm.action = "<%= request.getContextPath()%>/order/goCart.up";
-				frm.submit();
-			}
-   
+					return false;						
+				}			
+			} // end of if ( $("select.3").val() != null ){}
+		}
+		else  {
+			var frm = document.pdtFrm;
+			frm.method = "post";
+			frm.action = "<%= request.getContextPath()%>/order/goCart.up";
+			frm.submit();
+		}
+
 	   } // end of function goCart(pnum) {}------------------------------------	
 	   
    
@@ -144,64 +157,74 @@ li {
 		$("input[name=sumtotalPrice]").val(totalPrice);
 		$("input[name=sumtotalPoint]").val(totalPoint);
 		
-		if ( $("select.listoname").val() != null ) {	
-		
-			if ( $("select.listoname").val() == "" ) {
+		 if ( $("select.listocontents").val() != null ) {
+				
+				if ( $("select.0").val() != null && !($("select.1").val() != null) && !($("select.2").val() != null) ){
+					if ( $("input#optionNo0").val() != "00" ){
+						if ( $("input#optionNo0").val() != "" )  { 
+							var frm = document.goOrderFrm;
+							frm.method = "post";
+							frm.action = "<%= request.getContextPath()%>/order/order.up";
+							frm.submit();
+							return false;	
+						}
+						else {
+							alert("옵션 선택은 필수입니다.");
+							return false;	
+						}
+					}
+					else {
+						alert("옵션 선택은 필수입니다.");
+						return false;	
+					}
+				} // end of if ( $("select.0").val() != null ){}		
+				else if ( $("select.0").val() != null && $("select.1").val() != null && !($("select.2").val() != null) ){
+					if ( $("input#optionNo0").val() != "00" && $("input#optionNo1").val() != "00" ) {
+						if ( $("input#optionNo0").val() != "" && $("input#optionNo1").val() != "" ) {
+							var frm = document.goOrderFrm;
+							frm.method = "post";
+							frm.action = "<%= request.getContextPath()%>/order/order.up";
+							frm.submit();
+							return false;
+						}	
+						else {				
+							alert("옵션 선택은 필수입니다.");
+							return false;						
+						}
+					}
+					else {
+						alert("옵션 선택은 필수입니다.");
+						return false;
+					}		
+				} // end of if ( $("select.2").val() != null ){}
+				else if ( $("select.0").val() != null && $("select.1").val() != null && $("select.2").val() != null ){
+					if ( $("input#optionNo0").val() != "00" && $("input#optionNo1").val() != "00" && $("input#optionNo2").val() != "00") {
+						if ( $("input#optionNo0").val() != "" && $("input#optionNo1").val() != "" && $("input#optionNo2").val() != "" ) {
+							var frm = document.goOrderFrm;
+							frm.method = "post";
+							frm.action = "<%= request.getContextPath()%>/order/order.up";
+							frm.submit();
+							return false;
+						}	
+						else {				
+							alert("옵션 선택은 필수입니다.");
+							return false;						
+						}
+					}
+					else {				
+						alert("옵션 선택은 필수입니다.");
+						return false;						
+					}			
+				} // end of if ( $("select.3").val() != null ){}
+			}
+			else  {
 				var frm = document.goOrderFrm;
 				frm.method = "post";
 				frm.action = "<%= request.getContextPath()%>/order/order.up";
 				frm.submit();
+				return false;
 			}
-			if ( $("input#optionNo0").val() != "00" && $("input#optionNo1").val() != "00" ) {
-				
-				if ( $("input#optionNo0").val() != "" && $("input#optionNo1").val() != "" ) {
-					
-					var frm = document.goOrderFrm;
-					frm.method = "post";
-					frm.action = "<%= request.getContextPath()%>/order/order.up";
-					frm.submit();
-					
-				}
-				else if ( $("input#optionNo0").val() == "" && $("input#optionNo1").val() != "" ) {
-					
-					alert("옵션 선택은 필수입니다.");
-					return false;
-					
-				}
-				else if ( $("input#optionNo0").val() != "" && $("input#optionNo1").val() == "" ) {
-					
-					alert("옵션 선택은 필수입니다.");
-					return false;
-					
-				}
-				else if ( $("input#optionNo0").val() == "" && $("input#optionNo1").val() == "" ) {
-					
-					alert("옵션 선택은 필수입니다.");
-					return false;
-					
-				}
-				
-				}					
-				else if ( $("input#optionNo0").val() != "00" && $("input#optionNo1").val() == "00" ) {
-					alert("옵션 선택은 필수입니다.");
-					return false;
-				}
-				else if ( $("input#optionNo0").val() == "00" && $("input#optionNo1").val() != "00" ) {
-					alert("옵션 선택은 필수입니다.");
-					return false;
-				}
-				else if ( $("input#optionNo0").val() != "00" && $("input#optionNo1").val() != "00" ) {
-					alert("옵션 선택은 필수입니다.");
-					return false;
-				}		
-			
-		}
-		else {
-			var frm = document.goOrderFrm;
-			frm.method = "post";
-			frm.action = "<%= request.getContextPath()%>/order/order.up";
-			frm.submit();
-		}   
+		
     } // end of function goOrder(){}
     
     function goloop() { 
@@ -243,14 +266,16 @@ li {
       
       function option(item) {     
 	          
-	          for(var i=0; i<2; i++){
+	          for(var i=0; i<3; i++){
 	        	  
 		        	  var option = "";
 		        	  
 				          $("select."+i+"").each(function(index,item){
-			
+				        	  
+				        	  if ( $("select."+i+"").val() != "" ) {
 					       		option += $(this).children("option:selected").val(); 
-					       		
+				          	  }     		
+				        	  
 				          });  // end of  $("select."+i+"").each(function(index,item){})
 			          
 		          	 console.log(option);
@@ -294,6 +319,7 @@ li {
 			<input hidden name="sumtotalPoint" />
 			<input type="hidden" id="optionNo0"  name="optionNo0"/>
 			<input type="hidden" id="optionNo1"  name="optionNo1"/>
+			<input type="hidden" id="optionNo1"  name="optionNo2"/>
 		</form>
 		
 		<form name="pdtFrm">
@@ -338,6 +364,7 @@ li {
 			<input type="hidden" name="pnum" value="${requestScope.pvo.pnum}" />
 			<input type="hidden" id="optionNo0"  name="optionNo0"/>
 			<input type="hidden" id="optionNo1"  name="optionNo1"/>
+			<input type="hidden" id="optionNo1"  name="optionNo2"/>
 			</div>
 			<br>
 			<button type="button"  onclick="goOrder();" style="background-color: black; color: white;  width: 350px; margin-top: 10px; height: 30px;">주문하러 가기</button>
