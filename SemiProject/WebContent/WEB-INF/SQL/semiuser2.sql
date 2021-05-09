@@ -363,10 +363,12 @@ orderCode       varchar2(50) not null   -- 주문코드
 );
 -- Table TBL_ORDER이(가) 생성되었습니다.
 
-insert into tbl_order(orderCode, fk_userid, totalPrice, totalPoint, orderDate) values ('1', 'kimys', 10000, 100, '21/03/21');
-insert into tbl_order(orderCode, fk_userid, totalPrice, totalPoint) values ('2', 'kimys', 20000, 200);
-insert into tbl_order(orderCode, fk_userid, totalPrice, totalPoint, orderDate) values ('3', 'kimys', 10000, 100, '20/12/21');
-insert into tbl_order(orderCode, fk_userid, totalPrice, totalPoint, orderDate) values ('4', 'kimys', 10000, 100, '21/01/31');
+insert into tbl_order(orderCode, fk_userid, totalPrice, totalPoint) values ('20210509-06', 'seoia', 220000, 200);
+insert into tbl_order(orderCode, fk_userid, totalPrice, totalPoint, orderDate) values ('20210321-05', 'seoia', 250000, 200, '21/03/21');
+insert into tbl_order(orderCode, fk_userid, totalPrice, totalPoint, orderDate) values ('20210131-04', 'seoia', 10000, 100, '21/01/31');
+insert into tbl_order(orderCode, fk_userid, totalPrice, totalPoint, orderDate) values ('20201231-03', 'seoia', 99000, 100, '20/12/31');
+insert into tbl_order(orderCode, fk_userid, totalPrice, totalPoint, orderDate) values ('20201120-02', 'seoia', 179000, 100, '20/11/20');
+insert into tbl_order(orderCode, fk_userid, totalPrice, totalPoint, orderDate) values ('20201118-01', 'seoia', 139000, 100, '20/11/13');
 commit;
 
 select *
@@ -382,16 +384,19 @@ and orderdate between '2020-12-01' and '2021-04-01'
 and B.deliveryCon = '1'
 order by orderdate desc;
 
-insert into tbl_order_details(odNo, fk_orderCode, fk_pnum, odAmount, odPrice, deliveryCon) values (1, '1', 16, 2, 139000, '2');
-insert into tbl_order_details(odNo, fk_orderCode, fk_pnum, odAmount, odPrice, deliveryCon) values (2, '2', 1, 1, 20000, '1');
-insert into tbl_order_details(odNo, fk_orderCode, fk_pnum, odAmount, odPrice, deliveryCon) values (3, '3', 2, 4, 10000, '3');
-insert into tbl_order_details(odNo, fk_orderCode, fk_pnum, odAmount, odPrice, deliveryCon) values (4, '4', 3, 3, 10000, '1');
-insert into tbl_order_details(odNo, fk_orderCode, fk_pnum, odAmount, odPrice, deliveryCon) values (5, '10', 5, 2, 139000, '2');
-insert into tbl_order_details(odNo, fk_orderCode, fk_pnum, odAmount, odPrice, deliveryCon) values (6, '11', 4, 1, 139000, '3');
+insert into tbl_order_details(odNo, fk_orderCode, fk_pnum, odAmount, odPrice, deliveryCon) values (6, '20210509-06', 16, 1, 139000, '1');
+insert into tbl_order_details(odNo, fk_orderCode, fk_pnum, odAmount, odPrice, deliveryCon) values (5, '20210321-05', 6, 1, 250000, '2');
+insert into tbl_order_details(odNo, fk_orderCode, fk_pnum, odAmount, odPrice, deliveryCon) values (4, '20210131-04', 2, 1, 10000, '3');
+insert into tbl_order_details(odNo, fk_orderCode, fk_pnum, odAmount, odPrice, deliveryCon) values (3, '20201231-03', 12, 2, 198000, '3');
+insert into tbl_order_details(odNo, fk_orderCode, fk_pnum, odAmount, odPrice, deliveryCon) values (2, '20201120-02', 11, 1, 179000, '3');
+insert into tbl_order_details(odNo, fk_orderCode, fk_pnum, odAmount, odPrice, deliveryCon) values (1, '20201118-01', 8, 4, 556000, '3');
 commit;
 
 select *
 from tbl_order_details;
+
+select *
+from tbl_product;
 
 -- 주문상세 테이블 생성
 drop table tbl_order_details purge;
@@ -401,7 +406,7 @@ odNo            number          not null -- 주문상세일련번호
 ,fk_pnum        number(8)       not null -- 제품번호
 ,odAmount       number          not null -- 주문량
 ,odPrice        number          not null -- 주문가격
-,optionContents   varchar(1000)          -- 주문가격
+,optionContents   varchar(1000)          -- 옵션내역
 ,deliveryCon    varchar2(50)             -- 배송상태(null : 입금확인, 1 : 배송준비중,  2 : 배송중,  3 : 배송완료)
 ,deliveryDone   DATE                     -- 배송완료일자
 ,constraint  PK_tbl_order_details_odNo primary key(odNo)
@@ -437,6 +442,7 @@ cartNo        number       not null -- 장바구니번호
 ,fk_pnum      number(8)    not null -- 제품번호
 ,odAmount     number       not null -- 주문량
 ,cartDate     Date         default sysdate   -- 입력일자
+,optionNo_es  varchar(200)          -- 옵션이름 ('20,30')
 ,constraint  PK_tbl_cart_cartNo_t primary key(cartNo)
 ,constraint  FK_tbl_cart_fk_userid foreign key(fk_userid) references tbl_member(userid)
 ,constraint  FK_tbl_cart_fk_pnum foreign key(fk_pnum) references tbl_product(pnum)

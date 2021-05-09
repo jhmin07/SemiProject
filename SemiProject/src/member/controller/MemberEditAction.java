@@ -12,6 +12,8 @@ public class MemberEditAction extends AbstractController {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		super.goBackURL(request);
+		
 		// 내정보(회원정보)를 수정하기 위한 전제조건은 먼저 로그인을 해야 하는 것이다.
 		if(super.checkLogin(request)) {
 			// 로그인 한 경우 true, 로그인 안 한 경우 false 를 리턴한다.
@@ -43,7 +45,7 @@ public class MemberEditAction extends AbstractController {
 		}
 		else {
 			String message = "회원정보를 수정 하기 위해서는 먼저 로그인을 하세요!!";
-			String loc = "javascript:history.back()";
+			String loc = "/SemiProject/member/login.up";
 			
 			request.setAttribute("message", message);
 			request.setAttribute("loc", loc);

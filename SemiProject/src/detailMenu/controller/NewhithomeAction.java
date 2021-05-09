@@ -16,7 +16,9 @@ public class NewhithomeAction extends AbstractController {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws Exception {		
-				
+		
+		super.goBackURL(request);
+		
 		HttpSession session = request.getSession();
 		
 		

@@ -24,6 +24,8 @@ public class OrderAction extends AbstractController {
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
+		super.goBackURL(request);
+		
 		boolean isLogin = super.checkLogin(request);
 
 		if (!isLogin) { // "바로주문하기가 있기 때문에"
@@ -43,14 +45,22 @@ public class OrderAction extends AbstractController {
 		String totalPrice_es= request.getParameter("totalPrice_es");
 		String sumtotalPrice = request.getParameter("sumtotalPrice");
 		String sumtotalPoint = request.getParameter("sumtotalPoint");
+
+		String optionNo0 = request.getParameter("optionNo0");	 
+		String optionNo1 = request.getParameter("optionNo1");	
+		String optionNo = optionNo0+","+optionNo1;		
+		
+		System.out.println("optionNo0 : " + optionNo0);
+		System.out.println("optionNo1 : " + optionNo1);
+		System.out.println("optionNo : " + optionNo);
+		System.out.println(optionNo);		
+		
 //		System.out.println("cartno_es:"+cartno_es);
 		
 		List<Map<String, String>> mapList = new ArrayList<>();
 		
 		// ===== 장바구니에서 넘어왔을 때 ====== //
 		if (cartno_es != null) {
-//			System.out.println("cart pass");
-			
 			String[] pnumArr = pnum_es.split(",");
 			String[] oqtyArr = oqty_es.split(",");
 			String[] cartnoArr = cartno_es.split(",");
@@ -87,7 +97,6 @@ public class OrderAction extends AbstractController {
 			
 		}
 		else { // ===== 바로 주문하기에서 넘어왔을 때 ====== //
-//			System.out.println("direct order");
 			Map<String, String> map = new HashMap<>();
 			
 			map.put("pnum", pnum_es);

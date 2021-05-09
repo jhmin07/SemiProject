@@ -14,6 +14,8 @@ public class CategoryAction extends AbstractController {
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		
+		super.goBackURL(request);
+		
 		//카테고리 목록을 조회해오기
 		super.getCategoryList(request);
 		

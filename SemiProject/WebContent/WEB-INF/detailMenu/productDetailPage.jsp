@@ -71,17 +71,65 @@ li {
 	
 	// Function Declaration	
 	
-	function goCart() {
+	function goCart() {	
 		
-		   // pnum 은 장바구니에 담을 제품번호 이다.
-		   // === 주문량에 대한 유효성 검사하기 === //
-		   var frm = document.pdtFrm;
-		   frm.method = "post";
-		   frm.action = "<%= request.getContextPath()%>/order/goCart.up";
-		   frm.submit();
+			if ( $("select.listoname").val() != null ) {	
+				
+				if ( $("input#optionNo0").val() != "00" && $("input#optionNo1").val() != "00" ) {
+					
+					if ( $("input#optionNo0").val() != "" && $("input#optionNo1").val() != "" ) {
+						
+						var frm = document.pdtFrm;
+						frm.method = "post";
+						frm.action = "<%= request.getContextPath()%>/order/goCart.up";
+						frm.submit();
+						
+					}
+					else if ( $("input#optionNo0").val() == "" && $("input#optionNo1").val() != "" ) {
+						
+						alert("옵션 선택은 필수입니다.");
+						return false;
+						
+					}
+					else if ( $("input#optionNo0").val() != "" && $("input#optionNo1").val() == "" ) {
+						
+						alert("옵션 선택은 필수입니다.");
+						return false;
+						
+					}
+					else if ( $("input#optionNo0").val() == "" && $("input#optionNo1").val() == "" ) {
+						
+						alert("옵션 선택은 필수입니다.");
+						return false;
+						
+					}
+					
+				}					
+				else if ( $("input#optionNo0").val() != "00" && $("input#optionNo1").val() == "00" ) {
+					alert("옵션 선택은 필수입니다.");
+					return false;
+				}
+				else if ( $("input#optionNo0").val() == "00" && $("input#optionNo1").val() != "00" ) {
+					alert("옵션 선택은 필수입니다.");
+					return false;
+				}
+				else if ( $("input#optionNo0").val() != "00" && $("input#optionNo1").val() != "00" ) {
+					alert("옵션 선택은 필수입니다.");
+					return false;
+				}
+			
+			}
+			else {
+				var frm = document.pdtFrm;
+				frm.method = "post";
+				frm.action = "<%= request.getContextPath()%>/order/goCart.up";
+				frm.submit();
+			}
    
 	   } // end of function goCart(pnum) {}------------------------------------	
 	   
+   
+	// === 주문 바로가기 === //   
 	function goOrder(){
 		var oqty = $("input[name=odAmount]").val();
 		var totalPrice = Number(oqty) * ${requestScope.pvo.saleprice};
@@ -96,36 +144,89 @@ li {
 		$("input[name=sumtotalPrice]").val(totalPrice);
 		$("input[name=sumtotalPoint]").val(totalPoint);
 		
-		var frm = document.goOrderFrm;
-		frm.method = "post";
-		frm.action = "<%= request.getContextPath()%>/order/order.up";
-		frm.submit();
-		   
+		if ( $("select.listoname").val() != null ) {	
+		
+			if ( $("select.listoname").val() == "" ) {
+				var frm = document.goOrderFrm;
+				frm.method = "post";
+				frm.action = "<%= request.getContextPath()%>/order/order.up";
+				frm.submit();
+			}
+			if ( $("input#optionNo0").val() != "00" && $("input#optionNo1").val() != "00" ) {
+				
+				if ( $("input#optionNo0").val() != "" && $("input#optionNo1").val() != "" ) {
+					
+					var frm = document.goOrderFrm;
+					frm.method = "post";
+					frm.action = "<%= request.getContextPath()%>/order/order.up";
+					frm.submit();
+					
+				}
+				else if ( $("input#optionNo0").val() == "" && $("input#optionNo1").val() != "" ) {
+					
+					alert("옵션 선택은 필수입니다.");
+					return false;
+					
+				}
+				else if ( $("input#optionNo0").val() != "" && $("input#optionNo1").val() == "" ) {
+					
+					alert("옵션 선택은 필수입니다.");
+					return false;
+					
+				}
+				else if ( $("input#optionNo0").val() == "" && $("input#optionNo1").val() == "" ) {
+					
+					alert("옵션 선택은 필수입니다.");
+					return false;
+					
+				}
+				
+				}					
+				else if ( $("input#optionNo0").val() != "00" && $("input#optionNo1").val() == "00" ) {
+					alert("옵션 선택은 필수입니다.");
+					return false;
+				}
+				else if ( $("input#optionNo0").val() == "00" && $("input#optionNo1").val() != "00" ) {
+					alert("옵션 선택은 필수입니다.");
+					return false;
+				}
+				else if ( $("input#optionNo0").val() != "00" && $("input#optionNo1").val() != "00" ) {
+					alert("옵션 선택은 필수입니다.");
+					return false;
+				}		
+			
+		}
+		else {
+			var frm = document.goOrderFrm;
+			frm.method = "post";
+			frm.action = "<%= request.getContextPath()%>/order/order.up";
+			frm.submit();
+		}   
     } // end of function goOrder(){}
     
     function goloop() { 
         
         var oname="";
+        
         $("td.listoname").each(function(index,item){
+        	
            var $this = $(this);
            oname = $(this).text();
+           
               $.ajax({
                  url:"<%= request.getContextPath()%>/detailMenu/productDetailOption.up",
                  type:"get",
                  data:{"pnum":"${pvo.pnum}"
-                     ,"oname":oname}, 
+                        ,"oname":oname}, 
                  dataType:"json",
                  success:function(json){
                     
-                    var html = "";      
+                    var html = "<option value='00'>옵션을 선택해주세요</option>";      
                        
                         $.each(json, function(index, item){
-                           if(index == 1){
-                           html += " <option value='"+item.optionNo+"' selected>"+item.ocontents+"</option>";
-                           }
-                           else{
+						                    
                            html += " <option value='"+item.optionNo+"'>"+item.ocontents+"</option>";
-                           }
+                           
                         });
                 
                     $this.next().children().html(html);
@@ -140,18 +241,24 @@ li {
       
       } // end of function goloop() {}  
       
-      function option(item) {
-          
-	          var option = "";
-	          $("select.listocontents").each(function(index,item){
-		       	  if(option != ""){
-		           option += ",";
-		       	  }
-		           option += $(this).children("option:selected").val();       	 	 
-          		});
-          	console.log(option);
-       		$("input#optionNo").val(option);
-  }
+      function option(item) {     
+	          
+	          for(var i=0; i<2; i++){
+	        	  
+		        	  var option = "";
+		        	  
+				          $("select."+i+"").each(function(index,item){
+			
+					       		option += $(this).children("option:selected").val(); 
+					       		
+				          });  // end of  $("select."+i+"").each(function(index,item){})
+			          
+		          	 console.log(option);
+		       		$("input#optionNo"+i+"").val(option);
+	          
+	          } // end of for
+       		
+  	  } // end of  function option(item) {
       
 	   
 </script>
@@ -185,6 +292,8 @@ li {
 			<input hidden name="totalPrice_es" />
 			<input hidden name="sumtotalPrice" />
 			<input hidden name="sumtotalPoint" />
+			<input type="hidden" id="optionNo0"  name="optionNo0"/>
+			<input type="hidden" id="optionNo1"  name="optionNo1"/>
 		</form>
 		
 		<form name="pdtFrm">
@@ -193,7 +302,7 @@ li {
 					<tr>
 						<td class="pdt_main">NAME</td>
 						<td class="pdt_sub" >
-							<span > ${requestScope.pvo.pname}</span>
+							<span> ${requestScope.pvo.pname}</span>
 						</td>
 					<tr>
 					<tr>
@@ -216,7 +325,7 @@ li {
                   <tr>                              
                      <td class="listoname pdt_main">${option.oname}</td>
                      <td>
-                          <select class ="listocontents" name="optocontents" id="${status.index}" onchange="option(this);" style="width: 150px;">                                                           
+                          <select class ="listocontents ${status.index}" name="optocontents" id="${status.index}" onchange="option(this);" style="width: 150px;">                                                           
                            </select>
                        </td>
                   </tr>   
@@ -227,7 +336,8 @@ li {
 			<button type="button"  onclick="goCart();" style="background-color: black; color: white;  width: 350px; margin-top: 10px; height: 30px;">장바구니에 담기</button>
 			<div id="datasubmit">
 			<input type="hidden" name="pnum" value="${requestScope.pvo.pnum}" />
-			<input type="hidden" id="optionNo"  name="optionNo" value="" />
+			<input type="hidden" id="optionNo0"  name="optionNo0"/>
+			<input type="hidden" id="optionNo1"  name="optionNo1"/>
 			</div>
 			<br>
 			<button type="button"  onclick="goOrder();" style="background-color: black; color: white;  width: 350px; margin-top: 10px; height: 30px;">주문하러 가기</button>

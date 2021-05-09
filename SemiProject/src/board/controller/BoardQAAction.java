@@ -17,6 +17,9 @@ public class BoardQAAction extends AbstractController {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		
+		super.goBackURL(request);
+		
 		// == 관리자(admin)로 로그인 했s을 때만 조회가 가능하도록 한다. == //
 /*				HttpSession session = request.getSession();
 				MemberVO loginuser = (MemberVO) session.getAttribute("loginuser");
