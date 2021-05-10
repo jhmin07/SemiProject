@@ -190,7 +190,7 @@ ul.payment_last > li {
 			<tr>
 				<th colspan="2">
 					<input type="checkbox" id="shoppingAllAgree" name="shoppingAllAgree"/>
-					<label for="shoppingAllAgree">쇼핑몰 이용약관 비회원 구매시 개인정보수집이용 동의에 모두 동의합니다.</label>
+					<label for="shoppingAllAgree">쇼핑몰 이용약관 상품 구매시 개인정보수집이용 동의에 모두 동의합니다.</label>
 				</th>
 			</tr>
 		</thead>
@@ -205,7 +205,7 @@ ul.payment_last > li {
 				</td>
 			</tr>
 			<tr>
-				<td>비회원 구매시 개인정보 수집이용동의</td>
+				<td>상품 구매시 개인정보 수집이용동의</td>
 				<td>
 					<iframe src="<%=ctxPath%>/iframeAgree/agree.html" width="100%" height="150px" class="box" style="border: solid 1px #ccc;"></iframe>
 					<input type="checkbox" id="shoppingAgree2" name="shoppingAgree"  class="payAgreeAll"/>
