@@ -26,8 +26,6 @@ public class OrderAction extends AbstractController {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-
-		super.goBackURL(request);
 		
 		boolean isLogin = super.checkLogin(request);
 
