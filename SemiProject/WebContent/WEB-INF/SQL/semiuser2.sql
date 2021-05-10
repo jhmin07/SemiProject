@@ -500,6 +500,16 @@ orderCode       varchar2(50) not null   -- 주문코드
 );
 -- Table TBL_ORDER이(가) 생성되었습니다.
 
+
+insert into tbl_order(orderCode, fk_userid, totalPrice, totalPoint, orderDate) values ('20210222-01', 'jhmin07', 237500 , 340, '21/03/21');
+insert into tbl_order_details(odNo, fk_orderCode, fk_pnum, odAmount, odPrice, deliveryCon) values (10000, '20210222-01', 97, 1, 237500, '1');
+commit;
+
+insert into tbl_order(orderCode, fk_userid, totalPrice, totalPoint, orderDate) values ('20210321-02', 'jhmin07', 250000, 200, '21/03/21');
+insert into tbl_order(orderCode, fk_userid, totalPrice, totalPoint, orderDate) values ('20210321-03', 'jhmin07', 250000, 200, '21/03/21');
+
+
+
 insert into tbl_order(orderCode, fk_userid, totalPrice, totalPoint) values ('20210509-06', 'seoia', 220000, 200);
 insert into tbl_order(orderCode, fk_userid, totalPrice, totalPoint, orderDate) values ('20210321-05', 'seoia', 250000, 200, '21/03/21');
 insert into tbl_order(orderCode, fk_userid, totalPrice, totalPoint, orderDate) values ('20210131-04', 'seoia', 10000, 100, '21/01/31');

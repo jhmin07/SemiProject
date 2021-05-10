@@ -475,16 +475,21 @@ public class MemberDAO implements InterMemberDAO {
         try {
            conn = ds.getConnection();
            
-			String sql = 
-						" select distinct  W.reviewNo, W.fk_decode, W.fk_pnum, W.reviewSubject, W.reviewRegisterday , W.review_like,  W.pname, W.pimage1, O.totalPrice, O.orderDate "+
-						" from tbl_order O join "+
-						" ( "+
-						" select reviewNo, fk_userid, fk_decode,  fk_pnum, reviewSubject, to_char(reviewRegisterday, 'yyyy-mm-dd hh24:mi:ss') AS reviewRegisterday , review_like,  pname, pimage1 "+
-						" from tbl_review R join tbl_product P"+
-						" on R.fk_pnum = P.pnum "+
-						" ) W "+
-						" on o.fk_userid = W.fk_userid "+
-						" where w.fk_userid = ? ";
+			String sql = " select  distinct  reviewNo, fk_decode, pnum, reviewSubject, reviewRegisterday , review_like,  pname, pimage1, odPrice, orderDate , totalPrice\n"+
+						" from tbl_order O\n"+
+						" JOIN\n"+
+						" (\n"+
+						"        select reviewNo, fk_userid,  reviewSubject, reviewRegisterday , review_like, odPrice, fk_orderCode,fk_decode, pname, pimage1, pnum\n"+
+						"        from tbl_product P join\n"+
+						"        (\n"+
+						"         select  reviewNo, R.fk_userid,  R.fk_pnum, reviewSubject, to_char(reviewRegisterday, 'yyyy-mm-dd hh24:mi:ss') AS reviewRegisterday , review_like, odPrice, fk_orderCode\n"+
+						"         from tbl_order_details D join tbl_review R \n"+
+						"         on D.fk_pnum = R.fk_pnum \n"+
+						"        ) A\n"+
+						"        on P.pnum =  A.fk_pnum \n"+
+						" ) B\n"+
+						" on B.fk_orderCode = O.orderCode \n "+
+						" where B.fk_userid = ? ";
 	           
            pstmt = conn.prepareStatement(sql);
            pstmt.setString(1, userid);
@@ -495,12 +500,12 @@ public class MemberDAO implements InterMemberDAO {
         	  
                String reviewSubject = rs.getString("reviewSubject");
                String reviewRegisterday = rs.getString("reviewRegisterday");
-               int fk_pnum = rs.getInt("fk_pnum");
+               int fk_pnum = rs.getInt("pnum");
                int reviewNo = rs.getInt("reviewNo");
                int review_like = rs.getInt("review_like");
                String pname = rs.getString("pname");
                String pimage1 =  rs.getString("pimage1");
-               int totalPrice = rs.getInt("totalPrice");
+               int totalPrice = rs.getInt("odPrice");
                String orderDate = rs.getString("orderDate");
                String fk_decode = rs.getString("fk_decode");
                
