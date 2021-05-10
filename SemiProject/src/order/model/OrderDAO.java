@@ -87,6 +87,7 @@ public class OrderDAO implements InterOrderDAO {
 					sql = "insert into tbl_order_details(odNo, fk_orderCode, fk_pnum, odAmount, odPrice, optionContents, deliveryCon, deliveryDone) "
 							+ "values (seq_tbl_orderdetail.nextval, ?, to_number(?), to_number(?), to_number(?), ?, '', '')";
 
+//					System.out.println("optionArr"+i+" => ["+optionArr[i] +"]");
 					pstmt = conn.prepareStatement(sql);
 					pstmt.setString(1, (String) paraMap.get("ordercode"));
 					pstmt.setString(2, pnumArr[i]);
