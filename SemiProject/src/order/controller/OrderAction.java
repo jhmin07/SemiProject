@@ -40,7 +40,6 @@ public class OrderAction extends AbstractController {
 			return;
 		}
 		
-//		String option_es = "[색상]:red / [크기]: 100x150 (추가요금 +10000원),[조립유무]:무";
 		String pnum_es = request.getParameter("pnum_es");
 		String oqty_es = request.getParameter("oqty_es");
 		String cartno_es = request.getParameter("cartno_es");
@@ -66,12 +65,7 @@ public class OrderAction extends AbstractController {
 			
 			// 상품에 대한 옵션 정보의 문자열
 			String optionstr = request.getParameter("optionstr");
-//			String optionstr = " , , ";
 			String[] optionstrArr = optionstr.split(",");
-			
-			System.out.println("optionstr => "+optionstr);
-			System.out.println("optionstrArr.length => "+ optionstrArr.length);
-		
 			InterOrderDAO odao = new OrderDAO();
 			
 			int length = pnumArr.length;
@@ -99,7 +93,7 @@ public class OrderAction extends AbstractController {
 				
 				mapList.add(map);
 			}
-			request.setAttribute("optionstr", optionstr);
+			request.setAttribute("option_es", optionstr);
 			
 		}
 		else { // ===== 바로 주문하기에서 넘어왔을 때 ====== //
@@ -144,6 +138,8 @@ public class OrderAction extends AbstractController {
 			map.put("totalPrice", String.valueOf(totalPrice));
 			
 			mapList.add(map);
+			
+			request.setAttribute("option_es", optionstr);
 		}
 		
 		request.setAttribute("mapList", mapList);
