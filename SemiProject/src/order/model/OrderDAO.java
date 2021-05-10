@@ -277,9 +277,9 @@ public class OrderDAO implements InterOrderDAO {
 		try {
 			conn = ds.getConnection();
 			
-			String sql = " select A.ordercode, A.fk_userid, A.totalPrice, A.totalpoint, to_char(A.orderdate, 'yyyy-mm-dd') AS orderdate, "
+			String sql = " select A.ordercode, A.fk_userid, to_char(A.orderdate, 'yyyy-mm-dd') AS orderdate, "
 					   + " B.fk_pnum, B.odPrice, B.odAmount, B.deliveryCon, B.optionContents, "
-					   + " c.pname, c.pimage1, c.fk_decode "
+					   + " c.pname, c.pimage1, c.fk_decode, c.point "
 					   + " from tbl_order A join tbl_order_details B "
 					   + " on A.orderCode = B.fk_orderCode "
 					   + " join tbl_product C "
@@ -307,21 +307,20 @@ public class OrderDAO implements InterOrderDAO {
 				OrderVO ovo = new OrderVO();				
 				ovo.setOrderCode(rs.getString(1));
 				ovo.setFk_userid(rs.getString(2));
-				ovo.setTotalPrice(rs.getInt(3));
-				ovo.setTotalPoint(rs.getInt(4));
-				ovo.setOrderDate(rs.getString(5));
+				ovo.setOrderDate(rs.getString(3));
 				
 				ProductVO pvo = new ProductVO();
-				pvo.setPname(rs.getString(11));
-				pvo.setPimage1(rs.getString(12));	
-				pvo.setFk_decode(rs.getString(13));
+				pvo.setPname(rs.getString(9));
+				pvo.setPimage1(rs.getString(10));	
+				pvo.setFk_decode(rs.getString(11));
+				pvo.setPoint(rs.getInt(12));
 				
 				OrderDetailVO odvo = new OrderDetailVO();
-				odvo.setFk_pnum(rs.getInt(6));
-				odvo.setOdPrice(rs.getInt(7));
-				odvo.setOdAmount(rs.getInt(8));
-				odvo.setDeliveryCon(rs.getString(9));
-				odvo.setOptionContents(rs.getString(10));
+				odvo.setFk_pnum(rs.getInt(4));
+				odvo.setOdPrice(rs.getInt(5));
+				odvo.setOdAmount(rs.getInt(6));
+				odvo.setDeliveryCon(rs.getString(7));
+				odvo.setOptionContents(rs.getString(8));
 				odvo.setOrd(ovo);
 				odvo.setProd(pvo);
 								

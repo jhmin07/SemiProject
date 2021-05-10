@@ -234,7 +234,6 @@ $(document).ready(function(){
 				<th>상품정보</th>
 				<th>수량</th>
 				<th>상품구매금액</th>
-				<th>총상품구매금액</th>
 				<th>포인트</th>
 				<th>배송상태</th>				
 			</tr>
@@ -269,21 +268,17 @@ $(document).ready(function(){
 					<td> <%-- 수량 --%>
 						<span>${ordervo.odAmount}</span>개
 					</td>
-					<td> <%-- 상품구매금액 --%>
-						<fmt:formatNumber value="${ordervo.ord.totalPrice}" pattern="###,###" /> 원
-						<input class="totalPrice" type="hidden" value="${ordervo.ord.totalPrice}" />					
-					</td>
-					<td> <%-- 총 상품구매금액 --%>	
+					<td> <%-- 상품구매금액 --%>	
 						<span>
 							<fmt:formatNumber value="${ordervo.odPrice}" pattern="###,###" />
-							<input class="totalPrice" type="hidden" value="${ordervo.odPrice}" />
+							<input class="orderPrice" type="hidden" value="${ordervo.odPrice}" />
 						</span> 원
 					</td>
 					<td> <%-- 포인트 --%>
 						<span>
-							<fmt:formatNumber value="${ordervo.ord.totalPoint}" pattern="###,###" /> 
+							<fmt:formatNumber value="${ordervo.prod.point}" pattern="###,###" /> 
 							</span> POINT
-						<input class="totalPoint" type="hidden" value="${ordervo.ord.totalPoint}" />
+						<input class="orderPoint" type="hidden" value="${ordervo.prod.point}" />
 					</td>
 					<td> <%-- 배송상태 --%>
 						<c:choose>
