@@ -340,7 +340,7 @@ values(seq_tbl_product_pnum.nextval, '데이아 다기능 주방수납장', '300
 insert into tbl_product(pnum, pname, fk_decode, pcompany, pimage1, pimage2, pqty, price, saleprice, fk_snum, pcontent, point)
 values(seq_tbl_product_pnum.nextval, '델릭스', '30002', '리바트', 'storage_09_01.jpg', 'storage_09_02.jpg', 10, 1045000, 1045000, 4, '모던하고 젊은 감성으로 나만의 감각적인 스타일에 맞춘 즐거움의 공간', 10400);
 insert into tbl_product(pnum, pname, fk_decode, pcompany, pimage1, pimage2, pqty, price, saleprice, fk_snum, pcontent, point)
-values(seq_tbl_product_pnum.nextval, '클로이 원목 유리도어 수납장', '30002', '포홈', 'storage_10_01.jpg', 'storage_10_02.jpg', 10, 299000, 279000, 4, '', 2700);
+values(seq_tbl_product_pnum.nextval, '클로이 원목 유리도어 수납장', '30002', '포홈', 'storage_10_01.jpg', 'storage_10_02.jpg', 10, 299000, 279000, 4, '내추럴한 컬러의 실용적인 주방 수납장', 2700);
 insert into tbl_product(pnum, pname, fk_decode, pcompany, pimage1, pimage2, pqty, price, saleprice, fk_snum, pcontent, point)
 values(seq_tbl_product_pnum.nextval, 'VEDDINGE', '30002', '이케아', 'storage_11_01.jpg', 'storage_11_02.jpg', 10, 40000, 40000, 3, '주방에 밝고 모던한 감각을 더해주는 부드러운 느낌', 400);
 insert into tbl_product(pnum, pname, fk_decode, pcompany, pimage1, pimage2, pqty, price, saleprice, fk_snum, pcontent, point)
@@ -405,7 +405,7 @@ values(seq_tbl_product_pnum.nextval, 'CLEAR B PLATE', '30003', '챕터원', 'too
 insert into tbl_product(pnum, pname, fk_decode, pcompany, pimage1, pimage2, pqty, price, saleprice, fk_snum, pcontent, point)
 values(seq_tbl_product_pnum.nextval, '흑유 사각 찬기', '30003', '챕터원', 'tool_26_01.jpg', 'tool_26_02.jpg', 20, 30000, 30000, 4, '직사각형태 안에 낮은 깊이와 굽을 통해 단정함을 더한 그릇', 300);
 insert into tbl_product(pnum, pname, fk_decode, pcompany, pimage1, pimage2, pqty, price, saleprice, fk_snum, pcontent, point)
-values(seq_tbl_product_pnum.nextval, 'PORTOFINO 플레이트', '30003', '챕터원', 'tool_27_01.jpg', 'tool_27_02.jpg', 20, 28000, 28000, 4, '이탈리아 아름다운 항구 도시 포르토피노에서 영감을 얻어 제작한 낭만적인 그릇', 200);
+values(seq_tbl_product_pnum.nextval, 'PORTOFINO 플레이트', '30003', '챕터원', 'tool_27_01.png', 'tool_27_02.png', 20, 28000, 28000, 4, '이탈리아 아름다운 항구 도시 포르토피노에서 영감을 얻어 제작한 낭만적인 그릇', 200);
 insert into tbl_product(pnum, pname, fk_decode, pcompany, pimage1, pimage2, pqty, price, saleprice, fk_snum, pcontent, point)
 values(seq_tbl_product_pnum.nextval, '한지 밥,국공기', '30003', '챕터원', 'tool_28_01.jpg', 'tool_28_02.jpg', 20, 30000, 30000, 1, '한지가 가지고 있는 아름닫고 고급스러운 질감과 흙이 가지고 있는 휘는 특징을 이용해 만든 밥, 국그릇입니다.', 300);
 
@@ -415,8 +415,7 @@ select *
 from user_sequences;
 
 select *
-from tbl_product
-where pname like '라탄%';
+from tbl_product;
 
 -- 제품추가이미지 테이블 생성
 -- drop table tbl_addImage purge;
@@ -521,13 +520,15 @@ commit;
 select *
 from tbl_order;
 
-select A.ordercode, A.fk_userid, A.totalprice, A.totalpoint, to_char(A.orderdate, 'yyyy-mm-dd') AS orderdate, B.fk_pnum, B.odAmount, B.deliveryCon, c.pname, c.pimage1, c.fk_decode
+select A.ordercode, A.fk_userid, A.totalprice, A.totalpoint, to_char(A.orderdate, 'yyyy-mm-dd') AS orderdate, 
+       B.fk_pnum, B.odAmount, B.deliveryCon, 
+       c.pname, c.pimage1, c.fk_decode
 from tbl_order A join tbl_order_details B
 on A.orderCode = B.fk_orderCode
 join tbl_product C
 on B.fk_pnum = C.pnum
-where fk_userid = 'kimys'
-and orderdate between '2020-12-01' and '2021-04-01'
+where fk_userid = 'jhmin07'
+and to_char(orderdate, 'yyyy-mm-dd') between '2020-12-01' and '2021-05-10'
 and B.deliveryCon = '1'
 order by orderdate desc;
 
@@ -561,6 +562,8 @@ odNo            number          not null -- 주문상세일련번호
 ,constraint  FK_tbl_order_details_fk_pnum foreign key(fk_pnum) references tbl_product(pnum)
 );
 -- Table TBL_ORDER_DETAILS이(가) 생성되었습니다.
+
+alter table tbl_order_details add(optionContents varchar(1000));
 
 select *
 from tbl_order_details;
