@@ -284,8 +284,8 @@ public class OrderDAO implements InterOrderDAO {
 					   + " join tbl_product C "
 					   + " on B.fk_pnum = C.pnum "
 					   + " where fk_userid = ? "
-					   + " and orderdate between ? and ? "
-					   + " order by orderdate desc ";
+					   + " and to_char(A.orderdate, 'yyyy-mm-dd') between ? and ? "
+					   + " order by A.orderdate desc ";
 			
 			pstmt = conn.prepareStatement(sql);
 			
